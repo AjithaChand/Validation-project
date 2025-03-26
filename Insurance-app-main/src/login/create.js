@@ -43,7 +43,9 @@ const Create = () => {
             <label>Policy</label>
             <input type='text' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,policy:e.target.value})} />
         </div>
-        <input type='file' className='mt-3'/>
+        <div className='mt-3'>
+          <input type='file' className='mt-3'/>
+        </div>
         <button className='btn mt-3'>Submit</button>
       </form>
     </div>
