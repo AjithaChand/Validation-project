@@ -16,11 +16,18 @@ const Login = () => {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        axios.post("http://localhost:8000",values)
+        axios.post("http://localhost:8000/login",values)
         .then(res=>{
             alert(res.data.message)
             localStorage.setItem("token",res.data.token)
-            navigate("/userdata")
+            localStorage.setItem("role",res.data.role)
+
+            if(res.data.role==="admin"){
+                navigate("/admin")
+            }
+            else{
+                navigate("/user")
+            }
         })
         .catch(err=>alert(err.response.data.error))
     }
