@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios from "axios"
+import axios, { formToJSON } from 'axios';
 import './Adminpage.css'
 import Detailspopup from './Detailspopup';
 import { RiDeleteBinFill } from "react-icons/ri";
