@@ -4,7 +4,6 @@ import axios from 'axios';
 
 const Userdata = () => {
 
-
   const [value, setValue] = useState([])
 
   useEffect(() => {
