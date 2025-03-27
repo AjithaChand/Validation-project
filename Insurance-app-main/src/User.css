@@ -1,3 +1,8 @@
+.user-btn{
+    background-color: green;
+    width: 10%;
+}
+
 table{
     border: 2px solid black;
     border-collapse: collapse;
@@ -11,8 +16,11 @@ th,td{
     text-align: center;
 }
 
+.user-btn:hover{
+    background-color: rgb(2, 164, 2);
+}
+
 .user-container{
-    background-color:lightblue;
-    width: 100vw;
+    background-color:rgb(169, 164, 158);
     height: 100vh;
 }

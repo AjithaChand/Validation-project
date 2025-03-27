@@ -1,0 +1,28 @@
+.admin-slidebar{
+    background-color: black;
+    color: white;
+    height:100vh;
+    width: 15%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 7px;
+}
+
+main{
+    margin-left: 15%;
+    padding: 20px;
+    background-color: lightgray;
+    height: 100vh;
+}
+
+aside a{
+    text-decoration: none;
+    color: white;
+}
+
+.userdata-btn{
+    border: none;
+    background-color: black;
+    color: white;
+}
