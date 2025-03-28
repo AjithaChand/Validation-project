@@ -4,10 +4,12 @@ import './User.css';
 import Formpopup from './Formpopup';
 import Editdialog from './Editdialog';
 import { FaEdit } from "react-icons/fa";
+import { useParams } from 'react-router-dom';
 
 const User = () => {
 
     const [showedit,setShowEdit] = useState(false)
+    const {id}=useParams();
 
     const toggleEdit = () =>{
       setShowEdit(!showedit)
@@ -22,10 +24,10 @@ const User = () => {
     const [value, setValue] = useState([])
 
     useEffect(() => {
-      axios.get('http://localhost:8000/read')
+      axios.get(`http://localhost:8000/read/${id}`)
         .then(res => setValue(res.data))
         .catch(err => console.log(err))
-    }, [])
+    }, [id])
   
     return (
       <div className='user-container'>
@@ -49,18 +51,9 @@ const User = () => {
                   <td>{data.enddate}</td>
                   <td>{data.policy}</td>
                   <td>{data.file}</td>
-                  <td><button onClick={toggleEdit}>Edit</button></td>
+                  <td><button  className=' edit-btn' onClick={toggleEdit}><FaEdit /></button></td>
                 </tr>
               })}
-
-              <tr>
-              <td>nisha@gmail.com</td>
-                  <td>10/02/2025</td>
-                  <td>10/03/2025</td>
-                  <td>medical insurance</td>
-                  <td>file</td>
-                  <td><button  className=' edit-btn' onClick={toggleEdit}><FaEdit /></button></td>
-              </tr>
             </tbody>
           </table>
           <div className='mt-5'>

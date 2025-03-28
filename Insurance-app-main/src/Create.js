@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Create = () => {
 
@@ -8,7 +10,7 @@ const Create = () => {
         startdate:"",
         enddate:"",
         policy:"",
-        file:""
+        file:null
     })
 
     const handleFileChange = (e)=>{
@@ -29,9 +31,9 @@ const Create = () => {
           headers:{'Content-Type' : 'multipart/form-data'}
         })
         .then(res=>{
-            alert(res.data.message)
+            toast.success(res.data.message)
         })
-        .catch(err=>alert(err.response.data.error))
+        .catch(err=>toast.error(err.response.data.error))
     }
 
   return (
@@ -59,6 +61,7 @@ const Create = () => {
         </div>
         <button className='btn user-btn mt-3' style={{backgroundColor:"#333",width:"30%"}}>Submit</button>
       </form>
+      <ToastContainer position='top-right' autoClose={3000}/>
     </div>
   )
 }

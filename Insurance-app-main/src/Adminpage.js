@@ -6,6 +6,8 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { IoIosCloudUpload } from "react-icons/io";
 import { Modal, Button } from 'react-bootstrap';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Adminpage = () => {
 
@@ -24,9 +26,9 @@ const Adminpage = () => {
 
     try {
       await axios.post("http://localhost:8000/upload-excel", formData);
-      alert("File uploaded successfully!")
+      toast.success("File Uploaded Successfully!");
     } catch (err) {
-      alert("Upload  failed")
+      toast.error("Upload Failed!");
     }
 
   }
@@ -50,11 +52,11 @@ const Adminpage = () => {
   const handleDelete = (id) => {
     axios.delete(`http://localhost:8000/delete/${id}`)
       .then(res => {
-        alert("Are you sure you want to delete this data?")
+        toast.warning("Are you sure you want to delete this data?")
         console.log(res)
         setValue(prev => prev.filter(data => data.id !== id))
       })
-      .catch(err => alert(err.response.data.error))
+      .catch(err => toast.error(err.response.data.error))
   }
 
   const [showModal, setShowModal] = useState(false);
@@ -148,7 +150,8 @@ const Adminpage = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      
+          <ToastContainer position='top-right' autoclose={3000}/>
+
     </div>
   )
 }

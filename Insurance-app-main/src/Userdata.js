@@ -1,11 +1,11 @@
-import { useState } from 'react'
 import './Userdata.css'
 import Adminpage from './Adminpage'
 import Users from './Users'
+import { useNavigate } from 'react-router-dom'
 
 const Userdata = () => {
 
-  const [src,setSrc] = useState("/adminpage")
+  const navigate = useNavigate()
 
   return (
     <div className='user-container'>
@@ -15,14 +15,22 @@ const Userdata = () => {
         </div>
         <nav>
           <ul className='ps-5'>
-            <li><a className='userdata-btn' onClick={()=>{setSrc('/adminpage')}}>Dashboard</a></li>
-            <li><a className='userdata-btn' onClick={()=>{setSrc('/users')}}>Users</a></li>
+          <li>
+              <button className='userdata-btn' onClick={() => navigate('/adminpage')}>
+                Dashboard
+              </button>
+            </li>
+            <li>
+              <button className='userdata-btn' onClick={() => navigate('/users')}>
+                Users
+              </button>
+            </li>
           </ul>
         </nav>
       </aside>
       <main>
-          {src==='/adminpage' && <Adminpage/>}
-          {src==='/users' && <Users/>}
+          {navigate==='/adminpage' && <Adminpage/>}
+          {navigate==='/users' && <Users/>}
       </main>
     </div>
   )

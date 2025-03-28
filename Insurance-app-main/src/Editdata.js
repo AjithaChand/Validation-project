@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Editdata = () => {
     const {id} = useParams()
@@ -12,14 +14,14 @@ const Editdata = () => {
         startdate:"",
         enddate:"",
         policy:"",
-        file:""
+        file:null
     })
   
     useEffect(()=>{
       axios.get(`http://localhost:8000/read/${id}`)
       .then(res=>setValues({...values,email:res.data[0].email,startdate:res.data[0].startdate,enddate:res.data[0].enddate,policy:res.data[0].policy,file:res.data[0].file_path}))
       .catch(err=>console.log(err))
-    },[])
+    },[id])
 
     const handleFileChange = (e)=>{
         setValues({...values,file:e.target.files[0]})
@@ -39,10 +41,10 @@ const Editdata = () => {
           headers:{'Content-Type' : 'multipart/form-data'}
         })
         .then(res=>{
-            alert(res.data.message)
+            toast.success(res.data.message)
             navigate('/adminpage')
         })
-        .catch(err=>alert(err.response.data.error))
+        .catch(err=>toast.error(err.response.data.error))
     }
   
     return (
@@ -70,6 +72,8 @@ const Editdata = () => {
           </div>
           <button className='btn user-btn mt-3' style={{backgroundColor:"#333",width:"30%"}}>Submit</button>
         </form>
+
+      <ToastContainer position='top-right' autoClose={3000} />
       </div>
     )
 }
