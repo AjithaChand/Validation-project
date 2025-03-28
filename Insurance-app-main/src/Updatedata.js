@@ -19,7 +19,7 @@ const Updatedata = () => {
     axios.get(`http://localhost:8000/getuser/${id}`)
     .then(res=>setData({...datas,username:res.data[0].username,email:res.data[0].email,password:res.data[0].password}))
     .catch(err=>console.log(err))
-  },[])
+  },[id])
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -37,15 +37,15 @@ const Updatedata = () => {
         <h3 className='text-center mt-2'>Update Data</h3>
         <div className='form-group mt-3'>
           <label>Username</label>
-          <input className='form-control' type='text' value={datas.username} onChange={e=>setData({...datas,email:e.target.value})} placeholder='Enter your email' />
+          <input className='form-control' type='text' value={datas.username} onChange={e=>setData({...datas,username:e.target.value})} placeholder='Enter your email' />
         </div>
         <div className='form-group mt-3'>
           <label>Email</label>
-          <input type='email' className='form-control' value={datas.email} onChange={e=>setData({...datas,startdate:e.target.value})} placeholder='Enter your email' />
+          <input type='email' className='form-control' value={datas.email} onChange={e=>setData({...datas,email:e.target.value})} placeholder='Enter your email' />
         </div>
         <div className='form-group mt-3'>
           <label>Password</label>
-          <input type='password' className='form-control' value={datas.password} onChange={e=>setData({...datas,enddate:e.target.value})} placeholder='Enter your email' />
+          <input type='password' className='form-control' value={datas.password} onChange={e=>setData({...datas,password:e.target.value})} placeholder='Enter your email' />
         </div>
         <button className='btn mt-4' style={{backgroundColor:"#333"}}>Submit</button>
       </form>

@@ -48,22 +48,22 @@ const Editdata = () => {
           <h3 className='text-center'>Update Data</h3>
           <div className='mt-3 form-gruop'>
               <label>Email</label>
-              <input type='email' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,email:e.target.value})}/>
+              <input type='email' className='form-control' value={values.email} style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,email:e.target.value})}/>
           </div>
           <div className='mt-3 form-gruop'>
               <label>StartDate</label>
-              <input type='date' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,startdate:e.target.value})} />
+              <input type='date' className='form-control' value={values.startdate} style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,startdate:e.target.value})} />
           </div>
           <div className='mt-3 form-gruop'>
               <label>EndData</label>
-              <input type='date' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,enddate:e.target.value})} />
+              <input type='date' className='form-control' value={values.enddate} style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,enddate:e.target.value})} />
           </div>
           <div className='mt-3 form-gruop'>
               <label>Policy</label>
-              <input type='text' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,policy:e.target.value})} />
+              <input type='text' className='form-control' value={values.policy} style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,policy:e.target.value})} />
           </div>
           <div className='mt-3'>
-            <input type='file'accept='image/*' onChange={handleFileChange} className='mt-3'/>
+            <input type='file' value={values.file} onChange={handleFileChange} className='mt-3'/>
           </div>
           <button className='btn user-btn mt-3' style={{backgroundColor:"#333",width:"30%"}}>Submit</button>
         </form>
