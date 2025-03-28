@@ -46,7 +46,7 @@ const Users = () => {
       </div>
       <div className='row'>
         <div className='user col-12'>
-          <h4 className='text-center' style={{ paddingTop: "50px" }}>Customer Details</h4>
+          <h4 className='text-center text-white' style={{ paddingTop: "50px" }}>Customer Details</h4>
           <table className='mt-5 users-table' border={1}>
             <thead>
               <tr>

@@ -64,7 +64,7 @@ const Adminpage = () => {
       </div>
       <div className='row'>
         <div className='col-12'>
-          <h4 className='text-center p-4' style={{ paddingTop: "50px" }}>Customer Details</h4>
+          <h4 className='text-center text-white p-4' style={{ paddingTop: "50px" }}>Customer Details</h4>
           <div className='admin-header'>
             <button className='upload-button1' onClick={handleDownload}><PiMicrosoftExcelLogoFill /></button>
             <input type='file' id="fileInput" className='file-input' onChange={(e) => setFile(e.target.files[0])} />
