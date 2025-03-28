@@ -108,7 +108,7 @@ const Adminpage = () => {
                   <td>{data.enddate}</td>
                   <td>{data.policy}</td>
                   <td>
-                    <button className='view-button' onClick={()=>handleOpen(data)}>View File</button>
+                    {/* <button className='view-button' onClick={()=>handleOpen(data)}>View File</button> */}
                   </td>
                   <td>
                     <button className=' ps-3 pe-3 delete-btn' onClick={() => handleDelete(data.id)}>Delete</button>
