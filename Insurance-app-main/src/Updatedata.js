@@ -16,7 +16,7 @@ const Updatedata = () => {
   })
 
   useEffect(()=>{
-    axios.get(`http://localhost:8000/read/${id}`)
+    axios.get(`http://localhost:8000/getuser/${id}`)
     .then(res=>setData({...datas,username:res.data[0].username,email:res.data[0].email,password:res.data[0].password}))
     .catch(err=>console.log(err))
   },[])
