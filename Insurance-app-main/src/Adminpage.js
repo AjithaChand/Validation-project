@@ -40,7 +40,7 @@ const Adminpage = () => {
 
   // Fetch files from backend
   useEffect(() => {
-    axios.get('http://localhost:8000')
+    axios.get('http://localhost:8000/read')
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
   }, [])
@@ -55,22 +55,6 @@ const Adminpage = () => {
       })
       .catch(err => alert(err.response.data.error))
   }
-
-  // // View files
-  // const [open,setOpen] = useState(false)
-  // const [selectedFile,setSelectedfile] = useState(null)
-
-  //   // handle dialog open
-  //   const handleOpen = (data) =>{
-  //     setSelectedfile(data.files[0])
-  //     setOpen(true)
-  //   }
-
-  //    // handle dialog close
-  //    const handleClose = (data) =>{
-  //     setOpen(false)
-  //     setSelectedfile(null)
-  //   }
 
   return (
     <div>
@@ -108,22 +92,13 @@ const Adminpage = () => {
                   <td>{data.enddate}</td>
                   <td>{data.policy}</td>
                   <td>
-                    {/* <button className='view-button' onClick={()=>handleOpen(data)}>View File</button> */}
+                    <button className='view-button'>View File</button>
                   </td>
                   <td>
-                    <button className=' ps-3 pe-3 delete-btn' onClick={() => handleDelete(data.id)}>Delete</button>
+                  <td className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></td>
                   </td>
                 </tr>
               })}
-
-              <tr>
-                <td>nisha</td>
-                <td>10/02/2025</td>
-                <td>12/02/2025</td>
-                <td>medical insurance</td>
-                <td>file</td>
-                <td className='delete-button' onClick={() => handleDelete()}><RiDeleteBinFill /></td>
-              </tr>
 
             </tbody>
           </table>
