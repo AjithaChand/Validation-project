@@ -1,7 +1,5 @@
 import './Userdata.css'
-import Adminpage from './Adminpage'
-import Users from './Users'
-import { useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 const Userdata = () => {
 
@@ -16,12 +14,12 @@ const Userdata = () => {
         <nav>
           <ul className='ps-5'>
           <li>
-              <button className='userdata-btn' onClick={() => navigate('/adminpage')}>
+              <button className='userdata-btn' onClick={() => navigate('/admin/adminpage')}>
                 Dashboard
               </button>
             </li>
             <li>
-              <button className='userdata-btn' onClick={() => navigate('/users')}>
+              <button className='userdata-btn' onClick={() => navigate('/admin/users')}>
                 Users
               </button>
             </li>
@@ -29,8 +27,7 @@ const Userdata = () => {
         </nav>
       </aside>
       <main>
-          {navigate==='/adminpage' && <Adminpage/>}
-          {navigate==='/users' && <Users/>}
+          <Outlet/>
       </main>
     </div>
   )

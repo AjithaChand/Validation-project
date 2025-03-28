@@ -27,16 +27,17 @@ const Users = () => {
       axios.get('http://localhost:8000/getuser')
         .then(res => setValue(res.data))
         .catch(err => console.log(err))
-    }, [])
+    }, [value])
 
     const handleDelete = (id) =>{
-      axios.delete(`http://localhost:8000/delete/${id}`)
+      if(window.confirm("Are you sure you want to delete this data?")){
+        axios.delete(`http://localhost:8000/delete/${id}`)
       .then(res=>{
-        alert("Are you sure you want to delete this data?")
         console.log(res)
         setValue(prev => prev.filter( data => data.id !== id))
       })
       .catch(err=>alert(err.response.data.error))
+      }
     }
 
   return (
@@ -46,7 +47,7 @@ const Users = () => {
       </div>
       <div className='row'>
         <div className='user col-12'>
-          <h4 className='text-center text-white' style={{ paddingTop: "50px" }}>Customer Details</h4>
+          <h4 className='text-center' style={{ paddingTop: "50px" }}>Customer Details</h4>
           <table className='mt-5 users-table' border={1}>
             <thead>
               <tr>
@@ -62,7 +63,7 @@ const Users = () => {
                   <td>{data.username}</td>
                   <td>{data.email}</td>
                   <td>{data.password}</td>
-                  <td><button className=' edit-btn'  onClick={handleupdate(`edituser/${data.id}`)}><FaEdit /></button>
+                  <td><button className=' edit-btn'  onClick={()=>handleupdate(`edituser/${data.id}`)}><FaEdit /></button>
                     <button className='ms-3 delete-btn' onClick={()=>handleDelete(data.id)}><RiDeleteBinFill /></button>
                 </td>
                 </tr>

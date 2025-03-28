@@ -21,6 +21,14 @@ th,td{
 }
 
 .user-container{
-    background-color:rgb(169, 164, 158);
-    height: 100%;
+    background-color:skyblue;
+    height: 100vh;
+}
+
+.userlogout-btn{
+    margin-left: 1350px;
+    margin-top: 25px;
+    padding: 10px;
+    width: 100px;
+    border-radius: 5px;
 }

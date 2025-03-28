@@ -19,13 +19,16 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/register' element={<Register/>} />
-          <Route path='/admin' element={<Userdata />} />
           <Route path='/user' element={<Create/>} />
           <Route path='/home' element={<User />} />
-          <Route path='/adminpage' element={<Adminpage />} />
-          <Route path='/userpage' element={<Userpage />} />
+
+          <Route path='/admin' element={<Userdata />} >
+            <Route index element={<Adminpage />} />
+            <Route path='adminpage' element={<Adminpage />} />
+            <Route path='users' element={<Users />} />
+          </Route>
           <Route path='/adminregister' element={<Adminregister />} />
-          <Route path='/users' element={<Users />} />
+          <Route path='/userpage' element={<Userpage />} />
           <Route path='/fileview' element={<FileViewer />} />
         </Routes>
       </BrowserRouter>

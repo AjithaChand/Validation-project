@@ -4,11 +4,14 @@ import './User.css';
 import Formpopup from './Formpopup';
 import Editdialog from './Editdialog';
 import { FaEdit } from "react-icons/fa";
-import { useParams } from 'react-router-dom';
+import { useParams , useNavigate } from 'react-router-dom';
 
 const User = () => {
 
+    const navigate = useNavigate()
+
     const [showedit,setShowEdit] = useState(false)
+    
     const {id}=useParams();
 
     const toggleEdit = () =>{
@@ -28,9 +31,15 @@ const User = () => {
         .then(res => setValue(res.data))
         .catch(err => console.log(err))
     }, [id])
+
+    const handleLogout = ()=>{
+      localStorage.removeItem("authToken")
+      navigate('/')
+    }
   
     return (
       <div className='user-container'>
+          <button onClick={handleLogout} className='userlogout-btn'>Logout</button>
           <h3 className='text-center'  style={{paddingTop:"50px"}}>User Entry</h3>
           <table className='mt-5' border={1}>
             <thead>
