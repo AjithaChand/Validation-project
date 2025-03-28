@@ -1,12 +1,11 @@
 const express = require("express");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const mysql = require("mysql2");
 const cors = require("cors");
 const multer = require("multer");
 const path =require ("path")
 const fs = require("fs")
-
+// const bcrypt=require('bcryptjs');
 
 const app = express();
 app.use(cors());
@@ -26,25 +25,26 @@ db.connect(err => {
     } else {
         console.log("Db connected successfully");
     }
+    
 });
 
 const SECRET_KEY = "its_wonderful_day";
 
-// DEFAULT ADMIN SETUP
-const defaultAdmin =[ {   
-    username: "Admin",
-    email: "ajithachandran1020@gmail.com",
-    password: "Aji@2810",
+//DEFAULT ADMIN SETUP
+const defaultAdmin = {   
+    username: "aams",
+    email: "aams123@gmail.com",
+    password: "aams@123",
     role: "admin" 
-},
-]
+}
+
 const setupAdmin = async () => {
-    db.query("SELECT * FROM users WHERE role='admin'", async (err, result) => {
+    db.query("SELECT * FROM users WHERE role='admin'", (err, result) => {
         if (result.length === 0) {
-            const hashedPassword = await bcrypt.hash(defaultAdmin.password, 10);
+            // const hashedPassword = await bcrypt.hash(defaultAdmin.password, 10);
             db.query(
                 "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)",
-                [defaultAdmin.username, defaultAdmin.email, hashedPassword, defaultAdmin.role],
+                [defaultAdmin.username,defaultAdmin.email,defaultAdmin.password,defaultAdmin.role],
                 (err, res) => {
                     if (err) console.log(err);
                     else console.log("Admin created successfully");
@@ -55,11 +55,14 @@ const setupAdmin = async () => {
 };
 setupAdmin();
 
+
+
 // Registration 
 app.post("/register", async (req, res) => {
     const { username, email, password } = req.body;
 
     // Check if the email already exists
+
     db.query("SELECT * FROM users WHERE email = ?", [email], async (err, result) => {
         if (err) {
             return res.status(400).json({ error: "Database error" });
@@ -69,9 +72,10 @@ app.post("/register", async (req, res) => {
         }
 
         // Proceed with validation and registration
-        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // const hashedPassword = await bcrypt.hash(password, 10);
         const sql = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, 'user')";
-        const values = [username, email, hashedPassword];
+        const values = [username, email, password];
 
         db.query(sql, values, (err, result) => {
             if (err) {
@@ -84,15 +88,18 @@ app.post("/register", async (req, res) => {
 //Admin registraion from admin page
 app.post("/admin/register", (req, res) => {
     const { username, email, password, role } = req.body;
+
+    console.log(`FOr Checking to Login`,username,email,password,role);
+    
     db.query("SELECT * FROM users WHERE email=?", [email], async (err, result) => {
         if (err)
             return res.status(500).json({ error: err.message })
         if (result.length > 0) {
             return res.status(400).json({ error: "Email already exists" })
         }
-        const hashedPassword = await bcrypt.hash(password, 10)
+        // const hashedPassword = await bcrypt.hash(password, 10)
         const sql = "INSERT INTO users (username,email,password,role)VALUES(?,?,?,?)"
-        const values = [username, email, hashedPassword, role]
+        const values = [username, email, password, role]
         db.query(sql, values, (err, result) => {
             if (err) {
                 return res.status(400).json({ error: "Can not register" })
@@ -111,7 +118,11 @@ app.post("/admin/register", (req, res) => {
 // Login
 app.post("/login", (req, res) => {
     const { email, password } = req.body;
-    db.query("SELECT * FROM users WHERE email = ?", [email], async (err, result) => {
+
+    console.log("For Checking Login", email, password);
+  
+    db.query("SELECT * FROM users WHERE email = ?", [email],async(err, result) => {
+      
         if (err) {
             return res.status(500).json({ error: "Database error" });
         }
@@ -120,8 +131,14 @@ app.post("/login", (req, res) => {
         }
 
         const user = result[0];
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
+
+        console.log("For Checking Get Login Password", user.password);
+
+        // const isMatch = await bcrypt.compare(password, user.password);
+        // if (!isMatch) {
+        //     return res.status(400).json({ error: "Invalid password" });
+        // }
+        if(password !== user.password){
             return res.status(400).json({ error: "Invalid password" });
         }
 
@@ -135,17 +152,66 @@ app.post("/login", (req, res) => {
     });
 });
 
-//Total user 
+//Total user First WOrk
 
 app.get('/getuser', (req, res) => {
-    const values = [req.body.id,req.body.username, req.body.email]
     const sql = "SELECT * FROM users"
-    db.query(sql, values, (err, result) => {
+    db.query(sql, (err, result) => {
         if (err)
             return res.status(500).json({ error: err.message })
         return res.json(result)
     })
 })
+
+
+
+//Edit user
+
+app.put('/edituser/:id',async(req,res)=>{
+    const id = req.params.id;
+    const {username,email,password} = req.body;
+
+
+    const sql ="UPDATE users SET username=?,email =?,password=? WHERE id=?"
+    const values=[username,email,password]
+    
+    db.query(sql,values,[id],(err,data)=>{
+        if(err)
+            return res.status(500).json({error:err.message})
+        return res.status(200).json({message:"Changes Submitted successfully"})
+    })
+})
+
+
+
+
+//Edit data for single user
+
+app.get('/getuser/:id',(req,res)=>{
+    const id = req.params.id;
+
+    const sql ="SELECT * FROM users WHERE id =?"
+    db.query(sql,[id],(err,data)=>{
+        if(err)
+            return res.status(500).json({error:err.message})
+        return res.json(data)
+    })
+})
+
+
+app.delete('/delete/:id',(req,res)=>{
+ 
+    const id = req.params.id;
+
+    const sql ="DELETE FROM users WHERE id=?"
+    
+    db.query(sql,[id],(err,data)=>{
+        if(err)
+            return res.status(500).json({error:err.message})
+        return res.status(200).json({message:"Deleted"})
+    })
+})
+
 
 //Create folder
 
@@ -187,34 +253,41 @@ app.post('/create', upload.single('file'), (req, res) => {
 
     db.query(sql, values, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
-        res.status(200).json({ message: "Details submitted successfully" });
+     
+        if (!result.insertId) {
+            return res.status(500).json({ error: "Insert ID not generated." });
+        }
+
+        const userId = result.insertId;
+        console.log("Inserted User ID:", userId);
+      
+        res.status(200).json({ message: "Details submitted successfully", userId});
     });
 });
 
 
-//Get customer details 
+//Get customer details with file get
 
-app.get('/read', (req, res) => {
-    const sql = "SELECT * FROM customer_details"
-    const values = [req.body.id,
-    req.body.email,
-    req.body.startdate,
-    req.body.enddate,
-    req.body.policy,
-    req.body.file]
-    db.query(sql,values,(err,data)=>{
-        if(err)
-            return res.status(500).json({error:err.message})
-        return res.status(200).json(data)
+app.get('/read/:id', (req, res) => {
+    const id = req.params.id;
+
+    const sql = "SELECT * FROM customer_details WHERE id = ?";
+  
+    db.query(sql, [id], (err,data) => {
+
+            if(err) return res.status(500).json({error:err.message})
+            
+            return res.status(200).json(data)
+
     })
 });
 
 //updation in details
 
-app.put('/edit:id',(req,res)=>{
+app.put('/edit/:id',(req,res)=>{
     const id=req.params.id
-    const values=[req.body.email,req.body.startdate,req.body.enddate,req.body.policy,req.body.file_path]
 
+    const values=[req.body.email,req.body.startdate,req.body.enddate,req.body.policy,req.body.file_path]
 
     const sql="UPDATE customer_details SET email=?,startdate=?,enddate=?,policy=?,file_path=? WHERE id=?"
     db.query(sql,values,[id],(err,data)=>{
@@ -225,7 +298,7 @@ app.put('/edit:id',(req,res)=>{
 
 
 //Delete
-app.delete('/delete:id',(req,res)=>{
+app.delete('/delete/:id',(req,res)=>{
  
     const id = req.params.id;
 
@@ -242,6 +315,9 @@ app.delete('/delete:id',(req,res)=>{
 
 
 // Port
-app.listen(8000, () => {
-    console.log("Listening on port 8000");
-});
+// app.listen(8000, () => {
+//     console.log("Listening on port 8000");
+// });
+
+
+module.exports=app

@@ -1,6 +1,6 @@
 const express= require('express');
 const nodemailer= require('nodemailer');
-const mysql2=require('mysql2');
+const mysql=require('mysql2');
 const cors=require('cors');
 
 const app= express();
@@ -15,7 +15,7 @@ const db={
     database:'task',
 }
 
-const conn= mysql2.createConnection(db);
+const conn= mysql.createConnection(db);
 
 conn.connect((err)=>{
     if(err){
@@ -103,6 +103,7 @@ sendReminderEmails()
 setInterval(sendReminderEmails, 24 * 60 * 60 * 1000);
 
 
+module.exports=app
 // app.post('/email',(req,res)=>{
 //    const {email,startDate,endDate,policy} = req.body;
 
@@ -135,7 +136,7 @@ setInterval(sendReminderEmails, 24 * 60 * 60 * 1000);
 // })
 
 
-app.listen(8000,(err)=>{
-    if(err) throw err;
-    console.log('Post Listening on 3001');
-})
+// app.listen(8000,(err)=>{
+//     if(err) throw err;
+//     console.log('Post Listening on 3001');
+// })
