@@ -5,7 +5,7 @@ import Detailspopup from './Detailspopup';
 import { RiDeleteBinFill } from "react-icons/ri";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { IoIosCloudUpload } from "react-icons/io";
-import { Navigate } from 'react-router-dom';
+import { Modal, Button } from 'react-bootstrap';
 
 const Adminpage = () => {
 
@@ -57,6 +57,15 @@ const Adminpage = () => {
       .catch(err => alert(err.response.data.error))
   }
 
+  const [showModal, setShowModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState("");
+
+  // Open Modal and Set File URL
+  const handleViewFile = (fileUrl) => {
+    setSelectedFile(fileUrl);
+    setShowModal(true);
+  };
+
   return (
     <div>
       <div>
@@ -93,13 +102,13 @@ const Adminpage = () => {
                   <td>{data.enddate}</td>
                   <td>{data.policy}</td>
                   <td>
-                    {data.file ?  (
-                      <a
-                      href={`http://localhost:8000/${data.file}`}
-                      rel='noopener noreferrer'
-                      className='btn btn-primary'
-                      onClick={()=>Navigate("/Fileviewer")}
-                      >View File</a>
+                    {data.file ? (
+                      <button
+                        className='btn btn-primary'
+                        onClick={() => handleViewFile(`http://localhost:8000/${data.file}`)}
+                      >
+                        View File
+                      </button>
                     ) : ("No File")}
                   </td>
                   <td className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></td>
@@ -114,6 +123,32 @@ const Adminpage = () => {
         </div>
       </div>
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
+
+      {/* Bootstrap Modal for File View */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>File Preview</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedFile ? (
+            <iframe
+              src={selectedFile}
+              title="File Preview"
+              width="100%"
+              height="500px"
+              style={{ border: "none" }}
+            ></iframe>
+          ) : (
+            <p>No file selected</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      
     </div>
   )
 }
