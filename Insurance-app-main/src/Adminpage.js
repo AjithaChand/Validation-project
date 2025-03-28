@@ -47,7 +47,7 @@ const Adminpage = () => {
 
   // Delete values
   const handleDelete = (id) => {
-    axios.delete('http://localhost:8000/delete/' + id)
+    axios.delete(`http://localhost:8000/delete/${id}`)
       .then(res => {
         alert("Are you sure you want to delete this data?")
         console.log(res)
