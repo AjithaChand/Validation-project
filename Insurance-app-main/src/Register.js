@@ -21,7 +21,8 @@ const Register = () => {
            return alert("Invalid Email")
         }
 
-        const passwordRegex = /^(?=.[A-za-z])(?=.\d)(?=.[!@#$%&*])[A-Za-z\d!@#$%&*]{8}$/
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&])[A-Za-z\d!@#$%&*]{8,}$/;
+
         if (!passwordRegex.test(values.password)) {
             return alert("Password must be 8 characters includes one number one special character")
         }

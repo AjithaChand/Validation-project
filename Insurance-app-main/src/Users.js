@@ -24,13 +24,13 @@ const Users = () => {
   const [value, setValue] = useState([])
 
     useEffect(() => {
-      axios.get('http://localhost:8000')
+      axios.get('http://localhost:8000/getuser')
         .then(res => setValue(res.data))
         .catch(err => console.log(err))
     }, [])
 
     const handleDelete = (id) =>{
-      axios.delete('http://localhost:8000/delete/'+id)
+      axios.delete(`http://localhost:8000/delete/${id}`)
       .then(res=>{
         alert("Are you sure you want to delete this data?")
         console.log(res)
@@ -62,20 +62,11 @@ const Users = () => {
                   <td>{data.username}</td>
                   <td>{data.email}</td>
                   <td>{data.pasword}</td>
-                  <td><button className='ps-3 pe-3 edit-btn'  onClick={handleupdate}><FaEdit /></button>
-                    <button className=' ps-3 pe-3 ms-3 delete-btn' onClick={()=>handleDelete(data.id)}>Delete</button>
+                  <td><button className=' edit-btn'  onClick={handleupdate}><FaEdit /></button>
+                    <button className='ms-3 delete-btn' onClick={()=>handleDelete(data.id)}><RiDeleteBinFill /></button>
                 </td>
                 </tr>
               })}
-
-<tr>
-                <td>nisha</td>
-                <td>10/02/2025</td>
-                <td>12/02/2025</td>
-                <td><button className=' edit-btn'  onClick={handleupdate}><FaEdit /></button>
-                    <button className='ms-3 delete-btn' onClick={()=>handleDelete()}><RiDeleteBinFill /></button>
-                </td>
-              </tr>
 
             </tbody>
           </table>
