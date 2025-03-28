@@ -22,7 +22,7 @@ const User = () => {
     const [value, setValue] = useState([])
 
     useEffect(() => {
-      axios.get('http://localhost:8000')
+      axios.get('http://localhost:8000/read')
         .then(res => setValue(res.data))
         .catch(err => console.log(err))
     }, [])

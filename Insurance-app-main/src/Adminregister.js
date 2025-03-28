@@ -35,7 +35,7 @@ const Adminregister = () => {
         axios.post("http://localhost:8000/admin/register", values)
             .then(res => {
                 alert(res.data.message)
-                navigate("/")
+                navigate("/users")
             })
             .catch(err => alert(err.response.data.error))
     }
