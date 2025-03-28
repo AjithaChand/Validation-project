@@ -30,7 +30,7 @@ const Register = () => {
         axios.post("http://localhost:8000/register", values)
             .then(res => {
                 alert(res.data.message)
-                navigate("/home")
+                navigate("/")
             })
             .catch(err => alert(err.response.data.error))
     }

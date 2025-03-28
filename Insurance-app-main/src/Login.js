@@ -26,7 +26,7 @@ const Login = () => {
                 navigate("/admin")
             }
             else{
-                navigate("/user")
+                navigate("/home")
             }
         })
         .catch(err=>alert(err.response.data.error))
