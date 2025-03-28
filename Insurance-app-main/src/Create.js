@@ -23,7 +23,7 @@ const Create = () => {
         formData.append('startdate',values.startdate);
         formData.append('enddate',values.enddate);
         formData.append('policy',values.policy);
-        formData.append('file_path',values.file);
+        formData.append('file',values.file);
 
         axios.post('http://localhost:8000/create',formData,{
           headers:{'Content-Type' : 'multipart/form-data'}
