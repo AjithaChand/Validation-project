@@ -23,7 +23,7 @@ const Updatedata = () => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    axios.put(`http://localhost:8000/edit/${id}`,datas)
+    axios.put(`http://localhost:8000/edituser/${id}`,datas)
     .then(res=>{
       alert(res.data.message)
       navigate('/users')
