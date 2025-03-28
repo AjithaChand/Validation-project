@@ -2,8 +2,16 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import './User.css';
 import Formpopup from './Formpopup';
+import Editdialog from './Editdialog';
+import { FaEdit } from "react-icons/fa";
 
 const User = () => {
+
+    const [showedit,setShowEdit] = useState(false)
+
+    const toggleEdit = () =>{
+      setShowEdit(!showedit)
+    }
 
     const [showform,setShowform] = useState(false)
 
@@ -41,15 +49,25 @@ const User = () => {
                   <td>{data.enddate}</td>
                   <td>{data.policy}</td>
                   <td>{data.file}</td>
-                  <td><button>Edit</button></td>
+                  <td><button onClick={toggleEdit}>Edit</button></td>
                 </tr>
               })}
+
+              <tr>
+              <td>nisha@gmail.com</td>
+                  <td>10/02/2025</td>
+                  <td>10/03/2025</td>
+                  <td>medical insurance</td>
+                  <td>file</td>
+                  <td><button  className=' edit-btn' onClick={toggleEdit}><FaEdit /></button></td>
+              </tr>
             </tbody>
           </table>
           <div className='mt-5'>
             <button className='btn user-btn' onClick={toggleForm}>Add Details</button>
           </div>
           <Formpopup isVisible={showform} onClose={toggleForm} />
+          <Editdialog isVisible={showedit} onClose={toggleEdit} />
       </div>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios, { formToJSON } from 'axios';
+import axios from 'axios';
 import './Adminpage.css'
 import Detailspopup from './Detailspopup';
 import { RiDeleteBinFill } from "react-icons/ri";
@@ -38,12 +38,14 @@ const Adminpage = () => {
 
   const [value, setValue] = useState([])
 
+  // Fetch files from backend
   useEffect(() => {
     axios.get('http://localhost:8000')
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
   }, [])
 
+  // Delete values
   const handleDelete = (id) => {
     axios.delete('http://localhost:8000/delete/' + id)
       .then(res => {
@@ -53,6 +55,22 @@ const Adminpage = () => {
       })
       .catch(err => alert(err.response.data.error))
   }
+
+  // // View files
+  // const [open,setOpen] = useState(false)
+  // const [selectedFile,setSelectedfile] = useState(null)
+
+  //   // handle dialog open
+  //   const handleOpen = (data) =>{
+  //     setSelectedfile(data.files[0])
+  //     setOpen(true)
+  //   }
+
+  //    // handle dialog close
+  //    const handleClose = (data) =>{
+  //     setOpen(false)
+  //     setSelectedfile(null)
+  //   }
 
   return (
     <div>
@@ -90,13 +108,7 @@ const Adminpage = () => {
                   <td>{data.enddate}</td>
                   <td>{data.policy}</td>
                   <td>
-                    {data.file_path ? (
-                      <a
-                        href={`http://localhost:8000${data.file_path}`}
-                        rel='noopener noreferrer'
-                        className='btn btn-primary'
-                      >View File</a>
-                    ) : ("No File")}
+                    <button className='view-button' onClick={()=>handleOpen(data)}>View File</button>
                   </td>
                   <td>
                     <button className=' ps-3 pe-3 delete-btn' onClick={() => handleDelete(data.id)}>Delete</button>
@@ -121,6 +133,8 @@ const Adminpage = () => {
         </div>
       </div>
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
+
+      
     </div>
   )
 }
