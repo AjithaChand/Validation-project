@@ -11,12 +11,12 @@ const Userdata = () => {
     <div className='user-container'>
       <aside className='admin-slidebar'>
         <div className='p-4'>
-          <h3>Admin Panel</h3>
+          <h3 >Admin Panel</h3>
         </div>
         <nav>
           <ul className='ps-5'>
-            <li><button className='userdata-btn' onClick={()=>{setSrc('/adminpage')}}>Dashboard</button></li>
-            <li><button className='userdata-btn' onClick={()=>{setSrc('/users')}}>Users</button></li>
+            <li><a className='userdata-btn' onClick={()=>{setSrc('/adminpage')}}>Dashboard</a></li>
+            <li><a className='userdata-btn' onClick={()=>{setSrc('/users')}}>Users</a></li>
           </ul>
         </nav>
       </aside>

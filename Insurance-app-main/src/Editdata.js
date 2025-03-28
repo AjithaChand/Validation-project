@@ -14,8 +14,8 @@ const Editdata = () => {
     })
   
     useEffect(()=>{
-      axios.get('http://localhost:8000/read/'+id)
-      .then(res=>setValues({...values,email:res.data[0].email,startdate:res.data[0].startdate,enddate:res.data[0].enddate,policy:res.data[0].policy,file:res.data[0].files[0]}))
+      axios.get(`http://localhost:8000/read/${id}`)
+      .then(res=>setValues({...values,email:res.data[0].email,startdate:res.data[0].startdate,enddate:res.data[0].enddate,policy:res.data[0].policy,file:res.data[0].file_path}))
       .catch(err=>console.log(err))
     },[])
 
@@ -33,7 +33,7 @@ const Editdata = () => {
         formData.append('policy',values.policy);
         formData.append('file_path',values.file);
 
-        axios.post('http://localhost:8000/edit',formData,{
+        axios.put(`http://localhost:8000/edit/${id}`,formData,{
           headers:{'Content-Type' : 'multipart/form-data'}
         })
         .then(res=>{

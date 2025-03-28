@@ -10,6 +10,7 @@ import Adminpage from './Adminpage'
 import Userpage from './Userpage'
 import Adminregister from './Adminregister'
 import Users from './Users'
+import FileViewer from './Fileviewer'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path='/userpage' element={<Userpage />} />
           <Route path='/adminregister' element={<Adminregister />} />
           <Route path='/users' element={<Users />} />
+          <Route path='/fileview' element={<FileViewer />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -5,6 +5,7 @@ import Detailspopup from './Detailspopup';
 import { RiDeleteBinFill } from "react-icons/ri";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { IoIosCloudUpload } from "react-icons/io";
+import { Navigate } from 'react-router-dom';
 
 const Adminpage = () => {
 
@@ -92,11 +93,16 @@ const Adminpage = () => {
                   <td>{data.enddate}</td>
                   <td>{data.policy}</td>
                   <td>
-                    <button className='view-button'>View File</button>
+                    {data.file ?  (
+                      <a
+                      href={`http://localhost:8000/${data.file}`}
+                      rel='noopener noreferrer'
+                      className='btn btn-primary'
+                      onClick={()=>Navigate("/Fileviewer")}
+                      >View File</a>
+                    ) : ("No File")}
                   </td>
-                  <td>
                   <td className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></td>
-                  </td>
                 </tr>
               })}
 
@@ -108,8 +114,6 @@ const Adminpage = () => {
         </div>
       </div>
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
-
-      
     </div>
   )
 }

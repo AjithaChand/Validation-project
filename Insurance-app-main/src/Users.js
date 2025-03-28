@@ -42,7 +42,7 @@ const Users = () => {
   return (
     <div>
       <div className='toggle'>
-        <h2>Customer Details</h2>
+        <h2>User Entry</h2>
       </div>
       <div className='row'>
         <div className='user col-12'>
