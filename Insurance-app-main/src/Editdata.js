@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Editdata = () => {
     const {id} = useParams()
+
+    const navigate = useNavigate()
   
     const [values,setValues] = useState({
         email:"",
@@ -38,6 +40,7 @@ const Editdata = () => {
         })
         .then(res=>{
             alert(res.data.message)
+            navigate('/adminpage')
         })
         .catch(err=>alert(err.response.data.error))
     }
@@ -46,19 +49,19 @@ const Editdata = () => {
         <div >
         <form onSubmit={handleSubmit}>
           <h3 className='text-center'>Update Data</h3>
-          <div className='mt-3 form-gruop'>
+          <div className='mt-3 form-group'>
               <label>Email</label>
               <input type='email' className='form-control' value={values.email} style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,email:e.target.value})}/>
           </div>
-          <div className='mt-3 form-gruop'>
+          <div className='mt-3 form-group'>
               <label>StartDate</label>
               <input type='date' className='form-control' value={values.startdate} style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,startdate:e.target.value})} />
           </div>
-          <div className='mt-3 form-gruop'>
+          <div className='mt-3 form-group'>
               <label>EndData</label>
               <input type='date' className='form-control' value={values.enddate} style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,enddate:e.target.value})} />
           </div>
-          <div className='mt-3 form-gruop'>
+          <div className='mt-3 form-group'>
               <label>Policy</label>
               <input type='text' className='form-control' value={values.policy} style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,policy:e.target.value})} />
           </div>
