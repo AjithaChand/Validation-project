@@ -48,7 +48,7 @@ const User = () => {
   };
 
   return (
-    <div className='user-container'>
+    <div className='user-containerform'>
       <div className='profile'>
         <div className='userlogout-btn'><CgProfile /></div>
         <div className='userlogout-btn'>{username}shuruthi</div>
