@@ -146,7 +146,10 @@ app.post("/login", (req, res) => {
         if (user.role === "admin") {
             return res.status(200).json({ message: "Admin Login Successful", token, role: "admin", result});
         } else {
-            return res.status(200).json({ message: "Login Successful", token, role: "user", result});
+            console.log(user.username);
+            
+            return res.status(200).json({ message: "Login Successful", token, role: "user",username: user.username});
+
         }
     });
 });
