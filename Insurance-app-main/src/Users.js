@@ -19,8 +19,9 @@ const Users = () => {
    // updatepopup
    const [showupdate,setShowupdate] = useState(false)
 
-   const handleupdate = ()=>{
+   const handleupdate = (id)=>{
      setShowupdate(!showupdate)
+     alert(id)
    }
 
   const [value, setValue] = useState([])
