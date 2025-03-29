@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 
 
+
 const Adminpage = () => {
 
   const navigate = useNavigate()
@@ -83,6 +84,8 @@ const Adminpage = () => {
         <h2>Admin Dashboard</h2>
         <button onClick={handleLogout} className='logout-btn'>Logout</button>
       </div>
+     
+      
       <div className='row'>
         <div className='col-12' style={{marginTop:"7%"}} >
           <h4 className='text-center p-4' style={{ paddingTop: "50px" }}>Customer Details</h4>
