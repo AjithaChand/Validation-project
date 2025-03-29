@@ -57,25 +57,25 @@ const User = () => {
         </button>
       </div>
 <h3 className='text-center text-white' style={{ paddingTop: "50px" }}>User Entry</h3>
-      <table className='mt-5' border={1}>
+      <table className='mt-5 usertable' border={1}>
         <thead>
-          <tr>
-            <th>Email</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Policy</th>
-            <th>Files</th>
-            <th>Action</th>
-          </tr>
+          <tr className='tablerow'>
+            <th className='tablerow' >Email</th>
+            <th className='tablerow'>Start Date</th>
+            <th className='tablerow'>End Date</th>
+            <th className='tablerow'>Policy</th>
+            <th className='tablerow'>Files</th>
+            <th className='tablerow'>Action</th>
+          </tr  >
         </thead>
         <tbody>
           {value.map((data, index) => (
-            <tr key={index}>
-              <td>{data.email}</td>
-              <td>{data.startdate}</td>
-              <td>{data.enddate}</td>
-              <td>{data.policy}</td>
-              <td>
+            <tr key={index} className='tablerow'>
+              <td className='tablerow'>{data.email}</td>
+              <td className='tablerow'>{data.startdate}</td>
+              <td className='tablerow'>{data.enddate}</td>
+              <td className='tablerow'>{data.policy}</td>
+              <td className='tablerow'>
                 {data.file ? (
                   <a href={`http://localhost:8000${data.file}`} target="_blank" rel="noopener noreferrer">
                     View File
@@ -84,7 +84,7 @@ const User = () => {
                   "No File"
                 )}
               </td>
-              <td>
+              <td className='tablerow'>
                 <button className='edit-btn' onClick={() => toggleEdit(data)}>
                   <FaEdit />
                 </button>
