@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Updatedata = ( {selectid , close} ) => {
 
+  const [refresh,setRefresh] = useState(true)
+
   console.log(selectid)
 
   const [datas,setData] = useState({})
@@ -20,12 +22,13 @@ const Updatedata = ( {selectid , close} ) => {
     .then(res=>{
       if(res.data){
         setData(res.data)
+        setRefresh(!refresh)
       }else{
         toast.error("User not found!")
       }
     })
     .catch(err=>console.log(err))
-  },[selectid])
+  },[selectid,refresh])
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -33,6 +36,7 @@ const Updatedata = ( {selectid , close} ) => {
     .then(res=>{
       toast.success(res.data.message)
       close()
+      setRefresh(!refresh)
     })
     .catch(err=>toast.error(err.response.data.error))
   }
