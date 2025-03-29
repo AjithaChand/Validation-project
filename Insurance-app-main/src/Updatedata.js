@@ -7,11 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Updatedata = ( {userid} ) => {
 
-  const {id} = useParams()
 
+  console.log(userid)
 
-  console.log("For Checking from front-end",userid );
-  
 
   const navigate = useNavigate()
 
@@ -22,14 +20,28 @@ const Updatedata = ( {userid} ) => {
   })
 
   useEffect(()=>{
+
+
+    if(!userid) return;
+
     axios.get(`http://localhost:8000/getuser/${userid}`)
-    .then(res=>setData({username:res.data[0].username,email:res.data[0].email,password:res.data[0].password}))
+    .then(res=>{
+      if(res.data.length>0){
+        setData({
+          username:res.data[0].username,
+          email:res.data[0].email,
+          password:res.data[0].password})
+      }else{
+        toast.error("User not found!")
+      }
+    })
     .catch(err=>console.log(err))
-  },[])
+  },[userid])
+
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    axios.put(`http://localhost:8000/edituser/${id}`,datas)
+    axios.put(`http://localhost:8000/edituser/${userid}`,datas)
     .then(res=>{
       toast.success(res.data.message)
       navigate('/users')

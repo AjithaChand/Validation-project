@@ -166,19 +166,20 @@ app.get('/getuser', (req, res) => {
 
 //Edit data for single user
 
-app.get('/getuser/:id',(req,res)=>{
+app.get('/getuser/:id', (req, res) => {
     const id = req.params.id;
+    const sql = "SELECT * FROM users WHERE id = ?";
 
-    const sql ="SELECT * FROM users WHERE id =?"
+    console.log("Checking ID:", id);
 
-    console.log("For Checking Id",id);
-    
-    db.query(sql,[id],(err,data)=>{
+    db.query(sql, [id], (err, data) => {
         if (err) return res.status(500).json({ error: err.message });
         if (data.length === 0) return res.status(404).json({ error: "User not found" });
-        return res.json(data[0]);
-    })
-})
+        
+        return res.json(data[0]); // ✅ Return an object instead of an array
+    });
+});
+
 
 
 //Edit user
