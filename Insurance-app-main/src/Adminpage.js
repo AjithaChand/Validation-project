@@ -57,7 +57,7 @@ const Adminpage = () => {
     alert(`Your'e selected ${id}`)
     axios.delete(`http://localhost:8000/delete/${id}`)
       .then(res => {
-        confirrm("Are you sure you want to delete this data?")
+       window.confirm("Are you sure you want to delete this data?")
         console.log(res)
         setValue(prev => prev.filter(data => data.id !== id))
       })

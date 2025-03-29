@@ -313,7 +313,7 @@ app.put('/edit/:id',(req,res)=>{
 
 
 //Delete
-app.delete('/delete/:id',(req,res)=>{
+app.delete('/delete/customer_details/:id',(req,res)=>{
  
     const id = req.params.id;
 
