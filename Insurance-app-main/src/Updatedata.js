@@ -5,9 +5,11 @@ import './Updatedata.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Updatedata = ( {userid} ) => {
+const Updatedata = ( {selectid} ) => {
 
   const {id} = useParams()
+
+  console.log(selectid)
 
   const navigate = useNavigate()
 
@@ -18,7 +20,7 @@ const Updatedata = ( {userid} ) => {
   })
 
   useEffect(()=>{
-    axios.get(`http://localhost:8000/getuser/${userid}`)
+    axios.get(`http://localhost:8000/getuser/${selectid}`)
     .then(res=>setData({...datas,username:res.data[0].username,email:res.data[0].email,password:res.data[0].password}))
     .catch(err=>console.log(err))
   },[id])
