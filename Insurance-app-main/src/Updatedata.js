@@ -26,13 +26,12 @@ const Updatedata = ( {selectid , close} ) => {
     .then(res=>{
       if(res.data){
         setData(res.data)
-        setRefresh(!refresh)
       }else{
         toast.error("User not found!")
       }
     })
     .catch(err=>console.log(err))
-  },[selectid,refresh])
+  },[selectid])
 
 
   const handleSubmit = (e) =>{
