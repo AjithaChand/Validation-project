@@ -79,9 +79,9 @@ const Adminpage = () => {
 
   return (
     <div>
-      <button onClick={handleLogout} className='logout-btn'>Logout</button>
-      <div>
+      <div className='adminpage-header fixed-top p-3'>
         <h2>Admin Dashboard</h2>
+        <button onClick={handleLogout} className='logout-btn'>Logout</button>
       </div>
       <div className='row'>
         <div className='col-12'>
