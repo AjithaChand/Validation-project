@@ -34,6 +34,7 @@ const transPorter = nodemailer.createTransport({
     }
 })
 
+
 const sendReminderEmails = () => {
     console.log("Checking for users who need email reminders...");
 
@@ -103,6 +104,32 @@ sendReminderEmails()
 setInterval(sendReminderEmails, 24 * 60 * 60 * 1000);
 
 
+app.post("/password_changed",(req,res)=>{
+
+    const {email, password} = req.body;
+    
+
+    console.log(email);
+    console.log(password);
+
+    mailOptions = {
+        from:'ananthliterature@gmail.com',
+        to:email,
+        subject:'Your Password Changed',
+        text: `Your New Password  ${password}`
+    }
+
+    transPorter.sendMail(mailOptions,(err,info)=>{
+        if(err){
+            console.log(`Failed to send email ${email}`);
+            return res.status(400).json({success: false, message: `Failed to send email ${email}`})
+        }   
+           console.log(`Send email to ${email}`);
+           return  res.status(200).send({status:true, message: `Send email to ${email}`})
+    })
+})
+
+
 // app.post('/email',(req,res)=>{
 //    const {email,startDate,endDate,policy} = req.body;
 
@@ -139,3 +166,5 @@ app.listen(8000,(err)=>{
     if(err) throw err;
     console.log('Post Listening on 3001');
 })
+
+// module.exports = app;
