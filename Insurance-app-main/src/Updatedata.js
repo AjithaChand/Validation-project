@@ -40,8 +40,8 @@ const Updatedata = ( {selectid} ) => {
     e.preventDefault();
     axios.put(`http://localhost:8000/edituser/${selectid}`,datas)
     .then(res=>{
-      navigate('/users')
       toast.success(res.data.message)
+      navigate('/admin/users')
     })
     .catch(err=>toast.error(err.response.data.error))
   }
