@@ -176,7 +176,9 @@ app.get('/getuser/:id', (req, res) => {
         if (err) return res.status(500).json({ error: err.message });
         if (data.length === 0) return res.status(404).json({ error: "User not found" });
         
-        return res.json(data[0]); // ✅ Return an object instead of an array
+        console.log(data);
+
+        return res.json(data[0]); 
     });
 });
 
@@ -282,6 +284,7 @@ app.get('/read/:id', (req, res) => {
     db.query(sql, [id], (err,data) => {
 
             if(err) return res.status(500).json({error:err.message})
+          
             
             return res.status(200).json(data)
 
