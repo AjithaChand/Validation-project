@@ -1,0 +1,14 @@
+.home-container{
+    background-image: url('../public/homebg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.homepage-header{
+    padding: 20px;
+    background-color:rgba(138, 43, 226, 0.5);
+    color: white;
+    font-size: 23px;
+    font-weight: bold;
+}

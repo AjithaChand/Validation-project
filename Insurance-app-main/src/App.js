@@ -11,6 +11,8 @@ import Userpage from './Userpage'
 import Adminregister from './Adminregister'
 import Users from './Users'
 import FileViewer from './Fileviewer'
+import Homepage from './Homepage'
+import Updatedata from './Updatedata'
 
 const App = () => {
   return (
@@ -18,6 +20,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Login />} />
+          <Route path='/homepage' element={<Homepage />} />
           <Route path='/register' element={<Register/>} />
           <Route path='/user' element={<Create/>} />
           <Route path='/home' element={<User />} />
@@ -28,6 +31,7 @@ const App = () => {
             <Route path='users' element={<Users />} />
           </Route>
           
+          <Route path='/edituser/:id' element={<Updatedata />} />
           <Route path='/adminregister' element={<Adminregister />} />
           <Route path='/userpage' element={<Userpage />} />
           <Route path='/fileview' element={<FileViewer />} />
