@@ -58,6 +58,7 @@ const Create = () => {
         </div>
         <div className='mt-3'>
           <input type='file' onChange={handleFileChange} className='mt-3'/>
+          <input type='file' accept='*/*' onChange={handleFileChange} className='mt-3'/>
         </div>
         <button className='btn user-btn mt-3' style={{backgroundColor:"#333",width:"30%"}}>Submit</button>
       </form>
