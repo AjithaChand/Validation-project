@@ -31,40 +31,29 @@ db.connect(err => {
 const SECRET_KEY = "its_wonderful_day";
 
 //DEFAULT ADMIN SETUP
-const defaultAdmin = {   
-    username: "aams",
-    email: "aams123@gmail.com",
-    password: "aams@123",
-    role: "admin" 
-}
+// const defaultAdmin = {   
+//     username: "aams",
+//     email: "aams123@gmail.com",
+//     password: "aams@123",
+//     role: "admin" 
+// }
 
-const setupAdmin=async()=>{
-   const values=[defaultAdmin.username,defaultAdmin.email,defaultAdmin.password,defaultAdmin.role]
-   const sql ="INSERT INTO users (username,email,password,role) VALUES (?,?,?,?)"
-   db.query(sql,values,(err,data)=>{
-    if(err)
-        console.log(err)
-    else
-      console.log("Admin created successfully")
-   })
-}
-setupAdmin()
-// const setupAdmin = async () => {
-//     db.query("SELECT * FROM users WHERE role='admin'", (err, result) => {
-//         if (result.length === 0) {
-//             // const hashedPassword = await bcrypt.hash(defaultAdmin.password, 10);
-//             db.query(
-//                 "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)",
-//                 [defaultAdmin.username,defaultAdmin.email,defaultAdmin.password,defaultAdmin.role],
-//                 (err, res) => {
-//                     if (err) console.log(err);
-//                     else console.log("Admin created successfully");
-//                 }
-//             );
-//         }
-//     });
-// };
-// setupAdmin();
+const setupAdmin = async () => {
+    db.query("SELECT * FROM users WHERE role='admin'", (err, result) => {
+        if (result.length === 0) {
+            // const hashedPassword = await bcrypt.hash(defaultAdmin.password, 10);
+            db.query(
+                "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)",
+                [defaultAdmin.username,defaultAdmin.email,defaultAdmin.password,defaultAdmin.role],
+                (err, res) => {
+                    if (err) console.log(err);
+                    else console.log("Admin created successfully");
+                }
+            );
+        }
+    });
+};
+setupAdmin();
 
 
 // Registration 
@@ -175,6 +164,23 @@ app.get('/getuser', (req, res) => {
 
 
 
+//Edit data for single user
+
+app.get('/getuser/:id',(req,res)=>{
+    const id = req.params.id;
+
+    const sql ="SELECT * FROM users WHERE id =?"
+
+    console.log("For Checking Id",id);
+    
+    db.query(sql,[id],(err,data)=>{
+        if (err) return res.status(500).json({ error: err.message });
+        if (data.length === 0) return res.status(404).json({ error: "User not found" });
+        return res.json(data[0]);
+    })
+})
+
+
 //Edit user
 
 app.put('/edituser/:id',async(req,res)=>{
@@ -195,18 +201,6 @@ app.put('/edituser/:id',async(req,res)=>{
 
 
 
-//Edit data for single user
-
-app.get('/getuser/:id',(req,res)=>{
-    const id = req.params.id;
-
-    const sql ="SELECT * FROM users WHERE id =?"
-    db.query(sql,[id],(err,data)=>{
-        if (err) return res.status(500).json({ error: err.message });
-        if (data.length === 0) return res.status(404).json({ error: "User not found" });
-        return res.json(data[0]);
-    })
-})
 
 
 app.delete('/delete/:id',(req,res)=>{

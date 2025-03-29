@@ -34,10 +34,6 @@ const transPorter = nodemailer.createTransport({
     }
 })
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
 const sendReminderEmails = () => {
     console.log("Checking for users who need email reminders...");
 
@@ -107,10 +103,7 @@ sendReminderEmails()
 setInterval(sendReminderEmails, 24 * 60 * 60 * 1000);
 
 
-<<<<<<< HEAD
-module.exports=app
-=======
-<<<<<<< HEAD
+
 app.post("/password_changed",(req,res)=>{
 
     const {email, password} = req.body;
@@ -136,55 +129,7 @@ app.post("/password_changed",(req,res)=>{
     })
 })
 
-
-=======
->>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
->>>>>>> defcd722ab01b93c63ec4d46af621b6de1dd9d70
-// app.post('/email',(req,res)=>{
-//    const {email,startDate,endDate,policy} = req.body;
-
-//    console.log(email,startDate,endDate,policy);
-   
-//    const query = "INSERT INTO policy (email,start_date,end_date,policy) VALUES (?, ?, ?, ?)";
-   
-//    conn.query(query,[email,startDate,endDate,policy],(err,info)=>{
-//     if(err){
-//             console.log("Can't insert the data");
-//     return  res.status(400).json({success:false, message: "Server Error"});
-//     } 
-//     if(info.email === email){
-//         res.status(404).json({status:404, message:"Already Exist Email"})
-//     }
-//             console.log("Successfully insert the data");
-//     return res.status(200).json({success:true, message:"Success"})
-//    })
-// })
+module.exports=app
 
 
-// app.get("/email/get",(req,res)=>{
-//     const query = "SELECT * FROM policy";
-//     conn.query(query,(err,result)=>{
-//         if(err) throw err;
-//         res.json(result);
-//         return console.log("Successfullly fetch data");
-        
-//     })
-// })
 
-
-<<<<<<< HEAD
-// app.listen(8000,(err)=>{
-//     if(err) throw err;
-//     console.log('Post Listening on 3001');
-// })
-=======
-app.listen(8000,(err)=>{
-    if(err) throw err;
-    console.log('Post Listening on 3001');
-})
-<<<<<<< HEAD
-
-// module.exports = app;
-=======
->>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
->>>>>>> defcd722ab01b93c63ec4d46af621b6de1dd9d70

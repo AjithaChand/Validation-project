@@ -120,22 +120,8 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
     });
 });
 
-<<<<<<< HEAD
-module.exports=app
-// app.listen(8000, () => {
-//     console.log("Server running on port 3001");
-// });
-=======
-<<<<<<< HEAD
-// app.listen(8000, () => {
-//     console.log("Server running on port 3001");
-// });
+
 
 
 module.exports = app;
-=======
-app.listen(8000, () => {
-    console.log("Server running on port 3001");
-});
->>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
->>>>>>> defcd722ab01b93c63ec4d46af621b6de1dd9d70
+

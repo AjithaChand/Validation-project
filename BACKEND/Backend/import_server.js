@@ -1,16 +1,16 @@
 const express = require("express");
 const excelServer = require("./excel_server");
-const emailReminder = require("./email_remainder");
+const emailReminder = require("./email_reminder");
 const server = require("./server");
 
 const app = express();
 const PORT = 8000;
 
-app.use("/excel", excelServer);
+app.use("/", excelServer);
 
-app.use("/email", emailReminder);
+app.use("/", emailReminder);
 
-app.use("/auth", server);
+app.use("/", server);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

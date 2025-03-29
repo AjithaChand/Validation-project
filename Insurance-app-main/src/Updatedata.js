@@ -9,6 +9,9 @@ const Updatedata = () => {
 
   const {id} = useParams()
 
+
+  console.log("For Checking from front-end",id );
+  
   const navigate = useNavigate()
 
   const [datas,setData] = useState({
@@ -33,6 +36,8 @@ const Updatedata = () => {
     .catch(err=>toast.error(err.response.data.error))
   }
 
+  console.log(datas);
+  
   return (
     <div >
       <form onSubmit={handleSubmit} className='update-form' >
