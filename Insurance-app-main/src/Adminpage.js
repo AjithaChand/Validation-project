@@ -56,7 +56,7 @@ const Adminpage = () => {
   const handleDelete = (id) => {
     axios.delete(`http://localhost:8000/delete/${id}`)
       .then(res => {
-        toast.warning("Are you sure you want to delete this data?")
+        confirm("Are you sure you want to delete this data?")
         console.log(res)
         setValue(prev => prev.filter(data => data.id !== id))
       })
@@ -76,10 +76,9 @@ const Adminpage = () => {
       setSelectedFile(`http://localhost:8000${fileUrl}`);
       setShowModal(true);
     } else {
-      toast.error("Unsupported file type.");
+      toast.error("Unsupported file type");
     }
   };
-
 
   const handleLogout = () => {
     localStorage.removeItem("authToken")
