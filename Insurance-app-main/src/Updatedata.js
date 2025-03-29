@@ -38,6 +38,22 @@ const Updatedata = ( {selectid , close} ) => {
       setRefresh(!refresh)
     })
     .catch(err=>toast.error(err.response.data.error))
+
+
+
+    axios.post('http://localhost:8000/password_changed',{
+      email: datas.email,
+      password: datas.password
+    })
+    .then((res)=>{
+      if(res.data.success){
+        toast.success(`Send Email To ${datas.email}`)
+      }
+    })
+    .catch((err)=>{
+      console.log(err.message);
+    })
+
   }
 
   return (
