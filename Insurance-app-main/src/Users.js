@@ -7,7 +7,6 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Updatedata from './Updatedata';
 
 const Users = () => {
 
@@ -83,9 +82,8 @@ const Users = () => {
         </div>
       </div>
       <Userpage  onClose={handleDialog} isVisible={dialogbox} />
-      <UpdateDialog onClose={handleupdate} isVisible={showupdate} />
+      <UpdateDialog onClose={handleupdate} isVisible={showupdate} userid={selectid} />
       <ToastContainer position='top-right' autoClose={3000} />
-      <Updatedata userid={selectid} />
     </div>
   )
 }

@@ -5,9 +5,9 @@ import './Updatedata.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Updatedata = ( {userid} ) => {
+const Updatedata = ( {selectid} ) => {
 
-  console.log(userid)
+  console.log(selectid)
 
   const navigate = useNavigate()
 
@@ -17,9 +17,9 @@ const Updatedata = ( {userid} ) => {
 
   useEffect(()=>{
 
-    if(!userid) return;
+    if(!selectid) return;
 
-    axios.get(`http://localhost:8000/getuser/${userid}`)
+    axios.get(`http://localhost:8000/getuser/${selectid}`)
     .then(res=>{
       if(res.data){
         setData(res.data)
@@ -28,11 +28,11 @@ const Updatedata = ( {userid} ) => {
       }
     })
     .catch(err=>console.log(err))
-  },[userid])
+  },[selectid])
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    axios.put(`http://localhost:8000/edituser/${userid}`,datas)
+    axios.put(`http://localhost:8000/edituser/${selectid}`,datas)
     .then(res=>{
       toast.success(res.data.message)
       navigate('/users')
