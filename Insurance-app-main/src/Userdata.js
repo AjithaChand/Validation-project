@@ -26,7 +26,7 @@ const Userdata = () => {
           </ul>
         </nav>
       </aside>
-      <main>
+      <main className='userdata-container'>
           <Outlet/>
       </main>
     </div>

@@ -27,6 +27,7 @@ const App = () => {
             <Route path='adminpage' element={<Adminpage />} />
             <Route path='users' element={<Users />} />
           </Route>
+          
           <Route path='/adminregister' element={<Adminregister />} />
           <Route path='/userpage' element={<Userpage />} />
           <Route path='/fileview' element={<FileViewer />} />

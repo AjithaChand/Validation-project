@@ -41,12 +41,12 @@ const Users = () => {
     }
 
   return (
-    <div>
-      <div className='toggle'>
+    <div className='users-container'>
+      <div className='toggle fixed-top p-3'>
         <h2>User Entry</h2>
       </div>
       <div className='row'>
-        <div className='user col-12'>
+        <div className='user col-12 mt-5'>
           <h4 className='text-center' style={{ paddingTop: "50px" }}>Customer Details</h4>
           <table className='mt-5 users-table' border={1}>
             <thead>

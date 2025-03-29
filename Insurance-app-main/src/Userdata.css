@@ -27,3 +27,7 @@ aside a{
   background: none;
   border: none;
 }
+
+.userdata-container{
+    overflow-y: scroll;
+}

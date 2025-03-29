@@ -26,3 +26,9 @@
     background: none;
     font-size: 25px;
 }
+
+.toggle{
+    background-color: rgb(91, 171, 241);
+    margin-left: 20%;
+    margin-right: 1%;
+}
