@@ -13,6 +13,7 @@ const User = () => {
     const [showedit,setShowEdit] = useState(false)
     
     const {id}=useParams();
+    const username=localStorage.getItem("username");
 
     const toggleEdit = () =>{
       setShowEdit(!showedit)
@@ -39,6 +40,7 @@ const User = () => {
   
     return (
       <div className='user-container'>
+        <div>{username}</div>
           <button onClick={handleLogout} className='userlogout-btn'>Logout</button>
           <h3 className='text-center'  style={{paddingTop:"50px"}}>User Entry</h3>
           <table className='mt-5' border={1}>
