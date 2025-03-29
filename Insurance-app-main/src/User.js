@@ -13,6 +13,7 @@ const User = () => {
     const [showedit,setShowEdit] = useState(false)
     
     const {id}=useParams();
+    
     const username=localStorage.getItem("username");
 
     const toggleEdit = () =>{
