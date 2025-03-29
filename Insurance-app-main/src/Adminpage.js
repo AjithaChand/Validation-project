@@ -136,10 +136,6 @@ const Adminpage = () => {
       </div>
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
 
-<<<<<<< HEAD
-=======
-      {/* File View */}
->>>>>>> 6f5fd947dbb0b128daca6d7c91f729db37a9243e
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>File Preview</Modal.Title>

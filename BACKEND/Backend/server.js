@@ -227,6 +227,7 @@ if (!fs.existsSync('uploads')) {
     fs.mkdirSync('uploads', { recursive: true });
 }
 
+// Serve static files from the 'uploads' folder
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const storage = multer.diskStorage({
@@ -255,7 +256,7 @@ app.get('/read', (req, res) => {
 
 app.post('/create', upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
-    const filePath = req.file ? `/uploads/${req.file.filename}` : null; // Fixed path syntax
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
 
     if (!filePath) {
         return res.status(400).json({ error: "File is required." });
