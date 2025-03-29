@@ -66,13 +66,22 @@ const Adminpage = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState("");
 
-  // Open Modal and Set File URL
+  //Set File URL
   const handleViewFile = (fileUrl) => {
-    setSelectedFile(`http://localhost:8000${fileUrl}`);
-    setShowModal(true);
+    const fileExtension = fileUrl.split('.').pop().toLowerCase();
+    const isImage = ['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension);
+    const isPdf = fileExtension === 'pdf';
+
+    if (isImage || isPdf) {
+      setSelectedFile(`http://localhost:8000${fileUrl}`);
+      setShowModal(true);
+    } else {
+      toast.error("Unsupported file type.");
+    }
   };
 
-  const handleLogout = ()=>{
+
+  const handleLogout = () => {
     localStorage.removeItem("authToken")
     navigate('/')
   }
@@ -84,7 +93,7 @@ const Adminpage = () => {
         <button onClick={handleLogout} className='logout-btn'>Logout</button>
       </div>
       <div className='row'>
-        <div className='col-12' style={{marginTop:"7%"}} >
+        <div className='col-12' style={{ marginTop: "7%" }} >
           <h4 className='text-center p-4' style={{ paddingTop: "50px" }}>Customer Details</h4>
           <div className='admin-header'>
             <button className='upload-button1' onClick={handleDownload}><PiMicrosoftExcelLogoFill /></button>
@@ -110,8 +119,8 @@ const Adminpage = () => {
               {value.map((data, index) => {
                 return <tr key={index}>
                   <td>{data.email}</td>
-                  <td>{new Date (data.startdate).toLocaleDateString('en-GB')}</td>
-                  <td>{new Date (data.enddate).toLocaleDateString('en-GB')}</td>
+                  <td>{new Date(data.startdate).toLocaleDateString('en-GB')}</td>
+                  <td>{new Date(data.enddate).toLocaleDateString('en-GB')}</td>
                   <td>{data.policy}</td>
                   <td>
                     {data.file_path ? (
@@ -143,11 +152,11 @@ const Adminpage = () => {
         </Modal.Header>
         <Modal.Body>
           {selectedFile ? (
-            <img
-              src={selectedFile}
-              alt='file preview'
-              style={{ width:"100%" , height:"auto" }}
-            />
+            selectedFile.endsWith('.pdf') ? (
+              <embed src={selectedFile} type="application/pdf" width="100%" height="600px" />
+            ) : (
+              <img src={selectedFile} alt="file preview" style={{ width: '100%', height: 'auto' }} />
+            )
           ) : (
             <p>No file selected</p>
           )}
@@ -158,7 +167,7 @@ const Adminpage = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-          <ToastContainer position='top-right' autoclose={3000}/>
+      <ToastContainer position='top-right' autoclose={3000} />
 
     </div>
   )
