@@ -37,7 +37,7 @@ const Updatedata = ( {selectid , close} ) => {
     axios.put(`http://localhost:8000/edituser/${selectid}`,datas)
     .then(res=>{
       toast.success(res.data.message)
-      {close}
+      close()
     })
     .catch(err=>toast.error(err.response.data.error))
   }
