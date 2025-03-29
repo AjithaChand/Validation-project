@@ -225,34 +225,47 @@ app.delete('/delete/:id',(req,res)=>{
 
 //Create folder
 
-app.use('/uploads',express.static(path.join(__dirname,'uploads')))
+const express = require('express');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+const app = express();
+const db = require('./db'); // Assuming db is set up
 
-
-if(!fs.existsSync('uploads')){
-    fs.mkdirSync('upload',{recursive:true});
+// Create folder if not exists
+if (!fs.existsSync('uploads')) {
+    fs.mkdirSync('uploads', { recursive: true });
 }
 
+// Serve uploaded files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-
-//File storage using multer
-
- const storage=multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'upload/')
+// File storage using multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); // Corrected path
     },
-    filename:(req,file,cb)=>{
-        cb(null,Date.now()+path.extname(file.originalname));
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname)); // Unique filename
     }
- }) 
- 
- const upload =multer({storage:storage})
+});
 
+const upload = multer({ storage: storage });
 
+// Get all data for admin
+app.get('/read', (req, res) => {
+    const sql = "SELECT * FROM customer_details";
+    db.query(sql, (err, data) => {
+        if (err) return res.status(500).json({ error: err.message });
+        return res.status(200).json(data);
+    });
+});
 
-//Create tabel for customers
+// Create customer table
 app.post('/create', upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
-    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null; // Fixed path syntax
 
     if (!filePath) {
         return res.status(400).json({ error: "File is required." });
@@ -263,31 +276,13 @@ app.post('/create', upload.single('file'), (req, res) => {
 
     db.query(sql, values, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
-     
-        if (!result.insertId) {
-            return res.status(500).json({ error: "Insert ID not generated." });
-        }
-
-        const userId = result.insertId;
-        console.log("Inserted User ID:", userId);
-      
-        res.status(200).json({ message: "Details submitted successfully", userId});
+        res.status(200).json({ message: "Details submitted successfully", userId: result.insertId });
     });
 });
 
-// Get All date for admin;
 
 
-app.get('/read', (req, res) => {
-    const sql = "SELECT * FROM customer_details";
-    db.query(sql, (err, data) => {
-        if (err) return res.status(500).json({ error: err.message });
 
-        console.log(data);
-        
-        return res.status(200).json(data); 
-    });
-});
 
 
 
@@ -308,6 +303,8 @@ app.get('/read/:id', (req, res) => {
 
     })
 });
+
+
 
 //updation in details
 

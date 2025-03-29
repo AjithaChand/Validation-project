@@ -19,16 +19,6 @@ const Updatedata = ( {selectid , close} ) => {
   console.log(datas)
 
 
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-    axios.put(`http://localhost:8000/edituser/${selectid}`,datas)
-    .then(res=>{
-      toast.success(res.data.message)
-      close()
-      setRefresh(!refresh)
-    })
-    .catch(err=>toast.error(err.response.data.error))
-  }
 
   console.log(datas ? datas : "No data from server");
   
@@ -50,7 +40,7 @@ const Updatedata = ( {selectid , close} ) => {
   },[selectid,refresh])
 
 const handleSubmit = (e) =>{
-  
+
     e.preventDefault();
     axios.put(`http://localhost:8000/edituser/${selectid}`,datas)
     .then(res=>{
@@ -68,7 +58,7 @@ const handleSubmit = (e) =>{
     })
     .then((res)=>{
       if(res.data.success){
-        toast.success(`Send Email To ${datas.email}`)
+        toast.success(`Send Email To ${datas.email}`)        
       }
     })
     .catch((err)=>{

@@ -125,7 +125,7 @@ app.post("/password_changed",(req,res)=>{
             return res.status(400).json({success: false, message: `Failed to send email ${email}`})
         }   
            console.log(`Send email to ${email}`);
-           return  res.status(200).send({status:true, message: `Send email to ${email}`})
+           return  res.status(200).send({success:true, message: `Send email to ${email}`})
     })
 })
 
