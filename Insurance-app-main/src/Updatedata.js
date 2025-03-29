@@ -50,9 +50,8 @@ const Updatedata = ( {selectid , close} ) => {
     .catch(err=>console.log(err))
   },[selectid,refresh])
 
-<<<<<<< HEAD
-=======
-  const handleSubmit = (e) =>{
+const handleSubmit = (e) =>{
+  
     e.preventDefault();
     axios.put(`http://localhost:8000/edituser/${selectid}`,datas)
     .then(res=>{
@@ -78,7 +77,6 @@ const Updatedata = ( {selectid , close} ) => {
     })
 
   }
->>>>>>> 42b4676b29ff7f7ef7cdcbf56fb26691ddb53470
 
   return (
     <div >
