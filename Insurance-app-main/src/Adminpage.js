@@ -55,9 +55,10 @@ const Adminpage = () => {
 
   // Delete values
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:8000/delete/${id}`)
+    alert(`Your'e selected ${id}`)
+    axios.delete(`http://localhost:8000/delete/customer_details/${id}`)
       .then(res => {
-        toast.warning("Are you sure you want to delete this data?")
+        window.confirm("Are you sure you want to delete this data?")
         console.log(res)
         setValue(prev => prev.filter(data => data.id !== id))
       })
@@ -67,13 +68,21 @@ const Adminpage = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState("");
 
-  // Open Modal and Set File URL
+  //Set File URL
   const handleViewFile = (fileUrl) => {
-    setSelectedFile(fileUrl);
-    setShowModal(true);
+    const fileExtension = fileUrl.split('.').pop().toLowerCase();
+    const isImage = ['jpg', 'jpeg', 'png', 'gif', 'avif'].includes(fileExtension);
+    const isPdf = fileExtension === 'pdf';
+
+    if (isImage || isPdf) {
+      setSelectedFile(`http://localhost:8000${fileUrl}`);
+      setShowModal(true);
+    } else {
+      toast.error("Unsupported file type");
+    }
   };
 
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     localStorage.removeItem("authToken")
     navigate('/')
   }
@@ -87,7 +96,7 @@ const Adminpage = () => {
      
       
       <div className='row'>
-        <div className='col-12' style={{marginTop:"7%"}} >
+        <div className='col-12' style={{ marginTop: "7%" }} >
           <h4 className='text-center p-4' style={{ paddingTop: "50px" }}>Customer Details</h4>
           <div className='admin-header'>
             <button className='upload-button1' onClick={handleDownload}><PiMicrosoftExcelLogoFill /></button>
@@ -113,14 +122,14 @@ const Adminpage = () => {
               {value.map((data, index) => {
                 return <tr key={index}>
                   <td>{data.email}</td>
-                  <td>{data.startdate}</td>
-                  <td>{data.enddate}</td>
+                  <td>{new Date(data.startdate).toLocaleDateString('en-GB')}</td>
+                  <td>{new Date(data.enddate).toLocaleDateString('en-GB')}</td>
                   <td>{data.policy}</td>
                   <td>
                     {data.file_path ? (
                       <button
                         className='btn btn-primary'
-                        onClick={() => handleViewFile(`http://localhost:8000/${data.file_path}`)}
+                        onClick={() => handleViewFile(data.file_path)}
                       >
                         View File
                       </button>
@@ -139,20 +148,18 @@ const Adminpage = () => {
       </div>
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
 
-      {/* Modal for File View */} 
+      {/* File View */}
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>File Preview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedFile ? (
-            <iframe
-              src={selectedFile}
-              title="File Preview"
-              width="100%"
-              height="500px"
-              style={{ border: "none" }}
-            ></iframe>
+            selectedFile.endsWith('.pdf') ? (
+              <embed src={selectedFile} type="application/pdf" width="100%" height="600px" />
+            ) : (
+              <img src={selectedFile} alt="file preview" style={{ width: '100%', height: 'auto' }} />
+            )
           ) : (
             <p>No file selected</p>
           )}
@@ -163,7 +170,7 @@ const Adminpage = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-          <ToastContainer position='top-right' autoclose={3000}/>
+      <ToastContainer position='top-right' autoclose={3000} />
 
     </div>
   )

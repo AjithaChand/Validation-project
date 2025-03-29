@@ -2,15 +2,21 @@ import React from 'react';
 import './Homepage.css'
 
 const Homepage = () => {
+
+    const username = localStorage.getItem('username')
+
   return (
     <div className='home-container'>
       <header className='homepage-header'>
         <div className='marquee'>Welcome to <span className='name'>TrustAssure!</span></div>
+        <div className='head-name'>
+            Hai {username} Nisha!
+        </div>
       </header>
       <div className='homepage-section'>
         <h1 className='section-header'>INSURING YOUR TRUST</h1>
-        <p className='section-text' >Secure the Future, Protect Whats Important</p>
-        <button className='section-btn'>Get Started</button>
+        <p className='section-text mt-3' >Protecting what matters most, because your future deserves security.</p>
+        <button className='section-btn mt-3'>Get a Quote</button>
       </div>
     </div>
   )
