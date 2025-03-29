@@ -1,15 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import './Updatedata.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Updatedata = ( {selectid} ) => {
+const Updatedata = ( {selectid , close} ) => {
 
   console.log(selectid)
-
-  const navigate = useNavigate()
 
   const [datas,setData] = useState({})
 
@@ -35,7 +32,7 @@ const Updatedata = ( {selectid} ) => {
     axios.put(`http://localhost:8000/edituser/${selectid}`,datas)
     .then(res=>{
       toast.success(res.data.message)
-      navigate('/admin/users')
+      {close}
     })
     .catch(err=>toast.error(err.response.data.error))
   }
