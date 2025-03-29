@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import "./Login.css"
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
 
@@ -18,7 +20,7 @@ const Login = () => {
         e.preventDefault();
         axios.post("http://localhost:8000/login",values)
         .then(res=>{
-            alert(res.data.message)
+            toast.success(res.data.message)
             localStorage.setItem("token",res.data.token)
             localStorage.setItem("role",res.data.role)
 
@@ -29,7 +31,7 @@ const Login = () => {
                 navigate("/home")
             }
         })
-        .catch(err=>alert(err.response.data.error))
+        .catch(err=>toast.error(err.response.data.error))
     }
 
     return (
@@ -52,6 +54,7 @@ const Login = () => {
                     <button className='btn mt-5'>Login</button>
                 </form>
             </div>
+            <ToastContainer position='top-right' autoClose={3000} />
         </div>
     )
 }

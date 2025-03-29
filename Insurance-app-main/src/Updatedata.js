@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import './Updatedata.css'
+import './Updatedata.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Updatedata = () => {
 
@@ -19,16 +21,16 @@ const Updatedata = () => {
     axios.get(`http://localhost:8000/getuser/${id}`)
     .then(res=>setData({...datas,username:res.data[0].username,email:res.data[0].email,password:res.data[0].password}))
     .catch(err=>console.log(err))
-  },[datas,id])
+  },[id])
 
   const handleSubmit = (e) =>{
     e.preventDefault();
     axios.put(`http://localhost:8000/edituser/${id}`,datas)
     .then(res=>{
-      alert(res.data.message)
+      toast.success(res.data.message)
       navigate('/users')
     })
-    .catch(err=>alert(err.response.data.error))
+    .catch(err=>toast.error(err.response.data.error))
   }
 
   return (
@@ -37,7 +39,7 @@ const Updatedata = () => {
         <h3 className='text-center mt-2'>Update Data</h3>
         <div className='form-group mt-3'>
           <label>Username</label>
-          <input className='form-control' type='text' value={datas.username} onChange={e=>setData({...datas,username:e.target.value})} placeholder='Enter your email' />
+          <input className='form-control' type='text' value={datas.username} onChange={e=>setData({...datas,username:e.target.value})} placeholder='Enter your username' />
         </div>
         <div className='form-group mt-3'>
           <label>Email</label>
@@ -45,10 +47,11 @@ const Updatedata = () => {
         </div>
         <div className='form-group mt-3'>
           <label>Password</label>
-          <input type='password' className='form-control' value={datas.password} onChange={e=>setData({...datas,password:e.target.value})} placeholder='Enter your email' />
+          <input type='password' className='form-control' value={datas.password} onChange={e=>setData({...datas,password:e.target.value})} placeholder='Enter your password' />
         </div>
         <button className='btn mt-4' style={{backgroundColor:"#333"}}>Submit</button>
       </form>
+      <ToastContainer position='top-right' autoClose={3000} />
     </div>
   )
 }
