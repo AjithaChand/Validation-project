@@ -5,7 +5,7 @@ const Homepage = () => {
   return (
     <div className='home-container'>
       <header className='homepage-header'>
-        <marquee behavior="scroll">Welcome to <span className='name'>TrustAssure!</span></marquee>
+        <div className='marquee'>Welcome to <span className='name'>TrustAssure!</span></div>
       </header>
     </div>
   )

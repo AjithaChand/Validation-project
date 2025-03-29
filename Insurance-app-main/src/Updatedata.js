@@ -13,11 +13,9 @@ const Updatedata = ( {userid} ) => {
 
   const navigate = useNavigate()
 
-  const [datas,setData] = useState({
-    username:"",
-    email:"",
-    password:"",
-  })
+  const [datas,setData] = useState([])
+
+  console.log(datas)
 
   useEffect(()=>{
 
@@ -27,10 +25,7 @@ const Updatedata = ( {userid} ) => {
     axios.get(`http://localhost:8000/getuser/${userid}`)
     .then(res=>{
       if(res.data.length>0){
-        setData({
-          username:res.data[0].username,
-          email:res.data[0].email,
-          password:res.data[0].password})
+        setData(res.data)
       }else{
         toast.error("User not found!")
       }

@@ -18,3 +18,8 @@
 .name{
     color: rgb(2, 2, 24);
 }
+
+@keyframes scrollText {
+    from{transform: translateY(100%);}
+    to{transform: translateY(-100%);}
+}
