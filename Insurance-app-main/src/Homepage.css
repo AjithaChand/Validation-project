@@ -15,11 +15,15 @@
     font-variant:small-caps;
 }
 
+.marquee{
+    animation: scrollText 15s linear infinite;
+}
+
 .name{
     color: rgb(2, 2, 24);
 }
 
 @keyframes scrollText {
-    from{transform: translateY(100%);}
-    to{transform: translateY(-100%);}
+    from{transform: translatex(100%);}
+    to{transform: translatex(-100%);}
 }
