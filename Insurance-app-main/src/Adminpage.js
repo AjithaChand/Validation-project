@@ -143,13 +143,11 @@ const Adminpage = () => {
         </Modal.Header>
         <Modal.Body>
           {selectedFile ? (
-            <iframe
+            <img
               src={selectedFile}
-              title="File Preview"
-              width="100%"
-              height="500px"
-              style={{ border: "none" }}
-            ></iframe>
+              alt='file preview'
+              style={{ width:"100%" , height:"auto" }}
+            />
           ) : (
             <p>No file selected</p>
           )}

@@ -3,7 +3,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
-    font-family: 'Poppins', sans-serif
+    font-family: 'Times New Roman', Times, serif
 }
 
 .homepage-header{
@@ -22,7 +22,7 @@
 }
 
 .name{
-    color: rgb(2, 2, 24);
+    color:rgb(102, 237, 102);
     font-weight: bold;
 }
 
@@ -40,12 +40,13 @@
 
 .section-header{
     font-weight: bold;
-    color: rgb(5, 5, 52);
+    color: white;
 }
 
 .section-text{
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 25px;
+    font-weight: 400;
+    color:rgb(230, 108, 173)
 }
 
 .section-btn{
@@ -60,6 +61,6 @@
 }
 
 .section-btn:hover{
-    background-color: rgba(38, 3, 72, 0.3);
+    background-color: rgba(38, 3, 72, 0.6);
     border: 2px inset white;
 }
