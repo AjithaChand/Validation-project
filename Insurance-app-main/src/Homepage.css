@@ -29,3 +29,14 @@
     from{transform: translatex(100%);}
     to{transform: translatex(-100%);}
 }
+
+.homepage-section{
+    margin-top: 10%;
+    margin-left: 10%;
+}
+
+.section-header{
+    font-weight: bold;
+    color: rgb(5, 5, 52);
+    letter-spacing: 10px;
+}
