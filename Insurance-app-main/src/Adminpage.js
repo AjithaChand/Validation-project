@@ -15,6 +15,8 @@ const Adminpage = () => {
 
   const navigate = useNavigate()
 
+  const [value, setValue] = useState([])
+
   const [file, setFile] = useState(null);
 
   const handleDownload = () => {
@@ -42,8 +44,6 @@ const Adminpage = () => {
   const handlePopup = () => {
     setShowpopup(!showpopup)
   }
-
-  const [value, setValue] = useState([])
 
   // Fetch files from backend
   useEffect(() => {
@@ -114,10 +114,10 @@ const Adminpage = () => {
                   <td>{data.enddate}</td>
                   <td>{data.policy}</td>
                   <td>
-                    {data.file ? (
+                    {data.file_path ? (
                       <button
                         className='btn btn-primary'
-                        onClick={() => handleViewFile(`http://localhost:8000/${data.file}`)}
+                        onClick={() => handleViewFile(`http://localhost:8000/${data.file_path}`)}
                       >
                         View File
                       </button>
