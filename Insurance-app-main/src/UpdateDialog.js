@@ -9,7 +9,7 @@ const UpdateDialog = ({isVisible,onClose,userid}) => {
       <div className='update-overlay'>
         <div className='update-content'>
           <button className='btn-update' onClick={onClose}>&times;</button>
-          <Updatedata selectid={userid}/>
+          <Updatedata close={onClose} selectid={userid}/>
         </div>
       </div>
     )
