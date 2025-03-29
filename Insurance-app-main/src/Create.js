@@ -5,6 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Create = () => {
 
+    const [userid,setUserid] = useState(null)
+
     const [values,setValues] = useState({
         email:"",
         startdate:"",
@@ -31,10 +33,13 @@ const Create = () => {
           headers:{'Content-Type' : 'multipart/form-data'}
         })
         .then(res=>{
+            setUserid(res.data.userId)
             toast.success(res.data.message)
         })
         .catch(err=>toast.error(err.response.data.error))
     }
+
+    console.log(userid)
 
   return (
     <div >
