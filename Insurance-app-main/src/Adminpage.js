@@ -84,7 +84,7 @@ const Adminpage = () => {
         <button onClick={handleLogout} className='logout-btn'>Logout</button>
       </div>
       <div className='row'>
-        <div className='col-12'>
+        <div className='col-12' style={{marginTop:"7%"}} >
           <h4 className='text-center p-4' style={{ paddingTop: "50px" }}>Customer Details</h4>
           <div className='admin-header'>
             <button className='upload-button1' onClick={handleDownload}><PiMicrosoftExcelLogoFill /></button>

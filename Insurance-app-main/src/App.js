@@ -11,6 +11,7 @@ import Userpage from './Userpage'
 import Adminregister from './Adminregister'
 import Users from './Users'
 import FileViewer from './Fileviewer'
+import Homepage from './Homepage'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Login />} />
+          <Route path='/homepage' element={<Homepage />} />
           <Route path='/register' element={<Register/>} />
           <Route path='/user' element={<Create/>} />
           <Route path='/home' element={<User />} />
