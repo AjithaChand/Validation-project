@@ -137,6 +137,7 @@ const Adminpage = () => {
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
 
       {/* Bootstrap Modal for File View */}
+      
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>File Preview</Modal.Title>

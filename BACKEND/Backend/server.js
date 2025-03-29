@@ -144,9 +144,9 @@ app.post("/login", (req, res) => {
         const token = jwt.sign({ email: user.email, role: user.role }, SECRET_KEY, { expiresIn: "10h" });
 
         if (user.role === "admin") {
-            return res.status(200).json({ message: "Admin Login Successful", token, role: "admin" });
+            return res.status(200).json({ message: "Admin Login Successful", token, role: "admin", result});
         } else {
-            return res.status(200).json({ message: "Login Successful", token, role: "user" });
+            return res.status(200).json({ message: "Login Successful", token, role: "user", result});
         }
     });
 });
@@ -276,18 +276,16 @@ app.post('/create', upload.single('file'), (req, res) => {
 
 
 app.get('/read', (req, res) => {
-
     const sql = "SELECT * FROM customer_details";
-  
-    db.query(sql, (err,data) => {
+    db.query(sql, (err, data) => {
+        if (err) return res.status(500).json({ error: err.message });
 
-            if(err) return res.status(500).json({error:err.message})
-          
-            
-            return res.status(200).json(data)
-
-    })
+        console.log(data);
+        
+        return res.status(200).json(data); 
+    });
 });
+
 
 
 
