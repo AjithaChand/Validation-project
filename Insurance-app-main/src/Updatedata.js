@@ -12,6 +12,7 @@ const Updatedata = ( {userid} ) => {
 
   console.log("For Checking from front-end",userid );
   
+
   const navigate = useNavigate()
 
   const [datas,setData] = useState({
@@ -22,9 +23,9 @@ const Updatedata = ( {userid} ) => {
 
   useEffect(()=>{
     axios.get(`http://localhost:8000/getuser/${userid}`)
-    .then(res=>setData({...datas,username:res.data[0].username,email:res.data[0].email,password:res.data[0].password}))
+    .then(res=>setData({username:res.data[0].username,email:res.data[0].email,password:res.data[0].password}))
     .catch(err=>console.log(err))
-  },[id])
+  },[])
 
   const handleSubmit = (e) =>{
     e.preventDefault();

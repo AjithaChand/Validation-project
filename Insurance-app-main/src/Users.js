@@ -21,8 +21,10 @@ const Users = () => {
 
    // updatepopup
    const [showupdate,setShowupdate] = useState(false)
+   const [selectid,setSelectid] = useState(null)
 
-   const handleupdate = ()=>{
+   const handleupdate = (id)=>{
+     setSelectid(id)
      setShowupdate(!showupdate)
    }
 
@@ -68,7 +70,7 @@ const Users = () => {
                   <td>{data.username}</td>
                   <td>{data.email}</td>
                   <td>{data.password}</td>
-                  <td><button className=' edit-btn'  onClick={()=>handleupdate(`/edituser/${data.id}`)}><FaEdit /></button>
+                  <td><button className=' edit-btn'  onClick={()=>handleupdate(data.id)}><FaEdit /></button>
                     <button className='ms-3 delete-btn' onClick={()=>handleDelete(data.id)}><RiDeleteBinFill /></button>
                 </td>
                 </tr>
@@ -84,7 +86,7 @@ const Users = () => {
       <Userpage  onClose={handleDialog} isVisible={dialogbox} />
       <UpdateDialog onClose={handleupdate} isVisible={showupdate} />
       <ToastContainer position='top-right' autoClose={3000} />
-      <Updatedata userid={data.id} />
+      <Updatedata userid={selectid} />
     </div>
   )
 }
