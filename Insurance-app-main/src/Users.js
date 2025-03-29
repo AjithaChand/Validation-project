@@ -65,7 +65,7 @@ const Users = () => {
                   <td>{data.username}</td>
                   <td>{data.email}</td>
                   <td>{data.password}</td>
-                  <td><button className=' edit-btn'  onClick={()=>handleupdate(data.id)}><FaEdit /></button>
+                  <td><button className=' edit-btn'  onClick={()=>handleupdate(`edituser/${data.id}`)}><FaEdit /></button>
                     <button className='ms-3 delete-btn' onClick={()=>handleDelete(data.id)}><RiDeleteBinFill /></button>
                 </td>
                 </tr>
