@@ -110,8 +110,8 @@ const Adminpage = () => {
               {value.map((data, index) => {
                 return <tr key={index}>
                   <td>{data.email}</td>
-                  <td>{data.startdate}</td>
-                  <td>{data.enddate}</td>
+                  <td>{new Date (data.startdate).toLocaleDateString('en-GB')}</td>
+                  <td>{new Date (data.enddate).toLocaleDateString('en-GB')}</td>
                   <td>{data.policy}</td>
                   <td>
                     {data.file_path ? (
