@@ -31,8 +31,9 @@
 }
 
 .homepage-section{
-    margin-top: 10%;
-    margin-left: 10%;
+   width: 50%;
+   height: 50%;
+   justify-content: center;
 }
 
 .section-header{

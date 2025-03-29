@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import './Updatedata.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { data } from 'react-router-dom';
 
 const Updatedata = ( {selectid , close} ) => {
 
