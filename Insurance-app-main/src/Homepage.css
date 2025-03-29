@@ -13,6 +13,8 @@
     font-size: 23px;
     font-weight: bold;
     font-variant:small-caps;
+    display: flex;
+    justify-content: space-between;
 }
 
 .marquee{
@@ -24,6 +26,13 @@
 .name{
     color:rgb(102, 237, 102);
     font-weight: bold;
+}
+
+.head-name{
+    color: rgb(31, 19, 43);
+    margin-right: 50px;
+    font-family:'Times New Roman', Times, serif;
+    font-variant: normal;
 }
 
 @keyframes scrollText {
