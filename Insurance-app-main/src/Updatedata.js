@@ -11,7 +11,7 @@ const Updatedata = ( {userid} ) => {
 
   const navigate = useNavigate()
 
-  const [datas,setData] = useState([])
+  const [datas,setData] = useState({})
 
   console.log(datas)
 
@@ -21,7 +21,7 @@ const Updatedata = ( {userid} ) => {
 
     axios.get(`http://localhost:8000/getuser/${userid}`)
     .then(res=>{
-      if(res.data.length>0){
+      if(res.data){
         setData(res.data)
       }else{
         toast.error("User not found!")
