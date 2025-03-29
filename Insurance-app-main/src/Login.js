@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import "./login.css"
+import "./Login.css"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -26,7 +26,7 @@ const Login = () => {
                 navigate("/admin")
             }
             else{
-                navigate("/user")
+                navigate("/home")
             }
         })
         .catch(err=>alert(err.response.data.error))

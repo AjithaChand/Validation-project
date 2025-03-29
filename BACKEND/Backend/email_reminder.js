@@ -34,7 +34,10 @@ const transPorter = nodemailer.createTransport({
     }
 })
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
 const sendReminderEmails = () => {
     console.log("Checking for users who need email reminders...");
 
@@ -104,6 +107,7 @@ sendReminderEmails()
 setInterval(sendReminderEmails, 24 * 60 * 60 * 1000);
 
 
+<<<<<<< HEAD
 app.post("/password_changed",(req,res)=>{
 
     const {email, password} = req.body;
@@ -130,6 +134,8 @@ app.post("/password_changed",(req,res)=>{
 })
 
 
+=======
+>>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
 // app.post('/email',(req,res)=>{
 //    const {email,startDate,endDate,policy} = req.body;
 
@@ -166,5 +172,8 @@ app.listen(8000,(err)=>{
     if(err) throw err;
     console.log('Post Listening on 3001');
 })
+<<<<<<< HEAD
 
 // module.exports = app;
+=======
+>>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788

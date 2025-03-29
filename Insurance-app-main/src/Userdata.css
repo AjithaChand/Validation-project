@@ -1,0 +1,33 @@
+.admin-slidebar{
+    background:linear-gradient(90deg,rgba(9,9,121,1) 20%,rgba(0,212,255,1)100%);
+    color: white;
+    height:100%;
+    width: 20%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 7px;
+}
+
+main{
+    margin-left: 20%;
+    padding: 20px;
+    background-color: skyblue;
+    height: 100vh;
+}
+
+aside a{
+    text-decoration: none;
+  
+}
+
+.userdata-btn{
+  color: white;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.userdata-container{
+    overflow-y: scroll;
+}

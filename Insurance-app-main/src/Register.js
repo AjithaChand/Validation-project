@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import './register.css'
+import './Register.css'
 
 const Register = () => {
     const[active,setActive]=useState("signup");
@@ -21,7 +21,9 @@ const Register = () => {
            return alert("Invalid Email")
         }
 
-        const passwordRegex = /^(?=.[A-za-z])(?=.\d)(?=.[!@#$%&*])[A-Za-z\d!@#$%&*]{8}$/
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*])[A-Za-z\d!@#$%&*]{8,}$/;
+
+
         if (!passwordRegex.test(values.password)) {
             return alert("Password must be 8 characters includes one number one special character")
         }
