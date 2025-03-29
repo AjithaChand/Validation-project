@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import './Updatedata.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { data } from 'react-router-dom';
 
 const Updatedata = ( {selectid , close} ) => {
 
@@ -38,6 +39,22 @@ const Updatedata = ( {selectid , close} ) => {
       setRefresh(!refresh)
     })
     .catch(err=>toast.error(err.response.data.error))
+
+
+
+    axios.post('http://localhost:8000/password_changed',{
+      email: datas.email,
+      password: datas.password
+    })
+    .then((res)=>{
+      if(res.data.success){
+        toast.success(`Send Email To ${email}`)
+      }
+    })
+    .catch((err)=>{
+      console.log(err.message);
+    })
+
   }
 
   return (
