@@ -31,7 +31,7 @@ const App = () => {
             <Route path='users' element={<Users />} />
           </Route>
           
-          <Route path='/getuser/:id' element={<Updatedata />} />
+          <Route path='/getuser/:id' element={<Users />} />
           <Route path='/edituser/:id' element={<Updatedata />} />
           <Route path='/adminregister' element={<Adminregister />} />
           <Route path='/userpage' element={<Userpage />} />

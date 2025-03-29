@@ -7,8 +7,12 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from 'react-router-dom';
 
 const Users = () => {
+
+  const navigate = useNavigate()
+
  // Dialogbox
   const [dialogbox,setDialogbox] = useState(false)
 
@@ -20,8 +24,8 @@ const Users = () => {
    const [showupdate,setShowupdate] = useState(false)
 
    const handleupdate = (id)=>{
+      navigate(`edituser/${id}`)
      setShowupdate(!showupdate)
-     alert(id)
    }
 
   const [value, setValue] = useState([])
@@ -66,7 +70,7 @@ const Users = () => {
                   <td>{data.username}</td>
                   <td>{data.email}</td>
                   <td>{data.password}</td>
-                  <td><button className=' edit-btn'  onClick={()=>handleupdate(`edituser/${data.id}`)}><FaEdit /></button>
+                  <td><button className=' edit-btn'  onClick={()=>handleupdate(data.id)}><FaEdit /></button>
                     <button className='ms-3 delete-btn' onClick={()=>handleDelete(data.id)}><RiDeleteBinFill /></button>
                 </td>
                 </tr>
