@@ -68,7 +68,7 @@ const Adminpage = () => {
 
   // Open Modal and Set File URL
   const handleViewFile = (fileUrl) => {
-    setSelectedFile(fileUrl);
+    setSelectedFile(`http://localhost:8000${fileUrl}`);
     setShowModal(true);
   };
 
@@ -117,7 +117,7 @@ const Adminpage = () => {
                     {data.file_path ? (
                       <button
                         className='btn btn-primary'
-                        onClick={() => handleViewFile(`http://localhost:8000/${data.file_path}`)}
+                        onClick={() => handleViewFile(data.file_path)}
                       >
                         View File
                       </button>
@@ -136,6 +136,10 @@ const Adminpage = () => {
       </div>
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
 
+<<<<<<< HEAD
+=======
+      {/* File View */}
+>>>>>>> 6f5fd947dbb0b128daca6d7c91f729db37a9243e
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>File Preview</Modal.Title>

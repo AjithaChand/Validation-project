@@ -223,37 +223,26 @@ app.delete('/delete/:id',(req,res)=>{
 })
 
 
-//Create folder
-
-const express = require('express');
-const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
-const app = express();
-const db = require('./db'); // Assuming db is set up
-
-// Create folder if not exists
 if (!fs.existsSync('uploads')) {
     fs.mkdirSync('uploads', { recursive: true });
 }
 
-// Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// File storage using multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Corrected path
+        cb(null, 'uploads/'); 
     },
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + path.extname(file.originalname)); // Unique filename
+        cb(null, uniqueSuffix + path.extname(file.originalname)); 
     }
 });
 
 const upload = multer({ storage: storage });
 
 // Get all data for admin
+
 app.get('/read', (req, res) => {
     const sql = "SELECT * FROM customer_details";
     db.query(sql, (err, data) => {
@@ -263,6 +252,7 @@ app.get('/read', (req, res) => {
 });
 
 // Create customer table
+
 app.post('/create', upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
     const filePath = req.file ? `/uploads/${req.file.filename}` : null; // Fixed path syntax
