@@ -10,7 +10,7 @@ const Updatedata = ( {userid} ) => {
   const {id} = useParams()
 
 
-  console.log("For Checking from front-end",id );
+  console.log("For Checking from front-end",userid );
   
   const navigate = useNavigate()
 
