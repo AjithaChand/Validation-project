@@ -23,8 +23,8 @@ const Updatedata = ( {userid} ) => {
     if(!userid) return;
 
     axios.get(`http://localhost:8000/getuser/${userid}`)
-    .then(res=>{
-      if(res.data.length>0){
+    .then(res=>{      
+      if(res.data){
         setData(res.data)
       }else{
         toast.error("User not found!")
@@ -44,6 +44,8 @@ const Updatedata = ( {userid} ) => {
     .catch(err=>toast.error(err.response.data.error))
   }
 
+  console.log(datas ? datas : "No data from server");
+  
   
   return (
     <div >
