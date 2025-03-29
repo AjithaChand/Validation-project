@@ -8,6 +8,7 @@ import { FaEdit } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+import Updatedata from './Updatedata';
 
 const Users = () => {
 
@@ -83,6 +84,7 @@ const Users = () => {
       <Userpage  onClose={handleDialog} isVisible={dialogbox} />
       <UpdateDialog onClose={handleupdate} isVisible={showupdate} />
       <ToastContainer position='top-right' autoClose={3000} />
+      <Updatedata userid={data.id} />
     </div>
   )
 }

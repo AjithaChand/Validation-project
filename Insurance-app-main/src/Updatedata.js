@@ -5,7 +5,7 @@ import './Updatedata.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Updatedata = () => {
+const Updatedata = ( {userid} ) => {
 
   const {id} = useParams()
 
@@ -21,7 +21,7 @@ const Updatedata = () => {
   })
 
   useEffect(()=>{
-    axios.get(`http://localhost:8000/getuser/${id}`)
+    axios.get(`http://localhost:8000/getuser/${userid}`)
     .then(res=>setData({...datas,username:res.data[0].username,email:res.data[0].email,password:res.data[0].password}))
     .catch(err=>console.log(err))
   },[id])
