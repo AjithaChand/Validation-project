@@ -317,6 +317,8 @@ app.delete('/delete/:id',(req,res)=>{
  
     const id = req.params.id;
 
+    console.log(id);
+    
     const sql ="DELETE FROM customer_details WHERE id=?"
     
     db.query(sql,[id],(err,data)=>{
