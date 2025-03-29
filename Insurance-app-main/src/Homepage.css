@@ -16,7 +16,9 @@
 }
 
 .marquee{
-    animation: scrollText 15s linear infinite;
+    animation: scrollText 7s linear infinite;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 .name{
