@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Updatedata = ( {selectid , close} ) => {
 
-  const [refresh,setRefresh] = useState(true)
+  const [refresh,setRefresh] = useState(false)
 
   console.log(selectid)
 
@@ -17,21 +17,6 @@ const Updatedata = ( {selectid , close} ) => {
   })
 
   console.log(datas)
-
-  useEffect(()=>{
-
-    if(!selectid) return;
-
-    axios.get(`http://localhost:8000/getuser/${selectid}`)
-    .then(res=>{
-      if(res.data){
-        setData(res.data)
-      }else{
-        toast.error("User not found!")
-      }
-    })
-    .catch(err=>console.log(err))
-  },[selectid])
 
 
   const handleSubmit = (e) =>{
@@ -48,6 +33,23 @@ const Updatedata = ( {selectid , close} ) => {
   console.log(datas ? datas : "No data from server");
   
   
+
+  useEffect(()=>{
+
+    if(!selectid) return;
+
+    axios.get(`http://localhost:8000/getuser/${selectid}`)
+    .then(res=>{
+      if(res.data){
+        setData(res.data)
+      }else{
+        toast.error("User not found!")
+      }
+    })
+    .catch(err=>console.log(err))
+  },[selectid,refresh])
+
+
   return (
     <div >
       <form onSubmit={handleSubmit} className='update-form' >

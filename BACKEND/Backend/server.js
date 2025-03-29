@@ -272,6 +272,23 @@ app.post('/create', upload.single('file'), (req, res) => {
     });
 });
 
+// Get All date for admin;
+
+
+app.get('/read', (req, res) => {
+
+    const sql = "SELECT * FROM customer_details";
+  
+    db.query(sql, (err,data) => {
+
+            if(err) return res.status(500).json({error:err.message})
+          
+            
+            return res.status(200).json(data)
+
+    })
+});
+
 
 
 //Get customer details with file get
