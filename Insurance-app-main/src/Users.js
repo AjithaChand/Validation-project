@@ -7,7 +7,6 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom';
 import Updatedata from './Updatedata';
 
 const Users = () => {
@@ -34,7 +33,7 @@ const Users = () => {
       axios.get('http://localhost:8000/getuser')
         .then(res => setValue(res.data))
         .catch(err => console.log(err))
-    }, [value])
+    }, [])
 
     const handleDelete = (id) =>{
       if(window.confirm("Are you sure you want to delete this data?")){

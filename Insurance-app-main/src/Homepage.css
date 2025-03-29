@@ -11,4 +11,10 @@
     color: white;
     font-size: 23px;
     font-weight: bold;
+    font-style: italic;
+    font-variant:small-caps;
+}
+
+.name{
+    color: rgb(2, 2, 24);
 }
