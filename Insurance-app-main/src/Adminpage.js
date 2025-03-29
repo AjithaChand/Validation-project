@@ -23,7 +23,7 @@ const Adminpage = () => {
 
   const handleUpload = async () => {
 
-    if (!file) return alert("Select a file first!");
+    if (!file) return toast.error("Select a file first!");
 
     const formData = new FormData();
     formData.append("file", file);

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import './Register.css'
+import './Register.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
     const[active,setActive]=useState("signup");
@@ -18,21 +20,21 @@ const Register = () => {
         // email regex
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if(!emailRegex.test(values.email)){
-           return alert("Invalid Email")
+           return toast.error("Invalid Email")
         }
 
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*])[A-Za-z\d!@#$%&*]{8,}$/;
 
 
         if (!passwordRegex.test(values.password)) {
-            return alert("Password must be 8 characters includes one number one special character")
+            return toast.error("Password must be 8 characters includes one number one special character")
         }
         axios.post("http://localhost:8000/register", values)
             .then(res => {
-                alert(res.data.message)
+                toast.success(res.data.message)
                 navigate("/")
             })
-            .catch(err => alert(err.response.data.error))
+            .catch(err => toast.error(err.response.data.error))
     }
 
     return (
@@ -59,6 +61,7 @@ const Register = () => {
                     <button className='btn mt-4'>Register</button>
                 </form>
             </div>
+            <ToastContainer position='top-right' autoClose={3000} />
         </div>
 
     )

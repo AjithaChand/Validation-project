@@ -34,6 +34,10 @@ const transPorter = nodemailer.createTransport({
     }
 })
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
 const sendReminderEmails = () => {
     console.log("Checking for users who need email reminders...");
 
@@ -103,7 +107,39 @@ sendReminderEmails()
 setInterval(sendReminderEmails, 24 * 60 * 60 * 1000);
 
 
+<<<<<<< HEAD
 module.exports=app
+=======
+<<<<<<< HEAD
+app.post("/password_changed",(req,res)=>{
+
+    const {email, password} = req.body;
+    
+
+    console.log(email);
+    console.log(password);
+
+    mailOptions = {
+        from:'ananthliterature@gmail.com',
+        to:email,
+        subject:'Your Password Changed',
+        text: `Your New Password  ${password}`
+    }
+
+    transPorter.sendMail(mailOptions,(err,info)=>{
+        if(err){
+            console.log(`Failed to send email ${email}`);
+            return res.status(400).json({success: false, message: `Failed to send email ${email}`})
+        }   
+           console.log(`Send email to ${email}`);
+           return  res.status(200).send({status:true, message: `Send email to ${email}`})
+    })
+})
+
+
+=======
+>>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
+>>>>>>> defcd722ab01b93c63ec4d46af621b6de1dd9d70
 // app.post('/email',(req,res)=>{
 //    const {email,startDate,endDate,policy} = req.body;
 
@@ -136,7 +172,19 @@ module.exports=app
 // })
 
 
+<<<<<<< HEAD
 // app.listen(8000,(err)=>{
 //     if(err) throw err;
 //     console.log('Post Listening on 3001');
 // })
+=======
+app.listen(8000,(err)=>{
+    if(err) throw err;
+    console.log('Post Listening on 3001');
+})
+<<<<<<< HEAD
+
+// module.exports = app;
+=======
+>>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
+>>>>>>> defcd722ab01b93c63ec4d46af621b6de1dd9d70

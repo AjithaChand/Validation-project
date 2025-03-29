@@ -162,7 +162,7 @@ app.post("/login", (req, res) => {
     });
 });
 
-//Total user First WOrk
+
 
 app.get('/getuser', (req, res) => {
     const sql = "SELECT * FROM users"
@@ -325,10 +325,12 @@ app.delete('/delete/:id',(req,res)=>{
 
 
 
-// Port
+
 // app.listen(8000, () => {
 //     console.log("Listening on port 8000");
 // });
 
 
+
 module.exports=app
+

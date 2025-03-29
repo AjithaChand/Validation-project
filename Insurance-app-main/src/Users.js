@@ -5,6 +5,8 @@ import './Users.css'
 import UpdateDialog from './UpdateDialog';
 import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Users = () => {
  // Dialogbox
@@ -36,7 +38,7 @@ const Users = () => {
         console.log(res)
         setValue(prev => prev.filter( data => data.id !== id))
       })
-      .catch(err=>alert(err.response.data.error))
+      .catch(err=>toast.error(err.response.data.error))
       }
     }
 
@@ -78,6 +80,7 @@ const Users = () => {
       </div>
       <Userpage  onClose={handleDialog} isVisible={dialogbox} />
       <UpdateDialog onClose={handleupdate} isVisible={showupdate} />
+      <ToastContainer position='top-right' autoClose={3000} />
     </div>
   )
 }
