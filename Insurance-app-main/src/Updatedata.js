@@ -48,7 +48,7 @@ const Updatedata = ( {selectid , close} ) => {
     })
     .then((res)=>{
       if(res.data.success){
-        toast.success(`Send Email To ${email}`)
+        toast.success(`Send Email To ${datas.email}`)
       }
     })
     .catch((err)=>{
