@@ -38,5 +38,6 @@
 .section-header{
     font-weight: bold;
     color: rgb(5, 5, 52);
-    letter-spacing: 10px;
+    font-style: italic;
+    text-shadow: 5px 5px 5px whitesmoke;
 }
