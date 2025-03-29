@@ -49,7 +49,6 @@ const Updatedata = ( {userid} ) => {
     .catch(err=>toast.error(err.response.data.error))
   }
 
-  console.log(datas);
   
   return (
     <div >
