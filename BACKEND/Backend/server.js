@@ -38,23 +38,33 @@ const defaultAdmin = {
     role: "admin" 
 }
 
-const setupAdmin = async () => {
-    db.query("SELECT * FROM users WHERE role='admin'", (err, result) => {
-        if (result.length === 0) {
-            // const hashedPassword = await bcrypt.hash(defaultAdmin.password, 10);
-            db.query(
-                "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)",
-                [defaultAdmin.username,defaultAdmin.email,defaultAdmin.password,defaultAdmin.role],
-                (err, res) => {
-                    if (err) console.log(err);
-                    else console.log("Admin created successfully");
-                }
-            );
-        }
-    });
-};
-setupAdmin();
-
+const setupAdmin=async()=>{
+   const values=[defaultAdmin.username,defaultAdmin.email,defaultAdmin.password,defaultAdmin.role]
+   const sql ="INSERT INTO users (username,email,password,role) VALUES (?,?,?,?)"
+   db.query(sql,values,(err,data)=>{
+    if(err)
+        console.log(err)
+    else
+      console.log("Admin created successfully")
+   })
+}
+setupAdmin()
+// const setupAdmin = async () => {
+//     db.query("SELECT * FROM users WHERE role='admin'", (err, result) => {
+//         if (result.length === 0) {
+//             // const hashedPassword = await bcrypt.hash(defaultAdmin.password, 10);
+//             db.query(
+//                 "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)",
+//                 [defaultAdmin.username,defaultAdmin.email,defaultAdmin.password,defaultAdmin.role],
+//                 (err, res) => {
+//                     if (err) console.log(err);
+//                     else console.log("Admin created successfully");
+//                 }
+//             );
+//         }
+//     });
+// };
+// setupAdmin();
 
 
 // Registration 
@@ -173,9 +183,9 @@ app.put('/edituser/:id',async(req,res)=>{
 
 
     const sql ="UPDATE users SET username=?,email =?,password=? WHERE id=?"
-    const values=[username,email,password]
+    const values=[username,email,password,id]
     
-    db.query(sql,values,[id],(err,data)=>{
+    db.query(sql,values,(err,data)=>{
         if(err)
             return res.status(500).json({error:err.message})
         return res.status(200).json({message:"Changes Submitted successfully"})
@@ -192,9 +202,9 @@ app.get('/getuser/:id',(req,res)=>{
 
     const sql ="SELECT * FROM users WHERE id =?"
     db.query(sql,[id],(err,data)=>{
-        if(err)
-            return res.status(500).json({error:err.message})
-        return res.json(data)
+        if (err) return res.status(500).json({ error: err.message });
+        if (data.length === 0) return res.status(404).json({ error: "User not found" });
+        return res.json(data[0]);
     })
 })
 
@@ -264,6 +274,7 @@ app.post('/create', upload.single('file'), (req, res) => {
         res.status(200).json({ message: "Details submitted successfully", userId});
     });
 });
+
 
 
 //Get customer details with file get
