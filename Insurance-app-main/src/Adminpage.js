@@ -69,7 +69,7 @@ const Adminpage = () => {
   //Set File URL
   const handleViewFile = (fileUrl) => {
     const fileExtension = fileUrl.split('.').pop().toLowerCase();
-    const isImage = ['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension);
+    const isImage = ['jpg', 'jpeg', 'png', 'gif', 'avif'].includes(fileExtension);
     const isPdf = fileExtension === 'pdf';
 
     if (isImage || isPdf) {
