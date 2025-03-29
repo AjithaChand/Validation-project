@@ -55,7 +55,7 @@ const Adminpage = () => {
   // Delete values
   const handleDelete = (id) => {
     alert(`Your'e selected ${id}`)
-    axios.delete(`http://localhost:8000/delete/${id}`)
+    axios.delete(`http://localhost:8000/delete/customer_details/${id}`)
       .then(res => {
        window.confirm("Are you sure you want to delete this data?")
         console.log(res)
