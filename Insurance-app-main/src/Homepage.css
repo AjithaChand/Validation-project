@@ -1,5 +1,5 @@
 .home-container{
-    background-image: url('../public/homebg.jpg');
+    background-image: url('../public/insurance5.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
@@ -8,7 +8,7 @@
 
 .homepage-header{
     padding: 20px;
-    background-color:rgba(138, 43, 226, 0.5);
+    background-color:darkblue;
     color: white;
     font-size: 23px;
     font-weight: bold;
@@ -24,12 +24,12 @@
 }
 
 .name{
-    color:rgb(102, 237, 102);
+    color:skyblue;
     font-weight: bold;
 }
 
 .head-name{
-    color: rgb(31, 19, 43);
+    color:white;
     margin-right: 50px;
     font-family:'Times New Roman', Times, serif;
     font-variant: normal;
@@ -41,10 +41,11 @@
 }
 
 .homepage-section{
-   width: 60%;
-   height: 70%;
-   align-content: center;
-   justify-items: center;
+   position: relative;
+   top: 20%;
+   /* align-content: center;
+   justify-items: center; */
+   margin-left: 50px;
 }
 
 .section-header{
@@ -54,8 +55,8 @@
 
 .section-text{
     font-size: 25px;
-    font-weight: 400;
-    color:rgb(230, 108, 173)
+    font-weight: 600;
+    color:bisque
 }
 
 .section-btn{
