@@ -19,6 +19,7 @@ const Updatedata = ( {selectid , close} ) => {
   console.log(datas)
 
 
+<<<<<<< HEAD
   // const handleSubmit = (e) =>{
   //   e.preventDefault();
   //   axios.put(`http://localhost:8000/edituser/${selectid}`,datas)
@@ -29,6 +30,8 @@ const Updatedata = ( {selectid , close} ) => {
   //   })
   //   .catch(err=>toast.error(err.response.data.error))
   // }
+=======
+>>>>>>> 9c953a321ca48d1a54e90ace8e4b733354d98c61
 
   // console.log(datas ? datas : "No data from server");
   
@@ -49,7 +52,12 @@ const Updatedata = ( {selectid , close} ) => {
     .catch(err=>console.log(err))
   },[selectid,refresh])
 
+<<<<<<< HEAD
   const handleSubmit = (e) =>{
+=======
+const handleSubmit = (e) =>{
+
+>>>>>>> 9c953a321ca48d1a54e90ace8e4b733354d98c61
     e.preventDefault();
     axios.put(`http://localhost:8000/edituser/${selectid}`,datas)
     .then(res=>{
@@ -67,7 +75,7 @@ const Updatedata = ( {selectid , close} ) => {
     })
     .then((res)=>{
       if(res.data.success){
-        toast.success(`Send Email To ${datas.email}`)
+        toast.success(`Send Email To ${datas.email}`)        
       }
     })
     .catch((err)=>{

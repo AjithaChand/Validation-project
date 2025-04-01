@@ -11,32 +11,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// DB Connection 
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Aji@1020",
-    database: "task",
-});
 
-db.connect(err => {
-    if (err) {
-        console.log("Db connection failed");
-    } else {
-        console.log("Db connected successfully");
-    }
-    
-});
+const db = require('./db')
 
 const SECRET_KEY = "its_wonderful_day";
 
 //DEFAULT ADMIN SETUP
-// const defaultAdmin = {   
-//     username: "aams",
-//     email: "aams123@gmail.com",
-//     password: "aams@123",
-//     role: "admin" 
-// }
+const defaultAdmin = {   
+    username: "aams",
+    email: "aams123@gmail.com",
+    password: "aams@123",
+    role: "admin" 
+}
 
 const setupAdmin = async () => {
     db.query("SELECT * FROM users WHERE role='admin'", (err, result) => {
@@ -144,9 +130,12 @@ app.post("/login", (req, res) => {
         const token = jwt.sign({ email: user.email, role: user.role }, SECRET_KEY, { expiresIn: "10h" });
 
         if (user.role === "admin") {
-            return res.status(200).json({ message: "Admin Login Successful", token, role: "admin" });
+            return res.status(200).json({ message: "Admin Login Successful", token, role: "admin", result});
         } else {
-            return res.status(200).json({ message: "Login Successful", token, role: "user" });
+            console.log(user.username);
+            
+            return res.status(200).json({ message: "Login Successful", token, role: "user",username: user.username});
+
         }
     });
 });
@@ -220,33 +209,37 @@ app.delete('/delete/:id',(req,res)=>{
 })
 
 
-//Create folder
-
-app.use('/uploads',express.static(path.join(__dirname,'uploads')))
-
-
-if(!fs.existsSync('uploads')){
-    fs.mkdirSync('upload',{recursive:true});
+if (!fs.existsSync('uploads')) {
+    fs.mkdirSync('uploads', { recursive: true });
 }
 
+// Serve static files from the 'uploads' folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-
-//File storage using multer
-
- const storage=multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'upload/')
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); 
     },
-    filename:(req,file,cb)=>{
-        cb(null,Date.now()+path.extname(file.originalname));
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname)); 
     }
- }) 
- 
- const upload =multer({storage:storage})
+});
 
+const upload = multer({ storage: storage });
 
+// Get all data for admin
 
-//Create tabel for customers
+app.get('/read', (req, res) => {
+    const sql = "SELECT * FROM customer_details";
+    db.query(sql, (err, data) => {
+        if (err) return res.status(500).json({ error: err.message });
+        return res.status(200).json(data);
+    });
+});
+
+// Create customer table
+
 app.post('/create', upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
@@ -260,33 +253,8 @@ app.post('/create', upload.single('file'), (req, res) => {
 
     db.query(sql, values, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
-     
-        if (!result.insertId) {
-            return res.status(500).json({ error: "Insert ID not generated." });
-        }
-
-        const userId = result.insertId;
-        console.log("Inserted User ID:", userId);
-      
-        res.status(200).json({ message: "Details submitted successfully", userId});
+        res.status(200).json({ message: "Details submitted successfully", userId: result.insertId });
     });
-});
-
-// Get All date for admin;
-
-
-app.get('/read', (req, res) => {
-
-    const sql = "SELECT * FROM customer_details";
-  
-    db.query(sql, (err,data) => {
-
-            if(err) return res.status(500).json({error:err.message})
-          
-            
-            return res.status(200).json(data)
-
-    })
 });
 
 
@@ -308,6 +276,8 @@ app.get('/read/:id', (req, res) => {
     })
 });
 
+
+
 //updation in details
 
 app.put('/edit/:id',(req,res)=>{
@@ -324,10 +294,12 @@ app.put('/edit/:id',(req,res)=>{
 
 
 //Delete
-app.delete('/delete/:id',(req,res)=>{
+app.delete('/delete/customer_details/:id',(req,res)=>{
  
     const id = req.params.id;
 
+    console.log(id);
+    
     const sql ="DELETE FROM customer_details WHERE id=?"
     
     db.query(sql,[id],(err,data)=>{
@@ -341,9 +313,7 @@ app.delete('/delete/:id',(req,res)=>{
 
 
 
-// app.listen(8000, () => {
-//     console.log("Listening on port 8000");
-// });
+
 
 
 

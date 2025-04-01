@@ -47,44 +47,77 @@ const Users = () => {
 
   return (
     <div className='users-container'>
-      <div className='toggle fixed-top p-3'>
-        <h2>User Entry</h2>
-      </div>
-      <div className='row'>
-        <div className='user col-12 mt-5'>
-          <h4 className='text-center' style={{ paddingTop: "50px" }}>Customer Details</h4>
-          <table className='mt-5 users-table' border={1}>
-            <thead>
-              <tr>
-                <th>Uesrname</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {value.map((data, index) => {
-                return <tr key={index}>
-                  <td>{data.username}</td>
-                  <td>{data.email}</td>
-                  <td>{data.password}</td>
-                  <td><button className=' edit-btn'  onClick={()=>handleupdate(data.id)}><FaEdit /></button>
-                    <button className='ms-3 delete-btn' onClick={()=>handleDelete(data.id)}><RiDeleteBinFill /></button>
-                </td>
-                </tr>
-              })}
+  <div className='toggle fixed-top p-3'>
+    <h2>User Entry</h2>
+  </div>
 
-            </tbody>
-          </table>
-          <div className='mt-5'>
-          <button className='users-btn btn' onClick={handleDialog}>Create Account</button>
-          </div>
-        </div>
+  <div className='row'>
+    <div className='user mt-5'>
+      <h4 className='text-center mt-3' style={{ paddingTop: "50px" }}>Customer Details</h4>
+
+      {/* Scrollable table container */}
+      <div className="table-container">
+        <table className='users-table'>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {value.map((data, index) => (
+              <tr key={index}>
+                <td>{data.username}</td>
+                <td>{data.email}</td>
+                <td>{data.password}</td>
+                <td>
+                  <button className='edit-btn' onClick={() => handleupdate(data.id)}>
+                    <FaEdit />
+                  </button>
+                  <button className='ms-3 delete-btn' onClick={() => handleDelete(data.id)}>
+                    <RiDeleteBinFill />
+                  </button>
+                </td>
+              </tr>
+            ))}
+            <tr>
+              <td>Shuruthimanoharan</td>
+              <td>Shuruthimanoharan10@gmail.com</td>
+              <td>Shuruthi@14</td>
+              </tr>
+              <tr>
+              <td>Nishalingam</td>
+              <td>Nishalingam10@gmail.com</td>
+              <td>Nisha@15</td>
+              </tr>
+              <tr>
+              <td>Nishalingam</td>
+              <td>Nishalingam10@gmail.com</td>
+              <td>Nisha@15</td>
+              </tr>
+              <tr>
+              <td>Nishalingam</td>
+              <td>Nishalingam10@gmail.com</td>
+              <td>Nisha@15</td>
+              </tr>
+          </tbody>
+        </table>
       </div>
-      <Userpage  onClose={handleDialog} isVisible={dialogbox} />
-      <UpdateDialog onClose={handleupdate} isVisible={showupdate} userid={selectid} />
-      <ToastContainer position='top-right' autoClose={3000} />
-    </div>
+      <div className='button-container'>
+    <button className='users-btn btn' onClick={handleDialog}>Create Account</button>
+  </div>
+  </div>
+  </div>
+ 
+  
+  {/* Button after table */}
+ <Userpage onClose={handleDialog} isVisible={dialogbox} />
+  <UpdateDialog onClose={handleupdate} isVisible={showupdate} userid={selectid} />
+  <ToastContainer position='top-right' autoClose={3000} />
+</div>
+
   )
 }
 

@@ -9,27 +9,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const db = {
-    host: 'localhost',
-    user: 'root',
-    password: 'Aji@1020',
-    database: 'task',      
-};
 
-const conn = mysql.createConnection(db);
+const db = require('./db')
 
-conn.connect((err) => {
-    if (err) {
-        console.log("Mysql connection failed");
-        return;
-    } 
-    console.log("MySql Connection success");  
-});
+
 
 app.get("/download-excel", (req, res) => {
-    const query = "SELECT email, startdate, enddate, policy FROM customer_details";
+    const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details";
 
-    conn.query(query, (err, results) => {
+    db.query(query, (err, results) => {
         if (err) {
             console.error("Database Query Error:", err);
             return res.status(500).json({ error: "Database Query Failed" });
@@ -110,7 +98,7 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
         enddate = VALUES(enddate), 
         policy = VALUES(policy)`;
 
-    conn.query(query, [values], (err) => {
+    db.query(query, [values], (err) => {
         fs.unlinkSync(filePath); 
         if (err) {
             console.error("Database Insert/Update Error:", err);

@@ -8,9 +8,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 
-const User = () => {
+const User = ( {id}) => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  //  const { id } = useParams();
   const username = localStorage.getItem("username");
 
   const [showedit, setShowEdit] = useState(false);
@@ -48,7 +48,7 @@ const User = () => {
   };
 
   return (
-    <div className='user-container'>
+    <div className='user-containerform'>
       <div className='profile'>
         <div className='userlogout-btn'><CgProfile /></div>
         <div className='userlogout-btn'>{username}shuruthi</div>
@@ -56,26 +56,27 @@ const User = () => {
           <RiLogoutCircleRLine />
         </button>
       </div>
-<h3 className='text-center text-white' style={{ paddingTop: "50px" }}>User Entry</h3>
-      <table className='mt-5' border={1}>
+      <div><h3 className='text-center text-white p-3'>User Entry</h3></div>
+
+      <table className='usertable' border={1}>
         <thead>
-          <tr>
-            <th>Email</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Policy</th>
-            <th>Files</th>
-            <th>Action</th>
-          </tr>
+          <tr className='tablerow'>
+            <th className='tablerow' >Email</th>
+            <th className='tablerow'>Start Date</th>
+            <th className='tablerow'>End Date</th>
+            <th className='tablerow'>Policy</th>
+            <th className='tablerow'>Files</th>
+            <th className='tablerow'>Action</th>
+          </tr  >
         </thead>
         <tbody>
           {value.map((data, index) => (
-            <tr key={index}>
-              <td>{data.email}</td>
-              <td>{data.startdate}</td>
-              <td>{data.enddate}</td>
-              <td>{data.policy}</td>
-              <td>
+            <tr key={index} className='tablerow'>
+              <td className='tablerow'>{data.email}shuruthimanoharan10@gmail.com</td>
+              <td className='tablerow'>{data.startdate}29/03/2025</td>
+              <td className='tablerow'>{data.enddate} 30/04/2025</td>
+              <td className='tablerow'>{data.policy} Medical Insurance</td>
+              <td className='tablerow'>
                 {data.file ? (
                   <a href={`http://localhost:8000${data.file}`} target="_blank" rel="noopener noreferrer">
                     View File
@@ -84,18 +85,35 @@ const User = () => {
                   "No File"
                 )}
               </td>
-              <td>
+              <td className='tablerow'>
                 <button className='edit-btn' onClick={() => toggleEdit(data)}>
                   <FaEdit />
                 </button>
               </td>
             </tr>
           ))}
+
+          <tr>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td><button>view</button></td>
+          </tr>
         </tbody>
       </table>
 
       <div className='mt-5'>
-        <button className='btn user-btn' onClick={toggleForm}>Add Details</button>
+        <button className='btn mt-5 user-btn' onClick={toggleForm}>Add Details</button>
       </div>
 
       <Formpopup isVisible={showform} onClose={toggleForm} />

@@ -55,10 +55,9 @@ const Adminpage = () => {
 
   // Delete values
   const handleDelete = (id) => {
-    alert(`Your'e selected ${id}`)
     axios.delete(`http://localhost:8000/delete/customer_details/${id}`)
       .then(res => {
-        window.confirm("Are you sure you want to delete this data?")
+       window.confirm("Are you sure you want to delete this data?")
         console.log(res)
         setValue(prev => prev.filter(data => data.id !== id))
       })
@@ -148,7 +147,6 @@ const Adminpage = () => {
       </div>
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
 
-      {/* File View */}
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>File Preview</Modal.Title>

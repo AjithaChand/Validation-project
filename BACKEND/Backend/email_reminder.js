@@ -7,23 +7,10 @@ const app= express();
 app.use(cors());
 app.use(express.json());
 
+const db = require('./db'); 
 
-const db={
-    host:'localhost',
-    user:'root',
-    password:'Aji@1020',
-    database:'task',
-}
 
-const conn= mysql.createConnection(db);
 
-conn.connect((err)=>{
-    if(err){
-        console.log("Mysql connection failed");
-        return
-    } 
-    console.log("MySql Connection success");  
-})
 
 
 const transPorter = nodemailer.createTransport({
@@ -52,7 +39,7 @@ const sendReminderEmails = () => {
     `;                                    
                                     //  2025-03-25 < 2025-03-26
 
-    conn.query(query, [todayStr, nextMonthStr, todayStr], (err, users) => {
+    db.query(query, [todayStr, nextMonthStr, todayStr], (err, users) => {
 
         console.log("Today date",todayStr);
         console.log("Next date", nextMonthStr);
@@ -85,7 +72,7 @@ const sendReminderEmails = () => {
                     console.log(`Email sent to ${user.email}`);
 
                     const updateQuery = `UPDATE customer_details SET last_email_sent = ? WHERE id = ?`;
-                    conn.query(updateQuery, [todayStr, user.id], (err, result) => {
+                    db.query(updateQuery, [todayStr, user.id], (err, result) => {
                         if (err) {
                             console.log(`Error updating last_email_sent for ${user.email}:`, err);
                         } else {
@@ -125,7 +112,7 @@ app.post("/password_changed",(req,res)=>{
             return res.status(400).json({success: false, message: `Failed to send email ${email}`})
         }   
            console.log(`Send email to ${email}`);
-           return  res.status(200).send({status:true, message: `Send email to ${email}`})
+           return  res.status(200).send({success:true, message: `Send email to ${email}`})
     })
 })
 
