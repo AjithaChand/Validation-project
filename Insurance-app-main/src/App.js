@@ -10,7 +10,7 @@ import Adminpage from './Adminpage'
 import Userpage from './Userpage'
 import Adminregister from './Adminregister'
 import Users from './Users'
-import FileViewer from './Fileviewer'
+
 import Homepage from './Homepage'
 import Updatedata from './Updatedata'
 
@@ -36,7 +36,7 @@ const App = () => {
           <Route path='/edituser/:id' element={<Updatedata />} />
           <Route path='/adminregister' element={<Adminregister />} />
           <Route path='/userpage' element={<Userpage />} />
-          <Route path='/fileview' element={<FileViewer />} />
+        
         </Routes>
       </BrowserRouter>
     </div>

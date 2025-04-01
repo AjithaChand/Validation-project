@@ -11,32 +11,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// DB Connection 
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Aji@1020",
-    database: "task",
-});
 
-db.connect(err => {
-    if (err) {
-        console.log("Db connection failed");
-    } else {
-        console.log("Db connected successfully");
-    }
-    
-});
+const db = require('./db')
 
 const SECRET_KEY = "its_wonderful_day";
 
 //DEFAULT ADMIN SETUP
-// const defaultAdmin = {   
-//     username: "aams",
-//     email: "aams123@gmail.com",
-//     password: "aams@123",
-//     role: "admin" 
-// }
+const defaultAdmin = {   
+    username: "aams",
+    email: "aams123@gmail.com",
+    password: "aams@123",
+    role: "admin" 
+}
 
 const setupAdmin = async () => {
     db.query("SELECT * FROM users WHERE role='admin'", (err, result) => {
@@ -273,11 +259,6 @@ app.post('/create', upload.single('file'), (req, res) => {
 
 
 
-
-
-
-
-
 //Get customer details with file get
 
 app.get('/read/:id', (req, res) => {
@@ -332,9 +313,7 @@ app.delete('/delete/customer_details/:id',(req,res)=>{
 
 
 
-// app.listen(8000, () => {
-//     console.log("Listening on port 8000");
-// });
+
 
 
 

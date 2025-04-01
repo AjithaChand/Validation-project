@@ -126,4 +126,14 @@ Updated Styles
 {
     display:flex;
 }
+.btn user-button {
+    background-color: green;
+   width: 120px;
+    padding: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
  
