@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import User from './User';
+// import User from './User';
 
 const Create = ({close}) => {
 

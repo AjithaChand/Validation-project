@@ -4,7 +4,7 @@ import './User.css';
 import Formpopup from './Formpopup';
 import Editdialog from './Editdialog';
 import { FaEdit } from "react-icons/fa";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 
