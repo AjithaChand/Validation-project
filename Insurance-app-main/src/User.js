@@ -74,10 +74,10 @@ const User = ( {id}) => {
         <tbody>
           {value.map((data, index) => (
             <tr key={index}>
-              <td>{data.email}shuruthimanoharan10@gmail.com</td>
-              <td>{data.startdate}29/03/2025</td>
-              <td>{data.enddate} 30/04/2025</td>
-              <td>{data.policy} Medical Insurance</td>
+              <td>{data.email}</td>
+              <td>{data.startdate}</td>
+              <td>{data.enddate} </td>
+              <td>{data.policy}</td>
               <td>
                 {data.file ? (
                   <a href={`http://localhost:8000${data.file}`} target="_blank" rel="noopener noreferrer">
@@ -96,21 +96,14 @@ const User = ( {id}) => {
           ))}
 
           <tr>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
             <td><button>view</button></td>
           </tr>
-          <tr>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td><button>view</button></td>
-          </tr>
+         
         </tbody>
       </table>
 
