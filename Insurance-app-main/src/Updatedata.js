@@ -6,13 +6,23 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Updatedata = ( {selectid , close} ) => {
 
-  const [refresh,setRefresh] = useState(true)
+  const [refresh,setRefresh] = useState(false)
 
   console.log(selectid)
 
-  const [datas,setData] = useState({})
+  const [datas,setData] = useState({
+    username:"",
+    email:"",
+    password:""
+  })
 
   console.log(datas)
+
+
+
+  console.log(datas ? datas : "No data from server");
+  
+  
 
   useEffect(()=>{
 
@@ -27,9 +37,10 @@ const Updatedata = ( {selectid , close} ) => {
       }
     })
     .catch(err=>console.log(err))
-  },[selectid])
+  },[selectid,refresh])
 
-  const handleSubmit = (e) =>{
+const handleSubmit = (e) =>{
+
     e.preventDefault();
     axios.put(`http://localhost:8000/edituser/${selectid}`,datas)
     .then(res=>{
@@ -47,7 +58,7 @@ const Updatedata = ( {selectid , close} ) => {
     })
     .then((res)=>{
       if(res.data.success){
-        toast.success(`Send Email To ${datas.email}`)
+        toast.success(`Send Email To ${datas.email}`)        
       }
     })
     .catch((err)=>{

@@ -1,29 +1,16 @@
 const express= require('express');
 const nodemailer= require('nodemailer');
-const mysql2=require('mysql2');
+const mysql=require('mysql2');
 const cors=require('cors');
 
 const app= express();
 app.use(cors());
 app.use(express.json());
 
+const db = require('./db'); 
 
-const db={
-    host:'localhost',
-    user:'root',
-    password:'Aji@1020',
-    database:'task',
-}
 
-const conn= mysql2.createConnection(db);
 
-conn.connect((err)=>{
-    if(err){
-        console.log("Mysql connection failed");
-        return
-    } 
-    console.log("MySql Connection success");  
-})
 
 
 const transPorter = nodemailer.createTransport({
@@ -34,10 +21,6 @@ const transPorter = nodemailer.createTransport({
     }
 })
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
 const sendReminderEmails = () => {
     console.log("Checking for users who need email reminders...");
 
@@ -56,7 +39,7 @@ const sendReminderEmails = () => {
     `;                                    
                                     //  2025-03-25 < 2025-03-26
 
-    conn.query(query, [todayStr, nextMonthStr, todayStr], (err, users) => {
+    db.query(query, [todayStr, nextMonthStr, todayStr], (err, users) => {
 
         console.log("Today date",todayStr);
         console.log("Next date", nextMonthStr);
@@ -89,7 +72,7 @@ const sendReminderEmails = () => {
                     console.log(`Email sent to ${user.email}`);
 
                     const updateQuery = `UPDATE customer_details SET last_email_sent = ? WHERE id = ?`;
-                    conn.query(updateQuery, [todayStr, user.id], (err, result) => {
+                    db.query(updateQuery, [todayStr, user.id], (err, result) => {
                         if (err) {
                             console.log(`Error updating last_email_sent for ${user.email}:`, err);
                         } else {
@@ -107,7 +90,7 @@ sendReminderEmails()
 setInterval(sendReminderEmails, 24 * 60 * 60 * 1000);
 
 
-<<<<<<< HEAD
+
 app.post("/password_changed",(req,res)=>{
 
     const {email, password} = req.body;
@@ -129,51 +112,11 @@ app.post("/password_changed",(req,res)=>{
             return res.status(400).json({success: false, message: `Failed to send email ${email}`})
         }   
            console.log(`Send email to ${email}`);
-           return  res.status(200).send({status:true, message: `Send email to ${email}`})
+           return  res.status(200).send({success:true, message: `Send email to ${email}`})
     })
 })
 
-
-=======
->>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
-// app.post('/email',(req,res)=>{
-//    const {email,startDate,endDate,policy} = req.body;
-
-//    console.log(email,startDate,endDate,policy);
-   
-//    const query = "INSERT INTO policy (email,start_date,end_date,policy) VALUES (?, ?, ?, ?)";
-   
-//    conn.query(query,[email,startDate,endDate,policy],(err,info)=>{
-//     if(err){
-//             console.log("Can't insert the data");
-//     return  res.status(400).json({success:false, message: "Server Error"});
-//     } 
-//     if(info.email === email){
-//         res.status(404).json({status:404, message:"Already Exist Email"})
-//     }
-//             console.log("Successfully insert the data");
-//     return res.status(200).json({success:true, message:"Success"})
-//    })
-// })
+module.exports=app
 
 
-// app.get("/email/get",(req,res)=>{
-//     const query = "SELECT * FROM policy";
-//     conn.query(query,(err,result)=>{
-//         if(err) throw err;
-//         res.json(result);
-//         return console.log("Successfullly fetch data");
-        
-//     })
-// })
 
-
-app.listen(8000,(err)=>{
-    if(err) throw err;
-    console.log('Post Listening on 3001');
-})
-<<<<<<< HEAD
-
-// module.exports = app;
-=======
->>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788

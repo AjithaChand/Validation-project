@@ -37,7 +37,7 @@ const Adminregister = () => {
         axios.post("http://localhost:8000/admin/register", values)
             .then(res => {
                 toast.success(res.data.message)
-                navigate("/users")
+                navigate("/admin/users")
             })
             .catch(err => toast.error(err.response.data.error))
     }

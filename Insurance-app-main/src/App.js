@@ -36,7 +36,11 @@ const App = () => {
           <Route path='/edituser/:id' element={<Updatedata />} />
           <Route path='/adminregister' element={<Adminregister />} />
           <Route path='/userpage' element={<Userpage />} />
+<<<<<<< HEAD
          
+=======
+        
+>>>>>>> f054bceeacd2e329a33621434688a0a62d3e4158
         </Routes>
       </BrowserRouter>
     </div>

@@ -8,9 +8,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 
-const User = () => {
+const User = ( {id}) => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  //  const { id } = useParams();
   const username = localStorage.getItem("username");
 
   const [showedit, setShowEdit] = useState(false);

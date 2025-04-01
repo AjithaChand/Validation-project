@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const cors = require("cors");
 const multer = require("multer");
 const xlsx = require("xlsx");
@@ -9,27 +9,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const db = {
-    host: 'localhost',
-    user: 'root',
-    password: 'Aji@1020',
-    database: 'task',      
-};
 
-const conn = mysql.createConnection(db);
+const db = require('./db')
 
-conn.connect((err) => {
-    if (err) {
-        console.log("Mysql connection failed");
-        return;
-    } 
-    console.log("MySql Connection success");  
-});
+
 
 app.get("/download-excel", (req, res) => {
-    const query = "SELECT email, startdate, enddate, policy FROM customer_details";
+    const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details";
 
-    conn.query(query, (err, results) => {
+    db.query(query, (err, results) => {
         if (err) {
             console.error("Database Query Error:", err);
             return res.status(500).json({ error: "Database Query Failed" });
@@ -90,11 +78,11 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
 
     const values = sheetData.map((row) => [
         row.email,                       
-        parseExcelDate(row.start_date),  
-        parseExcelDate(row.end_date),    
+        parseExcelDate(row.startdate),  
+        parseExcelDate(row.enddate),    
         row.policy                       
     ]);
-
+    
     if (values.length === 0) {
         fs.unlinkSync(filePath);
         return res.status(400).json({ error: "No valid data in the file" });
@@ -110,7 +98,7 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
         enddate = VALUES(enddate), 
         policy = VALUES(policy)`;
 
-    conn.query(query, [values], (err) => {
+    db.query(query, [values], (err) => {
         fs.unlinkSync(filePath); 
         if (err) {
             console.error("Database Insert/Update Error:", err);
@@ -120,15 +108,8 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
     });
 });
 
-<<<<<<< HEAD
-// app.listen(8000, () => {
-//     console.log("Server running on port 3001");
-// });
+
 
 
 module.exports = app;
-=======
-app.listen(8000, () => {
-    console.log("Server running on port 3001");
-});
->>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
+

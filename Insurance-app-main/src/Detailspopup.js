@@ -9,7 +9,7 @@ const Detailspopup = ({isVisible,onClose}) => {
       <div className='create-overlay'>
         <div className='create-content'>
           <button className='btn-create' onClick={onClose}>&times;</button>
-          <Create/>
+          <Create close={onClose}/>
         </div>
       </div>
     )
