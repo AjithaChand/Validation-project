@@ -15,7 +15,7 @@ Updated Styles
     background-color: rgb(2, 164, 2);
 }
 
-.user-container {
+.user-containerform {
     background: linear-gradient(90deg, black 20%,darkgray 100%);
     height: 100vh;
     display: flex;
