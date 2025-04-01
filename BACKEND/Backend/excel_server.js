@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const cors = require("cors");
 const multer = require("multer");
 const xlsx = require("xlsx");
@@ -90,11 +90,11 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
 
     const values = sheetData.map((row) => [
         row.email,                       
-        parseExcelDate(row.start_date),  
-        parseExcelDate(row.end_date),    
+        parseExcelDate(row.startdate),  
+        parseExcelDate(row.enddate),    
         row.policy                       
     ]);
-
+    
     if (values.length === 0) {
         fs.unlinkSync(filePath);
         return res.status(400).json({ error: "No valid data in the file" });
@@ -120,15 +120,8 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
     });
 });
 
-<<<<<<< HEAD
-// app.listen(8000, () => {
-//     console.log("Server running on port 3001");
-// });
+
 
 
 module.exports = app;
-=======
-app.listen(8000, () => {
-    console.log("Server running on port 3001");
-});
->>>>>>> e0d0be3006ae95e850145dcfc72c5d35a3d2a788
+
