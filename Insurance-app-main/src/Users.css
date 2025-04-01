@@ -53,7 +53,8 @@
 }
 
 .toggle{
-    background-color: rgb(91, 171, 241);
+    background:linear-gradient(90deg,rgba(9,9,121,1) 20%,rgba(0,212,255,1)100%);
     margin-left: 20%;
     margin-right: 1%;
+    color: white;
 }

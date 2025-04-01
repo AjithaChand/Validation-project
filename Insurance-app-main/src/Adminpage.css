@@ -8,7 +8,8 @@
 .adminpage-header{
     display: flex;
     justify-content: space-between;
-    background-color: rgb(91, 171, 241);
+    background:linear-gradient(90deg,rgba(9,9,121,1) 20%,rgba(0,212,255,1)100%);
+    color: white;
     margin-left: 20%;
     margin-right: 1%;
 }

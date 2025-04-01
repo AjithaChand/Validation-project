@@ -49,6 +49,8 @@ const User = ( {id}) => {
 
   return (
     <div className='user-containerform'>
+      <div className='user-background'></div>
+      <div className='user-overlay'>
       <div className='user-profile'>
         <div className='userlogout-btn'><CgProfile /></div>
         <div className='userlogout-btn'>{username}shuruthi</div>
@@ -56,7 +58,7 @@ const User = ( {id}) => {
           <RiLogoutCircleRLine />
         </button>
       </div>
-      <div><h3 className='text-center p-3'>User Entry</h3></div>
+      <div><h3 className='text-center p-3 text-white'>User Entry</h3></div>
 
       <table className='user-table' border={1}>
         <thead>
@@ -131,6 +133,7 @@ const User = ( {id}) => {
          
         </div>
       )}
+      </div>
     </div>
   );
 };
