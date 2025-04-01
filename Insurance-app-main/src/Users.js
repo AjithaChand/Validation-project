@@ -57,7 +57,7 @@ const Users = () => {
 
       {/* Scrollable table container */}
       <div className="table-container">
-        <table className='users-table mt-5'>
+        <table className='users-table text-center mt-5'>
           <thead>
             <tr>
               <th>Username</th>
