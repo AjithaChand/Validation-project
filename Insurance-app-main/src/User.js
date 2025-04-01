@@ -17,7 +17,7 @@ const User = ( {id}) => {
   const [showform, setShowform] = useState(false);
   const [showconfirm, setShowconfirm] = useState(false);
   const [value, setValue] = useState([]);
-  const [editData, setEditData] = useState(null); // Store edit data
+  const [selectid, setSelectid] = useState(null); // Store edit data
 
   useEffect(() => {
     axios.get(`http://localhost:8000/read/${id}`)
@@ -25,8 +25,8 @@ const User = ( {id}) => {
       .catch(err => console.log(err));
   }, [id]);
 
-  const toggleEdit = (data) => {
-    setEditData(data);
+  const toggleEdit = (id) => {
+    setSelectid(id);
     setShowEdit(!showedit);
   };
 
@@ -49,34 +49,34 @@ const User = ( {id}) => {
 
   return (
     <div className='user-containerform'>
-      <div className='profile'>
+      <div className='user-profile'>
         <div className='userlogout-btn'><CgProfile /></div>
         <div className='userlogout-btn'>{username}shuruthi</div>
         <button onClick={handleLogout} className='userlogout-btn'>
           <RiLogoutCircleRLine />
         </button>
       </div>
-      <div><h3 className='text-center text-white p-3'>User Entry</h3></div>
+      <div><h3 className='text-center p-3'>User Entry</h3></div>
 
-      <table className='usertable' border={1}>
+      <table className='user-table' border={1}>
         <thead>
-          <tr className='tablerow'>
-            <th className='tablerow' >Email</th>
-            <th className='tablerow'>Start Date</th>
-            <th className='tablerow'>End Date</th>
-            <th className='tablerow'>Policy</th>
-            <th className='tablerow'>Files</th>
-            <th className='tablerow'>Action</th>
+          <tr>
+            <th >Email</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Policy</th>
+            <th>Files</th>
+            <th>Action</th>
           </tr  >
         </thead>
         <tbody>
           {value.map((data, index) => (
-            <tr key={index} className='tablerow'>
-              <td className='tablerow'>{data.email}shuruthimanoharan10@gmail.com</td>
-              <td className='tablerow'>{data.startdate}29/03/2025</td>
-              <td className='tablerow'>{data.enddate} 30/04/2025</td>
-              <td className='tablerow'>{data.policy} Medical Insurance</td>
-              <td className='tablerow'>
+            <tr key={index}>
+              <td>{data.email}shuruthimanoharan10@gmail.com</td>
+              <td>{data.startdate}29/03/2025</td>
+              <td>{data.enddate} 30/04/2025</td>
+              <td>{data.policy} Medical Insurance</td>
+              <td>
                 {data.file ? (
                   <a href={`http://localhost:8000${data.file}`} target="_blank" rel="noopener noreferrer">
                     View File
@@ -86,7 +86,7 @@ const User = ( {id}) => {
                 )}
               </td>
               <td className='tablerow'>
-                <button className='edit-btn' onClick={() => toggleEdit(data)}>
+                <button className='user-edit-btn' onClick={() => toggleEdit(data.id)}>
                   <FaEdit />
                 </button>
               </td>
@@ -117,15 +117,15 @@ const User = ( {id}) => {
       </div>
 
       <Formpopup isVisible={showform} onClose={toggleForm} />
-      <Editdialog isVisible={showedit} onClose={toggleEdit} editData={editData} />
+      <Editdialog isVisible={showedit} onClose={toggleEdit} userid={selectid} />
 
       {showconfirm && (
-          <div className='boxhover'>
-          <div className="confirmbox">
+          <div className='user-boxhover'>
+          <div className="user-confirmbox">
             <p>Are you sure you want to logout?</p>
-            <div className='box'>
-            <button className="confirm-btn" onClick={confirmLogout}>Confirm</button>
-            <button className="cancel-btn" onClick={cancelLogout}>Cancel</button>
+            <div className='user-box'>
+            <button className="user-confirm-btn" onClick={confirmLogout}>Confirm</button>
+            <button className="user-cancel-btn" onClick={cancelLogout}>Cancel</button>
             </div>
             </div>
          

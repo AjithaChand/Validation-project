@@ -2,7 +2,6 @@
 
 .user-btn {
     background-color: green;
-    min-width: 120px;
     padding: 10px;
     color: white;
     border: none;
@@ -25,7 +24,7 @@
   
 }
 
-.profile {
+.user-profile {
     display: flex;
     justify-content: flex-end;
     width: 100%;
@@ -41,12 +40,8 @@
     cursor: pointer;
 }
 
-.text-center {
-    text-align: center;
-}
 
-table {
-    border: 2px solid black;
+.user-table {
     border-collapse: collapse;
     margin: auto;
     margin-top: 150px;
@@ -55,25 +50,24 @@ table {
     position: fixed;
 }
 
-th,td {
-    border: 1px solid black;
+.user-table th,td {
     padding: 10px;
     text-align: center;
 }
 
-.edit-btn {
+.user-edit-btn {
     background-color: transparent;
     border: none;
     cursor: pointer;
     font-size: 18px;
 }
 
-.edit-btn:hover {
+.user-edit-btn:hover {
     color: blue;
 }
 
 
-.confirmbox {
+.user-confirmbox {
     display: flex;
     background-color: white;
     flex-direction: column;
@@ -81,7 +75,7 @@ th,td {
     width: 300px;
     border-radius: 15px;
 }
-.boxhover
+.user-boxhover
 {
     justify-content: end;
     width: 350px;
@@ -89,7 +83,7 @@ th,td {
     margin-top: 0;
 }
 
-.confirmbox p {
+.user-confirmbox p {
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 20px;
@@ -97,7 +91,7 @@ th,td {
     margin-left: 30px;
 }
 
-.confirm-btn, .cancel-btn {
+.user-confirm-btn, .cancel-btn {
     padding: 10px 20px;
     margin: 5px;
     cursor: pointer;
@@ -105,37 +99,75 @@ th,td {
     border-radius: 5px;
 }
 
-.confirm-btn {
+.user-confirm-btn {
     background-color: red;
     color: white;
 }
 
-.cancel-btn {
+.user-cancel-btn {
     background-color: gray;
     color: black;
 }
 
-.confirm-btn:hover {
+.user-confirm-btn:hover {
     background-color:green;
   
 }
 
-.cancel-btn:hover {
+.user-cancel-btn:hover {
     background-color: darkred;
     color: white;
 }
-.box
+.user-box
 {
     display:flex;
 }
-.btn user-button {
-    background-color: green;
-   width: 120px;
-    padding: 10px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-}
   */
+
+
+.user-containerform{
+    background: linear-gradient(90deg,skyblue 20%,darkblue 100%);
+    height: 100vh;
+}
+
+.user-profile{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 20px;
+    color: white;
+}
+
+.userlogout-btn{
+    position: relative;
+    right: 5%;
+    top: 20px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-table{
+    position: relative;
+    border-collapse: collapse;
+    margin: auto;
+    width: 50%;
+}
+
+.user-table th,td{
+    padding: 10px;
+}
+
+.user-table tr:nth-child(odd){
+    background-color:#bbdefb;
+}
+
+.user-table th{
+    background-color: #0d47a1;
+    color: white;
+}
+
+.user-table tr:hover{
+    background-color: #64b5f6;
+}

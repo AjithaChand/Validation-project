@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Adminpage = () => {
+  const [showconfirm, setShowconfirm] = useState(false);
+  const role=localStorage.getItem("role");
 
   const navigate = useNavigate()
 
@@ -86,21 +88,29 @@ const Adminpage = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken")
-    navigate('/')
-  }
+    setShowconfirm(true);
+  };
+
+  const confirmLogout = () => {
+    localStorage.removeItem("authToken");
+    navigate('/');
+  };
+
+  const cancelLogout = () => {
+    setShowconfirm(false);
+  };
 
   return (
     <div>
       <div className='adminpage-header fixed-top p-3'>
         <h2>Admin Dashboard</h2>
-        <button onClick={handleLogout} className='logout-btn'>Logout</button>
+        <button onClick={handleLogout} className='logout-btn'>{role}Logout</button>
       </div>
      
       
       <div className='row'>
         <div className='col-12' style={{ marginTop: "7%" }} >
-          <h4 className='text-center p-4' style={{ paddingTop: "50px" }}>Customer Details</h4>
+          <h3 className='text-center admin-head p-4 '>Customer Details</h3>
           <div className='admin-header'>
             <button className='upload-button1' onClick={handleDownload}><PiMicrosoftExcelLogoFill /></button>
             <input type='file' id="fileInput" className='file-input' onChange={(e) => setFile(e.target.files[0])} />
@@ -110,7 +120,7 @@ const Adminpage = () => {
             {file && <span className="file-name">{file.name}</span>}
             <button className='upload-button2' onClick={handleUpload}><IoIosCloudUpload /></button>
           </div>
-          <table className='mt-5 admin-table'>
+          <table className='mt-5 text-center admin-table'>
             <thead>
               <tr>
                 <th>Email</th>
@@ -157,9 +167,25 @@ const Adminpage = () => {
             <td>ghghi;k</td>
             <td><button>view</button></td>
           </tr>
+          <tr>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td><button>view</button></td>
+          </tr>
             </tbody>
           </table>
-          <div className='mt-5'>
+          <div className='mt-4'>
             <button className='btn admin-btn' onClick={handlePopup}>Add Details</button>
           </div>
         </div>
@@ -188,7 +214,18 @@ const Adminpage = () => {
         </Modal.Footer>
       </Modal>
       <ToastContainer position='top-right' autoclose={3000} />
-
+      {showconfirm && (
+          <div className='admin-boxhover'>
+          <div className="admin-confirmbox">
+            <p>Are you sure you want to logout?</p>
+            <div className='admin-box'>
+            <button className="admin-confirm-btn" onClick={confirmLogout}>Confirm</button>
+            <button className="admin-cancel-btn" onClick={cancelLogout}>Cancel</button>
+            </div>
+            </div>
+         
+        </div>
+      )}
     </div>
   )
 }
