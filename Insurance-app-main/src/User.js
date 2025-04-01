@@ -94,16 +94,6 @@ const User = ( {id}) => {
               </td>
             </tr>
           ))}
-
-          <tr>
-            <td>shuruthimanoharan10@gmail.com</td>
-            <td>29/03/2025</td>
-            <td>30/04/2025</td>
-            <td>Medical Insurance</td>
-            <td>Viewfile</td>
-            <td><button>view</button></td>
-          </tr>
-         
         </tbody>
       </table>
 

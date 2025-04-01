@@ -82,26 +82,6 @@ const Users = () => {
                 </td>
               </tr>
             ))}
-<tr>
-              <td>Shuruthimanoharan</td>
-              <td>Shuruthimanoharan10@gmail.com</td>
-              <td>Shuruthi@14</td>
-              </tr>
-              <tr>
-              <td>Nishalingam</td>
-              <td>Nishalingam10@gmail.com</td>
-              <td>Nisha@15</td>
-              </tr>
-              <tr>
-              <td>Nishalingam</td>
-              <td>Nishalingam10@gmail.com</td>
-              <td>Nisha@15</td>
-              </tr>
-              <tr>
-              <td>Nishalingam</td>
-              <td>Nishalingam10@gmail.com</td>
-              <td>Nisha@15</td>
-              </tr>
           </tbody>
         </table>
       </div>
