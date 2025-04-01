@@ -3,6 +3,7 @@
     color: white;
     width: 150px;
     border-radius: 7px;
+    margin-top: 150px;
 }
 
 .adminpage-header{
@@ -14,7 +15,14 @@
 }
 
 .admin-table{
-    width: 70%;
+    border: 2px solid black;
+    border-collapse: collapse;
+    margin: auto;
+    margin-top: 150px;
+    width: 50%;
+    background-color: white;
+    margin-left: 15%;
+    position: fixed;
 }
 
 .admin-btn:hover{

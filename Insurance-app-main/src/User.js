@@ -56,8 +56,9 @@ const User = () => {
           <RiLogoutCircleRLine />
         </button>
       </div>
-<h3 className='text-center text-white' style={{ paddingTop: "50px" }}>User Entry</h3>
-      <table className='mt-5 usertable' border={1}>
+      <div><h3 className='text-center text-white p-3'>User Entry</h3></div>
+
+      <table className='usertable' border={1}>
         <thead>
           <tr className='tablerow'>
             <th className='tablerow' >Email</th>
@@ -71,10 +72,10 @@ const User = () => {
         <tbody>
           {value.map((data, index) => (
             <tr key={index} className='tablerow'>
-              <td className='tablerow'>{data.email}</td>
-              <td className='tablerow'>{data.startdate}</td>
-              <td className='tablerow'>{data.enddate}</td>
-              <td className='tablerow'>{data.policy}</td>
+              <td className='tablerow'>{data.email}shuruthimanoharan10@gmail.com</td>
+              <td className='tablerow'>{data.startdate}29/03/2025</td>
+              <td className='tablerow'>{data.enddate} 30/04/2025</td>
+              <td className='tablerow'>{data.policy} Medical Insurance</td>
               <td className='tablerow'>
                 {data.file ? (
                   <a href={`http://localhost:8000${data.file}`} target="_blank" rel="noopener noreferrer">
@@ -91,11 +92,28 @@ const User = () => {
               </td>
             </tr>
           ))}
+
+          <tr>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td><button>view</button></td>
+          </tr>
         </tbody>
       </table>
 
       <div className='mt-5'>
-        <button className='btn user-btn' onClick={toggleForm}>Add Details</button>
+        <button className='btn mt-5 user-btn' onClick={toggleForm}>Add Details</button>
       </div>
 
       <Formpopup isVisible={showform} onClose={toggleForm} />
