@@ -15,7 +15,7 @@ const db = require('./db')
 
 
 app.get("/download-excel", (req, res) => {
-    const query = "SELECT email, startdate, enddate, policy FROM customer_details";
+    const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details";
 
     db.query(query, (err, results) => {
         if (err) {
