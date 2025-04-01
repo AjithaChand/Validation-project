@@ -14,10 +14,20 @@
     margin-left: 20%;
     padding: 20px;
     height: 100vh;
+<<<<<<< HEAD
     overflow-y: scroll;
     display: flex;
     justify-content: center;
     align-items: center
+=======
+}
+
+  
+
+aside a{
+    text-decoration: none;
+  
+>>>>>>> 9e0f71387295e29b592e69871fbd50e5a8cdcb4e
 }
 
 .userdata-btn{
