@@ -8,10 +8,10 @@
 .adminpage-header{
     display: flex;
     justify-content: space-between;
-    background-color:darkblue;
+    /* background:linear-gradient(90deg,rgba(9,9,121,1) 20%,rgba(0,212,255,1)100%); */
+    background-color: #3181c7;
     color: white;
-    margin-left: 20%;
-    margin-right: 1%;
+    left: 20%;
 }
 
 .admin-head{
@@ -121,7 +121,7 @@
     border-radius: 5px;
     padding: 10px;
     width: 100px;
-    background-color:skyblue;
+    background-color: #0b2f65;
     color: white;
 }
 

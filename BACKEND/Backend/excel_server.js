@@ -38,6 +38,15 @@ app.get("/download-excel", (req, res) => {
             }
         }
 
+              worksheet['!cols'] = [
+                { wpx: 150 }, 
+                { wpx: 100 }, 
+                { wpx: 100 }, 
+                { wpx: 150 }, 
+                { wpx: 150 }, 
+                { wpx: 200 } 
+            ];
+
         const workbook = xlsx.utils.book_new();
         xlsx.utils.book_append_sheet(workbook, worksheet, "Policy");
 

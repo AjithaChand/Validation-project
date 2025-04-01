@@ -151,38 +151,6 @@ const Adminpage = () => {
                   <td className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></td>
                 </tr>
               })}
-               <tr>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td><button>view</button></td>
-          </tr>
-          <tr>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td><button>view</button></td>
-          </tr>
-          <tr>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td><button>view</button></td>
-          </tr>
-          <tr>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td>ghghi;k</td>
-            <td><button>view</button></td>
-          </tr>
             </tbody>
           </table>
           <div className='mt-4'>
