@@ -21,9 +21,10 @@
 .admin-table{
     position: relative;
     border-collapse: collapse;
+    padding: 20px;
     margin: auto;
-    width: 50%;
-    left:5%;
+    width: 100%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .admin-table th,td{
@@ -50,6 +51,10 @@
 .admin-header{
     display: flex;
     justify-content:end;
+    position: absolute;
+    width: 20%;
+    right: 10%;
+    top: 25%;
 }
 
 .fileupload{
@@ -89,9 +94,8 @@
 }
 
 .file-label {
-    /* background-color: #474646; */
     color: black;
-    font-size: 18px;
+    font-size: 17px;
     border-radius: 7px;
     cursor: pointer;
     display: inline-block;

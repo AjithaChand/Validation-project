@@ -109,12 +109,12 @@ const Adminpage = () => {
      
       
       <div className='row'>
-        <div className='col-12' style={{ marginTop: "7%" }} >
+        <div className='col-12' >
           <h3 className='text-center admin-head p-4 '>Customer Details</h3>
           <div className='admin-header'>
             <button className='upload-button1' onClick={handleDownload}><PiMicrosoftExcelLogoFill /></button>
             <input type='file' id="fileInput" className='file-input' onChange={(e) => setFile(e.target.files[0])} />
-            <label for="fileInput" className="file-label pt-4">
+            <label for="fileInput" className="file-label pt-3">
               <span className='label-name'>Choose File</span>
             </label>
             {file && <span className="file-name">{file.name}</span>}
