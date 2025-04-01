@@ -55,16 +55,18 @@ const Adminpage = () => {
 
   // Delete values
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:8000/delete/customer_details/${id}`)
-      .then(res => {
-       const confirmDelete=window.confirm("Are you sure you want to delete this data?")
-        if(confirmDelete){
-          console.log(res)
-          setValue(prev => prev.filter(data => data.id !== id))
-        }
-      })
-      .catch(err => toast.error(err.response.data.error))
-  }
+    if (window.confirm("Are you sure you want to delete this data?")) {
+      axios.delete(`http://localhost:8000/delete/customer_details/${id}`)
+        .then(res => {
+          console.log(res);
+          setValue(prev => prev.filter(data => data.id !== id));
+          toast.success("Data deleted successfully");
+        })
+        .catch(err => {
+          toast.error(err.response?.data?.error || "An error occurred");
+        });
+    }
+  };
 
   const [showModal, setShowModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState("");
