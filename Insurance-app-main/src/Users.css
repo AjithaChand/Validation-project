@@ -1,16 +1,41 @@
 .users-btn{
-    background-color: #333;
+    background-color: rgb(27, 27, 109);
     color: white;
     width: 150px;
     border-radius: 7px;
 }
 
+.users-head{
+    font-weight: bold;
+}
+
 .users-btn:hover{
-    background-color: #434343;
+    background-color: rgb(24, 24, 230);
 }
 
 .users-table{
-    width: 60%;
+    position: relative;
+    border-collapse: collapse;
+    margin: auto;
+    width: 50%;
+    left:5%;
+}
+
+.users-table th,td{
+    padding: 10px;
+}
+
+.users-table tr:nth-child(odd){
+    background-color:#bbdefb;
+}
+
+.users-table th{
+    background-color: #0d47a1;
+    color: white;
+}
+
+.users-table tr:hover{
+    background-color: #64b5f6;
 }
 
 .edit-btn{
@@ -28,7 +53,8 @@
 }
 
 .toggle{
-    background-color: rgb(91, 171, 241);
+    background:linear-gradient(90deg,rgba(9,9,121,1) 20%,rgba(0,212,255,1)100%);
     margin-left: 20%;
     margin-right: 1%;
+    color: white;
 }

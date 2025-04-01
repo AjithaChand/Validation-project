@@ -1,12 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Editdata = () => {
-    const {id} = useParams()
-    const navigate = useNavigate()
+const Editdata = ({selectid,close}) => {
 
     const [values, setValues] = useState({
         email: "",
@@ -17,16 +14,18 @@ const Editdata = () => {
     });
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/read/${id}`)
-            .then(res => setValues({
-                email: res.data[0].email,
-                startdate: res.data[0].startdate,
-                enddate: res.data[0].enddate,
-                policy: res.data[0].policy,
-                file: res.data[0]?.files?.[0] || null
-            }))
+        if(!selectid) return;
+
+        axios.get(`http://localhost:8000/read/${selectid}`)
+            .then(res =>{
+                if(res.data){
+                    setValues(res.data)
+                }else{
+                    toast.error("User not found")
+                }
+            })
             .catch(err => console.log(err));
-    }, [id]);
+    }, [selectid]);
 
     const handleFileChange = (e) => {
         setValues(prev => ({ ...prev, file: e.target.files[0] }));
@@ -42,12 +41,12 @@ const Editdata = () => {
         formData.append('policy', values.policy);
         formData.append('file_path', values.file);
 
-        axios.put(`http://localhost:8000/edit/${id}`, formData, {
+        axios.put(`http://localhost:8000/edit/${selectid}`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then(res => {
             toast.success(res.data.message);
-            navigate('/adminpage');
+            close()
         })
         .catch(err => toast.error(err.response?.data?.error || "An error occurred"));
     };

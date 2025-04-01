@@ -2,7 +2,7 @@ import React from 'react'
 import './Editdialog.css'
 import Editdata from './Editdata';
 
-const Editdialog = ({isVisible,onClose}) => {
+const Editdialog = ({isVisible,onClose,userid}) => {
 
     if(!isVisible) return null;
 
@@ -10,7 +10,7 @@ const Editdialog = ({isVisible,onClose}) => {
     <div className='edit-overlay'>
       <div className='edit-content'>
         <button className='btn-edit' onClick={onClose}>&times;</button>
-        <Editdata/>
+        <Editdata close={onClose} selectid={userid}/>
       </div>
     </div>
   )

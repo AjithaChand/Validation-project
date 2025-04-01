@@ -1,103 +1,107 @@
-Updated Styles
-
-.user-btn {
-    background-color: green;
-    min-width: 120px;
-    padding: 10px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-}
-
-.user-btn:hover {
-    background-color: rgb(2, 164, 2);
-}
-
 .user-containerform {
-    background: linear-gradient(90deg,skyblue 20%,darkblue 100%);
+    position: relative;
+    width: 100%;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 50px;
+    overflow: hidden;
+  }
   
+.user-containerform::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../public/insurance1.jpg') no-repeat center center/cover;
+    filter: blur(6px); /* Adjust the blur amount */
+    z-index: -1;
 }
-
-.profile {
+  
+.user-profile{
     display: flex;
     justify-content: flex-end;
     width: 100%;
     padding: 20px;
-    color: white;
+    color:white;
+    gap: 10px;
 }
 
-.userlogout-btn {
-    margin-right: 10px;
+.userlogout-btn{
+    position: relative;
+    right: 5%;
+    top: 20px;
     font-size: 20px;
     display: flex;
     align-items: center;
     cursor: pointer;
 }
 
-.text-center {
-    text-align: center;
-}
-
-table {
-    border: 2px solid black;
+.user-table{
+    border: 1px solid black ;
+    position: relative;
     border-collapse: collapse;
     margin: auto;
-    margin-top: 150px;
-    width: 60%;
-    background-color: white;
-    position: fixed;
+    width: 50%;
+    box-shadow: 10px 10px 10px black;
+    border-radius: 10px;
 }
 
-th,td {
-    border: 1px solid black;
+.user-table th,td{
     padding: 10px;
-    text-align: center;
 }
 
-.edit-btn {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
+.user-table tr:nth-child(odd){
+    background-color:#bbdefb;
 }
 
-.edit-btn:hover {
-    color: blue;
+.user-table tr:nth-child(even){
+    background-color:#d3e5f3;
 }
 
+.user-table th{
+    background-color: #0d47a1;
+    color: white;
+}
 
-.confirmbox {
+.user-table tr:hover{
+    background-color: #64b5f6;
+}
+
+.user-btn{
+    background-color: rgb(27, 27, 109);
+    color: white;
+    width: 150px;
+    border-radius: 7px;
+}
+
+.user-boxhover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 11%;
+    right: 0;
+}
+
+.user-confirmbox{
     display: flex;
     background-color: white;
     flex-direction: column;
     align-items: center;
     width: 300px;
     border-radius: 15px;
-}
-.boxhover
-{
-    justify-content: end;
-    width: 350px;
-    margin-left: 900px;
-    margin-top: 0;
+    background-color: #b6b4b4;
+    padding: 10px;
 }
 
-.confirmbox p {
+.-user-confirmbox p {
     font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 20px;
-   
-    margin-left: 30px;
+    /* margin-bottom: 20px;
+    margin-left: 30px; */
 }
 
-.confirm-btn, .cancel-btn {
+.user-confirm-btn, .user-cancel-btn {
     padding: 10px 20px;
     margin: 5px;
     cursor: pointer;
@@ -105,37 +109,22 @@ th,td {
     border-radius: 5px;
 }
 
-.confirm-btn {
+.user-confirm-btn {
     background-color: red;
     color: white;
 }
 
-.cancel-btn {
+.user-cancel-btn {
     background-color: gray;
     color: black;
 }
 
-.confirm-btn:hover {
+.user-confirm-btn:hover {
     background-color:green;
   
 }
 
-.cancel-btn:hover {
+.user-cancel-btn:hover {
     background-color: darkred;
     color: white;
 }
-.box
-{
-    display:flex;
-}
-.btn user-button {
-    background-color: green;
-   width: 120px;
-    padding: 10px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-}
- 

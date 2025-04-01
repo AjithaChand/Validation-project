@@ -53,11 +53,11 @@ const Users = () => {
 
   <div className='row'>
     <div className='user mt-5'>
-      <h4 className='text-center mt-3' style={{ paddingTop: "50px" }}>Customer Details</h4>
+      <h3 className='text-center mt-5 users-head'>Customer Details</h3>
 
       {/* Scrollable table container */}
       <div className="table-container">
-        <table className='users-table'>
+        <table className='users-table mt-5'>
           <thead>
             <tr>
               <th>Username</th>
@@ -82,7 +82,7 @@ const Users = () => {
                 </td>
               </tr>
             ))}
-            <tr>
+<tr>
               <td>Shuruthimanoharan</td>
               <td>Shuruthimanoharan10@gmail.com</td>
               <td>Shuruthi@14</td>
@@ -106,7 +106,7 @@ const Users = () => {
         </table>
       </div>
       <div className='button-container'>
-    <button className='users-btn btn' onClick={handleDialog}>Create Account</button>
+    <button className='users-btn mt-4 btn' onClick={handleDialog}>Create Account</button>
   </div>
   </div>
   </div>
@@ -122,3 +122,4 @@ const Users = () => {
 }
 
 export default Users
+            
