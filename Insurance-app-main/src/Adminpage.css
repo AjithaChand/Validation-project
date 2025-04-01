@@ -15,14 +15,15 @@
 }
 
 .admin-table{
-    border: 2px solid black;
+    position: relative;
     border-collapse: collapse;
     margin: auto;
-    margin-top: 150px;
     width: 50%;
-    background-color: white;
-    margin-left: 15%;
-    position: fixed;
+   left:10%;
+}
+
+.admin-table th,td{
+    padding: 10px;
 }
 
 .admin-btn:hover{

@@ -57,9 +57,11 @@ const Adminpage = () => {
   const handleDelete = (id) => {
     axios.delete(`http://localhost:8000/delete/customer_details/${id}`)
       .then(res => {
-       window.confirm("Are you sure you want to delete this data?")
-        console.log(res)
-        setValue(prev => prev.filter(data => data.id !== id))
+       const confirmDelete=window.confirm("Are you sure you want to delete this data?")
+        if(confirmDelete){
+          console.log(res)
+          setValue(prev => prev.filter(data => data.id !== id))
+        }
       })
       .catch(err => toast.error(err.response.data.error))
   }
@@ -106,7 +108,7 @@ const Adminpage = () => {
             {file && <span className="file-name">{file.name}</span>}
             <button className='upload-button2' onClick={handleUpload}><IoIosCloudUpload /></button>
           </div>
-          <table className='mt-5 admin-table' border={1}>
+          <table className='mt-5 admin-table'>
             <thead>
               <tr>
                 <th>Email</th>
@@ -137,7 +139,22 @@ const Adminpage = () => {
                   <td className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></td>
                 </tr>
               })}
-
+               <tr>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td>ghghi;k</td>
+            <td><button>view</button></td>
+          </tr>
             </tbody>
           </table>
           <div className='mt-5'>
