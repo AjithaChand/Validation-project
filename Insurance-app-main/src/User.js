@@ -71,13 +71,13 @@ const handleUpload = async () => {
     formData.append("file", file);
 
     try {
-      await axios.post(`${apiurl}/upload-excel-for-user/${userId}`, formData);
+      await axios.post(`${apiurl}/upload-excel`, formData)
       toast.success("File Uploaded Successfully!");
     } catch (err) {
       toast.error("Upload Failed!");
     }
-
   }
+  
 
   return (
     <div className='user-containerform'>

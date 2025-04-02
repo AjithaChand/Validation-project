@@ -84,59 +84,6 @@ app.get("/download-excel-for-user/:id", (req, res) => {
 
 
 //Upload the excel sheet
-
-const processExcelUpload = (filePath, res, userId = null) => {
-    const workbook = xlsx.readFile(filePath); 
-    const sheetName = workbook.SheetNames[0];  
-    const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
-
-    const parseExcelDate = (excelDate) => {
-        if (!excelDate) return null;
-        if (typeof excelDate === "number") {
-            return new Date((excelDate - 25569) * 86400000).toISOString().split("T")[0];
-        }
-        return new Date(excelDate).toISOString().split("T")[0];
-    };
-
-    const values = sheetData.map((row) => [
-        row.email,
-        parseExcelDate(row.startdate),
-        parseExcelDate(row.enddate),
-        row.policy
-    ]);
-
-    if (values.length === 0) {
-        fs.unlinkSync(filePath);  
-        return res.status(400).json({ error: "No valid data in the file" });
-    }
-
-    const query = userId
-        ? `
-            INSERT INTO customer_details (email, startdate, enddate, policy)
-            VALUES ? 
-            ON DUPLICATE KEY UPDATE 
-            startdate = VALUES(startdate), 
-            enddate = VALUES(enddate), 
-            policy = VALUES(policy)
-            WHERE id = ?`
-        : `
-            INSERT INTO customer_details (email, startdate, enddate, policy)
-            VALUES ? 
-            ON DUPLICATE KEY UPDATE 
-            startdate = VALUES(startdate), 
-            enddate = VALUES(enddate), 
-            policy = VALUES(policy)`;
-
-    db.query(query, [values, userId], (err) => {
-        fs.unlinkSync(filePath); 
-        if (err) {
-            console.error("Database Insert/Update Error:", err);
-            return res.status(500).json({ error: "Database Operation Failed" });
-        }
-        res.json({ success: true, message: "Data Inserted/Updated Successfully" });
-    });
-};
-
 const upload = multer({ dest: "uploads/" });
 
 app.post("/upload-excel", upload.single("file"), (req, res) => {
@@ -144,21 +91,110 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
         return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const filePath = req.file.path;  
-    processExcelUpload(filePath, res);  
-});
+    const filePath = req.file.path;
+    const workbook = xlsx.readFile(filePath);
+    const sheetName = workbook.SheetNames[0];
+    const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
-app.post("/upload-excel-for-user/:id", upload.single("file"), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
+    const parseExcelDate = (excelDate) => {
+        if (!excelDate) return null; 
+        if (typeof excelDate === "number") {
+            return new Date((excelDate - 25569) * 86400000).toISOString().split("T")[0];
+        }
+        return new Date(excelDate).toISOString().split("T")[0];
+    };
+
+    const values = sheetData.map((row) => [
+        row.email,                       
+        parseExcelDate(row.startdate),  
+        parseExcelDate(row.enddate),    
+        row.policy                       
+    ]);
+    
+    if (values.length === 0) {
+        fs.unlinkSync(filePath);
+        return res.status(400).json({ error: "No valid data in the file" });
     }
 
-    const filePath = req.file.path;  
-    const userId = req.params.id;  
-    processExcelUpload(filePath, res, userId);  
+    console.log("Parsed values before DB insert:", values); 
+
+    const query = `
+        INSERT INTO customer_details (email, startdate, enddate, policy)
+        VALUES ? 
+        ON DUPLICATE KEY UPDATE 
+        startdate = VALUES(startdate), 
+        enddate = VALUES(enddate), 
+        policy = VALUES(policy)`;
+
+    db.query(query, [values], (err) => {
+        fs.unlinkSync(filePath); 
+        if (err) {
+            console.error("Database Insert/Update Error:", err);
+            return res.status(500).json({ error: "Database Operation Failed" });
+        }
+        res.json({ success: true, message: "Data Inserted/Updated Successfully" });
+    });
 });
+  
 
 
-
-
+// app.post("/upload-excel/:id", upload.single("file"), (req, res) => {
+//     const id = req.params.id;
+  
+//     console.log("Id for update excel");
+  
+//     if (!req.file) {
+//       return res.status(400).json({ error: "No file uploaded" });
+//     }
+  
+//     const filePath = req.file.path;
+//     const workbook = xlsx.readFile(filePath);
+//     const sheetName = workbook.SheetNames[0];
+//     const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+  
+//     const parseExcelDate = (excelDate) => {
+//       if (!excelDate) return null;
+//       if (typeof excelDate === "number") {
+//         return new Date((excelDate - 25569) * 86400000).toISOString().split("T")[0];
+//       }
+//       return new Date(excelDate).toISOString().split("T")[0];
+//     };
+  
+//     const values = sheetData.map((row) => [
+//       row.email,
+//       parseExcelDate(row.startdate),
+//       parseExcelDate(row.enddate),
+//       row.policy,
+//     ]);
+  
+//     if (values.length === 0) {
+//       fs.unlinkSync(filePath);
+//       return res.status(400).json({ error: "No valid data in the file" });
+//     }
+  
+//     console.log("Parsed values before DB insert:", values);
+  
+//     const query = `
+//       UPDATE customer_details
+//       SET
+//         email = ?,  
+//         startdate = ?,
+//         enddate = ?,
+//         policy = ?
+//       WHERE id = ?`;
+  
+//     values.forEach((row) => {
+//       db.query(query, [...row, id], (err, result) => {
+//         if (err) {
+//           console.error("Database Insert/Update Error:", err);
+//           return res.status(500).json({ error: "Database Operation Failed" });
+//         }
+//       });
+//     });
+  
+//     fs.unlinkSync(filePath);
+  
+//     res.json({ success: true, message: "Data Inserted/Updated Successfully" });
+//   });
+  
 module.exports = app;
