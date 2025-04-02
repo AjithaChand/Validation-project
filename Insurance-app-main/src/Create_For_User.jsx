@@ -38,26 +38,20 @@ const Create_For_User = ({close}) => {
         })
         .then(res => {
           console.log("Response:", res);
-          if (res && res.data) {
+          if (typeof close === "function") {
             toast.success(res.data.message);
             close();
-            setUserId(res.data.userId);
-            console.log("I am from Create_For_USer.jsx", res.data.userId);
-          } else {
-            toast.error("Unexpected response format");
           }
+          setUserId(res.data.userId);
+          console.log("I am from Create_For_User.jsx", res.data.userId);
         })
         .catch(err => {
           console.log("Error:", err);
           if (err.response && err.response.data) {
             toast.error(err.response.data.error);
-          } else {
-            toast.error("An error occurred while processing your request.");
           }
-        });
-    }
-
-       
+        });        
+  }
         
   return (
     <div >
