@@ -11,7 +11,7 @@ const Homepage = () => {
       <header className='homepage-header'>
         <div className='marquee'>Welcome to <span className='name'>TrustAssure!</span></div>
         <div className='head-name'>
-            Hai {username} Nisha!
+            Hai {username}!
         </div>
       </header>
       <div className='homepage-section'>
