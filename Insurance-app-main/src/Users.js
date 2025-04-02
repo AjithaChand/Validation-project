@@ -7,7 +7,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { apiurl } from './url';
 const Users = () => {
 
  // Dialogbox
@@ -29,14 +29,14 @@ const Users = () => {
   const [value, setValue] = useState([])
 
     useEffect(() => {
-      axios.get('http://localhost:8000/getuser')
+      axios.get(`${apiurl}/getuser`)
         .then(res => setValue(res.data))
         .catch(err => console.log(err))
     }, [])
 
     const handleDelete = (id) =>{
       if(window.confirm("Are you sure you want to delete this data?")){
-        axios.delete(`http://localhost:8000/delete/${id}`)
+        axios.delete(`${apiurl}/delete/${id}`)
       .then(res=>{
         console.log(res)
         setValue(prev => prev.filter( data => data.id !== id))
@@ -82,7 +82,7 @@ const Users = () => {
                 </td>
               </tr>
             ))}
-<tr>
+{/* <tr>
               <td>Shuruthimanoharan</td>
               <td>Shuruthimanoharan10@gmail.com</td>
               <td>Shuruthi@14</td>
@@ -101,7 +101,7 @@ const Users = () => {
               <td>Nishalingam</td>
               <td>Nishalingam10@gmail.com</td>
               <td>Nisha@15</td>
-              </tr>
+              </tr> */}
           </tbody>
         </table>
       </div>

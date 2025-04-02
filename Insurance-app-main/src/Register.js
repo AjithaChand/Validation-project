@@ -5,10 +5,11 @@ import './Register.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { apiurl } from './url';
 const Register = () => {
     const[active,setActive]=useState("signup");
     const navigate = useNavigate()
-
+console.log(apiurl,"aaa")
     const [values, setValues] = useState({
         username: "",
         email: "",
@@ -27,7 +28,7 @@ const Register = () => {
        if (!passwordRegex.test(values.password)) {
             return toast.error("Password must be 8 characters includes one number one special character")
         }
-        axios.post("http://localhost:8000/register", values)
+        axios.post(`${apiurl}/register`, values)
             .then(res => {
                 toast.success(res.data.message)
                 navigate("/")

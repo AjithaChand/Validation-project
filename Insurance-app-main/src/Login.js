@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { apiurl } from './url';
 const Login = () => {
 
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Login = () => {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        axios.post("http://localhost:8000/login",values)
+        axios.post(`${apiurl}/login`,values)
         .then(res=>{
             toast.success(res.data.message)
             localStorage.setItem("token",res.data.token)
