@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-// import User from './User';
+import { useContext } from "react";
+import { UserContext } from './usecontext'; 
 import { apiurl } from './url';
-const Create = ({close}) => {
+
+const Create_For_User = ({close}) => {
 
     const [values,setValues] = useState({
         email:"",
@@ -16,6 +17,7 @@ const Create = ({close}) => {
     })
 
 
+    const { setUserId } = useContext(UserContext); 
 
     const handleFileChange = (e)=>{
         setValues({...values,file:e.target.files[0]})
@@ -31,7 +33,7 @@ const Create = ({close}) => {
         formData.append('policy',values.policy);
         formData.append('file',values.file);
 
-        axios.post(`${apiurl}/create`, formData, {
+        axios.post(`${apiurl}/create-for-user`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then(res => {
@@ -39,6 +41,8 @@ const Create = ({close}) => {
           if (res && res.data) {
             toast.success(res.data.message);
             close();
+            setUserId(res.data.userId);
+            console.log("I am from Create_For_USer.jsx", res.data.userId);
           } else {
             toast.error("Unexpected response format");
           }
@@ -58,7 +62,7 @@ const Create = ({close}) => {
   return (
     <div >
       <form onSubmit={handleSubmit}>
-        <h3 className='text-center'>Admin Create Data</h3>
+        <h3 className='text-center'>User Create Data</h3>
         <div className='mt-3 form-gruop'>
             <label>Email</label>
             <input type='email' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,email:e.target.value})}/>
@@ -86,4 +90,4 @@ const Create = ({close}) => {
   )
 }
 
-export default Create
+export default Create_For_User

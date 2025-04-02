@@ -9,6 +9,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+import { RiLogoutCircleRLine } from "react-icons/ri";
 
 import { apiurl } from './url';
 
@@ -101,9 +102,9 @@ const handleUpload = async () => {
 
   return (
     <div>
-      <div className='adminpage-header fixed-top p-3'>
+      <div className='adminpage-header p-3'>
         <h2>Admin Dashboard</h2>
-        <button onClick={handleLogout} className='logout-btn'>{role}Logout</button>
+        <button onClick={handleLogout} className='logout-btn'><span>{role}</span><RiLogoutCircleRLine /></button>
       </div>
      <div className='row'>
         <div className='col-12' style={{ marginTop: "7%" }} >
@@ -149,7 +150,7 @@ const handleUpload = async () => {
                   <td>
                     {data.file_path ? (
                       <button
-                        className='btn btn-primary'
+                        className='btn adminbutton btn-primary'
                         onClick={() => handleViewFile(data.file_path)}
                       >
                         View File
