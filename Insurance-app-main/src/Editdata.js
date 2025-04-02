@@ -16,7 +16,7 @@ const Editdata = ({close}) => {
         startdate: "",
         enddate: "",
         policy: "",
-        file: null
+        // file: null
     });
 
     useEffect(() => {
@@ -35,9 +35,9 @@ const Editdata = ({close}) => {
             .catch(err => console.log(err));
     }, [userId]);
 
-    const handleFileChange = (e) => {
-        setValues(prev => ({ ...prev, file: e.target.files[0] }));
-    };
+    // const handleFileChange = (e) => {
+    //     setValues(prev => ({ ...prev, file: e.target.files[0] }));
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -47,7 +47,7 @@ const Editdata = ({close}) => {
         formData.append('startdate', values.startdate);
         formData.append('enddate', values.enddate);
         formData.append('policy', values.policy);
-        formData.append('file_path', values.file);
+        // formData.append('file_path', values.file);
 
         axios.put(`${apiurl}/edit/${userId}`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
@@ -79,9 +79,9 @@ const Editdata = ({close}) => {
                     <label>Policy</label>
                     <input type='text' className='form-control' value={values.policy} onChange={e => setValues(prev => ({ ...prev, policy: e.target.value }))} />
                 </div>
-                <div className='mt-3'>
+                {/* <div className='mt-3'>
                     <input type='file' onChange={handleFileChange} className='mt-3' />
-                </div>
+                </div> */}
                 <button className='btn user-btn mt-3' style={{ backgroundColor: "#333", width: "30%" }}>Submit</button>
             </form>
             <ToastContainer position='top-right' autoClose={3000} />

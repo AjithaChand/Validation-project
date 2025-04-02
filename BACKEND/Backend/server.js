@@ -272,7 +272,7 @@ app.post('/create-for-user', upload.single('file'), (req, res) => {
 
     db.query(sql, values, (err, result) => {
 
-      const userId = result.insertId;
+      const  userId = result.insertId;
 
         if (err) return res.status(500).json({ error: err.message });
         res.status(200).json({ message: "Details submitted successfully", userId : userId });
@@ -317,16 +317,10 @@ app.put('/edit/:id',(req,res)=>{
     const id=req.params.id
     const {email,startdate,enddate,policy} = req.body;
 
-    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
-
-    if (!filePath) {
-        return res.status(400).json({ error: "File is required." });
-    }
-
    
-   values = [email,startdate,enddate,policy,filePath,id];
+   values = [email,startdate,enddate,policy,id];
 
-    const sql="UPDATE customer_details SET email=?,startdate=?,enddate=?,policy=?,file_path=? WHERE id=?"
+    const sql="UPDATE customer_details SET email=?,startdate=?,enddate=?,policy=? WHERE id=?"
     
     db.query(sql,values,(err,data)=>{
         if(err) return res.status(500).json({error:err.message})
