@@ -12,7 +12,7 @@ import Adminregister from './Adminregister';
 import Users from './Users';
 import Homepage from './Homepage';
 import Updatedata from './Updatedata';
-import { UserProvider } from "./userContext";  
+import { UserProvider } from "./usecontext";  
 
 const App = () => {
   return (
