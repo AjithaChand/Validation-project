@@ -238,7 +238,7 @@ app.get('/read', (req, res) => {
     });
 });
 
-// Create customer table
+// Create customer table In admin 
 
 app.post('/create', upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
@@ -253,7 +253,7 @@ app.post('/create', upload.single('file'), (req, res) => {
 
     db.query(sql, values, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
-        res.status(200).json({ message: "Details submitted successfully", userId: result.insertId });
+        res.status(200).json({ message: "Details submitted successfully",});
     });
 });
 
@@ -261,9 +261,6 @@ app.post('/create', upload.single('file'), (req, res) => {
 
 app.post('/create-for-user', upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
-    
-    console.log("Values",email,startdate,enddate,policy);
-    
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
 
     if (!filePath) {
@@ -275,12 +272,10 @@ app.post('/create-for-user', upload.single('file'), (req, res) => {
 
     db.query(sql, values, (err, result) => {
 
-        if (err) return res.status(500).json({ error: err.message });
-
-        
         userId = result.insertId;
-        console.log("Get the Id from insert data",userId);
-        return res.status(200).json({ message: "Details submitted successfully", userId : userId });
+
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(200).json({ message: "Details submitted successfully", userId : userId });
     });
 });
 
