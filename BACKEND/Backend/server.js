@@ -297,19 +297,36 @@ app.get('/read/:id', (req, res) => {
     })
 });
 
-
+app.get(`/data-for-user-edit/:id`,(req,res)=>{
+        const id = req.params.id;
+    const query = "SELECT * FROM customer_details WHERE id= ?";
+    db.query(query,[id],(err,result)=>{
+        if(err) return res.status(400).send({message: "Database Error"})
+        return res.status(200).json({result: result})
+    })
+})
 
 //updation in details
 
 app.put('/edit/:id',(req,res)=>{
-    const id=req.params.id
 
-    const values=[req.body.email,req.body.startdate,req.body.enddate,req.body.policy,req.body.file_path]
+    const id=req.params.id
+    const {email,startdate,enddate,policy} = req.body;
+
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+    if (!filePath) {
+        return res.status(400).json({ error: "File is required." });
+    }
+
+   
+   values = [email,startdate,enddate,policy,filePath,id];
 
     const sql="UPDATE customer_details SET email=?,startdate=?,enddate=?,policy=?,file_path=? WHERE id=?"
-    db.query(sql,values,[id],(err,data)=>{
+    
+    db.query(sql,values,(err,data)=>{
         if(err) return res.status(500).json({error:err.message})
-        return res.status(200).json({message:"Your details is corrected"})
+        return res.status(200).json({message:"Your detail's updated"})
     })
 })
 
