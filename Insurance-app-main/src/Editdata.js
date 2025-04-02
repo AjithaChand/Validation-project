@@ -9,7 +9,7 @@ const Editdata = ({close}) => {
 
     const { userId } = useContext(UserContext);
 
-    console.log(userId)
+    console.log("I'm From EditData ", userId)
 
     const [values, setValues] = useState({
         email: "",
@@ -25,7 +25,9 @@ const Editdata = ({close}) => {
         axios.get(`${apiurl}/data-for-user-edit/${userId}`)
             .then(res =>{
                 if(res.data){
-                    setValues(res.data)
+                    setValues(res.data.result)
+                    console.log(res.data.result);
+                    
                 }else{
                     toast.error("User not found")
                 }
@@ -57,6 +59,10 @@ const Editdata = ({close}) => {
         .catch(err => toast.error(err.response?.data?.error || "An error occurred"));
     };
 
+    const handleShow =()=>{
+        console.log("values",values);
+        
+    }
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -82,7 +88,7 @@ const Editdata = ({close}) => {
                 </div>
                 <button className='btn user-btn mt-3' style={{ backgroundColor: "#333", width: "30%" }}>Submit</button>
             </form>
-
+            <button onClick={handleShow}>Click</button>
             <ToastContainer position='top-right' autoClose={3000} />
         </div>
     );

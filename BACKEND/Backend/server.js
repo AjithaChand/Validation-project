@@ -299,9 +299,13 @@ app.get('/read/:id', (req, res) => {
 
 app.get(`/data-for-user-edit/:id`,(req,res)=>{
         const id = req.params.id;
+        console.log(id);
+                
     const query = "SELECT * FROM customer_details WHERE id= ?";
     db.query(query,[id],(err,result)=>{
         if(err) return res.status(400).send({message: "Database Error"})
+            console.log(result);
+            
         return res.status(200).json({result: result})
     })
 })
