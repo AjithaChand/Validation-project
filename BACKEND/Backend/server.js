@@ -238,7 +238,7 @@ app.get('/read', (req, res) => {
     });
 });
 
-// Create customer table
+// Create customer table In admin 
 
 app.post('/create', upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
@@ -253,10 +253,31 @@ app.post('/create', upload.single('file'), (req, res) => {
 
     db.query(sql, values, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
-        res.status(200).json({ message: "Details submitted successfully", userId: result.insertId });
+        res.status(200).json({ message: "Details submitted successfully",});
     });
 });
 
+// Create customer table in  user
+
+app.post('/create-for-user', upload.single('file'), (req, res) => {
+    const { email, startdate, enddate, policy } = req.body;
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+    if (!filePath) {
+        return res.status(400).json({ error: "File is required." });
+    }
+
+    const sql = "INSERT INTO customer_details (email, startdate, enddate, policy, file_path) VALUES (?, ?, ?, ?, ?)";
+    const values = [email, startdate, enddate, policy, filePath];
+
+    db.query(sql, values, (err, result) => {
+
+        userId = result.insertId;
+
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(200).json({ message: "Details submitted successfully", userId : userId });
+    });
+});
 
 
 //Get customer details with file get
