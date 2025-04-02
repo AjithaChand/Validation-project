@@ -104,7 +104,10 @@ const handleUpload = async () => {
     <div>
       <div className='adminpage-header p-3'>
         <h2>Admin Dashboard</h2>
-        <button onClick={handleLogout} className='logout-btn'><span>{role}</span><RiLogoutCircleRLine /></button>
+        <div className='profileadmin'>
+        <h3>{role}</h3>
+        <button onClick={handleLogout} className='logout-btn'><RiLogoutCircleRLine /></button>
+        </div>
       </div>
      <div className='row'>
         <div className='col-12' style={{ marginTop: "7%" }} >
@@ -160,86 +163,7 @@ const handleUpload = async () => {
                   <td className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></td>
                 </tr>
               })}
-               {/* <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr> */}
+               
             </tbody>
           </table>
           <div className='mt-4'>
