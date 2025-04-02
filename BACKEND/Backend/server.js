@@ -257,6 +257,32 @@ app.post('/create', upload.single('file'), (req, res) => {
     });
 });
 
+// Create customer table in  user
+
+app.post('/create-for-user', upload.single('file'), (req, res) => {
+    const { email, startdate, enddate, policy } = req.body;
+    
+    console.log("Values",email,startdate,enddate,policy);
+    
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+    if (!filePath) {
+        return res.status(400).json({ error: "File is required." });
+    }
+
+    const sql = "INSERT INTO customer_details (email, startdate, enddate, policy, file_path) VALUES (?, ?, ?, ?, ?)";
+    const values = [email, startdate, enddate, policy, filePath];
+
+    db.query(sql, values, (err, result) => {
+
+        if (err) return res.status(500).json({ error: err.message });
+
+        
+        userId = result.insertId;
+        console.log("Get the Id from insert data",userId);
+        return res.status(200).json({ message: "Details submitted successfully", userId : userId });
+    });
+});
 
 
 //Get customer details with file get
