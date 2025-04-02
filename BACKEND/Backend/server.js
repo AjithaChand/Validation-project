@@ -259,7 +259,7 @@ app.post('/create', upload.single('file'), (req, res) => {
 
 // Create customer table in  user
 
-app.post('/create', upload.single('file'), (req, res) => {
+app.post('/create-for-user', upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
 
