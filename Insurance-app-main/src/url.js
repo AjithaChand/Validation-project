@@ -1,4 +1,4 @@
 
 module.exports ={
-    apiurl:"http://75.101.215.49:7009",
+    apiurl:"http://54.227.179.97:7009",
 }
