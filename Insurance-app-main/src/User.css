@@ -1,256 +1,34 @@
 .user-containerform {
     position: relative;
     width: 100%;
-    height: 100vh;.user-containerform {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        overflow-y: scroll;
-        min-height: fit-content;
-     }
-      
-    .user-containerform::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url('../public/insurance1.jpg') no-repeat center center/cover;
-        filter: blur(6px); /* Adjust the blur amount */
-        z-index: -1;
-    }
-      
-    .user-profile{
-        display: flex;
-        justify-content: flex-end;
-        width: 100%;
-        padding: 20px;
-        color:white;
-        gap: 10px;
-    }
-    
-    .userlogout-btn{
-        position: relative;
-        right: 5%;
-        top: 20px;
-        font-size: 20px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-    }
-    
-    .user-table{
-        border: 1px solid black ;
-        position: relative;
-        border-collapse: collapse;
-        margin: auto;
-        width: 80%;
-        box-shadow: 10px 10px 10px black;
-        border-radius: 10px;
-      
-    }
-    
-    .user-table th,td{
-        padding: 10px;
-    }
-    
-    .user-table tr:nth-child(odd){
-        background-color:#bbdefb;
-    }
-    
-    .user-table tr:nth-child(even){
-        background-color:#d3e5f3;
-    }
-    
-    .user-table th{
-        background-color: #0d47a1;
-        color: white;
-    }
-    
-    .user-table tr:hover{
-        background-color: #64b5f6;
-    }
-    
-    .user-btn{
-        background-color: rgb(27, 27, 109);
-        color: white;
-        width: 150px;
-        border-radius: 7px;
-    }
-    
-    .user-boxhover{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        top: 11%;
-        right: 0;
-    }
-    
-    .user-confirmbox{
-        display: flex;
-        background-color: white;
-        flex-direction: column;
-        align-items: center;
-        width: 300px;
-        border-radius: 15px;
-        background-color: #b6b4b4;
-        padding: 10px;
-    }
-    
-    .-user-confirmbox p {
-        font-size: 1.2rem;
-        font-weight: bold;
-      
-    }
-    
-    .user-confirm-btn, .user-cancel-btn {
-        padding: 10px 20px;
-        margin: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        border-radius: 5px;
-    }
-    
-    .user-confirm-btn {
-        background-color: red;
-        color: white;
-    }
-    
-    .user-cancel-btn {
-        background-color: gray;
-        color: black;
-    }
-    
-    .user-confirm-btn:hover {
-        background-color:green;
-      
-    }
-    
-    .user-cancel-btn:hover {
-        background-color: darkred;
-        color: white;
-    }
-    
-    .admin-header {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 15px;
-        margin-left: 200px;
-    }
-    
-    .upload-button1, .upload-button2 {
-        
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 18px;
-        transition: all 0.3s ease-in-out;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-      
-      .upload-button1 {
-        background-color: #2ecc71; 
-      }
-      
-      .upload-button2 {
-        background-color: #e67e22; 
-      }
-      
-      .upload-button1:hover {
-        background-color: #27ae60;
-        transform: scale(1.05);
-      }
-      
-      .upload-button2:hover {
-        background-color: #d35400;
-        transform: scale(1.05);
-      }
-      
-      .upload-button1 svg, .upload-button2 svg {
-        font-size: 22px;
-      }
-      
-    
-    .file-label {
-        padding: 8px 12px;
-        font-size: 14px;
-    }
-    
-    .file-input {
-        display: none;
-    }
-    
-    .file-label {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        display: inline-block;
-        font-weight: bold;
-        transition: background 0.3s;
-    }
-    
-    .admin-headerpage {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 15px 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        color: white;
-      }
-      
-      .admin-headerpage h3 {
-        flex-grow: 1;
-        text-align: center;
-        margin-left:300px;
-        font-size: 22px;
-        font-weight: bold;
-      }
-      
-      .admin-header {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      
-    
-      
+    height: 100vh;
     overflow-y: scroll;
     min-height: fit-content;
- }
-  
+}
+
 .user-containerform::before {
     content: "";
-    position: absolute;
+    position: fixed; /* Fixes the background in place */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('../public/insurance1.jpg') no-repeat center center/cover;
-    filter: blur(6px); /* Adjust the blur amount */
+    background-color:darkblue; /* Inherits the parent’s background */
+    filter: blur(30px); /* Blurs the background */
     z-index: -1;
 }
-  
-.user-profile{
+
+
+.user-profile {
     display: flex;
     justify-content: flex-end;
     width: 100%;
     padding: 20px;
-    color:white;
+    color: white;
     gap: 10px;
 }
 
-.userlogout-btn{
+.userlogout-btn {
     position: relative;
     right: 5%;
     top: 20px;
@@ -260,46 +38,45 @@
     cursor: pointer;
 }
 
-.user-table{
-    border: 1px solid black ;
+.user-table {
+    border: 1px solid white;
     position: relative;
     border-collapse: collapse;
     margin: auto;
     width: 80%;
-    box-shadow: 10px 10px 10px black;
+    box-shadow: 5px 5px 5px white;
     border-radius: 10px;
-  
 }
 
-.user-table th,td{
+.user-table th, td {
     padding: 10px;
 }
 
-.user-table tr:nth-child(odd){
-    background-color:#bbdefb;
+.user-table tr:nth-child(odd) {
+    background-color: #bbdefb;
 }
 
-.user-table tr:nth-child(even){
-    background-color:#d3e5f3;
+.user-table tr:nth-child(even) {
+    background-color: #d3e5f3;
 }
 
-.user-table th{
+.user-table th {
     background-color: #0d47a1;
     color: white;
 }
 
-.user-table tr:hover{
+.user-table tr:hover {
     background-color: #64b5f6;
 }
 
-.user-btn{
-    background-color: rgb(27, 27, 109);
-    color: white;
+.user-btn {
+    background-color: skyblue;
+    color:black;
     width: 150px;
     border-radius: 7px;
 }
 
-.user-boxhover{
+.user-boxhover {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -308,22 +85,19 @@
     right: 0;
 }
 
-.user-confirmbox{
+.user-confirmbox {
     display: flex;
-    background-color: white;
+    background-color: #b6b4b4;
     flex-direction: column;
     align-items: center;
     width: 300px;
     border-radius: 15px;
-    background-color: #b6b4b4;
     padding: 10px;
 }
 
-.-user-confirmbox p {
+.user-confirmbox p {
     font-size: 1.2rem;
     font-weight: bold;
-    /* margin-bottom: 20px;
-    margin-left: 30px; */
 }
 
 .user-confirm-btn, .user-cancel-btn {
@@ -345,8 +119,7 @@
 }
 
 .user-confirm-btn:hover {
-    background-color:green;
-  
+    background-color: green;
 }
 
 .user-cancel-btn:hover {
@@ -363,14 +136,39 @@
 }
 
 .upload-button1, .upload-button2 {
-    font-size: 25px;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
     cursor: pointer;
-    background: none;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.file-label {
-    padding: 8px 12px;
-    font-size: 14px;
+.upload-button1 {
+    background-color: #2ecc71;
+}
+
+.upload-button2 {
+    background-color: #e67e22;
+}
+
+.upload-button1:hover {
+    background-color: #27ae60;
+    transform: scale(1.05);
+}
+
+.upload-button2:hover {
+    background-color: #d35400;
+    transform: scale(1.05);
+}
+
+.upload-button1 svg, .upload-button2 svg {
+    font-size: 22px;
 }
 
 .file-input {
@@ -388,8 +186,29 @@
     transition: background 0.3s;
 }
 
-.admin-headerpage
-{
+.admin-headerpage {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    color: white;
+}
+
+.admin-headerpage h3 {
+    flex-grow: 1;
+    text-align: center;
+    margin-left: 300px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-headerpage {
     display: flex;
     justify-content: center;
 }
