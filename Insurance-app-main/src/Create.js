@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useContext } from "react";
+import { UserContext } from "./userContext"; 
 // import User from './User';
 import { apiurl } from './url';
 const Create = ({close}) => {
@@ -14,7 +16,7 @@ const Create = ({close}) => {
         file:null
     })
 
-    const [userId,setUserId]= useState(null);
+    const { setUserId } = useContext(UserContext);
 
     const handleFileChange = (e)=>{
         setValues({...values,file:e.target.files[0]})
@@ -41,7 +43,7 @@ const Create = ({close}) => {
         .catch(err=>toast.error(err.response.data.error))
     }
 
-        console.log(userId);
+       
         
   return (
     <div >
@@ -69,8 +71,7 @@ const Create = ({close}) => {
         <button className='btn user-btn mt-3' style={{backgroundColor:"#333",width:"30%"}}>Submit</button>
       </form>
       <ToastContainer position='top-right' autoClose={3000}/>
-      {/* <User id={userId}/> */}
-      {/* <User id={userId}/> */}
+     
     </div>
   )
 }

@@ -7,14 +7,12 @@ import { FaEdit } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleRLine } from "react-icons/ri";
-<<<<<<< HEAD
-import { apiurl } from './url';
-=======
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoIosCloudUpload } from "react-icons/io";
->>>>>>> bcca6a4b31180ea072ace1d7abdbcc063c5fd4f3
+import { useContext } from "react";
+import { UserContext } from "./userContext"; 
 
 const User = ( {id}) => {
   const navigate = useNavigate();
@@ -26,12 +24,12 @@ const User = ( {id}) => {
   const [showconfirm, setShowconfirm] = useState(false);
   const [value, setValue] = useState([]);
   const [selectid, setSelectid] = useState(null); // Store edit data
-
+  const { userId } = useContext(UserContext); 
   useEffect(() => {
-    axios.get(`${apiurl}/read/${id}`)
+    axios.get(`${apiurl}/read/${userId}`)
       .then(res => setValue(res.data))
       .catch(err => console.log(err));
-  }, [id]);
+  }, [userId]);
 
   const toggleEdit = (id) => {
     setSelectid(id);
@@ -58,7 +56,7 @@ const User = ( {id}) => {
   const [file, setFile] = useState(null);
 
   const handleDownload = () => {
-    window.location.href = "http://localhost:8000/download-excel";
+    window.location.href = `${apiurl}/download-excel-for-user/${userId}`;
   }
 const handleUpload = async () => {
 
@@ -68,7 +66,7 @@ const handleUpload = async () => {
     formData.append("file", file);
 
     try {
-      await axios.post("http://localhost:8000/upload-excel", formData);
+      await axios.post(`${apiurl}/upload-excel-for-user/${userId}`, formData);
       toast.success("File Uploaded Successfully!");
     } catch (err) {
       toast.error("Upload Failed!");
