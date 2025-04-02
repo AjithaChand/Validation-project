@@ -159,7 +159,7 @@ const handleUpload = async () => {
                   <td className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></td>
                 </tr>
               })}
-               <tr>
+               {/* <tr>
             <td>shuruthimanoharan12@gmail.com</td>
             <td>11/04/205</td>
             <td>13/05/2025</td>
@@ -238,7 +238,7 @@ const handleUpload = async () => {
             <td>Medical insurance</td>
             <td>viewfile</td>
             <td><button><RiDeleteBinFill /></button></td>
-          </tr>
+          </tr> */}
             </tbody>
           </table>
           <div className='mt-4'>

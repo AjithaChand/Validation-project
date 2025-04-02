@@ -14,10 +14,15 @@ const db = require('./db')
 
 
 
-app.get("/download-excel", (req, res) => {
-    const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details";
+// app.get("/download-excel", (req, res) => {
+//     const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details";
 
-    db.query(query, (err, results) => {
+const generateExcel =(query, params, res) => {
+
+
+    console.log("This the number", params);
+    
+    db.query(query, params, (err, results) => {
         if (err) {
             console.error("Database Query Error:", err);
             return res.status(500).json({ error: "Database Query Failed" });
@@ -57,15 +62,28 @@ app.get("/download-excel", (req, res) => {
 
         const filePath = `${dir}/policy.xlsx`;
         xlsx.writeFile(workbook, filePath);
-
+        
         res.download(filePath, "policy.xlsx", (err) => {
             if (err) console.error("File Download Error:", err);
             fs.unlinkSync(filePath);
         });
     });
+};
+
+app.get("/download-excel", (req, res) => {
+    const query = "SELECT id, email, startdate, enddate, policy, subject, content FROM customer_details";
+    generateExcel(query, [], res); 
 });
 
+app.get("/download-excel-for-user/:id", (req, res) => {
+    const userId = req.params.id;
+    const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details WHERE id = ?";
+    generateExcel(query, [userId], res);
+});
+
+
 const upload = multer({ dest: "uploads/" });
+
 
 app.post("/upload-excel", upload.single("file"), (req, res) => {
     if (!req.file) {
@@ -120,5 +138,5 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
 
 
 
-module.exports = app;
 
+module.exports = app;

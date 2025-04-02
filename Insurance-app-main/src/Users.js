@@ -82,7 +82,7 @@ const Users = () => {
                 </td>
               </tr>
             ))}
-<tr>
+{/* <tr>
               <td>Shuruthimanoharan</td>
               <td>Shuruthimanoharan10@gmail.com</td>
               <td>Shuruthi@14</td>
@@ -101,7 +101,7 @@ const Users = () => {
               <td>Nishalingam</td>
               <td>Nishalingam10@gmail.com</td>
               <td>Nisha@15</td>
-              </tr>
+              </tr> */}
           </tbody>
         </table>
       </div>
