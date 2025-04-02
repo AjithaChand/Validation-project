@@ -1,9 +1,15 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from './url';
-const Editdata = ({selectid,close}) => {
+import { UserContext } from "./usecontext"; 
+
+const Editdata = ({close}) => {
+
+    const { userId } = useContext(UserContext);
+
+    console.log(userId)
 
     const [values, setValues] = useState({
         email: "",
@@ -14,9 +20,9 @@ const Editdata = ({selectid,close}) => {
     });
 
     useEffect(() => {
-        if(!selectid) return;
+        if(!userId) return;
 
-        axios.get(`${apiurl}read/${selectid}`)
+        axios.get(`${apiurl}/data-for-user-edit/${userId}`)
             .then(res =>{
                 if(res.data){
                     setValues(res.data)
@@ -25,7 +31,7 @@ const Editdata = ({selectid,close}) => {
                 }
             })
             .catch(err => console.log(err));
-    }, [selectid]);
+    }, [userId]);
 
     const handleFileChange = (e) => {
         setValues(prev => ({ ...prev, file: e.target.files[0] }));
@@ -41,7 +47,7 @@ const Editdata = ({selectid,close}) => {
         formData.append('policy', values.policy);
         formData.append('file_path', values.file);
 
-        axios.put(`${apiurl}/edit/${selectid}`, formData, {
+        axios.put(`${apiurl}/edit/${userId}`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then(res => {
@@ -54,7 +60,7 @@ const Editdata = ({selectid,close}) => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <h3 className='text-center'>Update Data</h3>
+                <h3 className='text-center'> User Update Data</h3>
                 <div className='mt-3 form-group'>
                     <label>Email</label>
                     <input type='email' className='form-control' value={values.email} onChange={e => setValues(prev => ({ ...prev, email: e.target.value }))} />
