@@ -7,6 +7,10 @@ import { FaEdit } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { IoIosCloudUpload } from "react-icons/io";
 
 const User = ( {id}) => {
   const navigate = useNavigate();
@@ -47,6 +51,27 @@ const User = ( {id}) => {
     setShowconfirm(false);
   };
 
+  const [file, setFile] = useState(null);
+
+  const handleDownload = () => {
+    window.location.href = "http://localhost:8000/download-excel";
+  }
+const handleUpload = async () => {
+
+    if (!file) return toast.error("Select a file first!");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      await axios.post("http://localhost:8000/upload-excel", formData);
+      toast.success("File Uploaded Successfully!");
+    } catch (err) {
+      toast.error("Upload Failed!");
+    }
+
+  }
+
   return (
     <div className='user-containerform'>
       <div className='user-background'></div>
@@ -54,12 +79,36 @@ const User = ( {id}) => {
         <div className='userprofilelog'>
       <div className='user-profile'>
         <div className='userlogout-btn'><CgProfile /></div>
-        <div className='userlogout-btn'>{username}shuruthi</div>
+        <div className='userlogout-btn'>{username}</div>
         <button onClick={handleLogout} className='userlogout-btn'>
           <RiLogoutCircleRLine />
         </button>
       </div>
+      <div className="admin-headerpage">
+        <div >
       <h3 className='text-center p-3 text-white'>User Entry</h3>
+      </div>
+      <div className='admin-header'>
+    <button className="upload-button1" onClick={handleDownload}>
+      <PiMicrosoftExcelLogoFill />
+    </button>
+    <input
+      type="file"
+      id="fileInput"
+      className="file-input"
+      onChange={(e) => setFile(e.target.files[0])}
+    />
+    <label htmlFor="fileInput" className="file-label">
+      <span className="label-name">Choose File</span>
+    </label>
+    {file && <span className="file-name">{file.name}</span>}
+    <button className="upload-button2" onClick={handleUpload}>
+      <IoIosCloudUpload />
+    </button>
+    </div>
+  </div>
+     
+      
       </div>
 
       <table className='user-table' border={1}>
@@ -97,7 +146,7 @@ const User = ( {id}) => {
             </tr>
           ))}
 
-          <tr>
+          {/* <tr>
             <td>shuruthimanoharan10@gmail.com</td>
             <td>29/03/2025</td>
             <td>30/04/2025</td>
@@ -184,7 +233,7 @@ const User = ( {id}) => {
             <td>Medical Insurance</td>
             <td>Viewfile</td>
             <td><button>view</button></td>
-          </tr>
+          </tr> */}
          
         </tbody>
       </table>
@@ -209,6 +258,7 @@ const User = ( {id}) => {
         </div>
       )}
       </div>
+       <ToastContainer position='top-right' autoclose={3000} />
     </div>
   );
 };
