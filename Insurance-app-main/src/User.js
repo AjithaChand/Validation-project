@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoIosCloudUpload } from "react-icons/io";
 import { useContext } from "react";
-import { UserContext } from "./userContext"; 
+import { UserContext } from "./usecontext"; 
 import {apiurl} from "./url";
 
 const User = () => {

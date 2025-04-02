@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
-import { UserContext } from "./usercontext"; 
+import { UserContext } from "./usecontext"; 
 // import User from './User';
 import { apiurl } from './url';
 const Create = ({close}) => {
