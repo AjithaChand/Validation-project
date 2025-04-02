@@ -10,8 +10,7 @@
     justify-content: space-between;
     background-color:darkblue;
     color: white;
-    margin-left: 20%;
-    margin-right: 1%;
+    left: 20%;
 }
 
 .admin-head{
@@ -196,7 +195,11 @@
         color: white;
         cursor: pointer;
         width: 25%;
-      }
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
       
      
       
