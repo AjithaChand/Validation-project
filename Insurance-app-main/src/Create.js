@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
-import { UserContext } from "./usercontext"; 
+import { UserContext } from './usecontext'; 
 // import User from './User';
 import { apiurl } from './url';
 const Create = ({close}) => {
@@ -16,7 +16,8 @@ const Create = ({close}) => {
         file:null
     })
 
-    const { setUserId } = useContext(UserContext);
+
+    const { setUserId } = useContext(UserContext); 
 
     const handleFileChange = (e)=>{
         setValues({...values,file:e.target.files[0]})
@@ -32,15 +33,30 @@ const Create = ({close}) => {
         formData.append('policy',values.policy);
         formData.append('file',values.file);
 
-        axios.post(`${apiurl}/create`,formData,{
-          headers:{'Content-Type' : 'multipart/form-data'}
+        axios.post(`${apiurl}/create`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
         })
-        .then(res=>{
-            toast.success(res.data.message)
-            close()
-            setUserId(res.data.userId)
+        .then(res => {
+          console.log("Response:", res);
+          if (res && res.data && res.data.message) {
+            toast.success(res.data.message);
+            close();
+            setUserId(res.data.userId);
+            console.log("I am from Create.jsx", res.data.userId);
+          } else {
+            toast.error("Unexpected response format");
+          }
         })
-        .catch(err=>toast.error(err.response.data.error))
+        .catch(err => {
+          console.log("Error:", err);
+          if (err.response && err.response.data) {
+            toast.error(err.response.data.error);
+          } else {
+            toast.error("An error occurred while processing your request.");
+          }
+        });
+        
+        
     }
 
        
