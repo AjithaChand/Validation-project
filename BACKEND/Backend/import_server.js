@@ -17,7 +17,7 @@ app.use("/", emailReminder);
 
 app.use("/", server);
 
-const port = process.env.PORT||8000
+const port = process.env.PORT||7009
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
