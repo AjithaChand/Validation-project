@@ -125,7 +125,6 @@ const handleUpload = async () => {
             <th>Start Date</th>
             <th>End Date</th>
             <th>Policy</th>
-            <th>Files</th>
             <th>Action</th>
           </tr  >
         </thead>
@@ -133,19 +132,10 @@ const handleUpload = async () => {
           {value.map((data, index) => (
             <tr key={index}>
               <td>{data.email}</td>
-              <td>{data.startdate}</td>
-              <td>{data.enddate} </td>
+              <td>{new Date(data.startdate).toISOString().split("T")[0]}</td>
+              <td>{new Date(data.enddate).toISOString().split("T")[0]}</td>
               <td>{data.policy}</td>
-              <td>
-                {data.file ? (
-                  <a href={`${apiurl}${data.file}`} target="_blank" rel="noopener noreferrer">
-                    View File
-                  </a>
-                ) : (
-                  "No File"
-                )}
-              </td>
-              <td className='tablerow'>
+                  <td className='tablerow'>
                 <button className='user-edit-btn' onClick={() => toggleEdit(data.id)}>
                   <FaEdit />
                 </button>
