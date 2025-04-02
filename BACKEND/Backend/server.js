@@ -272,7 +272,7 @@ app.post('/create-for-user', upload.single('file'), (req, res) => {
 
     db.query(sql, values, (err, result) => {
 
-        userId = result.insertId;
+      const userId = result.insertId;
 
         if (err) return res.status(500).json({ error: err.message });
         res.status(200).json({ message: "Details submitted successfully", userId : userId });

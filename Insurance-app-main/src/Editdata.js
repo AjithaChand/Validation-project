@@ -59,10 +59,6 @@ const Editdata = ({close}) => {
         .catch(err => toast.error(err.response?.data?.error || "An error occurred"));
     };
 
-    const handleShow =()=>{
-        console.log("values",values);
-        
-    }
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -88,7 +84,6 @@ const Editdata = ({close}) => {
                 </div>
                 <button className='btn user-btn mt-3' style={{ backgroundColor: "#333", width: "30%" }}>Submit</button>
             </form>
-            <button onClick={handleShow}>Click</button>
             <ToastContainer position='top-right' autoClose={3000} />
         </div>
     );
