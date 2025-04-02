@@ -82,21 +82,16 @@ app.get("/download-excel-for-user/:id", (req, res) => {
 });
 
 
-const upload = multer({ dest: "uploads/" });
 
+//Upload the excel sheet
 
-app.post("/upload-excel", upload.single("file"), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
-    }
-
-    const filePath = req.file.path;
-    const workbook = xlsx.readFile(filePath);
-    const sheetName = workbook.SheetNames[0];
+const processExcelUpload = (filePath, res, userId = null) => {
+    const workbook = xlsx.readFile(filePath); 
+    const sheetName = workbook.SheetNames[0];  
     const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
     const parseExcelDate = (excelDate) => {
-        if (!excelDate) return null; 
+        if (!excelDate) return null;
         if (typeof excelDate === "number") {
             return new Date((excelDate - 25569) * 86400000).toISOString().split("T")[0];
         }
@@ -104,28 +99,35 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
     };
 
     const values = sheetData.map((row) => [
-        row.email,                       
-        parseExcelDate(row.startdate),  
-        parseExcelDate(row.enddate),    
-        row.policy                       
+        row.email,
+        parseExcelDate(row.startdate),
+        parseExcelDate(row.enddate),
+        row.policy
     ]);
-    
+
     if (values.length === 0) {
-        fs.unlinkSync(filePath);
+        fs.unlinkSync(filePath);  
         return res.status(400).json({ error: "No valid data in the file" });
     }
 
-    console.log("Parsed values before DB insert:", values); 
+    const query = userId
+        ? `
+            INSERT INTO customer_details (email, startdate, enddate, policy)
+            VALUES ? 
+            ON DUPLICATE KEY UPDATE 
+            startdate = VALUES(startdate), 
+            enddate = VALUES(enddate), 
+            policy = VALUES(policy)
+            WHERE id = ?`
+        : `
+            INSERT INTO customer_details (email, startdate, enddate, policy)
+            VALUES ? 
+            ON DUPLICATE KEY UPDATE 
+            startdate = VALUES(startdate), 
+            enddate = VALUES(enddate), 
+            policy = VALUES(policy)`;
 
-    const query = `
-        INSERT INTO customer_details (email, startdate, enddate, policy)
-        VALUES ? 
-        ON DUPLICATE KEY UPDATE 
-        startdate = VALUES(startdate), 
-        enddate = VALUES(enddate), 
-        policy = VALUES(policy)`;
-
-    db.query(query, [values], (err) => {
+    db.query(query, [values, userId], (err) => {
         fs.unlinkSync(filePath); 
         if (err) {
             console.error("Database Insert/Update Error:", err);
@@ -133,8 +135,28 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
         }
         res.json({ success: true, message: "Data Inserted/Updated Successfully" });
     });
+};
+
+const upload = multer({ dest: "uploads/" });
+
+app.post("/upload-excel", upload.single("file"), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const filePath = req.file.path;  
+    processExcelUpload(filePath, res);  
 });
 
+app.post("/upload-excel-for-user/:id", upload.single("file"), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const filePath = req.file.path;  
+    const userId = req.params.id;  
+    processExcelUpload(filePath, res, userId);  
+});
 
 
 

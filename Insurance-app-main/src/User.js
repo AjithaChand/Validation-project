@@ -12,10 +12,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoIosCloudUpload } from "react-icons/io";
 import { useContext } from "react";
-import { UserContext } from "./userContext"; 
+import { UserContext } from "./usecontext"; 
 import {apiurl} from "./url";
 
-const User = ( {id}) => {
+const User = () => {
+
+  const { userId } = useContext(UserContext); 
+
+  console.log("I am from User.jsx", userId);
+  
   const navigate = useNavigate();
   //  const { id } = useParams();
   const username = localStorage.getItem("username");
@@ -24,11 +29,10 @@ const User = ( {id}) => {
   const [showform, setShowform] = useState(false);
   const [showconfirm, setShowconfirm] = useState(false);
   const [value, setValue] = useState([]);
-  const [selectid, setSelectid] = useState(null); // Store edit data
-  const { userId } = useContext(UserContext); 
+  const [selectid, setSelectid] = useState(null); 
   useEffect(() => {
     axios.get(`${apiurl}/read/${userId}`)
-      .then(res => setValue(res.data))
+    .then(res => setValue(res.data))
       .catch(err => console.log(err));
   }, [userId]);
 
