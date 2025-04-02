@@ -2,8 +2,9 @@
     position: relative;
     width: 100%;
     height: 100vh;
-    overflow: hidden;
-  }
+    overflow-y: scroll;
+    min-height: fit-content;
+ }
   
 .user-containerform::before {
     content: "";
@@ -41,9 +42,10 @@
     position: relative;
     border-collapse: collapse;
     margin: auto;
-    width: 50%;
+    width: 80%;
     box-shadow: 10px 10px 10px black;
     border-radius: 10px;
+  
 }
 
 .user-table th,td{

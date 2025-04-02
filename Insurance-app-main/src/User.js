@@ -51,6 +51,7 @@ const User = ( {id}) => {
     <div className='user-containerform'>
       <div className='user-background'></div>
       <div className='user-overlay'>
+        <div className='userprofilelog'>
       <div className='user-profile'>
         <div className='userlogout-btn'><CgProfile /></div>
         <div className='userlogout-btn'>{username}shuruthi</div>
@@ -58,7 +59,8 @@ const User = ( {id}) => {
           <RiLogoutCircleRLine />
         </button>
       </div>
-      <div><h3 className='text-center p-3 text-white'>User Entry</h3></div>
+      <h3 className='text-center p-3 text-white'>User Entry</h3>
+      </div>
 
       <table className='user-table' border={1}>
         <thead>
@@ -94,6 +96,96 @@ const User = ( {id}) => {
               </td>
             </tr>
           ))}
+
+          <tr>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
+            <td><button>view</button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan10@gmail.com</td>
+            <td>29/03/2025</td>
+            <td>30/04/2025</td>
+            <td>Medical Insurance</td>
+            <td>Viewfile</td>
+            <td><button>view</button></td>
+          </tr>
+         
         </tbody>
       </table>
 

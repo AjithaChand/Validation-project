@@ -31,10 +31,7 @@ const Create = ({close}) => {
         formData.append('file',values.file);
 
         axios.post('http://localhost:8000/create',formData,{
-          headers:{
-            'Content-Type' : 'multipart/form-data',
-             Authorization : `Bearer ${localStorage.getItem('token')}`
-          }
+          headers:{'Content-Type' : 'multipart/form-data'}
         })
         .then(res=>{
             toast.success(res.data.message)
@@ -44,8 +41,8 @@ const Create = ({close}) => {
         .catch(err=>toast.error(err.response.data.error))
     }
 
-    console.log(userId)
-
+        console.log(userId);
+        
   return (
     <div >
       <form onSubmit={handleSubmit}>

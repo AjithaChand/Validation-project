@@ -24,9 +24,7 @@ const Register = () => {
         }
 
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*])[A-Za-z\d!@#$%&*]{8,}$/;
-
-
-        if (!passwordRegex.test(values.password)) {
+       if (!passwordRegex.test(values.password)) {
             return toast.error("Password must be 8 characters includes one number one special character")
         }
         axios.post("http://localhost:8000/register", values)
@@ -35,7 +33,8 @@ const Register = () => {
                 navigate("/")
             })
             .catch(err => toast.error(err.response.data.error))
-    }
+
+        }
 
     return (
         <div  className='register-container' style={{height:"100vh",width:"100vw"}}>

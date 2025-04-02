@@ -9,9 +9,6 @@ import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
-
-
-
 const Adminpage = () => {
   const [showconfirm, setShowconfirm] = useState(false);
   const role=localStorage.getItem("role");
@@ -25,8 +22,7 @@ const Adminpage = () => {
   const handleDownload = () => {
     window.location.href = "http://localhost:8000/download-excel";
   }
-
-  const handleUpload = async () => {
+const handleUpload = async () => {
 
     if (!file) return toast.error("Select a file first!");
 
@@ -106,20 +102,29 @@ const Adminpage = () => {
         <h2>Admin Dashboard</h2>
         <button onClick={handleLogout} className='logout-btn'>{role}Logout</button>
       </div>
-     
-      
-      <div className='row'>
-        <div className='col-12' >
-          <h3 className='text-center admin-head p-4 '>Customer Details</h3>
-          <div className='admin-header'>
-            <button className='upload-button1' onClick={handleDownload}><PiMicrosoftExcelLogoFill /></button>
-            <input type='file' id="fileInput" className='file-input' onChange={(e) => setFile(e.target.files[0])} />
-            <label for="fileInput" className="file-label pt-3">
-              <span className='label-name'>Choose File</span>
-            </label>
-            {file && <span className="file-name">{file.name}</span>}
-            <button className='upload-button2' onClick={handleUpload}><IoIosCloudUpload /></button>
-          </div>
+     <div className='row'>
+        <div className='col-12' style={{ marginTop: "7%" }} >
+        <div className="admin-header-container">
+  <h3 className="admin-head">Customer Details</h3>
+  <div className="admin-header">
+    <button className="upload-button1" onClick={handleDownload}>
+      <PiMicrosoftExcelLogoFill />
+    </button>
+    <input
+      type="file"
+      id="fileInput"
+      className="file-input"
+      onChange={(e) => setFile(e.target.files[0])}
+    />
+    <label htmlFor="fileInput" className="file-label">
+      <span className="label-name">Choose File</span>
+    </label>
+    {file && <span className="file-name">{file.name}</span>}
+    <button className="upload-button2" onClick={handleUpload}>
+      <IoIosCloudUpload />
+    </button>
+  </div>
+</div>
           <table className='mt-5 text-center admin-table'>
             <thead>
               <tr>
@@ -151,6 +156,86 @@ const Adminpage = () => {
                   <td className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></td>
                 </tr>
               })}
+               <tr>
+            <td>shuruthimanoharan12@gmail.com</td>
+            <td>11/04/205</td>
+            <td>13/05/2025</td>
+            <td>Medical insurance</td>
+            <td>viewfile</td>
+            <td><button><RiDeleteBinFill /></button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan12@gmail.com</td>
+            <td>11/04/205</td>
+            <td>13/05/2025</td>
+            <td>Medical insurance</td>
+            <td>viewfile</td>
+            <td><button><RiDeleteBinFill /></button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan12@gmail.com</td>
+            <td>11/04/205</td>
+            <td>13/05/2025</td>
+            <td>Medical insurance</td>
+            <td>viewfile</td>
+            <td><button><RiDeleteBinFill /></button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan12@gmail.com</td>
+            <td>11/04/205</td>
+            <td>13/05/2025</td>
+            <td>Medical insurance</td>
+            <td>viewfile</td>
+            <td><button><RiDeleteBinFill /></button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan12@gmail.com</td>
+            <td>11/04/205</td>
+            <td>13/05/2025</td>
+            <td>Medical insurance</td>
+            <td>viewfile</td>
+            <td><button><RiDeleteBinFill /></button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan12@gmail.com</td>
+            <td>11/04/205</td>
+            <td>13/05/2025</td>
+            <td>Medical insurance</td>
+            <td>viewfile</td>
+            <td><button><RiDeleteBinFill /></button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan12@gmail.com</td>
+            <td>11/04/205</td>
+            <td>13/05/2025</td>
+            <td>Medical insurance</td>
+            <td>viewfile</td>
+            <td><button><RiDeleteBinFill /></button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan12@gmail.com</td>
+            <td>11/04/205</td>
+            <td>13/05/2025</td>
+            <td>Medical insurance</td>
+            <td>viewfile</td>
+            <td><button><RiDeleteBinFill /></button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan12@gmail.com</td>
+            <td>11/04/205</td>
+            <td>13/05/2025</td>
+            <td>Medical insurance</td>
+            <td>viewfile</td>
+            <td><button><RiDeleteBinFill /></button></td>
+          </tr>
+          <tr>
+            <td>shuruthimanoharan12@gmail.com</td>
+            <td>11/04/205</td>
+            <td>13/05/2025</td>
+            <td>Medical insurance</td>
+            <td>viewfile</td>
+            <td><button><RiDeleteBinFill /></button></td>
+          </tr>
             </tbody>
           </table>
           <div className='mt-4'>

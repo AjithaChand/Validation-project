@@ -8,10 +8,10 @@
 .adminpage-header{
     display: flex;
     justify-content: space-between;
-    /* background:linear-gradient(90deg,rgba(9,9,121,1) 20%,rgba(0,212,255,1)100%); */
-    background-color: #3181c7;
+    background-color:darkblue;
     color: white;
-    left: 20%;
+    margin-left: 20%;
+    margin-right: 1%;
 }
 
 .admin-head{
@@ -21,10 +21,10 @@
 .admin-table{
     position: relative;
     border-collapse: collapse;
-    padding: 20px;
     margin: auto;
-    width: 100%;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    left:3%;
+    margin-top: 100px;
 }
 
 .admin-table th,td{
@@ -48,40 +48,42 @@
     background-color: rgb(24, 24, 230);
 }
 
-.admin-header{
+.admin-header-container {
     display: flex;
-    justify-content:end;
-    position: absolute;
-    width: 20%;
-    right: 10%;
-    top: 25%;
-}
-
-.fileupload{
-    display: flex;
+    align-items: center;
     justify-content: space-between;
-    flex-direction: column;
-    
+    padding: 10px;
+    margin: auto;
+    width: 80%;
+    border-radius: 5px;
 }
 
-.upload-button1
-{
-    background:none;
-    color: green;
-    border: none;
-    font-size: 40px;
+.admin-head {
     font-weight: bold;
+    font-size: 24px;
+    margin-left: 20px;
+    color:black;
+  
 }
 
-.upload-button2
-{
-    background:none;
-    color:rgb(48, 190, 246);
-    border: none;
-    font-size: 40px;
-    font-weight: bold;
-    margin-right: 15%;
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
 }
+
+.upload-button1, .upload-button2 {
+    font-size: 25px;
+    cursor: pointer;
+    background: none;
+}
+
+.file-label {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
 
 .delete-button
 {
@@ -94,34 +96,32 @@
 }
 
 .file-label {
-    color: black;
-    font-size: 17px;
-    border-radius: 7px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
     display: inline-block;
-    text-align: center;
-    height: 30px;
+    font-weight: bold;
+    transition: background 0.3s;
 }
 
-.file-name {
-    font-size: 16px;
-    color: #555;
-    margin-left: 10px;
-    display: inline-block;
+
+
+
+.file-label:hover {
+    background-color: #0056b3;
 }
 
-.label-name{
-    border: none;
-    background-color:white ;
-    border-radius: 5px;
-    padding: 10px;
+.label-name {
+    display: block;
 }
 
 .logout-btn{
     border-radius: 5px;
     padding: 10px;
     width: 100px;
-    background-color: #0b2f65;
+    background-color:skyblue;
     color: white;
 }
 
@@ -184,4 +184,19 @@
     background-color: darkred;
     color: white;
 }
-
+.btn btn-primary
+ {
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 6px;
+        background-color: #007bff;
+        border: none;
+        transition: 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        color: white;
+        cursor: pointer;
+        width: 25%;
+      }
+      
+     
+      

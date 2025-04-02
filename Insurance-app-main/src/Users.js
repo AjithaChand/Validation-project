@@ -52,12 +52,12 @@ const Users = () => {
   </div>
 
   <div className='row'>
-    <div className='user'>
-      <h3 className='text-center users-head'>Customer Details</h3>
+    <div className='user mt-5'>
+      <h3 className='text-center mt-5 users-head'>Customer Details</h3>
 
       {/* Scrollable table container */}
       <div className="table-container">
-        <table className='users-table text-center mt-5'>
+        <table className='users-table mt-5'>
           <thead>
             <tr>
               <th>Username</th>
@@ -82,6 +82,26 @@ const Users = () => {
                 </td>
               </tr>
             ))}
+<tr>
+              <td>Shuruthimanoharan</td>
+              <td>Shuruthimanoharan10@gmail.com</td>
+              <td>Shuruthi@14</td>
+              </tr>
+              <tr>
+              <td>Nishalingam</td>
+              <td>Nishalingam10@gmail.com</td>
+              <td>Nisha@15</td>
+              </tr>
+              <tr>
+              <td>Nishalingam</td>
+              <td>Nishalingam10@gmail.com</td>
+              <td>Nisha@15</td>
+              </tr>
+              <tr>
+              <td>Nishalingam</td>
+              <td>Nishalingam10@gmail.com</td>
+              <td>Nisha@15</td>
+              </tr>
           </tbody>
         </table>
       </div>
