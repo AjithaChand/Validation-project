@@ -114,7 +114,7 @@ const handleUpload = async () => {
         <div className="admin-header-container">
   <h3 className="admin-head">Customer Details</h3>
   <div className="admin-header">
-    <button className="upload-button1" onClick={handleDownload}>
+    <button className="upload-button3" onClick={handleDownload}>
       <PiMicrosoftExcelLogoFill />
     </button>
     <input
@@ -127,7 +127,7 @@ const handleUpload = async () => {
       <span className="label-name">Choose File</span>
     </label>
     {file && <span className="file-name">{file.name}</span>}
-    <button className="upload-button2" onClick={handleUpload}>
+    <button className="upload-button4" onClick={handleUpload}>
       <IoIosCloudUpload />
     </button>
   </div>
