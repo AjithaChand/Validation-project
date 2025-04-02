@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import User from './User';
-
+import { apiurl } from './url';
 const Create = ({close}) => {
 
     const [values,setValues] = useState({
@@ -30,7 +30,7 @@ const Create = ({close}) => {
         formData.append('policy',values.policy);
         formData.append('file',values.file);
 
-        axios.post('http://localhost:8000/create',formData,{
+        axios.post(`${apiurl}/create`,formData,{
           headers:{'Content-Type' : 'multipart/form-data'}
         })
         .then(res=>{

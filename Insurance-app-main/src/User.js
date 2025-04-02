@@ -7,6 +7,7 @@ import { FaEdit } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { apiurl } from './url';
 
 const User = ( {id}) => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const User = ( {id}) => {
   const [selectid, setSelectid] = useState(null); // Store edit data
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/read/${id}`)
+    axios.get(`${apiurl}/read/${id}`)
       .then(res => setValue(res.data))
       .catch(err => console.log(err));
   }, [id]);
@@ -82,7 +83,7 @@ const User = ( {id}) => {
               <td>{data.policy}</td>
               <td>
                 {data.file ? (
-                  <a href={`http://localhost:8000${data.file}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`${apiurl}${data.file}`} target="_blank" rel="noopener noreferrer">
                     View File
                   </a>
                 ) : (

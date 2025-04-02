@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Adminregister.css'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { apiurl } from './url';
 const Adminregister = () => {
     
     const navigate = useNavigate()
@@ -34,7 +34,7 @@ const Adminregister = () => {
         if (!passwordRegex.test(values.password)) {
             return toast.warning("Password must be 8 characters includes one number one special character")
         }
-        axios.post("http://localhost:8000/admin/register", values)
+        axios.post(`${apiurl}/admin/register`, values)
             .then(res => {
                 toast.success(res.data.message)
                 navigate("/admin/users")

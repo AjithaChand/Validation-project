@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import './Updatedata.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { apiurl } from './url';
 
 const Updatedata = ( {selectid , close} ) => {
 
@@ -28,7 +29,7 @@ const Updatedata = ( {selectid , close} ) => {
 
     if(!selectid) return;
 
-    axios.get(`http://localhost:8000/getuser/${selectid}`)
+    axios.get(`${apiurl}/getuser/${selectid}`)
     .then(res=>{
       if(res.data){
         setData(res.data)
@@ -42,7 +43,7 @@ const Updatedata = ( {selectid , close} ) => {
 const handleSubmit = (e) =>{
 
     e.preventDefault();
-    axios.put(`http://localhost:8000/edituser/${selectid}`,datas)
+    axios.put(`${apiurl}/edituser/${selectid}`,datas)
     .then(res=>{
       toast.success(res.data.message)
       close()
@@ -52,7 +53,7 @@ const handleSubmit = (e) =>{
 
 
 
-    axios.post('http://localhost:8000/password_changed',{
+    axios.post(`${apiurl}/password_changed`,{
       email: datas.email,
       password: datas.password
     })

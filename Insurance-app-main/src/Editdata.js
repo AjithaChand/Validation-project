@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { apiurl } from './url';
 const Editdata = ({selectid,close}) => {
 
     const [values, setValues] = useState({
@@ -16,7 +16,7 @@ const Editdata = ({selectid,close}) => {
     useEffect(() => {
         if(!selectid) return;
 
-        axios.get(`http://localhost:8000/read/${selectid}`)
+        axios.get(`${apiurl}read/${selectid}`)
             .then(res =>{
                 if(res.data){
                     setValues(res.data)
@@ -41,7 +41,7 @@ const Editdata = ({selectid,close}) => {
         formData.append('policy', values.policy);
         formData.append('file_path', values.file);
 
-        axios.put(`http://localhost:8000/edit/${selectid}`, formData, {
+        axios.put(`${apiurl}/edit/${selectid}`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then(res => {

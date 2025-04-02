@@ -9,6 +9,9 @@ import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+
+import { apiurl } from './url';
+
 const Adminpage = () => {
   const [showconfirm, setShowconfirm] = useState(false);
   const role=localStorage.getItem("role");
@@ -20,7 +23,7 @@ const Adminpage = () => {
   const [file, setFile] = useState(null);
 
   const handleDownload = () => {
-    window.location.href = "http://localhost:8000/download-excel";
+    window.location.href = `${apiurl}/download-excel`;
   }
 const handleUpload = async () => {
 
@@ -30,7 +33,7 @@ const handleUpload = async () => {
     formData.append("file", file);
 
     try {
-      await axios.post("http://localhost:8000/upload-excel", formData);
+      await axios.post(`${apiurl}/upload-excel`, formData);
       toast.success("File Uploaded Successfully!");
     } catch (err) {
       toast.error("Upload Failed!");
@@ -46,7 +49,7 @@ const handleUpload = async () => {
 
   // Fetch files from backend
   useEffect(() => {
-    axios.get('http://localhost:8000/read')
+    axios.get(`${apiurl}/read`)
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
   }, [])
@@ -54,7 +57,7 @@ const handleUpload = async () => {
   // Delete values
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this data?")) {
-      axios.delete(`http://localhost:8000/delete/customer_details/${id}`)
+      axios.delete(`${apiurl}/delete/customer_details/${id}`)
         .then(res => {
           console.log(res);
           setValue(prev => prev.filter(data => data.id !== id));
@@ -76,7 +79,7 @@ const handleUpload = async () => {
     const isPdf = fileExtension === 'pdf';
 
     if (isImage || isPdf) {
-      setSelectedFile(`http://localhost:8000${fileUrl}`);
+      setSelectedFile(`${apiurl}${fileUrl}`);
       setShowModal(true);
     } else {
       toast.error("Unsupported file type");
