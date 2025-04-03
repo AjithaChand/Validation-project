@@ -9,7 +9,7 @@ const Create_For_User = ({close}) => {
   const currentDate = new Date().toISOString().split("T")[0]; 
 const [values,setValues] = useState({
         email:"",
-        startdate:"currentDate",
+        startdate:currentDate,
         enddate:"",
         policy:"",
         file:null
