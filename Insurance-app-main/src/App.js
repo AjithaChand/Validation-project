@@ -15,6 +15,7 @@ import Updatedata from './Updatedata';
 import { UserProvider } from "./usecontext";  
 
 const App = () => {
+
   return (
     <UserProvider>
       <BrowserRouter>
@@ -28,6 +29,7 @@ const App = () => {
             <Route index element={<Adminpage />} />
             <Route path='adminpage' element={<Adminpage />} />
             <Route path='users' element={<Users />} />
+            <Route path='home' element={<User />} />
           </Route>
           <Route path='/getuser/:id' element={<Users />} />
           <Route path='/edituser/:id' element={<Updatedata />} />

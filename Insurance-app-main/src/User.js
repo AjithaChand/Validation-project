@@ -12,15 +12,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoIosCloudUpload } from "react-icons/io";
 import { useContext } from "react";
-import { UserContext } from "./usecontext"; 
-import {apiurl} from "./url";
+import { UserContext } from "./usecontext";
+import { apiurl } from "./url";
 
 const User = () => {
 
-  const { userId } = useContext(UserContext); 
+  const { userId } = useContext(UserContext);
 
   console.log("I am from User.jsx", userId);
-  
+
   const navigate = useNavigate();
   //  const { id } = useParams();
   const username = localStorage.getItem("username");
@@ -29,10 +29,10 @@ const User = () => {
   const [showform, setShowform] = useState(false);
   const [showconfirm, setShowconfirm] = useState(false);
   const [value, setValue] = useState([]);
-  const [selectid, setSelectid] = useState(null); 
+  const [selectid, setSelectid] = useState(null);
   useEffect(() => {
     axios.get(`${apiurl}/read/${userId}`)
-    .then(res => setValue(res.data))
+      .then(res => setValue(res.data))
       .catch(err => console.log(err));
   }, [userId]);
 
@@ -63,7 +63,7 @@ const User = () => {
   const handleDownload = () => {
     window.location.href = `${apiurl}/download-excel-for-user/${userId}`;
   }
-const handleUpload = async () => {
+  const handleUpload = async () => {
 
     if (!file) return toast.error("Select a file first!");
 
@@ -77,97 +77,97 @@ const handleUpload = async () => {
       toast.error("Upload Failed!");
     }
   }
-  
+
 
   return (
     <div className='user-containerform'>
       <div className='user-background'></div>
       <div className='user-overlay'>
         <div className='userprofilelog'>
-      <div className='user-profile'>
-        <div className='userlogout-btn'><CgProfile /></div>
-        <div className='userlogout-btn'>{username}</div>
-        <button onClick={handleLogout} className='userlogout-btn'>
-          <RiLogoutCircleRLine />
-        </button>
-      </div>
-      <div className="admin-headerpage">
-        <div >
-      <h3 className='text-center p-3 text-white'>User Entry</h3>
-      </div>
-      <div className='admin-header'>
-    <button className="upload-button1" onClick={handleDownload}>
-      <PiMicrosoftExcelLogoFill />
-    </button>
-    <input
-      type="file"
-      id="fileInput"
-      className="file-input"
-      onChange={(e) => setFile(e.target.files[0])}
-    />
-    <label htmlFor="fileInput" className="file-label">
-      <span className="label-name">Choose File</span>
-    </label>
-    {file && <span className="file-name">{file.name}</span>}
-    <button className="upload-button2" onClick={handleUpload}>
-      <IoIosCloudUpload />
-    </button>
-    </div>
-  </div>
-     
-      
-      </div>
-
-      <table className='user-table' border={1}>
-        <thead>
-          <tr>
-            <th >Email</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Policy</th>
-            <th>Action</th>
-          </tr  >
-        </thead>
-        <tbody>
-          {value.map((data, index) => (
-            <tr key={index}>
-              <td>{data.email}</td>
-              <td>{new Date(data.startdate).toISOString().split("T")[0]}</td>
-              <td>{new Date(data.enddate).toISOString().split("T")[0]}</td>
-              <td>{data.policy}</td>
-                  <td className='tablerow'>
-                <button className='user-edit-btn' onClick={() => toggleEdit(data.id)}>
-                  <FaEdit />
-                </button>
-              </td>
-            </tr>
-          ))}
-
-         
-        </tbody>
-      </table>
-
-      <div className='mt-5'>
-        <button className='btn mt-5 user-btn' onClick={toggleForm}>Add Details</button>
-      </div>
-
-      <Formpopup isVisible={showform} onClose={toggleForm} />
-      <Editdialog isVisible={showedit} onClose={toggleEdit} userid={selectid} />
-
-      {showconfirm && (
-          <div className='user-boxhover'>
-          <div className="user-confirmbox">
-            <p>Are you sure you want to logout?</p>
-            <div className='user-box'>
-            <button className="user-confirm-btn" onClick={confirmLogout}>Confirm</button>
-            <button className="user-cancel-btn" onClick={cancelLogout}>Cancel</button>
+          <div className='user-profile'>
+            <div className='userlogout-btn'><CgProfile /></div>
+            <div className='userlogout-btn'>{username}</div>
+            <button onClick={handleLogout} className='userlogout-btn'>
+              <RiLogoutCircleRLine />
+            </button>
+          </div>
+          <div className="admin-headerpage">
+            <div >
+              <h3 className='text-center p-3 text-white'>User Entry</h3>
             </div>
-            </div>
-         
+            {/* <div className='admin-header'>
+              <button className="upload-button1" onClick={handleDownload}>
+                <PiMicrosoftExcelLogoFill />
+              </button>
+              <input
+                type="file"
+                id="fileInput"
+                className="file-input"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+              <label htmlFor="fileInput" className="file-label">
+                <span className="label-name">Choose File</span>
+              </label>
+              {file && <span className="file-name">{file.name}</span>}
+              <button className="upload-button2" onClick={handleUpload}>
+                <IoIosCloudUpload />
+              </button>
+            </div> */}
+          </div>
+
+
         </div>
-      )}
+
+        <table className='user-table' border={1}>
+          <thead>
+            <tr>
+              <th >Email</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Policy</th>
+              <th>Action</th>
+            </tr  >
+          </thead>
+          <tbody>
+            {value.map((data, index) => (
+              <tr key={index}>
+                <td>{data.email}</td>
+                <td>{new Date(data.startdate).toISOString().split("T")[0]}</td>
+                <td>{new Date(data.enddate).toISOString().split("T")[0]}</td>
+                <td>{data.policy}</td>
+                <td className='tablerow'>
+                  <button className='user-edit-btn' onClick={() => toggleEdit(data.id)}>
+                    <FaEdit />
+                  </button>
+                </td>
+              </tr>
+            ))}
+
+
+          </tbody>
+        </table>
+
+        <div className='mt-5'>
+          <button className='btn mt-5 user-btn' onClick={toggleForm}>Add Details</button>
+        </div>
+
+        <Formpopup isVisible={showform} onClose={toggleForm} />
+        <Editdialog isVisible={showedit} onClose={toggleEdit} userid={selectid} />
+
+        {showconfirm && (
+          <div className='user-boxhover'>
+            <div className="user-confirmbox">
+              <p>Are you sure you want to logout?</p>
+              <div className='user-box'>
+                <button className="user-confirm-btn" onClick={confirmLogout}>Confirm</button>
+                <button className="user-cancel-btn" onClick={cancelLogout}>Cancel</button>
+              </div>
+            </div>
+
+          </div>
+        )}
       </div>
-       <ToastContainer position='top-right' autoclose={3000} />
+      <ToastContainer position='top-right' autoclose={3000} />
     </div>
   );
 };
