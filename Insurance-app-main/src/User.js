@@ -5,8 +5,8 @@ import Formpopup from './Formpopup';
 import Editdialog from './Editdialog';
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-import { CgProfile } from "react-icons/cg";
-import { RiLogoutCircleRLine } from "react-icons/ri";
+// import { CgProfile } from "react-icons/cg";
+// import { RiLogoutCircleRLine } from "react-icons/ri";
 // import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,6 +15,8 @@ import { useContext } from "react";
 import { UserContext } from "./usecontext";
 import { apiurl } from "./url";
 import UserDialog from './UserDialog';
+import { FaUserCircle } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
 
 const User = () => {
 
@@ -85,10 +87,12 @@ const User = () => {
   return (
     <div className='user-containerform'>
           <div className='user-profile'>
-            <div className='userlogout-btn'><CgProfile /></div>
-            <div className='userlogout-btn'>{username}</div>
+            <h3 className='userheader'>TrustAssure</h3>
+            {/* <div className='userlogout-btn'><CgProfile /></div> */}
+            <div className='userlogout-btn'><FaUserCircle size={34} color="antiquewhite" style={{ cursor: "pointer" }} /></div>
+            <div className='userlogout-btn username'>{username}</div>
             <button onClick={handleLogout} className='userlogout-btn'>
-              <RiLogoutCircleRLine />
+              <MdLogout size={30} color="red" style={{ cursor: "pointer" }} />
             </button>
           </div>
           <div className="admin-headerpage">

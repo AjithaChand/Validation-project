@@ -1,41 +1,47 @@
+.user-containerform {
+    height: 100vh;
+    overflow-y: scroll;
+}
+
 .user-profile {
     display: flex;
     justify-content: flex-end;
     width: 100%;
     padding: 20px;
     gap: 10px;
-    background-color: gainsboro;
+    background: #1B609D;
     position: fixed;
     left: 0;
     z-index: 1000;
-  }
+}
 
 .userlogout-btn {
     position: relative;
     right: 5%;
-   font-size: 20px;
+    font-size: 20px;
     display: flex;
     align-items: center;
     cursor: pointer;
     background: none;
     border: none;
+    color: white;
 }
 
 .user-table {
-  position: relative;
+    position: relative;
     border-collapse:collapse;
     margin: auto;
     width: 80%;
-   top: 15%;
+    top: 15%;
 }
 
-.user-table tr:nth-child(odd) {
+/* .user-table tr:nth-child(odd) {
     background-color: whitesmoke;
 }
 
 .user-table tr:nth-child(even) {
     background-color: rgb(221, 220, 220);
-}
+} */
 
 .user-table th {
     padding: 12px;
@@ -57,27 +63,34 @@
 }
 
 .user-table tbody td{
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 10px;
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.2); */
+    border-bottom: 1px solid gainsboro;
+    padding: 15px;
 }
 
 .user-table tbody tr:hover {
     transform: translateY(-5px);
     box-shadow: 0px 5px 15px rgba(0, 82, 204, 0.4);
-    background: rgba(30, 60, 114, 0.9); color: white;
+    background: rgba(30, 60, 114, 0.9);
+     color: white;
 }
 
 .user-btn {
-    background-color: skyblue;
-    color:black;
+    background-color: rgb(2, 2, 78);
+    color:white;
     width: 150px;
     border-radius: 7px;
+}
+
+.user-btn:hover{
+    background: rgba(30, 60, 114, 0.9);
 }
 
 .userbtn{
     position: relative;
     top: 15%;
 }
+
 .admin-header {
     display: flex;
     align-items: center;
@@ -137,21 +150,6 @@
     transition: background 0.3s;
 }
 
-/* .admin-headerpage {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 20px;
-    color: white;
-}
-.admin-headerpage h3 {
-    flex-grow: 1;
-    text-align: center;
-    margin-left: 300px;
-    font-size: 22px;
-    font-weight: bold;
-} */
-
 .admin-header {
     display: flex;
     align-items: center;
@@ -163,4 +161,22 @@
     justify-content: center;
     position: relative;
     top: 15%;
+}
+
+.userheader{
+    position: absolute;
+    left: 2%;
+    font-variant: small-caps;
+    font-size: 2rem;
+    font-weight: bold;
+    color:antiquewhite;
+}
+
+.head{
+    font-weight: 700;
+}
+
+.username{
+    color: antiquewhite;
+    font-weight: bold;
 }
