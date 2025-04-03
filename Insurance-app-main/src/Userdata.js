@@ -13,7 +13,7 @@ const Userdata = () => {
           <h3 className='userdata-head' >Admin Panel</h3>
         </div>
           <nav>
-            <ul className='ps-5'>
+            <ul className='ps-5 userlist'>
               <li>
                 <button className='userdata-btn' onClick={() => navigate('/admin/adminpage')}>
                   Dashboard
@@ -27,10 +27,10 @@ const Userdata = () => {
             </ul>
           </nav> </aside></>) : user === 'user' ? (<><aside className='admin-slidebar'>
             <div className='p-4'>
-              <h3 className='userdata-head' >User Panel</h3>
+              <h3 className='userdata-head text-center' >User Panel</h3>
             </div>
             <nav>
-              <ul className='ps-5'>
+              <ul className=' userlist'>
                 <li>
                   <button className='userdata-btn' onClick={() => navigate('/admin/home')}>
                     Dashboard
