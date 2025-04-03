@@ -1,12 +1,13 @@
 .user-containerform {
-    position: relative;
-    width: 100%;
+    /* position: relative; */
+    /* width: 100%; */
     height: 100vh;
     overflow-y: scroll;
-    min-height: fit-content;
+    /* background: rgba(0, 0, 0, 0.7); */
+    /* min-height: fit-content; */
 }
 
-.user-containerform::before {
+/* .user-containerform::before {
     content: "";
     position: fixed;
     top: 0;
@@ -16,7 +17,7 @@
     background: rgb(6, 6, 70);
     filter: blur(10px);
     z-index: -1;
-}
+} */
 
 
 .user-profile {
@@ -24,49 +25,75 @@
     justify-content: flex-end;
     width: 100%;
     padding: 20px;
-    color: white;
     gap: 10px;
+    background-color: gainsboro;
+    position: fixed;
+    left: 0;
+    z-index: 1000;
+    /* box-shadow: 5px 5px 5px black; */
 }
 
 .userlogout-btn {
     position: relative;
     right: 5%;
-    top: 20px;
+    /* top: 20px; */
     font-size: 20px;
     display: flex;
     align-items: center;
     cursor: pointer;
+    background: none;
+    border: none;
 }
 
 .user-table {
-    border: 1px solid white;
+    /* border: 1px solid black; */
     position: relative;
-    border-collapse: collapse;
+    border-collapse:collapse;
+    /* border-spacing: 0;
+    overflow: hidden; */
     margin: auto;
     width: 80%;
-    box-shadow: 5px 5px 5px white;
-    border-radius: 10px;
-}
-
-.user-table th, td {
-    padding: 10px;
+    /* box-shadow: 5px 5px 5px black; */
+    /* border-radius: 10px; */
+    top: 15%;
 }
 
 .user-table tr:nth-child(odd) {
-    background-color: #bbdefb;
+    background-color: whitesmoke;
 }
 
 .user-table tr:nth-child(even) {
-    background-color: #d3e5f3;
+    background-color: rgb(221, 220, 220);
 }
 
 .user-table th {
-    background-color: #0d47a1;
+    padding: 12px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: #023265;
     color: white;
 }
 
-.user-table tr:hover {
-    background-color: #64b5f6;
+.user-table td {
+    font-size: 17px;
+    font-weight: 200;
+    font-family: "Poppins",sans-serif;
+}
+
+.user-table tbody tr{
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-table tbody td{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px;
+}
+
+.user-table tbody tr:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 15px rgba(0, 82, 204, 0.4);
+    background: rgba(30, 60, 114, 0.9); color: white;
 }
 
 .user-btn {
@@ -76,16 +103,21 @@
     border-radius: 7px;
 }
 
-.user-boxhover {
+.userbtn{
+    position: relative;
+    top: 15%;
+}
+
+/* .user-boxhover {
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
     top: 11%;
     right: 0;
-}
+} */
 
-.user-confirmbox {
+/* .user-confirmbox {
     display: flex;
     background-color: #b6b4b4;
     flex-direction: column;
@@ -93,22 +125,22 @@
     width: 300px;
     border-radius: 15px;
     padding: 10px;
-}
-
+} */
+/* 
 .user-confirmbox p {
     font-size: 1.2rem;
     font-weight: bold;
-}
+} */
 
-.user-confirm-btn, .user-cancel-btn {
+/* .user-confirm-btn, .user-cancel-btn {
     padding: 10px 20px;
     margin: 5px;
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
-}
+} */
 
-.user-confirm-btn {
+/* .user-confirm-btn {
     background-color: red;
     color: white;
 }
@@ -125,7 +157,7 @@
 .user-cancel-btn:hover {
     background-color: darkred;
     color: white;
-}
+} */
 
 .admin-header {
     display: flex;
@@ -186,21 +218,20 @@
     transition: background 0.3s;
 }
 
-.admin-headerpage {
+/* .admin-headerpage {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 15px 20px;
     color: white;
 }
-
 .admin-headerpage h3 {
     flex-grow: 1;
     text-align: center;
     margin-left: 300px;
     font-size: 22px;
     font-weight: bold;
-}
+} */
 
 .admin-header {
     display: flex;
@@ -211,4 +242,6 @@
 .admin-headerpage {
     display: flex;
     justify-content: center;
+    position: relative;
+    top: 15%;
 }
