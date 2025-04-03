@@ -8,13 +8,13 @@
 
 .user-containerform::before {
     content: "";
-    position: fixed; /* Fixes the background in place */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color:darkblue; /* Inherits the parent’s background */
-    filter: blur(30px); /* Blurs the background */
+    background: rgb(6, 6, 70);
+    filter: blur(10px);
     z-index: -1;
 }
 
