@@ -134,7 +134,7 @@ app.post("/login", (req, res) => {
         } else {
             console.log(user.username);
             
-            return res.status(200).json({ message: "Login Successful", token, role: "user",username: user.username});
+            return res.status(200).json({ message: "Login Successful", token, role: "user",username: user.username, email: user.email});
 
         }
     });

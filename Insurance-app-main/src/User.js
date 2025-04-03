@@ -19,6 +19,8 @@ const User = () => {
 
   const { userId } = useContext(UserContext);
 
+  const { shareEmail } = useContext(UserContext)
+
   console.log("I am from User.jsx", userId);
 
   const navigate = useNavigate();
@@ -30,11 +32,15 @@ const User = () => {
   const [showconfirm, setShowconfirm] = useState(false);
   const [value, setValue] = useState([]);
   const [selectid, setSelectid] = useState(null);
+ 
+ 
   useEffect(() => {
-    axios.get(`${apiurl}/read/${userId}`)
+    axios.get(`${apiurl}/get-customer-details?email=${shareEmail}`)
       .then(res => setValue(res.data))
       .catch(err => console.log(err));
-  }, [userId]);
+  }, [shareEmail]);
+
+
 
   const toggleEdit = (id) => {
     setSelectid(id);
@@ -57,26 +63,6 @@ const User = () => {
   const cancelLogout = () => {
     setShowconfirm(false);
   };
-
-  const [file, setFile] = useState(null);
-
-  const handleDownload = () => {
-    window.location.href = `${apiurl}/download-excel-for-user/${userId}`;
-  }
-  const handleUpload = async () => {
-
-    if (!file) return toast.error("Select a file first!");
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      await axios.post(`${apiurl}/upload-excel`, formData)
-      toast.success("File Uploaded Successfully!");
-    } catch (err) {
-      toast.error("Upload Failed!");
-    }
-  }
 
 
   return (
@@ -129,7 +115,7 @@ const User = () => {
             </tr  >
           </thead>
           <tbody>
-            {value.map((data, index) => (
+            {value && value.map((data, index) => (
               <tr key={index}>
                 <td>{data.email}</td>
                 <td>{new Date(data.startdate).toISOString().split("T")[0]}</td>

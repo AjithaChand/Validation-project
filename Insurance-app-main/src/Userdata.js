@@ -10,7 +10,7 @@ const Userdata = () => {
   return (
     <div className='user-container'>
         {user === 'admin' ? (<> <aside className='admin-slidebar'><div className='p-4'>
-          <h3 >Admin Panel</h3>
+          <h3 className='userdata-head' >Admin Panel</h3>
         </div>
           <nav>
             <ul className='ps-5'>
@@ -27,7 +27,7 @@ const Userdata = () => {
             </ul>
           </nav> </aside></>) : user === 'user' ? (<><aside className='admin-slidebar'>
             <div className='p-4'>
-              <h3 >User Panel</h3>
+              <h3 className='userdata-head' >User Panel</h3>
             </div>
             <nav>
               <ul className='ps-5'>

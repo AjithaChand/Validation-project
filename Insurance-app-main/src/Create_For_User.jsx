@@ -16,8 +16,10 @@ const Create_For_User = ({close}) => {
         file:null
     })
 
+    const { email } = useContext(UserContext)
 
-    const { setUserId } = useContext(UserContext); 
+    const { setShareEmail } = useContext(UserContext); 
+
 
     const handleFileChange = (e)=>{
         setValues({...values,file:e.target.files[0]})
@@ -32,26 +34,33 @@ const Create_For_User = ({close}) => {
         formData.append('enddate',values.enddate);
         formData.append('policy',values.policy);
         formData.append('file',values.file);
-
-        axios.post(`${apiurl}/create-for-user`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        })
-        .then(res => {
-          console.log("Response:", res);
-          if (typeof close === "function") {
-            toast.success(res.data.message);
-            close();
-          }
-          setUserId(res.data.userId);
-          console.log("I am from Create_For_User.jsx", res.data.userId);
-        })
-        .catch(err => {
-          console.log("Error:", err);
-          if (err.response && err.response.data) {
-            toast.error(err.response.data.error);
-          }
-        });        
-  }
+     
+        console.log("Received Email",email);
+        console.log("Entered Email",values.email);
+      
+        if(email===values.email) {
+          axios.post(`${apiurl}/create-for-user`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+          })
+          .then(res => {
+            console.log("Response:", res);
+            if (typeof close === "function") {
+              toast.success(res.data.message);
+              close();
+            }
+            setShareEmail(res.data.email);
+            console.log("I am from Create_For_User.jsx", res.data.email);
+          })
+          .catch(err => {
+            console.log("Error:", err);
+            if (err.response && err.response.data) {
+              toast.error(err.response.data.error);
+            }
+          });          
+        } else {
+          toast("Please Enter Your Login Email");
+        }
+       }
         
   return (
     <div >

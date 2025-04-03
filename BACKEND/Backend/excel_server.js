@@ -83,8 +83,8 @@ app.get("/download-excel-for-user-data", (req, res) => {
 
               worksheet['!cols'] = [
                 { wpx: 150 }, 
-                { wpx: 100 }, 
-                { wpx: 100 }
+                { wpx: 150 }, 
+                { wpx: 120 }
             ];
 
         const workbook = xlsx.utils.book_new();
@@ -173,7 +173,7 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
     });
 });
   
-app.post("/upload-excel-fro-userdata", upload.single("file"), (req, res) => {
+app.post("/upload-excel-for-userdata", upload.single("file"), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
     }
@@ -197,21 +197,25 @@ app.post("/upload-excel-fro-userdata", upload.single("file"), (req, res) => {
     console.log("Parsed values before DB insert:", values); 
 
     const query = `
-        INSERT INTO users (username, email, passsword)
-        VALUES ? 
-        ON DUPLICATE KEY UPDATE 
+    INSERT INTO users (username, email, password)
+    VALUES ? 
+    ON DUPLICATE KEY UPDATE 
+        username = VALUES(username),
         email = VALUES(email), 
         password = VALUES(password)`;
 
-    db.query(query, [values], (err) => {
-        fs.unlinkSync(filePath); 
-        if (err) {
-            console.error("Database Insert/Update Error:", err);
-            return res.status(500).json({ error: "Database Operation Failed" });
-        }
-        res.json({ success: true, message: "Data Inserted/Updated Successfully" });
-    });
+db.query(query, [values], (err,result) => {
+    fs.unlinkSync(filePath); 
+    if (err) {
+        console.error("Database Insert/Update Error:", err);
+        return res.status(500).json({ error: "Database Operation Failed" });
+    }
+    console.log("Total data of user excel",result.affectedRows);
+    return res.json({ success: true, message: "Data Inserted/Updated Successfully" });
 });
+
+});
+
  
 
 // app.post("/upload-excel/:id", upload.single("file"), (req, res) => {
