@@ -73,29 +73,27 @@ useEffect(() => {
 
   <div className='row'>
     <div className='user mt-5'>
-      <h3 className='text-center mt-5 users-head'>Customer Details</h3>
-            {/* File Upload & Download */}
-            <div className="admin-headerpage">
-              <h3 className='text-center p-3 text-white'>User Entry</h3>
-              <div className='admin-header'>
-                <button className="upload-button1" onClick={handleDownload}>
-                  <PiMicrosoftExcelLogoFill />
-                </button>
-                <input
-                  type="file"
-                  id="fileInput"
-                  className="file-input"
-                  onChange={(e) => setFile(e.target.files[0])}
-                />
-                <label htmlFor="fileInput" className="file-label">
-                  <span className="label-name">Choose File</span>
-                </label>
-                {file && <span className="file-name">{file.name}</span>}
-                <button className="upload-button2" onClick={handleUpload}>
-                  <IoIosCloudUpload />
-                </button>
-              </div>
-            </div>
+     <div className="user-header-container">
+      <h3 className="user-head">User's Details</h3>
+      <div className="user-header">
+        <button className="upload-button1" onClick={handleDownload}>
+          <PiMicrosoftExcelLogoFill />
+        </button>
+        <input
+          type="file"
+          id="fileInput"
+          className="file-input"
+          onChange={(e) => setFile(e.target.files[0])}
+        />
+        <label htmlFor="fileInput" className="file-label">
+          <span className="label-name">Choose File</span>
+        </label>
+        {file && <span className="file-name">{file.name}</span>}
+        <button className="upload-button2" onClick={handleUpload}>
+          <IoIosCloudUpload />
+        </button>
+      </div>
+    </div>
       {/* Scrollable table container */}
       <div className="table-container">
         <table className='users-table text-center mt-5'>
