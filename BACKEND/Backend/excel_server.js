@@ -14,15 +14,12 @@ const db = require('./db')
 
 
 
-// app.get("/download-excel", (req, res) => {
-//     const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details";
+app.get("/download-excel", (req, res) => {
+   
+    const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details";
 
-const generateExcel =(query, params, res) => {
+    db.query(query,(err, results) => {
 
-
-    console.log("This the number", params);
-    
-    db.query(query, params, (err, results) => {
         if (err) {
             console.error("Database Query Error:", err);
             return res.status(500).json({ error: "Database Query Failed" });
@@ -68,22 +65,62 @@ const generateExcel =(query, params, res) => {
             fs.unlinkSync(filePath);
         });
     });
-};
-
-app.get("/download-excel", (req, res) => {
-    const query = "SELECT id, email, startdate, enddate, policy, subject, content FROM customer_details";
-    generateExcel(query, [], res); 
 });
 
-app.get("/download-excel-for-user/:id", (req, res) => {
-    const userId = req.params.id;
-    const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details WHERE id = ?";
-    generateExcel(query, [userId], res);
+
+app.get("/download-excel-for-user-data", (req, res) => {
+   
+    const query = "SELECT username, email, password FROM users";
+
+    db.query(query,(err, results) => {
+
+        if (err) {
+            console.error("Database Query Error:", err);
+            return res.status(500).json({ error: "Database Query Failed" });
+        }
+
+        const worksheet = xlsx.utils.json_to_sheet(results);
+
+              worksheet['!cols'] = [
+                { wpx: 150 }, 
+                { wpx: 100 }, 
+                { wpx: 100 }
+            ];
+
+        const workbook = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(workbook, worksheet, "Users");
+
+        const dir = "./downloads";
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+
+        const filePath = `${dir}/user_data.xlsx`;
+        xlsx.writeFile(workbook, filePath);
+        
+        res.download(filePath, "user_data.xlsx", (err) => {
+            if (err) console.error("File Download Error:", err);
+
+            fs.unlinkSync(filePath);
+        });
+    });
 });
+
+// app.get("/download-excel", (req, res) => {
+//     const query = "SELECT id, email, startdate, enddate, policy, subject, content FROM customer_details";
+//     generateExcel(query, [], res); 
+// });
+
+// app.get("/download-excel-for-user/:id", (req, res) => {
+//     const userId = req.params.id;
+//     const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details WHERE id = ?";
+//     generateExcel(query, [userId], res);
+// });
 
 
 
 //Upload the excel sheet
+
 const upload = multer({ dest: "uploads/" });
 
 app.post("/upload-excel", upload.single("file"), (req, res) => {
@@ -136,7 +173,46 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
     });
 });
   
+app.post("/upload-excel-fro-userdata", upload.single("file"), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+    }
 
+    const filePath = req.file.path;
+    const workbook = xlsx.readFile(filePath);
+    const sheetName = workbook.SheetNames[0];
+    const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+    const values = sheetData.map((row) => [
+        row.username,
+        row.email,                       
+        row.password                       
+    ]);
+    
+    if (values.length === 0) {
+        fs.unlinkSync(filePath);
+        return res.status(400).json({ error: "No valid data in the file" });
+    }
+
+    console.log("Parsed values before DB insert:", values); 
+
+    const query = `
+        INSERT INTO users (username, email, passsword)
+        VALUES ? 
+        ON DUPLICATE KEY UPDATE 
+        email = VALUES(email), 
+        password = VALUES(password)`;
+
+    db.query(query, [values], (err) => {
+        fs.unlinkSync(filePath); 
+        if (err) {
+            console.error("Database Insert/Update Error:", err);
+            return res.status(500).json({ error: "Database Operation Failed" });
+        }
+        res.json({ success: true, message: "Data Inserted/Updated Successfully" });
+    });
+});
+ 
 
 // app.post("/upload-excel/:id", upload.single("file"), (req, res) => {
 //     const id = req.params.id;
