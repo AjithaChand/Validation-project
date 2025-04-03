@@ -13,7 +13,6 @@ const Login = () => {
 
     const [active, setActive] = useState("login")
 
-     const {setEmail} =  useContext(UserContext)
 
     const [values,setValues] = useState({
         email:"",
@@ -28,10 +27,7 @@ const Login = () => {
             localStorage.setItem("token",res.data.token)
             localStorage.setItem("role",res.data.role)
             localStorage.setItem("username",res.data.username)
-            setEmail(res.data.email);
-            console.log("Login page Email",res.data.email);
-            
-            console.log(res.data.username)
+            localStorage.setItem("email",res.data.email)
             if(res.data.role==="admin"){
                 navigate("/admin")
             }
