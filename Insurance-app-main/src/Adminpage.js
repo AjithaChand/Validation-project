@@ -153,7 +153,7 @@ const handleUpload = async () => {
                   <td>
                     {data.file_path ? (
                       <button
-                        className='btn adminbutton btn-primary'
+                         className='btn-adminbutton'
                         onClick={() => handleViewFile(data.file_path)}
                       >
                         View File

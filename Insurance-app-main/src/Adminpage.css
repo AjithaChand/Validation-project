@@ -181,3 +181,11 @@
 .edit-btn:hover, .delete-btn:hover {
     transform: scale(1.2);
 }
+.btn-adminbutton
+{
+    width: 100px;
+    background-color: blue;
+    border: 1px solid blue;
+    border-radius: 5px;
+    color: white;
+}
