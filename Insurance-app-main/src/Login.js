@@ -30,7 +30,7 @@ const Login = () => {
                 navigate("/admin")
             }
             else{
-                navigate("/homepage")
+                navigate("/admin/home")
             }
         })
         .catch(err=>toast.error(err.response.data.error))
