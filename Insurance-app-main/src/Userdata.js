@@ -1,5 +1,6 @@
 import './Userdata.css'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom';
+import { MdDashboard } from "react-icons/md";
 
 const Userdata = () => {
 
@@ -33,7 +34,7 @@ const Userdata = () => {
               <ul className=' userlist'>
                 <li>
                   <button className='userdata-btn' onClick={() => navigate('/admin/home')}>
-                    Dashboard
+                  <MdDashboard size={28} color="whitesmoke" style={{ cursor: "pointer" }} /> Dashboard
                   </button>
                 </li>
               </ul>
