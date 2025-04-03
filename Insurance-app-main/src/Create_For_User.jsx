@@ -5,30 +5,27 @@ import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
 import { UserContext } from './usecontext'; 
 import { apiurl } from './url';
-
 const Create_For_User = ({close}) => {
-
-    const [values,setValues] = useState({
+const [values,setValues] = useState({
         email:"",
         startdate:"",
         enddate:"",
         policy:"",
         file:null
     })
+    const currentDate = new Date().toISOString().split("T")[0]; 
+   
 
-
-    const { setUserId } = useContext(UserContext); 
-
-    const handleFileChange = (e)=>{
+const { setUserId } = useContext(UserContext); 
+const handleFileChange = (e)=>{
         setValues({...values,file:e.target.files[0]})
     }
-
-    const handleSubmit = (e) =>{
+const handleSubmit = (e) =>{
         e.preventDefault();
 
-        const formData = new FormData();
+      const formData = new FormData();
         formData.append('email',values.email);
-        formData.append('startdate',values.startdate);
+        formData.append('startdate', values.currentDate);
         formData.append('enddate',values.enddate);
         formData.append('policy',values.policy);
         formData.append('file',values.file);
