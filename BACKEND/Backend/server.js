@@ -286,7 +286,6 @@ app.get('/read/:id', (req, res) => {
     const sql = "SELECT * FROM customer_details WHERE email = ?";
   
     db.query(sql, [id], (err,data) => {
-console.log(err,"ee")
             if(err) return res.status(500).json({error:err.message})
           
             console.log(data)
