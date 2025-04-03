@@ -103,7 +103,7 @@ const handleUpload = async () => {
   return (
     <div>
       <div className='adminpage-header p-3'>
-        <h2>Admin Dashboard</h2>
+        <h2 className='trustasure-title'>TrustAssure</h2>
         <div className='profileadmin'>
         <h3>{role}</h3>
         <button onClick={handleLogout} className='logout-btn'><RiLogoutCircleRLine /></button>
@@ -112,7 +112,7 @@ const handleUpload = async () => {
      <div className='row'>
         <div className='col-12' style={{ marginTop: "7%" }} >
         <div className="admin-header-container">
-  <h3 className="admin-head">Customer Details</h3>
+  <h3 className="admin-head">Customer  Details</h3>
   <div className="admin-header">
     <button className="upload-button3" onClick={handleDownload}>
       <PiMicrosoftExcelLogoFill />
