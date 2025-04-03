@@ -7,10 +7,8 @@ import { FaEdit } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { IoIosCloudUpload } from "react-icons/io";
 import { useContext } from "react";
 import { UserContext } from "./usecontext";
 import { apiurl } from "./url";
@@ -58,28 +56,7 @@ const User = () => {
     setShowconfirm(false);
   };
 
-  const [file, setFile] = useState(null);
-
-  const handleDownload = () => {
-    window.location.href = `${apiurl}/download-excel-for-user/${userId}`;
-  }
-  const handleUpload = async () => {
-
-    if (!file) return toast.error("Select a file first!");
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      await axios.post(`${apiurl}/upload-excel`, formData)
-      toast.success("File Uploaded Successfully!");
-    } catch (err) {
-      toast.error("Upload Failed!");
-    }
-  }
-
-
-  return (
+ return (
     <div className='user-containerform'>
       <div className='user-background'></div>
       <div className='user-overlay'>
@@ -95,30 +72,9 @@ const User = () => {
             <div >
               <h3 className='text-center p-3 text-white'>User Entry</h3>
             </div>
-            {/* <div className='admin-header'>
-              <button className="upload-button1" onClick={handleDownload}>
-                <PiMicrosoftExcelLogoFill />
-              </button>
-              <input
-                type="file"
-                id="fileInput"
-                className="file-input"
-                onChange={(e) => setFile(e.target.files[0])}
-              />
-              <label htmlFor="fileInput" className="file-label">
-                <span className="label-name">Choose File</span>
-              </label>
-              {file && <span className="file-name">{file.name}</span>}
-              <button className="upload-button2" onClick={handleUpload}>
-                <IoIosCloudUpload />
-              </button>
-            </div> */}
-          </div>
-
-
-        </div>
-
-        <table className='user-table' border={1}>
+         </div>
+ </div>
+ <table className='user-table' border={1}>
           <thead>
             <tr>
               <th >Email</th>
