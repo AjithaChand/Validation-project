@@ -14,6 +14,7 @@ const [values,setValues] = useState({
         file:null
     })
     const currentDate = new Date().toISOString().split("T")[0]; 
+    
    
 
 const { setUserId } = useContext(UserContext); 
@@ -25,7 +26,7 @@ const handleSubmit = (e) =>{
 
       const formData = new FormData();
         formData.append('email',values.email);
-        formData.append('startdate', values.currentDate);
+        formData.append('startdate', currentDate);
         formData.append('enddate',values.enddate);
         formData.append('policy',values.policy);
         formData.append('file',values.file);
