@@ -7,18 +7,19 @@ import { FaEdit } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleRLine } from "react-icons/ri";
-// import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
-import { ToastContainer } from "react-toastify";
+import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { IoIosCloudUpload } from "react-icons/io";
+import { IoIosCloudUpload } from "react-icons/io";
 import { useContext } from "react";
 import { UserContext } from "./usecontext";
 import { apiurl } from "./url";
-import UserDialog from './UserDialog';
 
 const User = () => {
 
   const { userId } = useContext(UserContext);
+
+  const { shareEmail } = useContext(UserContext)
 
   console.log("I am from User.jsx", userId);
 
@@ -28,16 +29,18 @@ const User = () => {
 
   const [showedit, setShowEdit] = useState(false);
   const [showform, setShowform] = useState(false);
-  // logout
   const [showconfirm, setShowconfirm] = useState(false);
-
   const [value, setValue] = useState([]);
   const [selectid, setSelectid] = useState(null);
+ 
+ 
   useEffect(() => {
-    axios.get(`${apiurl}/read/${userId}`)
+    axios.get(`${apiurl}/get-customer-details?email=${shareEmail}`)
       .then(res => setValue(res.data))
       .catch(err => console.log(err));
-  }, [userId]);
+  }, [shareEmail]);
+
+
 
   const toggleEdit = (id) => {
     setSelectid(id);
@@ -61,29 +64,12 @@ const User = () => {
     setShowconfirm(false);
   };
 
-  // const [file, setFile] = useState(null);
-
-  // const handleDownload = () => {
-  //   window.location.href = `${apiurl}/download-excel-for-user/${userId}`;
-  // }
-  // const handleUpload = async () => {
-
-  //   if (!file) return toast.error("Select a file first!");
-
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   try {
-  //     await axios.post(`${apiurl}/upload-excel`, formData)
-  //     toast.success("File Uploaded Successfully!");
-  //   } catch (err) {
-  //     toast.error("Upload Failed!");
-  //   }
-  // }
-
 
   return (
     <div className='user-containerform'>
+      <div className='user-background'></div>
+      <div className='user-overlay'>
+        <div className='userprofilelog'>
           <div className='user-profile'>
             <div className='userlogout-btn'><CgProfile /></div>
             <div className='userlogout-btn'>{username}</div>
@@ -93,7 +79,7 @@ const User = () => {
           </div>
           <div className="admin-headerpage">
             <div >
-              <h3 className='text-center head p-3'>USER ENTRY</h3>
+              <h3 className='text-center p-3 text-white'>User Entry</h3>
             </div>
             {/* <div className='admin-header'>
               <button className="upload-button1" onClick={handleDownload}>
@@ -113,10 +99,12 @@ const User = () => {
                 <IoIosCloudUpload />
               </button>
             </div> */}
-            
           </div>
 
-        <table className='user-table mt-3 text-center'>
+
+        </div>
+
+        <table className='user-table' border={1}>
           <thead>
             <tr>
               <th >Email</th>
@@ -127,7 +115,7 @@ const User = () => {
             </tr  >
           </thead>
           <tbody>
-            {value.map((data, index) => (
+            {value && value.map((data, index) => (
               <tr key={index}>
                 <td>{data.email}</td>
                 <td>{new Date(data.startdate).toISOString().split("T")[0]}</td>
@@ -141,47 +129,18 @@ const User = () => {
               </tr>
             ))}
 
-<tr>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-</tr>
-<tr>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-</tr>
-<tr>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-</tr>
-<tr>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-  <td>bjuodb</td>
-</tr>
 
           </tbody>
         </table>
 
-        <div className='mt-5 userbtn'>
+        <div className='mt-5'>
           <button className='btn mt-5 user-btn' onClick={toggleForm}>Add Details</button>
         </div>
 
         <Formpopup isVisible={showform} onClose={toggleForm} />
         <Editdialog isVisible={showedit} onClose={toggleEdit} userid={selectid} />
-        <UserDialog  isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
 
-        {/* {showconfirm && (
+        {showconfirm && (
           <div className='user-boxhover'>
             <div className="user-confirmbox">
               <p>Are you sure you want to logout?</p>
@@ -190,8 +149,10 @@ const User = () => {
                 <button className="user-cancel-btn" onClick={cancelLogout}>Cancel</button>
               </div>
             </div>
+
           </div>
-        )} */}
+        )}
+      </div>
       <ToastContainer position='top-right' autoclose={3000} />
     </div>
   );
