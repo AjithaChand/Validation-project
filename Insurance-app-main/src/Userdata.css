@@ -10,10 +10,6 @@
 
 .userdata-container{
     margin-left: 20%;
-<<<<<<< HEAD
-=======
- 
->>>>>>> 7e82e053e0c1ba25c34bf2049e6cf6814610c6e9
     height: 100vh;
 }
 
@@ -28,6 +24,7 @@
   border-bottom:1px solid #08589d;
   border-top:1px solid #08589d;
   border-radius: 5px;
+  gap: 10px;
   box-shadow: 0px 3px 5px whitesmoke;
 }
 
@@ -48,10 +45,10 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     color: white;
-    color: burlywood;
-    font-weight: bold;
+   font-weight: bold;
 }
 
 .userlist{
     list-style: none;
+   
 }

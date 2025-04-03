@@ -20,7 +20,7 @@ const Userdata = () => {
                 </button>
               </li>
               <li>
-                <button className='userdata-btn' onClick={() => navigate('/admin/users')}>
+                <button className='userdata-btn mt-3' onClick={() => navigate('/admin/users')}>
                   Users
                 </button>
               </li>
