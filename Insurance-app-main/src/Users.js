@@ -70,33 +70,32 @@ const Users = () => {
   return (
     <div className='users-container'>
       <div className='toggle p-3'>
-        <h2>User Entry</h2>
+      <h2 className='trustasure-title'>TrustAssure</h2>
       </div>
 
       <div className='row'>
         <div className='user mt-5'>
-          <h3 className='text-center mt-5 users-head'>Customer Details</h3>
-          {/* File Upload & Download */}
-          <div className="admin-headerpage">
-            <h3 className='text-center p-3 text-white'>User Entry</h3>
-            <div className='admin-header'>
-              <button className="upload-button1" onClick={handleDownload}>
-                <PiMicrosoftExcelLogoFill />
-              </button>
-              <input
-                type="file"
-                id="fileInput"
-                className="file-input"
-                onChange={(e) => setFile(e.target.files[0])}
-              />
-              <label htmlFor="fileInput" className="file-label">
-                <span className="label-name">Choose File</span>
-              </label>
-              {file && <span className="file-name">{file.name}</span>}
-              <button className="upload-button2" onClick={handleUpload}>
-                <IoIosCloudUpload />
-              </button>
-            </div>
+        
+         <div className="admin-header-container">
+          <h3 className="admin-head">User Details</h3>
+          <div className="admin-header">
+            <button className="upload-button3" onClick={handleDownload}>
+              <PiMicrosoftExcelLogoFill />
+            </button>
+            <input
+              type="file"
+              id="fileInput"
+              className="file-input"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <label htmlFor="fileInput" className="file-label">
+              <span className="label-name">Choose File</span>
+            </label>
+            {file && <span className="file-name">{file.name}</span>}
+            <button className="upload-button4" onClick={handleUpload}>
+              <IoIosCloudUpload />
+            </button>
+          </div>
           </div>
           {/* Scrollable table container */}
           <div className="table-container">
