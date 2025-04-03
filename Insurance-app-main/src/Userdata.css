@@ -1,25 +1,39 @@
 .admin-slidebar{
-    background:rgb(8, 8, 73);
+    background:#073965;
     color: white;
     height:100%;
     width: 20%;
     position: fixed;
     left: 0;
     top: 9%;
-    /* padding: 7px; */
 }
 
 .userdata-container{
     margin-left: 20%;
- 
     height: 100vh;
 }
 
 .userdata-btn{
-  color: white;
+  color: whitesmoke;
   cursor: pointer;
   background: none;
   border: none;
+  font-size: 18px;
+  width: 80%;
+  padding: 5px;
+  border-bottom:1px solid #08589d;
+  border-top:1px solid #08589d;
+  border-radius: 5px;
+  gap: 10px;
+  box-shadow: 0px 3px 5px whitesmoke;
+}
+
+.userdata-btn:hover{
+    background: #08589d;
+    /* padding-top: 10px; */
+    /* padding-bottom: 10px; */
+    border-radius: 5px;
+    /* box-shadow: 0px 3px 5px whitesmoke; */
 }
 
 .userdata-container{
@@ -27,5 +41,15 @@
 }
 
 .userdata-head{
-    font-family: 'Poppins',sans-serif;
+    padding: 12px;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+   font-weight: bold;
+}
+
+.userlist{
+    list-style: none;
+   
 }

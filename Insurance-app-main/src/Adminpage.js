@@ -10,7 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import { RiLogoutCircleRLine } from "react-icons/ri";
-
+import { CgProfile } from "react-icons/cg";
 import { apiurl } from './url';
 
 const Adminpage = () => {
@@ -105,8 +105,9 @@ const handleUpload = async () => {
       <div className='adminpage-header p-3'>
         <h2 className='trustasure-title'>TrustAssure</h2>
         <div className='profileadmin'>
-        <h3>{role}</h3>
-        <button onClick={handleLogout} className='logout-btn'><RiLogoutCircleRLine /></button>
+           <div className='userlogout-button'><CgProfile /></div>
+        <h3 className='userlogout-button2'>{role}</h3>
+        <button onClick={handleLogout} className='userlogout-button'><RiLogoutCircleRLine /></button>
         </div>
       </div>
      <div className='row'>
@@ -153,7 +154,7 @@ const handleUpload = async () => {
                   <td>
                     {data.file_path ? (
                       <button
-                        className='btn adminbutton btn-primary'
+                         className='btn-adminbutton'
                         onClick={() => handleViewFile(data.file_path)}
                       >
                         View File
