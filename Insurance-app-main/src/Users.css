@@ -12,39 +12,48 @@
     transform: scale(1.05);
 }
 
-.users-table {
+.admin-head {
+    font-family: 'Orbitron', sans-serif;  /* Futuristic Font */
+    font-weight: 700;
+    font-style: oblique;
+    font-size: 70px;
+    text-transform: uppercase;
+    text-align: center;
+    animation: glow 1.5s infinite alternate ease-in-out;
+    color:darkblue;
+}
+
+.users-table{
     position: relative;
     border-collapse: collapse;
     margin: auto;
     width: 90%;
-    margin-top: 50px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    left:3%;
+    margin-top: 100px;
 }
 
-.users-table th, td {
-    padding: 12px;
-    text-align: center;
+.users-table th,td{
+    padding: 10px;
 }
 
-.users-table tr:nth-child(odd) {
-    background-color: #bbdefb;
+.users-table tr:nth-child(odd){
+    background-color:#bbdefb;
 }
 
-.users-table tr:nth-child(even) {
-    background-color: #e3f2fd;
-}
-
-.users-table th {
+.users-table th{
     background-color: #0d47a1;
     color: white;
 }
-
-.users-table tr:hover {
-    background-color: #64b5f6;
-    cursor: pointer;
+.users-btn:hover{
+    background-color: rgb(24, 24, 230);
 }
+
+.users-table tbody tr:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 15px rgba(0, 82, 204, 0.4);
+    background: rgba(30, 60, 114, 0.9); color: white;
+}
+
 
 .edit-btn, .delete-btn {
     border: none;
@@ -67,39 +76,62 @@
 }
 
 .toggle {
-    background: linear-gradient(90deg, rgba(9,9,121,1) 20%, rgba(0,212,255,1) 100%);
+    display: flex;
+    justify-content: space-between;
+    background-color:darkblue;
     color: white;
-    padding: 15px;
-   font-size: 20px;
-    font-weight: bold;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 70px;
+}
+.trustasure-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
 }
 
-.user-header-container {
+.admin-head {
+    font-family: 'Orbitron', sans-serif;  /* Futuristic Font */
+    font-weight: 700;
+    font-style: oblique;
+    font-size: 70px;
+    text-transform: uppercase;
+    text-align: center;
+    animation: glow 1.5s infinite alternate ease-in-out;
+    color:darkblue;
+}
+.admin-header-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 10px;
+    margin-top:50px;
     width: 80%;
-    margin: auto;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
 
-.user-head {
-    font-size: 22px;
+.admin-head {
     font-weight: bold;
+    font-size: 24px;
     margin-left: 20px;
-    color: black;
+    color:black;
+  
 }
 
-.user-header {
+.admin-header {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 15px;
 }
 
-.upload-button1, .upload-button2 {
+.upload-button3, .upload-button4 {
+  
     color: white;
     border: none;
     padding: 10px 15px;
@@ -111,46 +143,59 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.upload-button1 {
-    background-color: #2ecc71;
-}
-
-.upload-button2 {
-    background-color: #e67e22;
-}
-
-.upload-button1:hover {
+  }
+  
+  .upload-button3{
+    background-color: #2ecc71; 
+  }
+  
+  .upload-button4{
+    background-color: #e67e22; 
+  }
+  
+  .upload-button3:hover {
     background-color: #27ae60;
     transform: scale(1.05);
-}
-
-.upload-button2:hover {
+  }
+  
+  .upload-button4:hover {
     background-color: #d35400;
     transform: scale(1.05);
-}
-
-.upload-button1 svg, .upload-button2 svg {
+  }
+  
+  .upload-button3 svg, .upload-button4 svg {
     font-size: 22px;
+  }
+
+.file-label {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+.file-input {
+    display: none;
 }
 
 .file-label {
     background-color: #007bff;
     color: white;
-    padding: 10px 12px;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
+    display: inline-block;
     font-weight: bold;
     transition: background 0.3s;
 }
+
+
+
 
 .file-label:hover {
     background-color: #0056b3;
 }
 
-.file-name {
-    font-weight: bold;
-    color: black;
-    margin-left: 10px;
+.label-name {
+    display: block;
 }
+
+
+
