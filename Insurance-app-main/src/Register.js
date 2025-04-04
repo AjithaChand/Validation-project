@@ -9,7 +9,6 @@ import { apiurl } from './url';
 const Register = () => {
     const[active,setActive]=useState("signup");
     const navigate = useNavigate()
-console.log(apiurl,"aaa")
     const [values, setValues] = useState({
         username: "",
         email: "",

@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import "./Login.css"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from './url';
+import Create_For_User from './Create_For_User';
+import { UserContext } from './usecontext';
 const Login = () => {
 
     const navigate = useNavigate();
 
     const [active, setActive] = useState("login")
+
 
     const [values,setValues] = useState({
         email:"",
@@ -24,16 +27,18 @@ const Login = () => {
             localStorage.setItem("token",res.data.token)
             localStorage.setItem("role",res.data.role)
             localStorage.setItem("username",res.data.username)
-
-            console.log(res.data.username)
+            localStorage.setItem("email",res.data.email)
             if(res.data.role==="admin"){
                 navigate("/admin")
             }
             else{
-                navigate("/homepage")
+                navigate("/admin/home")
             }
         })
         .catch(err=>toast.error(err.response.data.error))
+
+        console.log("I am from Login Page");
+        
     }
 
     return (

@@ -9,6 +9,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+import { RiLogoutCircleRLine } from "react-icons/ri";
 
 import { apiurl } from './url';
 
@@ -101,16 +102,19 @@ const handleUpload = async () => {
 
   return (
     <div>
-      <div className='adminpage-header fixed-top p-3'>
-        <h2>Admin Dashboard</h2>
-        <button onClick={handleLogout} className='logout-btn'>{role}Logout</button>
+      <div className='adminpage-header p-3'>
+        <h2 className='trustasure-title'>TrustAssure</h2>
+        <div className='profileadmin'>
+        <h3>{role}</h3>
+        <button onClick={handleLogout} className='logout-btn'><RiLogoutCircleRLine /></button>
+        </div>
       </div>
      <div className='row'>
         <div className='col-12' style={{ marginTop: "7%" }} >
         <div className="admin-header-container">
-  <h3 className="admin-head">Customer Details</h3>
+  <h3 className="admin-head">Customer  Details</h3>
   <div className="admin-header">
-    <button className="upload-button1" onClick={handleDownload}>
+    <button className="upload-button3" onClick={handleDownload}>
       <PiMicrosoftExcelLogoFill />
     </button>
     <input
@@ -123,7 +127,7 @@ const handleUpload = async () => {
       <span className="label-name">Choose File</span>
     </label>
     {file && <span className="file-name">{file.name}</span>}
-    <button className="upload-button2" onClick={handleUpload}>
+    <button className="upload-button4" onClick={handleUpload}>
       <IoIosCloudUpload />
     </button>
   </div>
@@ -149,7 +153,7 @@ const handleUpload = async () => {
                   <td>
                     {data.file_path ? (
                       <button
-                        className='btn btn-primary'
+                        className='btn adminbutton btn-primary'
                         onClick={() => handleViewFile(data.file_path)}
                       >
                         View File
@@ -159,86 +163,7 @@ const handleUpload = async () => {
                   <td className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></td>
                 </tr>
               })}
-               {/* <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr>
-          <tr>
-            <td>shuruthimanoharan12@gmail.com</td>
-            <td>11/04/205</td>
-            <td>13/05/2025</td>
-            <td>Medical insurance</td>
-            <td>viewfile</td>
-            <td><button><RiDeleteBinFill /></button></td>
-          </tr> */}
+               
             </tbody>
           </table>
           <div className='mt-4'>

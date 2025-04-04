@@ -3,31 +3,46 @@ import { Outlet, useNavigate } from 'react-router-dom'
 
 const Userdata = () => {
 
+  const user = localStorage.getItem('role')
+
   const navigate = useNavigate()
 
   return (
     <div className='user-container'>
-      <aside className='admin-slidebar'>
-        <div className='p-4'>
-          <h3 >Admin Panel</h3>
+        {user === 'admin' ? (<> <aside className='admin-slidebar'><div className='p-4'>
+          <h3 className='userdata-head' >Admin Panel</h3>
         </div>
-        <nav>
-          <ul className='ps-5'>
-          <li>
-              <button className='userdata-btn' onClick={() => navigate('/admin/adminpage')}>
-                Dashboard
-              </button>
-            </li>
-            <li>
-              <button className='userdata-btn' onClick={() => navigate('/admin/users')}>
-                Users
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+          <nav>
+            <ul className='ps-5'>
+              <li>
+                <button className='userdata-btn' onClick={() => navigate('/admin/adminpage')}>
+                  Dashboard
+                </button>
+              </li>
+              <li>
+                <button className='userdata-btn' onClick={() => navigate('/admin/users')}>
+                  Users
+                </button>
+              </li>
+            </ul>
+          </nav> </aside></>) : user === 'user' ? (<><aside className='admin-slidebar'>
+            <div className='p-4'>
+              <h3 className='userdata-head' >User Panel</h3>
+            </div>
+            <nav>
+              <ul className='ps-5'>
+                <li>
+                  <button className='userdata-btn' onClick={() => navigate('/admin/home')}>
+                    Dashboard
+                  </button>
+                </li>
+              </ul>
+            </nav>
+            </aside>
+          </>
+        ) : (  <></>)}
       <main className='userdata-container'>
-          <Outlet/>
+        <Outlet />
       </main>
     </div>
   )

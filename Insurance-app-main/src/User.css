@@ -1,117 +1,146 @@
 .user-containerform {
-    position: relative;
-    width: 100%;
+    /* position: relative; */
+    /* width: 100%; */
     height: 100vh;
     overflow-y: scroll;
-    min-height: fit-content;
- }
-  
-.user-containerform::before {
+    /* background: rgba(0, 0, 0, 0.7); */
+    /* min-height: fit-content; */
+}
+
+/* .user-containerform::before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('../public/insurance1.jpg') no-repeat center center/cover;
-    filter: blur(6px); /* Adjust the blur amount */
+    background: rgb(6, 6, 70);
+    filter: blur(10px);
     z-index: -1;
-}
-  
-.user-profile{
+} */
+
+
+.user-profile {
     display: flex;
     justify-content: flex-end;
     width: 100%;
     padding: 20px;
-    color:white;
     gap: 10px;
+    background-color: gainsboro;
+    position: fixed;
+    left: 0;
+    z-index: 1000;
+    /* box-shadow: 5px 5px 5px black; */
 }
 
-.userlogout-btn{
+.userlogout-btn {
     position: relative;
     right: 5%;
-    top: 20px;
+    /* top: 20px; */
     font-size: 20px;
     display: flex;
     align-items: center;
     cursor: pointer;
+    background: none;
+    border: none;
 }
 
-.user-table{
-    border: 1px solid black ;
+.user-table {
+    /* border: 1px solid black; */
     position: relative;
-    border-collapse: collapse;
+    border-collapse:collapse;
+    /* border-spacing: 0;
+    overflow: hidden; */
     margin: auto;
     width: 80%;
-    box-shadow: 10px 10px 10px black;
-    border-radius: 10px;
-  
+    /* box-shadow: 5px 5px 5px black; */
+    /* border-radius: 10px; */
+    top: 15%;
 }
 
-.user-table th,td{
+.user-table tr:nth-child(odd) {
+    background-color: whitesmoke;
+}
+
+.user-table tr:nth-child(even) {
+    background-color: rgb(221, 220, 220);
+}
+
+.user-table th {
+    padding: 12px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: #023265;
+    color: white;
+}
+
+.user-table td {
+    font-size: 17px;
+    font-weight: 200;
+    font-family: "Poppins",sans-serif;
+}
+
+.user-table tbody tr{
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-table tbody td{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding: 10px;
 }
 
-.user-table tr:nth-child(odd){
-    background-color:#bbdefb;
+.user-table tbody tr:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 15px rgba(0, 82, 204, 0.4);
+    background: rgba(30, 60, 114, 0.9); color: white;
 }
 
-.user-table tr:nth-child(even){
-    background-color:#d3e5f3;
-}
-
-.user-table th{
-    background-color: #0d47a1;
-    color: white;
-}
-
-.user-table tr:hover{
-    background-color: #64b5f6;
-}
-
-.user-btn{
-    background-color: rgb(27, 27, 109);
-    color: white;
+.user-btn {
+    background-color: skyblue;
+    color:black;
     width: 150px;
     border-radius: 7px;
 }
 
-.user-boxhover{
+.userbtn{
+    position: relative;
+    top: 15%;
+}
+
+/* .user-boxhover {
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
     top: 11%;
     right: 0;
-}
+} */
 
-.user-confirmbox{
+/* .user-confirmbox {
     display: flex;
-    background-color: white;
+    background-color: #b6b4b4;
     flex-direction: column;
     align-items: center;
     width: 300px;
     border-radius: 15px;
-    background-color: #b6b4b4;
     padding: 10px;
-}
-
-.-user-confirmbox p {
+} */
+/* 
+.user-confirmbox p {
     font-size: 1.2rem;
     font-weight: bold;
-    /* margin-bottom: 20px;
-    margin-left: 30px; */
-}
+} */
 
-.user-confirm-btn, .user-cancel-btn {
+/* .user-confirm-btn, .user-cancel-btn {
     padding: 10px 20px;
     margin: 5px;
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
-}
+} */
 
-.user-confirm-btn {
+/* .user-confirm-btn {
     background-color: red;
     color: white;
 }
@@ -122,14 +151,13 @@
 }
 
 .user-confirm-btn:hover {
-    background-color:green;
-  
+    background-color: green;
 }
 
 .user-cancel-btn:hover {
     background-color: darkred;
     color: white;
-}
+} */
 
 .admin-header {
     display: flex;
@@ -140,14 +168,39 @@
 }
 
 .upload-button1, .upload-button2 {
-    font-size: 25px;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
     cursor: pointer;
-    background: none;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.file-label {
-    padding: 8px 12px;
-    font-size: 14px;
+.upload-button1 {
+    background-color: #2ecc71;
+}
+
+.upload-button2 {
+    background-color: #e67e22;
+}
+
+.upload-button1:hover {
+    background-color: #27ae60;
+    transform: scale(1.05);
+}
+
+.upload-button2:hover {
+    background-color: #d35400;
+    transform: scale(1.05);
+}
+
+.upload-button1 svg, .upload-button2 svg {
+    font-size: 22px;
 }
 
 .file-input {
@@ -165,8 +218,30 @@
     transition: background 0.3s;
 }
 
-.admin-headerpage
-{
+/* .admin-headerpage {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    color: white;
+}
+.admin-headerpage h3 {
+    flex-grow: 1;
+    text-align: center;
+    margin-left: 300px;
+    font-size: 22px;
+    font-weight: bold;
+} */
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-headerpage {
     display: flex;
     justify-content: center;
+    position: relative;
+    top: 15%;
 }

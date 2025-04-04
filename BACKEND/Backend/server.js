@@ -134,7 +134,7 @@ app.post("/login", (req, res) => {
         } else {
             console.log(user.username);
             
-            return res.status(200).json({ message: "Login Successful", token, role: "user",username: user.username});
+            return res.status(200).json({ message: "Login Successful", token, role: "user",username: user.username, email: user.email});
 
         }
     });
@@ -272,10 +272,8 @@ app.post('/create-for-user', upload.single('file'), (req, res) => {
 
     db.query(sql, values, (err, result) => {
 
-        userId = result.insertId;
-
         if (err) return res.status(500).json({ error: err.message });
-        res.status(200).json({ message: "Details submitted successfully", userId : userId });
+        res.status(200).json({ message: "Details submitted successfully" });
     });
 });
 
@@ -285,33 +283,56 @@ app.post('/create-for-user', upload.single('file'), (req, res) => {
 app.get('/read/:id', (req, res) => {
     const id = req.params.id;
 
-    const sql = "SELECT * FROM customer_details WHERE id = ?";
+    const sql = "SELECT * FROM customer_details WHERE email = ?";
   
     db.query(sql, [id], (err,data) => {
-
             if(err) return res.status(500).json({error:err.message})
           
-            
+            console.log(data)
             return res.status(200).json(data)
 
     })
 });
 
+app.get('/data-for-user-edit-by-email/:email', (req, res) => {
+    const email = req.params.email;
 
+    const query = "SELECT * FROM customer_details WHERE email = ?";
+    db.query(query, [email], (err, result) => {
+        if (err) return res.status(400).send({ message: "Database Error" });
+
+        if (result && result.length > 0) {
+            return res.status(200).json({ result: result });
+        } else {
+            return res.status(404).json({ message: "User not found" });
+        }
+    });
+});
 
 //updation in details
+app.put('/edit-user-data-by-email/:email', (req, res) => {
+    const email = req.params.email;
+    let { startdate, enddate, policy } = req.body;
 
-app.put('/edit/:id',(req,res)=>{
-    const id=req.params.id
+    console.log('Received data:', { email, startdate, enddate, policy });
 
-    const values=[req.body.email,req.body.startdate,req.body.enddate,req.body.policy,req.body.file_path]
+    if (!email || !startdate || !enddate || !policy) {
+        return res.status(400).json({ error: "All fields are required." });
+    }
 
-    const sql="UPDATE customer_details SET email=?,startdate=?,enddate=?,policy=?,file_path=? WHERE id=?"
-    db.query(sql,values,[id],(err,data)=>{
-        if(err) return res.status(500).json({error:err.message})
-        return res.status(200).json({message:"Your details is corrected"})
-    })
-})
+    const values = [startdate, enddate, policy, email];
+
+    const sql = "UPDATE customer_details SET startdate=?, enddate=?, policy=? WHERE email=?";
+
+    db.query(sql, values, (err, data) => {
+        if (err) {
+            console.error('Error:', err);
+            return res.status(500).json({ error: err.message });
+        }
+
+        return res.status(200).json({ message: "Your details have been updated successfully!" });
+    });
+});
 
 
 //Delete
