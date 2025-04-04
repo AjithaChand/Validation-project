@@ -1,17 +1,18 @@
 import React from 'react'
 import './UpdateDialog.css'
 import Updatedata from './Updatedata';
-
 const UpdateDialog = ({isVisible,onClose,userid}) => {
     if(!isVisible) return null;
-
     return (
       <div className='update-overlay'>
-        <div className='update-content'>
-          <button className='btn-update' onClick={onClose}>&times;</button>
-          <Updatedata close={onClose} selectid={userid}/>
-        </div>
+      <div className='update-content'>
+        <button className='btn-update' onClick={onClose}>&times;</button>
+        <div className='update-inner'>
+          <Updatedata close={onClose} selectid={userid} />
+         </div>
       </div>
+    </div>
+    
     )
 }
 
