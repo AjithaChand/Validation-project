@@ -69,12 +69,12 @@ app.get('/read', (req, res) => {
 });
 
 
-app.get('/read-data-by-email/:email',(req,res)=>{
-    const sql = "SELECT * FROM customer_details WHERE email=?"
+app.get('/read-data-by-id/:id',(req,res)=>{
+    const sql = "SELECT * FROM customer_details WHERE id=?"
 
-    const {email}=req.params.email;
+    const {id}=req.params.id
 
-    db.query(sql,[email],(err,result)=>{
+    db.query(sql,[id],(err,result)=>{
         
         if(err)
             return res.status(500).json({error:err.message})
@@ -87,17 +87,19 @@ app.get('/read-data-by-email/:email',(req,res)=>{
 })
 
 
-app.put('/update-data-in-admin/:email',upload.single('file'),(req,res)=>{
+app.put('/update-data-in-admin/:id',upload.single('file'),(req,res)=>{
 
     const {email,startdate,enddate,policy}=req.body;
+
+    const {id}=req.params.id;
 
     const filePath = req.file?`/uploads/${req.file.filename}`:null;
 
 
-    const values=[startdate,enddate,policy,filePath,email]
+    const values=[email,startdate,enddate,policy,filePath,id]
 
 
-    const sql = "UPDATE customer_details SET startdate=?,enddate=?,policy=?,file_path=? WHERE email =?"
+    const sql = "UPDATE customer_details SET email=? startdate=?,enddate=?,policy=?,file_path=? WHERE id =?"
 
     if(!email||!startdate||!enddate||!policy||!filePath)
 
@@ -112,6 +114,7 @@ app.put('/update-data-in-admin/:email',upload.single('file'),(req,res)=>{
         })
 
     })
+
 
 
 //Delete
