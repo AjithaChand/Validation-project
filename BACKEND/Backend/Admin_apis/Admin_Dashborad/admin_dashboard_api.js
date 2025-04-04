@@ -91,7 +91,7 @@ app.put('/update-data-in-admin/:email',upload.single('file'),(req,res)=>{
 
     const {email,startdate,enddate,policy}=req.body;
 
-    const filePath = req.file?`/uploads ${req.file.filename}`:null;
+    const filePath = req.file?`/uploads/${req.file.filename}`:null;
 
 
     const values=[startdate,enddate,policy,filePath,email]
