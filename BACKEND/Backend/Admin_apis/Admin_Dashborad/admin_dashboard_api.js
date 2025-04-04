@@ -114,24 +114,6 @@ app.put('update-data-in-admin/:email',upload.single('file'),(req,res)=>{
     })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //Delete
 app.delete('/delete/customer_details/:id',(req,res)=>{
  
