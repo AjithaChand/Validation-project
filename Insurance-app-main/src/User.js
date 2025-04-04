@@ -4,41 +4,20 @@ import './User.css';
 import Formpopup from './Formpopup';
 import Editdialog from './Editdialog';
 import { FaEdit } from "react-icons/fa";
-// import { useNavigate } from 'react-router-dom';
-// import { CgProfile } from "react-icons/cg";
-// import { RiLogoutCircleRLine } from "react-icons/ri";
-// import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { IoIosCloudUpload } from "react-icons/io";
 import { useContext } from "react";
 import { UserContext } from "./usecontext";
 import { apiurl } from "./url";
-// import UserDialog from './UserDialog';
-// import { FaUserCircle } from "react-icons/fa";
-// import { MdLogout } from "react-icons/md";
-
 const User = () => {
 
   const { userId } = useContext(UserContext);
 
   console.log("I am from User.jsx", userId);
 
-<<<<<<< HEAD
-  const email = localStorage.getItem('email');
-
-  const navigate = useNavigate();
-  const username = localStorage.getItem("username");
-=======
-  // const navigate = useNavigate();
-  //  const { id } = useParams();
-  // const username = localStorage.getItem("username");
->>>>>>> d9bf7efe72e233361eaf5e1671dfbeaf5598ce32
-
-  const [showedit, setShowEdit] = useState(false);
+const [showedit, setShowEdit] = useState(false);
   const [showform, setShowform] = useState(false);
-  // logout
-  // const [showconfirm, setShowconfirm] = useState(false);
+  
 
   const [value, setValue] = useState([]);
   const [selectid, setSelectid] = useState(null);
@@ -66,12 +45,6 @@ const User = () => {
   //   navigate('/');
   // };
 
-<<<<<<< HEAD
-  const cancelLogout = () => {
-    setShowconfirm(false);
-  };
- return (
-=======
   // const cancelLogout = () => {
   //   setShowconfirm(false);
   // };
@@ -98,7 +71,6 @@ const User = () => {
 
 
   return (
->>>>>>> d9bf7efe72e233361eaf5e1671dfbeaf5598ce32
     <div className='user-containerform'>
           {/* <div className='user-profile'>
             <h3 className='userheader'>TrustAssure</h3>
@@ -147,11 +119,6 @@ const User = () => {
           <button className='btn mt-5 user-btn' onClick={toggleForm}>Add Details</button>
         </div>
         <Formpopup isVisible={showform} onClose={toggleForm} />
-<<<<<<< HEAD
-        <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} />
-        <UserDialog  isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
-        <ToastContainer position='top-right' autoclose={3000} />
-=======
         <Editdialog isVisible={showedit} onClose={toggleEdit} userid={selectid} />
         {/* <UserDialog  isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} /> */}
 
@@ -167,7 +134,6 @@ const User = () => {
           </div>
         )} */}
       <ToastContainer position='top-right' autoclose={3000} />
->>>>>>> d9bf7efe72e233361eaf5e1671dfbeaf5598ce32
     </div>
   );
 };

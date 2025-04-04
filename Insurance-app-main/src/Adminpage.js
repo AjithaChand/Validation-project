@@ -10,12 +10,25 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import { RiLogoutCircleRLine } from "react-icons/ri";
-
+import { FaEdit } from "react-icons/fa";
 import { apiurl } from './url';
+import UpdateBox from './updatebox';
 
 const Adminpage = () => {
   const [showconfirm, setShowconfirm] = useState(false);
-  // const role=localStorage.getItem("role");
+  const role=localStorage.getItem("role");
+  const [showupdate, setShowupdate] = useState(false)
+    const [selectid, setSelectid] = useState(null)
+    const handleupdate = (id = null) => {
+      if (id) {
+        setSelectid(id);
+        setShowupdate(true);
+      } else {
+        setShowupdate(false);
+        setSelectid(null);
+      }
+    };
+    
 
   const navigate = useNavigate()
 
@@ -54,6 +67,9 @@ const handleUpload = async () => {
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
   }, [])
+
+  
+  
 
   // Delete values
   const handleDelete = (id) => {
@@ -102,13 +118,13 @@ const handleUpload = async () => {
 
   return (
     <div>
-      {/* <div className='adminpage-header p-3'>
+      <div className='adminpage-header p-3'>
         <h2 className='trustasure-title'>TrustAssure</h2>
         <div className='profileadmin'>
         <h3>{role}</h3>
         <button onClick={handleLogout} className='logout-btn'><RiLogoutCircleRLine /></button>
         </div>
-      </div> */}
+      </div>
      <div className='row'>
         <div className='col-12' style={{ marginTop: "7%" }} >
         <div className="admin-header-container">
@@ -160,7 +176,10 @@ const handleUpload = async () => {
                       </button>
                     ) : ("No File")}
                   </td>
-                  <td className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></td>
+                  <td>
+                   <button className='edit-btn' onClick={() => handleupdate(data.id)}> <FaEdit /></button>
+                  <button  className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></button>
+                </td>
                 </tr>
               })}
                
@@ -194,7 +213,8 @@ const handleUpload = async () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <ToastContainer position='top-right' autoclose={3000} />
+      <ToastContainer position='top-right' autoClose={3000} />
+
       {showconfirm && (
           <div className='admin-boxhover'>
           <div className="admin-confirmbox">
@@ -207,6 +227,8 @@ const handleUpload = async () => {
          
         </div>
       )}
+      <UpdateBox onClose={() => handleupdate()} isVisible={showupdate} userid={selectid} />
+
     </div>
   )
 }

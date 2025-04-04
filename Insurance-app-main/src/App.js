@@ -13,10 +13,8 @@ import Users from './Users';
 import Homepage from './Homepage';
 import Updatedata from './Updatedata';
 import { UserProvider } from "./usecontext";  
-
 const App = () => {
-
-  return (
+return (
     <UserProvider>
       <BrowserRouter>
         <Routes>
@@ -35,6 +33,7 @@ const App = () => {
           <Route path='/edituser/:id' element={<Updatedata />} />
           <Route path='/adminregister' element={<Adminregister />} />
           <Route path='/userpage' element={<Userpage />} />
+         
         </Routes>
       </BrowserRouter>
     </UserProvider>
