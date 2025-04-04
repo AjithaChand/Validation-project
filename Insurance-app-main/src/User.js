@@ -30,6 +30,7 @@ const User = () => {
   const [showconfirm, setShowconfirm] = useState(false);
   const [value, setValue] = useState([]);
   const [selectid, setSelectid] = useState(null); 
+  const [nofile,setNofile]=useState(false);
   useEffect(() => {
     axios.get(`${apiurl}/read/${userId}`)
     .then(res => setValue(res.data))
