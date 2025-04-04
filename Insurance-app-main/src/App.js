@@ -13,6 +13,7 @@ import Users from './Users';
 import Homepage from './Homepage';
 import Updatedata from './Updatedata';
 import { UserProvider } from "./usecontext";  
+import Updatefile from './Updatefile';
 const App = () => {
 return (
     <UserProvider>
@@ -33,7 +34,7 @@ return (
           <Route path='/edituser/:id' element={<Updatedata />} />
           <Route path='/adminregister' element={<Adminregister />} />
           <Route path='/userpage' element={<Userpage />} />
-         
+          <Route path="/update-user/:id" element={<Updatefile />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>

@@ -19,6 +19,10 @@ const Editdata = ({ close, selectid, reFresh }) => {
         // file: null
     });
 
+      const handleFileChange = (e) => {
+    setValues({ ...values, file: e.target.files[0] });
+  };
+
     useEffect(() => {
         if (!email) return;
     
@@ -64,27 +68,34 @@ const Editdata = ({ close, selectid, reFresh }) => {
             toast.error("Please fill in all fields.");
             return;
         }
-    
-        const data = {
-            email: values.email,
-            startdate: values.startdate,
-            enddate: values.enddate,
-            policy: values.policy
+        
+            const formData = new FormData();
+            formData.append('email', values.email);
+            formData.append('startdate', values.startdate);
+            formData.append('enddate', values.enddate);
+            formData.append('policy', values.policy);
+            formData.append('file', values.file);
+        
+            
+            axios.put(`${apiurl}/edit-user-data-by-email/${email}`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            })
+            .then((res) => {
+              console.log('Response:', res);
+              if (typeof close === 'function') {
+                toast.success(res.data.message);
+                close();
+              }
+      
+            })
+            .catch((err) => {
+              console.log('Error:', err);
+              if (err.response && err.response.data) {
+                toast.error(err.response.data.error);
+              }
+            });
         };
-    
-        axios.put(`${apiurl}/edit-user-data-by-email/${values.email}`, data, {
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then(res => {
-            toast.success(res.data.message);
-            setValues(res.data.result);
-            close();
-        })
-        .catch(err => {
-            toast.error(err.response?.data?.error || "An error occurred");
-        });
-    };
-    
+         
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -128,6 +139,15 @@ const Editdata = ({ close, selectid, reFresh }) => {
                 {/* <div className='mt-3'>
                     <input type='file' onChange={handleFileChange} className='mt-3' />
                 </div> */}
+                        <div className="mt-3">
+          <input
+            type="file"
+            accept="/"
+            onChange={handleFileChange}
+            className="mt-3"
+          />
+        </div>
+
                 <button className='btn user-btn mt-3' style={{ backgroundColor: "#333", width: "30%" }}>Submit</button>
             </form>
             <ToastContainer position='top-right' autoClose={3000} />

@@ -13,15 +13,20 @@ import { RiLogoutCircleRLine } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { apiurl } from './url';
 import UpdateBox from './updatebox';
+import Updatefile from './Updatefile';
 
 const Adminpage = () => {
   const [showconfirm, setShowconfirm] = useState(false);
   const role=localStorage.getItem("role");
   const [showupdate, setShowupdate] = useState(false)
     const [selectid, setSelectid] = useState(null)
-    const handleupdate = (email = null) => {
-      if (email) {
-        setSelectid(email);
+  
+  
+  
+  
+    const handleupdate = (id) => {
+      if (id) {
+        setSelectid(id);
         setShowupdate(true);
       } else {
         setShowupdate(false);
@@ -33,6 +38,8 @@ const Adminpage = () => {
   const navigate = useNavigate()
 
   const [value, setValue] = useState([])
+  console.log("Admin page",value.id);
+  
 
   const [file, setFile] = useState(null);
 
@@ -73,6 +80,8 @@ const handleUpload = async () => {
 
   // Delete values
   const handleDelete = (id) => {
+    console.log("id for delete", id);
+    
     if (window.confirm("Are you sure you want to delete this data?")) {
       axios.delete(`${apiurl}/delete/customer_details/${id}`)
         .then(res => {

@@ -70,19 +70,19 @@ app.get('/read', (req, res) => {
 
 
 app.get('/read-data-by-id/:id',(req,res)=>{
+
+    const id=req.params.id;
+
     const sql = "SELECT * FROM customer_details WHERE id=?"
 
-    const {id}=req.params
+    console.log("Backend Id",id)
 
     db.query(sql,[id],(err,result)=>{
-        
-        if(err)
-            return res.status(500).json({error:err.message})
-        if(result.length>0)
-            return res.status(200).json({result:result})
-        else
-        return res.status(401).json({error:"User not found"})
-
+        if(err){
+      return  res.status(400).send({message:"SQL Query Error"})
+        }
+        console.log(result);
+        return res.status(200).send({result:result})
     })
 })
 
