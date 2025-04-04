@@ -28,6 +28,7 @@ const Login = () => {
             localStorage.setItem("role",res.data.role)
             localStorage.setItem("username",res.data.username)
             localStorage.setItem("email",res.data.email)
+            console.log("Email:", res.data.email)
             if(res.data.role==="admin"){
                 navigate("/dashboard")
             }
@@ -38,8 +39,11 @@ const Login = () => {
         .catch(err=>toast.error(err.response.data.error))
 
         console.log("I am from Login Page");
+
+     
         
     }
+   
 
     return (
         <div className='login-container' style={{height:"100vh",width:"100vw"}}>

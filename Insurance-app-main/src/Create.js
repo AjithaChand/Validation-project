@@ -7,6 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from './url';
 const Create = ({close}) => {
 
+
+
+
     const [values,setValues] = useState({
         email:"",
         startdate:"",
@@ -15,7 +18,7 @@ const Create = ({close}) => {
         file:null
     })
 
-
+   
 
     const handleFileChange = (e)=>{
         setValues({...values,file:e.target.files[0]})
@@ -38,6 +41,7 @@ const Create = ({close}) => {
           console.log("Response:", res);
           if (res && res.data) {
             toast.success(res.data.message);
+            localStorage.setItem('email',res.data.email)
             close();
           } else {
             toast.error("Unexpected response format");
@@ -81,6 +85,7 @@ const Create = ({close}) => {
         <button className='btn user-btn mt-3' style={{backgroundColor:"#333",width:"30%"}}>Submit</button>
       </form>
       <ToastContainer position='top-right' autoClose={3000}/>
+
      
     </div>
   )

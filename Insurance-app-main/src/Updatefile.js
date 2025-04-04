@@ -1,18 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { apiurl } from './url';
 
 const Updatefile = ({ close }) => {
-  const email = localStorage.getItem('email');
-
+  const [email, setEmail] = useState('');
   const [values, setValues] = useState({
+    email:'',
     startdate: '',
     enddate: '',
     policy: '',
     file: null,
   });
+useEffect(() => {
+    const email = localStorage.getItem('email');
+    if (email) {
+      setEmail(email);
+      axios.get(`${apiurl}/read-data-by-email/${email}`)
+        .then((res) => {
+          const data = res.data.result[0];
+          setValues({
+            email:data.email,
+            startdate: data.startdate?.split('T')[0] || '',
+            enddate: data.enddate?.split('T')[0] || '',
+            policy: data.policy || '',
+            file: null,
+          });
+        })
+        .catch(() => {
+          toast.error("Failed to fetch user data");
+        });
+    } else {
+      toast.error("User email not found");
+    }
+  }, []);
 
   const handleFileChange = (e) => {
     setValues({ ...values, file: e.target.files[0] });
@@ -21,16 +43,19 @@ const Updatefile = ({ close }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!values.startdate || !values.enddate || !values.policy || !values.file) {
+    const { startdate, enddate, policy, file } = values;
+
+    if (!email || !startdate || !enddate || !policy || !file) {
       toast.error("Please fill all fields and choose a file.");
       return;
     }
 
     const formData = new FormData();
-    formData.append('startdate', values.startdate);
-    formData.append('enddate', values.enddate);
-    formData.append('policy', values.policy);
-    formData.append('file', values.file);
+    formData.append('email', email);
+    formData.append('startdate', startdate);
+    formData.append('enddate', enddate);
+    formData.append('policy', policy);
+    formData.append('file', file);
 
     try {
       const res = await axios.put(`${apiurl}/update-data-in-admin/${email}`, formData, {
@@ -48,6 +73,17 @@ const Updatefile = ({ close }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <h3 className="text-center">Update Your Details</h3>
+
+        <div className="mt-3 form-group">
+          <label>Email (Read Only)</label>
+          <input
+            type="text"
+            className="form-control"
+            value={email}
+            onChange={e=>setValues({...values,email:e.target.value})}
+            readOnly
+          />
+        </div>
 
         <div className="mt-3 form-group">
           <label>Start Date</label>
@@ -80,11 +116,15 @@ const Updatefile = ({ close }) => {
         </div>
 
         <div className="mt-3 form-group">
-          <label>Upload File</label>
-          <input type="file" onChange={handleFileChange} />
+          <label>Upload New File</label>
+          <input
+            type="file"
+            className="form-control"
+            onChange={handleFileChange}
+          />
         </div>
 
-        <button className="btn btn-dark mt-3">Submit</button>
+        <button className="btn btn-dark mt-3">Update</button>
       </form>
       <ToastContainer position="top-right" autoClose={3000} />
     </div>
