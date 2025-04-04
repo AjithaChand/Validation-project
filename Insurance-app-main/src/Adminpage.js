@@ -15,7 +15,7 @@ import { apiurl } from './url';
 
 const Adminpage = () => {
   const [showconfirm, setShowconfirm] = useState(false);
-  const role=localStorage.getItem("role");
+  // const role=localStorage.getItem("role");
 
   const navigate = useNavigate()
 
@@ -102,13 +102,13 @@ const handleUpload = async () => {
 
   return (
     <div>
-      <div className='adminpage-header p-3'>
+      {/* <div className='adminpage-header p-3'>
         <h2 className='trustasure-title'>TrustAssure</h2>
         <div className='profileadmin'>
         <h3>{role}</h3>
         <button onClick={handleLogout} className='logout-btn'><RiLogoutCircleRLine /></button>
         </div>
-      </div>
+      </div> */}
      <div className='row'>
         <div className='col-12' style={{ marginTop: "7%" }} >
         <div className="admin-header-container">
