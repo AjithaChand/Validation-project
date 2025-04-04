@@ -14,6 +14,7 @@ import { IoIosCloudUpload } from "react-icons/io";
 import { useContext } from "react";
 import { UserContext } from "./usecontext"; 
 import {apiurl} from "./url";
+import { endianness } from 'os';
 
 const User = () => {
 
@@ -22,7 +23,7 @@ const User = () => {
   console.log("I am from User.jsx", userId);
   
   const navigate = useNavigate();
-  //  const { id } = useParams();
+front-endiannessf
   const username = localStorage.getItem("username");
 
   const [showedit, setShowEdit] = useState(false);
@@ -30,8 +31,7 @@ const User = () => {
   const [showconfirm, setShowconfirm] = useState(false);
   const [value, setValue] = useState([]);
   const [selectid, setSelectid] = useState(null); 
-  const [nofile,setNofile]=useState(false);
-  useEffect(() => {
+useEffect(() => {
     axios.get(`${apiurl}/read/${userId}`)
     .then(res => setValue(res.data))
       .catch(err => console.log(err));
