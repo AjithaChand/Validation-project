@@ -4,28 +4,103 @@ import './User.css';
 import Formpopup from './Formpopup';
 import Editdialog from './Editdialog';
 import { FaEdit } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+import { CgProfile } from "react-icons/cg";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+// import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Modal, Button } from 'react-bootstrap';
+
+// import { IoIosCloudUpload } from "react-icons/io";
 import { useContext } from "react";
 import { UserContext } from "./usecontext";
 import { apiurl } from "./url";
+import UserDialog from './UserDialog';
+import { toast } from "react-toastify";
 const User = () => {
 
-  const { userId } = useContext(UserContext);
-
-  console.log("I am from User.jsx", userId);
-
-const [showedit, setShowEdit] = useState(false);
-  const [showform, setShowform] = useState(false);
+  const {shareId} = useContext(UserContext);
   
+  // const { userId } = useContext(UserContext);
+
+  console.log("I am from User.jsx", shareId);
+
+  const email = localStorage.getItem('email');
+
+  const navigate = useNavigate();
+  const username = localStorage.getItem("username");
+
+  const [showedit, setShowEdit] = useState(false);
+  const [showform, setShowform] = useState(false);
+  // logout
+  const [showconfirm, setShowconfirm] = useState(false);
 
   const [value, setValue] = useState([]);
   const [selectid, setSelectid] = useState(null);
+  
+
+
+const FetchData = () =>{
+  if (email) {
+    axios.get(`${apiurl}/data-for-user-edit-by-email/${email}`)
+      .then(res => {
+        console.log("API Response:", res.data);
+        setValue(Array.isArray(res.data) ? res.data : res.data.result || []);
+      })
+      .catch(err => {
+        console.error("Error fetching data:", err);
+        setValue([]); 
+      });
+  }
+}
   useEffect(() => {
-    axios.get(`${apiurl}/read/${userId}`)
-      .then(res => setValue(res.data))
-      .catch(err => console.log(err));
-  }, [userId]);
+    FetchData();
+  }, [email]);
+  
+  console.log(value);          /*==========>> Got Responce*/
+  
+
+//   const handleViewFile = (fileUrl) => {
+//     if (!fileUrl) {
+//       toast.error("No file available");
+//       return;
+//     }
+  
+// const completeFileUrl = `${apiurl}${fileUrl}`;
+//     console.log("File URL:", completeFileUrl);
+  
+//     const fileExtension = fileUrl.split('.').pop().toLowerCase();
+//     const isImage = ['jpg', 'jpeg', 'png', 'gif', 'avif'].includes(fileExtension);
+//     const isPdf = fileExtension === 'pdf';
+  
+//     if (isImage || isPdf) {
+//       setSelectedFile(completeFileUrl);
+//       setShowModal(true);
+//     } else {
+//       toast.error("Unsupported file type");
+//     }
+//   };
+  
+
+  
+    const [showModal, setShowModal] = useState(false);
+    const [selectedFile, setSelectedFile] = useState("");
+  
+    //Set File URL
+    const handleViewFile = (fileUrl) => {
+      const fileExtension = fileUrl.split('.').pop().toLowerCase();
+      const isImage = ['jpg', 'jpeg', 'png', 'gif', 'avif'].includes(fileExtension);
+      const isPdf = fileExtension === 'pdf';
+  
+      if (isImage || isPdf) {
+        setSelectedFile(`${apiurl}${fileUrl}`);
+        setShowModal(true);
+      } else {
+        toast.error("Unsupported file type");
+      }
+    };
+  
 
   const toggleEdit = (id) => {
     setSelectid(id);
@@ -36,50 +111,27 @@ const [showedit, setShowEdit] = useState(false);
     setShowform(!showform);
   };
 
-  // const handleLogout = () => {
-  //   setShowconfirm(true);
-  // };
+  const handleLogout = () => {
+    setShowconfirm(true);
+  };
 
-  // const confirmLogout = () => {
-  //   localStorage.removeItem("authToken");
-  //   navigate('/');
-  // };
+  const confirmLogout = () => {
+    localStorage.removeItem("authToken");
+    navigate('/');
+  };
 
-  // const cancelLogout = () => {
-  //   setShowconfirm(false);
-  // };
-
-  // const [file, setFile] = useState(null);
-
-  // const handleDownload = () => {
-  //   window.location.href = `${apiurl}/download-excel-for-user/${userId}`;
-  // }
-  // const handleUpload = async () => {
-
-  //   if (!file) return toast.error("Select a file first!");
-
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   try {
-  //     await axios.post(`${apiurl}/upload-excel`, formData)
-  //     toast.success("File Uploaded Successfully!");
-  //   } catch (err) {
-  //     toast.error("Upload Failed!");
-  //   }
-  // }
-
-
-  return (
+  const cancelLogout = () => {
+    setShowconfirm(false);
+  };
+ return (
     <div className='user-containerform'>
-          {/* <div className='user-profile'>
-            <h3 className='userheader'>TrustAssure</h3>
-            <div className='userlogout-btn'><FaUserCircle size={34} color="black" style={{ cursor: "pointer" }} /></div>
-            <div className='userlogout-btn username'>{username}</div>
+          <div className='user-profile'>
+            <div className='userlogout-btn'><CgProfile /></div>
+            <div className='userlogout-btn'>{username}</div>
             <button onClick={handleLogout} className='userlogout-btn'>
-              <MdLogout size={30} color="darkred" style={{ cursor: "pointer" }} />
+              <RiLogoutCircleRLine />
             </button>
-          </div> */}
+          </div>
           <div className="admin-headerpage">
             <div >
               <h3 className='text-center head p-3'>USER ENTRY</h3>
@@ -95,45 +147,84 @@ const [showedit, setShowEdit] = useState(false);
               <th>Start Date</th>
               <th>End Date</th>
               <th>Policy</th>
+              <th>File</th>
               <th>Action</th>
             </tr  >
           </thead>
           <tbody>
-            {value.map((data, index) => (
-              <tr key={index}>
-                <td>{data.email}</td>
-                <td>{new Date(data.startdate).toISOString().split("T")[0]}</td>
-                <td>{new Date(data.enddate).toISOString().split("T")[0]}</td>
-                <td>{data.policy}</td>
-                <td className='tablerow'>
-                  <button className='user-edit-btn' onClick={() => toggleEdit(data.id)}>
-                    <FaEdit />
+          {Array.isArray(value) && value.map((data, index) => (
+     <tr key={index}>
+    <td>{data.email}</td>
+    <td>{new Date(data.startdate).toLocaleDateString("en-CA")}</td>
+    <td>{new Date(data.enddate).toLocaleDateString("en-CA")}</td>
+    <td>{data.policy}</td>
+    <td>
+                {data.file_path ? (
+                  <button
+                    className='btn adminbutton btn-primary'
+                    onClick={() => handleViewFile(data.file_path)}
+                  >
+                    View File
                   </button>
-                </td>
-              </tr>
-            ))}
+                ) : ("No File")}
+              </td>
+    <td className='tablerow'>
+      <button className='user-edit-btn' onClick={() => toggleEdit(data.id)}>
+        <FaEdit />
+      </button>
+    </td>
+  </tr>
+))}
+
           </tbody>
         </table>
 
-        <div className='mt-5 userbtn'>
-          <button className='btn mt-5 user-btn' onClick={toggleForm}>Add Details</button>
-        </div>
-        <Formpopup isVisible={showform} onClose={toggleForm} />
-        <Editdialog isVisible={showedit} onClose={toggleEdit} userid={selectid} />
-        {/* <UserDialog  isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} /> */}
+        {value.length === 0 && (
+  <div className='mt-5 userbtn'>
+    <button className='btn mt-5 user-btn' onClick={toggleForm}>Add Details</button>
+  </div>
+)}
 
-        {/* {showconfirm && (
-          <div className='user-boxhover'>
-            <div className="user-confirmbox">
-              <p>Are you sure you want to logout?</p>
-              <div className='user-box'>
-                <button className="user-confirm-btn" onClick={confirmLogout}>Confirm</button>
-                <button className="user-cancel-btn" onClick={cancelLogout}>Cancel</button>
-              </div>
-            </div>
+        <Formpopup isVisible={showform} onClose={toggleForm} />
+        <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} reFresh ={FetchData} />
+        <UserDialog  isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
+        <ToastContainer position='top-right' autoclose={3000} />
+
+        {/* {showModal && selectedFile && (
+        <div className="file-modal">
+          <div className="modal-content">
+            {selectedFile.endsWith(".pdf") ? (
+              <iframe src={selectedFile} width="100%" height="500px"></iframe>
+            ) : (
+              <img src={selectedFile} alt="Uploaded File" style={{ maxWidth: "100%" }} />
+            )}
+            <button onClick={() => setShowModal(false)}>Close</button>
           </div>
-        )} */}
-      <ToastContainer position='top-right' autoclose={3000} />
+        </div>
+      )} */}
+
+       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
+              <Modal.Header closeButton>
+                <Modal.Title>File Preview</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {selectedFile ? (
+                  selectedFile.endsWith('.pdf') ? (
+                    <embed src={selectedFile} type="application/pdf" width="100%" height="600px" />
+                  ) : (
+                    <img src={selectedFile} alt="file preview" style={{ width: '100%', height: 'auto' }} />
+                  )
+                ) : (
+                  <p>No file selected</p>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowModal(false)}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+            <ToastContainer position='top-right' autoClose={3000} />
     </div>
   );
 };
