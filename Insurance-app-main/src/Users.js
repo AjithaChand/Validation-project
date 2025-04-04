@@ -69,9 +69,9 @@ const Users = () => {
 
   return (
     <div className='users-container'>
-      <div className='toggle p-3'>
+      {/* <div className='toggle p-3'>
       <h2 className='trustasure-title'>TrustAssure</h2>
-      </div>
+      </div> */}
 
       <div className='row'>
         <div className='user mt-5'>

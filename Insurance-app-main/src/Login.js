@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import "./Login.css"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from './url';
-import Create_For_User from './Create_For_User';
-import { UserContext } from './usecontext';
+// import Create_For_User from './Create_For_User';
+// import { UserContext } from './usecontext';
 const Login = () => {
 
     const navigate = useNavigate();
@@ -29,10 +29,10 @@ const Login = () => {
             localStorage.setItem("username",res.data.username)
             localStorage.setItem("email",res.data.email)
             if(res.data.role==="admin"){
-                navigate("/admin")
+                navigate("/dashboard")
             }
             else{
-                navigate("/admin/home")
+                navigate("/dashboard/home")
             }
         })
         .catch(err=>toast.error(err.response.data.error))
