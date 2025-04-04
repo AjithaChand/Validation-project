@@ -72,13 +72,13 @@ app.get('/read', (req, res) => {
 app.get('/read-data-by-id/:id',(req,res)=>{
     const sql = "SELECT * FROM customer_details WHERE id=?"
 
-    const {id}=req.params.id
+    const {id}=req.params
 
     db.query(sql,[id],(err,result)=>{
         
         if(err)
             return res.status(500).json({error:err.message})
-        if(result)
+        if(result.length>0)
             return res.status(200).json({result:result})
         else
         return res.status(401).json({error:"User not found"})
@@ -91,15 +91,13 @@ app.put('/update-data-in-admin/:id',upload.single('file'),(req,res)=>{
 
     const {email,startdate,enddate,policy}=req.body;
 
-    const {id}=req.params.id;
+    const {id}=req.params;
 
     const filePath = req.file?`/uploads/${req.file.filename}`:null;
 
-
+    const sql = "UPDATE customer_details SET email=?,startdate=?,enddate=?,policy=?,file_path=? WHERE id =?"
+    
     const values=[email,startdate,enddate,policy,filePath,id]
-
-
-    const sql = "UPDATE customer_details SET email=? startdate=?,enddate=?,policy=?,file_path=? WHERE id =?"
 
     if(!email||!startdate||!enddate||!policy||!filePath)
 
