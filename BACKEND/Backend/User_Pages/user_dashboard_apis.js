@@ -76,19 +76,21 @@ app.get('/data-for-user-edit-by-email/:email', (req, res) => {
 });
 
 //updation in details
-app.put('/edit-user-data-by-email/:email', (req, res) => {
+app.put('/edit-user-data-by-email/:email',upload.single('file'), (req, res) => {
     const email = req.params.email;
-    let { startdate, enddate, policy } = req.body;
+    let { startdate, enddate, policy} = req.body;
 
-    console.log('Received data:', { email, startdate, enddate, policy });
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
 
-    if (!email || !startdate || !enddate || !policy) {
+    console.log('Received data:', { email, startdate, enddate, policy,filePath});
+
+    if (!email || !startdate || !enddate || !policy||!filePath) {
         return res.status(400).json({ error: "All fields are required." });
     }
 
-    const values = [startdate, enddate, policy, email];
+    const values = [startdate, enddate, policy,filePath, email];
 
-    const sql = "UPDATE customer_details SET startdate=?, enddate=?, policy=? WHERE email=?";
+    const sql = "UPDATE customer_details SET startdate=?, enddate=?, policy=?,file_path=? WHERE email=?";
 
     db.query(sql, values, (err, data) => {
         if (err) {

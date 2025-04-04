@@ -14,6 +14,8 @@ app.use(cors());
 app.use(express.json());
 
 const db = require('../../db'); 
+const { error } = require("console");
+const { json } = require("stream/consumers");
 
 
 if (!fs.existsSync('uploads')) {
@@ -65,6 +67,69 @@ app.get('/read', (req, res) => {
         return res.status(200).json(data);
     });
 });
+
+
+app.get('/read-data-by-email/:email',(req,res)=>{
+    const sql = "SELECT * FROM customer_details WHERE email=?"
+
+    const {email}=req.params.email;
+
+    db.query(sql,[email],(err,result)=>{
+        
+        if(err)
+            return res.status(500).json({error:err.message})
+        if(result)
+            return res.status(200).json({result:result})
+        else
+        return res.status(401).json({error:"User not found"})
+
+    })
+})
+
+
+app.put('update-data-in-admin/:email',upload.single('file'),(req,res)=>{
+
+    const {email,startdate,enddate,policy}=req.body;
+
+    const filePath = req.file?`/uploads ${req.file.filename}`:null;
+
+
+    const values=[startdate,enddate,policy,filePath,email]
+
+
+    const sql = "UPDATE customer_details SET startdate=?,enddate=?,policy=?,file_path=? WHERE email =?"
+
+    if(!email||!startdate||!enddate||!policy||!filePath)
+
+        return res.json({message:"All fields are required"})
+
+        db.query(sql,values,(err,result)=>{
+
+            if(err) return res.status(500).json({error:err.message})
+                
+            return res.status(200).json({message:"Your details have been updated successfully"})
+
+        })
+
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Delete
