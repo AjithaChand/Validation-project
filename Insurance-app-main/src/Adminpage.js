@@ -19,9 +19,9 @@ const Adminpage = () => {
   const role=localStorage.getItem("role");
   const [showupdate, setShowupdate] = useState(false)
     const [selectid, setSelectid] = useState(null)
-    const handleupdate = (id = null) => {
-      if (id) {
-        setSelectid(id);
+    const handleupdate = (email = null) => {
+      if (email) {
+        setSelectid(email);
         setShowupdate(true);
       } else {
         setShowupdate(false);

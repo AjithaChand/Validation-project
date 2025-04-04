@@ -5,14 +5,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from './url';
 import { UserContext } from "./usecontext"; 
 
-const Editdata = ({ close, selectid }) => {
+const Editdata = ({ close, selectid, reFresh }) => {
 
     // const { userId } = useContext(UserContext);
     const email = localStorage.getItem('email');
 
-    const [refresh,setRefresh]= useState(false);
-
-    console.log("I'm From EditData ", selectid); 
 
     const [values, setValues] = useState({
         email: email || "",
@@ -25,14 +22,29 @@ const Editdata = ({ close, selectid }) => {
     useEffect(() => {
         if (!email) return;
     
-        console.log("Fetching data for Email:", email); 
+        console.log("Fetching data for Email:", email);
         axios.get(`${apiurl}/data-for-user-edit-by-email/${email}`)
             .then(res => {
-                console.log("API Response:", res); 
+                console.log("API Response:", res);
                 if (res.data && res.data.result) {
-                    setValues(res.data.result[0]);  
-                    console.log("Set values:", res.data.result); 
-                    setRefresh(!refresh);
+                    const userData = res.data.result[0];
+    
+                    const formatDate = (dateString) => {
+                        if (!dateString) return "";
+                        const date = new Date(dateString);
+                        date.setMinutes(date.getMinutes() - date.getTimezoneOffset()); 
+                        return date.toISOString().split('T')[0];
+                    };
+
+
+                    setValues({
+                        ...userData,
+                        startdate: formatDate(userData.startdate),
+                        enddate: formatDate(userData.enddate),
+                    });
+                    console.log("Set values:", userData);
+                    // reFresh()
+
                 } else {
                     toast.error("User not found");
                 }
@@ -42,6 +54,7 @@ const Editdata = ({ close, selectid }) => {
                 toast.error("Failed to fetch data");
             });
     }, [email]);
+    
     
     
     const handleSubmit = (e) => {
@@ -65,7 +78,6 @@ const Editdata = ({ close, selectid }) => {
         .then(res => {
             toast.success(res.data.message);
             setValues(res.data.result);
-            setRefresh(!refresh);
             close();
         })
         .catch(err => {
@@ -92,7 +104,7 @@ const Editdata = ({ close, selectid }) => {
                         type='date' 
                         className='form-control' 
                         value={values.startdate} 
-                        onChange={e => setValues({...values, startdate: e.target.value })} 
+                        readOnly
                     />
                 </div>
                 <div className='mt-3 form-group'>
