@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 
-const db = require('./db')
+const db = require('../db')
 
 
 
