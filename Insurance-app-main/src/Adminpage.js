@@ -86,6 +86,7 @@ const Adminpage = () => {
   const handleLogout = () => {
     setShowconfirm(true);
   };
+  
 
   const confirmLogout = () => {
     axios.delete(`${apiurl}/delete/customer_details/${deleteid}`)
