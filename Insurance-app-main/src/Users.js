@@ -105,7 +105,7 @@ const Users = () => {
             <table className='users-table text-center mt-5'>
               <thead>
                 <tr>
-                  <th  className='tablerow' colSpan={4}>USER DETAILS</th>
+                  <th  className='table-row' colSpan={4}>USER DETAILS</th>
                 </tr>
                 <tr>
                   <th>Username</th>

@@ -127,10 +127,9 @@ const handleUpload = async () => {
         <div className='mt-5' >
         <div className="admin-header-container">
         <button className='btn admin-btn mt-4' onClick={handlePopup}>Add Details{" "}
-        <AddIcon style={{ fontSize: 24, color: 'white', cursor: 'pointer' }} />
+        <AddIcon className='addicon' style={{ fontSize: 24, color: 'white', cursor: 'pointer' }} />
         </button>
-  {/* <h3 className="admin-head">Customer  Details</h3> */}
-  <div className="admin-header">
+   <div className="admin-header">
     <button className="upload-button3" onClick={handleDownload}>
       <PiMicrosoftExcelLogoFill />
     </button>
@@ -152,7 +151,7 @@ const handleUpload = async () => {
           <table className='mt-5 text-center admin-table'>
             <thead>
               <tr>
-                <th className='tablerow' colSpan={6}>CUSTOMER  DETAILS</th>
+                <th className='table-row' colSpan={6}>customer Details</th>
               </tr>
               <tr>
                 <th>Email</th>
@@ -191,9 +190,7 @@ const handleUpload = async () => {
                
             </tbody>
           </table>
-          {/* <div className='mt-4'>
-            <button className='btn admin-btn' onClick={handlePopup}>Add Details</button>
-          </div> */}
+        
         </div>
       </div>
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />

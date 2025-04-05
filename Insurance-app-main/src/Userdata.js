@@ -48,13 +48,13 @@ const Userdata = () => {
             <ul className='ps-5 user-list'>
               <li>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/adminpage')}>
-                  <MdDashboard size={28} color="black" style={{ cursor: "pointer" }} />{" "}
+                  <MdDashboard className='icon'/>{" "}
                   <span className='dashboard-icon'> Dashboard </span>
                 </div>
               </li>
               <li>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                  <AccountCircleIcon style={{ fontSize: 28, color: "black", cursor: "pointer" }} />{" "}
+                  <AccountCircleIcon className='icon'/>{" "}
                   <span className='dashboard-icon'> Users</span>
                 </div>
               </li>

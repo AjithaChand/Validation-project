@@ -1,85 +1,143 @@
-.admin-slidebar{
-    background:rgb(239, 238, 238);
-    height:100%;
-    width: 20%;
-    position: fixed;
-    left: 0;
-    top: 9%;
+
+.admin-slidebar {
+  background: rgb(239, 238, 238);
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  left: 0;
+  top: 9%;
 }
 
-.userdata-container{
-    margin-left: 20%;
-    height: 100vh; 
+.userdata-container {
+  margin-left: 20%;
+  height: 100vh;
+  overflow-y: scroll;
+  padding: 0;
 }
 
-.userdata-btn{
+.userdata-btn {
   cursor: pointer;
   background: none;
   border: none;
   font-size: 18px;
   width: 100%;
   padding: 7px;
+  display: flex;
   gap: 20px;
 }
 
-.userdata-container{
-    overflow-y: scroll;
+.user-list {
+  list-style: none;
 }
 
-.user-list{
-    list-style: none;
+.dashboard-icon {
+  font-size: 18px;
+  transition: all 0.3s ease-in-out;
 }
 
-.dashboard-icon:hover{
-    font-size: 20px;
-    color:rgb(2, 2, 70);
-    font-weight: bold;
+.dashboard-icon:hover {
+  font-size: 20px;
+  color: rgb(2, 2, 70);
+  font-weight: bold;
 }
 
-.user-profile .userheader{
-    position: absolute;
-    left: 20%;
-    letter-spacing: 2px;
-    color: goldenrod;
-    font-variant: small-caps;
-    font-size:2rem ;
+.user-profile .userheader {
+  position: absolute;
+  left: 20%;
+  letter-spacing: 2px;
+  color: goldenrod;
+  font-variant: small-caps;
+  font-size: 2rem;
 }
 
-.user-profile .userheader .caps{
-    font-weight: bold;
-    color: rgb(2, 2, 73);
-    font-size: 2.2rem;
+.user-profile .userheader .caps {
+  font-weight: bold;
+  color: rgb(2, 2, 73);
+  font-size: 2.2rem;
+}
+.icon
+{
+  font-Size: 28px;
+  color: black;
+   cursor: pointer;
 }
 
-@media screen and  (max-width: 768px) {
-    .admin-slidebar {
-      display: none;
-    }
-  
-    .userdata-container {
-      margin-left: 0;
-      height: auto;
-      overflow-y: visible;
-      padding: 10px;
-    }
-  
-    .user-profile .userheader {
-      position: absolute;
-      left: 5%;
-      font-size: 1.5rem;
-    }
-  
-    .user-profile .userheader .caps {
-      font-size: 1.8rem;
-    }
-  
-    .userdata-btn {
-      font-size: 16px;
-      padding: 10px;
-    }
-  
-    .dashboard-icon:hover {
-      font-size: 18px;
-    }
+
+@media screen and (max-width: 768px) {
+  .admin-slidebar {
+    width: 10%;
   }
-  
+
+  .userdata-container {
+    margin-left: 0;
+    height: auto;
+    overflow-y: visible;
+    padding: 10px;
+  }
+
+  .user-profile .userheader {
+    left: 5%;
+    font-size: 1.5rem;
+  }
+
+  .user-profile .userheader .caps {
+    font-size: 1.8rem;
+  }
+
+  .userdata-btn {
+    font-size: 14px;
+    padding: 5px;
+    gap: 15px;
+  }
+
+  .dashboard-icon,
+  .userdata-head {
+    display: none;
+  }
+  .icon
+{
+  font-Size: 28px;
+  color: black;
+   cursor: pointer;
+   text-align: center;
+}
+}
+@media screen and (min-width: 375px) and (max-width: 430px)  {
+  .admin-slidebar {
+    width: 18%;
+  }
+
+  .userdata-container {
+    margin-left: 0;
+    height: auto;
+    overflow-y: visible;
+    padding: 10px;
+  }
+
+  .user-profile .userheader {
+    left: 5%;
+    font-size: 1.5rem;
+  }
+
+  .user-profile .userheader .caps {
+    font-size: 1.8rem;
+  }
+
+  .userdata-btn {
+    font-size: 14px;
+    padding: 5px;
+    gap: 15px;
+  }
+
+  .dashboard-icon,
+  .userdata-head {
+    display: none;
+  }
+  .icon
+{
+  font-Size: 25px;
+  color: black;
+   cursor: pointer;
+   text-align: center;
+}
+}
