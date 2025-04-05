@@ -23,6 +23,8 @@ import EditIcon from '@mui/icons-material/Edit';
 const User = () => {
 
   const {shareId} = useContext(UserContext);
+
+  const {update}= useContext(UserContext)
   
   // const { userId } = useContext(UserContext);
 
@@ -58,7 +60,7 @@ const FetchData = () =>{
 }
   useEffect(() => {
     FetchData();
-  }, [email]);
+  }, [email,update]);
   
   console.log(value);          /*==========>> Got Responce*/
   
@@ -91,6 +93,8 @@ const FetchData = () =>{
   
     //Set File URL
     const handleViewFile = (fileUrl) => {
+      console.log(fileUrl);
+      
       const fileExtension = fileUrl.split('.').pop().toLowerCase();
       const isImage = ['jpg', 'jpeg', 'png', 'gif', 'avif'].includes(fileExtension);
       const isPdf = fileExtension === 'pdf';

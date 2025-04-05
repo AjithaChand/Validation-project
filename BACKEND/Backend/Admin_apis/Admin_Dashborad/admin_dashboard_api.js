@@ -3,31 +3,25 @@ const jwt = require("jsonwebtoken");
 const mysql = require("mysql2");
 const cors = require("cors");
 const multer = require("multer");
-const path =require ("path")
-const fs = require("fs")
+const path = require("path");
+const fs = require("fs");
 
-
-
-
-const app= express();
+const app = express();
 app.use(cors());
 app.use(express.json());
 
 const db = require('../../db'); 
-const { error } = require("console");
-const { json } = require("stream/consumers");
 
-
-if (!fs.existsSync('uploads')) {
-    fs.mkdirSync('uploads', { recursive: true });
+const uploadDir = path.join(__dirname, '../../uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Serve static files from the 'uploads' folder
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(uploadDir));
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/'); 
+        cb(null, uploadDir); 
     },
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -36,9 +30,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-
-// Create customer table In admin 
 
 app.post('/create', upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
@@ -53,13 +44,11 @@ app.post('/create', upload.single('file'), (req, res) => {
 
     db.query(sql, values, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
-        res.status(200).json({ message: "Details submitted successfully",});
+        res.status(200).json({ message: "Details submitted successfully" });
     });
 });
 
-
-// Get all data for admin
-
+// Get all customer records
 app.get('/read', (req, res) => {
     const sql = "SELECT * FROM customer_details";
     db.query(sql, (err, data) => {
@@ -68,68 +57,54 @@ app.get('/read', (req, res) => {
     });
 });
 
-
-app.get('/read-data-by-id/:id',(req,res)=>{
-
-    const id=req.params.id;
-
-    const sql = "SELECT * FROM customer_details WHERE id=?"
-
-    console.log("Backend Id",id)
-
-    db.query(sql,[id],(err,result)=>{
-        if(err){
-      return  res.status(400).send({message:"SQL Query Error"})
-        }
-        console.log(result);
-        return res.status(200).send({result:result})
-    })
-})
-
-
-app.put('/update-data-in-admin/:id',upload.single('file'),(req,res)=>{
-
-    const {email,startdate,enddate,policy}=req.body;
-
-    const {id}=req.params;
-
-    const filePath = req.file?`/uploads/${req.file.filename}`:null;
-
-    const sql = "UPDATE customer_details SET email=?,startdate=?,enddate=?,policy=?,file_path=? WHERE id =?"
-    
-    const values=[email,startdate,enddate,policy,filePath,id]
-
-    if(!email||!startdate||!enddate||!policy||!filePath)
-
-        return res.json({message:"All fields are required"})
-
-        db.query(sql,values,(err,result)=>{
-
-            if(err) return res.status(500).json({error:err.message})
-                
-            return res.status(200).json({message:"Your details have been updated successfully"})
-
-        })
-
-    })
-
-
-
-//Delete
-app.delete('/delete/customer_details/:id',(req,res)=>{
- 
+// Get a specific customer record by ID
+app.get('/read-data-by-id/:id', (req, res) => {
     const id = req.params.id;
-
-    console.log(id);
+    const sql = "SELECT * FROM customer_details WHERE id=?";
     
-    const sql ="DELETE FROM customer_details WHERE id=?"
-    
-    db.query(sql,[id],(err,data)=>{
-        if(err)
-            return res.status(500).json({error:err.message})
-        return res.status(200).json({message:"Deleted"})
-    })
-})
+    db.query(sql, [id], (err, result) => {
+        if (err) return res.status(400).send({ message: "SQL Query Error" });
+        return res.status(200).send({ result });
+    });
+});
 
+// Update customer record, with optional file upload
+app.put('/update-data-in-admin/:id', upload.single('file'), (req, res) => {
+    const { email, startdate, enddate, policy } = req.body;
+    const { id } = req.params;
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+    // Fetch the existing file path to retain it if no new file is uploaded
+    const fetchSql = "SELECT file_path FROM customer_details WHERE id = ?";
+    db.query(fetchSql, [id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+
+        const existingFilePath = results.length > 0 ? results[0].file_path : null;
+        const finalFilePath = filePath || existingFilePath;
+
+        if (!email || !startdate || !enddate || !policy) {
+            return res.json({ message: "All fields are required" });
+        }
+
+        const sql = "UPDATE customer_details SET email=?, startdate=?, enddate=?, policy=?, file_path=? WHERE id = ?";
+        const values = [email, startdate, enddate, policy, finalFilePath, id];
+
+        db.query(sql, values, (err, result) => {
+            if (err) return res.status(500).json({ error: err.message });
+            return res.status(200).json({ message: "Your details have been updated successfully" });
+        });
+    });
+});
+
+// Delete customer record
+app.delete('/delete/customer_details/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = "DELETE FROM customer_details WHERE id=?";
+    
+    db.query(sql, [id], (err, data) => {
+        if (err) return res.status(500).json({ error: err.message });
+        return res.status(200).json({ message: "Deleted" });
+    });
+});
 
 module.exports = app;

@@ -33,24 +33,14 @@
     margin: auto;
     width: 80%;
     top: 15%;
-    /* border: 1px solid gainsboro; */
     box-shadow: 1px 7px 15px gainsboro;
 }
-
-/* .user-table tr:nth-child(odd) {
-    background-color: whitesmoke;
-} */
-
-/* .user-table tr:nth-child(even) {
-    background-color: rgb(221, 220, 220);
-} */
 
 .user-table th {
     padding: 12px;
     font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    /* background-color: rgb(138, 137, 137); */
     background-color: #023265;
     color: white;
     border-bottom: 1px solid gainsboro;
@@ -62,22 +52,12 @@
     font-family: "Poppins",sans-serif;
 }
 
-/* .user-table tbody tr{
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0px 1px 2px #08589d;
-} */
-
 .user-table tbody td{
-    /* border-bottom: 1px solid rgba(255, 255, 255, 0.2); */
-    /* border-bottom: 1px solid #08589d; */
     padding: 20px;
 }
 
 .user-table tbody tr:hover {
-    /* transform: translateY(-5px); */
-    /* box-shadow: 0px 5px 15px rgba(0, 82, 204, 0.4); */
     background:  rgb(221, 220, 220);
-     /* color: white; */
 }
 
 .user-btn {
@@ -96,50 +76,6 @@
     top: 15%;
 }
 
-.admin-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 15px;
-    margin-left: 200px;
-}
-
-.upload-button1, .upload-button2 {
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: all 0.3s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.upload-button1 {
-    background-color: #2ecc71;
-}
-
-.upload-button2 {
-    background-color: #e67e22;
-}
-
-.upload-button1:hover {
-    background-color: #27ae60;
-    transform: scale(1.05);
-}
-
-.upload-button2:hover {
-    background-color: #d35400;
-    transform: scale(1.05);
-}
-
-.upload-button1 svg, .upload-button2 svg {
-    font-size: 22px;
-}
-
 .file-input {
     display: none;
 }
@@ -155,27 +91,11 @@
     transition: background 0.3s;
 }
 
-.admin-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.admin-headerpage {
+.user-headerpage {
     display: flex;
     justify-content: center;
     position: relative;
     top: 15%;
-}
-
-.userheader{
-    position: absolute;
-    left: 2%;
-    font-variant: small-caps;
-    font-size: 2rem;
-    font-weight: bold;
-    color:#023265;
-    letter-spacing: 3px;
 }
 
 .head{
@@ -185,4 +105,21 @@
 .username{
     color: black;
     font-weight: bold;
+}
+
+@media screen and (max-width: 768px){
+    .user-containerform {
+        height: 100vh;
+        position: absolute;
+        top: 20%;
+        left: 5%;
+    }
+    .user-table {
+        position: relative;
+        border-collapse:collapse;
+        margin: auto;
+        width: 100%;
+        top: 5%;
+        box-shadow: 1px 7px 15px gainsboro;
+    }
 }
