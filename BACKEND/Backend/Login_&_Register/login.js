@@ -28,6 +28,7 @@ app.post("/login", (req, res) => {
     db.query("SELECT * FROM users WHERE email = ?", [email],async(err, result) => {
       
         if (err) {
+            console.log(err)
             return res.status(500).json({ error: "Database error" });
         }
         if (result.length === 0) {

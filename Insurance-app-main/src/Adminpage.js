@@ -7,7 +7,7 @@ import { IoIosCloudUpload } from "react-icons/io";
 import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useNavigate } from 'react-router-dom';
 // import { RiLogoutCircleRLine } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { apiurl } from './url';
@@ -26,8 +26,10 @@ const Adminpage = () => {
   const [showupdate, setShowupdate] = useState(false)
   const [selectid, setSelectid] = useState(null)
 
-  const [refersh, setRefresh] = useState(true);
-  const { refreshFromUpdate } = useContext(UserContext)
+    const [refersh, setRefresh] = useState(true);
+    const {refreshFromUpdate} = useContext(UserContext)
+    const {refreshCreateFromAdmin}=useContext(UserContext);
+  
 
 
   const handleupdate = (id) => {
@@ -41,6 +43,7 @@ const Adminpage = () => {
   };
 
 
+  const navigate = useNavigate()
 
   const [value, setValue] = useState([])
 
@@ -77,7 +80,7 @@ const Adminpage = () => {
     axios.get(`${apiurl}/read`)
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
-  }, [refersh, refreshFromUpdate])
+  }, [refersh,refreshFromUpdate,refreshCreateFromAdmin])
 
 
   const handleLogout = () => {
@@ -88,9 +91,10 @@ const Adminpage = () => {
     axios.delete(`${apiurl}/delete/customer_details/${deleteid}`)
       .then(res => {
         console.log(res);
-        cancelLogout()
-        setValue(prev => prev.filter(data => data.id !== deleteid));
+        cancelLogout();
         toast.success("Data deleted successfully");
+
+        setValue(prev => prev.filter(data => data.id !== deleteid));
       })
       .catch(err => {
         toast.error(err.response?.data?.error || "An error occurred");
@@ -171,7 +175,7 @@ const Adminpage = () => {
           <table className='mt-5 text-center admin-table'>
             <thead>
               <tr>
-                <th className='table-row' colSpan={6}>customer Details</th>
+                <th className='tablerow' colSpan={6}>CUSTOMER  DETAILS</th>
               </tr>
               <tr>
                 <th>Email</th>
@@ -210,7 +214,9 @@ const Adminpage = () => {
 
             </tbody>
           </table>
-        
+          {/* <div className='mt-4'>
+            <button className='btn admin-btn' onClick={handlePopup}>Add Details</button>
+          </div> */}
         </div>
       </div>
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />

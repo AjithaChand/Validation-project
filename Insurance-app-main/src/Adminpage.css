@@ -2,7 +2,7 @@
 .admin-btn{
     background-color: #023265;
     color:white;
-    width: 30%;
+    width: 18%;
     border-radius: 50px;
     position: relative;
     right: 20%;
@@ -134,6 +134,7 @@
 .delete-button:hover{
     transform: scale(1.2)
 }
+<<<<<<< HEAD
 .table-row
 {
    font-size: 20px;
@@ -144,6 +145,18 @@
         width: 30%;
         right: 10%;
         border-radius: 35px;
+=======
+
+@media screen and (max-width: 768px)
+{
+    .admin-btn{
+        background-color: #023265;
+        color:white;
+        width: 15%;
+        border-radius: 50px;
+        position: relative;
+        right: 15%;
+>>>>>>> 238ecb0ad028abf4e5837e7e1ee5540820421f98
     }
 
     .users-table {
@@ -159,6 +172,66 @@
     .admin-header {
         gap: 10px;
     }
+<<<<<<< HEAD
+=======
+    
+    .profileadmin {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color:darkblue;
+        padding: 8px 15px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        color: #fff;
+        font-size: 14px;
+    }
+    
+    .logout-btn {
+        color: white;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        font-size: 15px;
+        background-color: darkblue;
+    }
+    
+    .logout-btn:hover {
+        transform: scale(1.05);
+    }
+    
+    ::-webkit-scrollbar{
+        display: none;
+    }
+    
+    .adminbutton{
+        width: 100%;
+        background: none;
+        border: none;
+    }
+    
+    .adminbutton:hover{
+        transform: scale(1.2)
+    }
+    
+    .admin-table thead tr .tablerow{
+        height: 50px;
+        background-color: white;
+        color: black;
+        font-size: 25px;
+    }
+    
+    .delete-button{
+        background: none ;
+        border: none;
+    }
+    
+    .delete-button:hover{
+        transform: scale(1.2)
+    }
+>>>>>>> 238ecb0ad028abf4e5837e7e1ee5540820421f98
 }
 @media screen and (min-width: 375px) and (max-width: 430px) {
     .users-btn {
@@ -169,9 +242,14 @@
     }
 
     .users-table {
+<<<<<<< HEAD
         width: 60%;
         top: 8%;
         margin-left: 80px;
+=======
+        width: 95%;
+        top: 8%;
+>>>>>>> 238ecb0ad028abf4e5837e7e1ee5540820421f98
     }
 
     .users-table th {
@@ -228,6 +306,7 @@
         padding: 7px 9px;
         border-radius: 3px;
     }
+<<<<<<< HEAD
 
     .users-table thead tr .tablerow {
         height: 50px;
@@ -235,3 +314,6 @@
     }
 }
 
+=======
+}
+>>>>>>> 238ecb0ad028abf4e5837e7e1ee5540820421f98
