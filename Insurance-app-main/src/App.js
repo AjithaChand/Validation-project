@@ -1,26 +1,24 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './Login';
-import Userdata from './Userdata';
-import Create from './Create';
-import Register from './Register';
-import User from './User';
-import Adminpage from './Adminpage';
-import Userpage from './Userpage';
-import Adminregister from './Adminregister';
-import Users from './Users';
-import Homepage from './Homepage';
-import Updatedata from './Updatedata';
+import Login from './Components/Login/Login';
+import Userdata from './Components/Dashboard/Userdata';
+import Create from './Components/Admincreateform/Create';
+import Register from './Components/Register/Register';
+import User from './Components/UserDashboard/User';
+import Adminpage from './Components/AdminDashboard/CustomerDetails/Adminpage';
+import Userpage from './Components/AdminDashboard/AdminRegistration/Dialogbox/Userpage';
+import Adminregister from './Components/AdminDashboard/AdminRegistration/RegisterForm/Adminregister';
+import Users from './Components/AdminDashboard/AdminRegistration/Users';
+import Updatedata from './Components/AdminDashboard/AdminRegistration/Updateform/Updatedata';
 import { UserProvider } from "./usecontext";  
-import Updatefile from './Updatefile';
+import Updatefile from './Components/Admincreateform/Updatefile';
 const App = () => {
 return (
     <UserProvider>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Login />} />
-          <Route path='/homepage' element={<Homepage />} />
           <Route path='/register' element={<Register />} />
           <Route path='/user' element={<Create />} />
           <Route path='/home' element={<User />} />
