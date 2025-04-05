@@ -4,12 +4,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from './url';
 // import { UserContext } from "./usecontext"; 
+import { UserContext } from "./usecontext"; 
 
 const Updatefile = ({ close,selectid  }) => {
 
     // const { userId } = useContext(UserContext);
     // const email = localStorage.getItem('email');
 
+    const {setRefreshFromUpdate} = useContext(UserContext)
 
     const [values, setValues] = useState({
         email: "",
@@ -84,9 +86,9 @@ const Updatefile = ({ close,selectid  }) => {
               console.log('Response:', res);
               if (typeof close === 'function') {
                 toast.success(res.data.message);
+                setRefreshFromUpdate(pre=>!pre)
                 close();
               }
-      
             })
             .catch((err) => {
               console.log('Error:', err);

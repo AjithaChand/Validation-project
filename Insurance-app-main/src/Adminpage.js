@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios';
 import './Adminpage.css'
 import Detailspopup from './Detailspopup';
@@ -15,14 +15,17 @@ import UpdateBox from './updatebox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DescriptionIcon from '@mui/icons-material/Description';
 import AddIcon from '@mui/icons-material/Add';
+import { UserContext } from "./usecontext";
+
 
 const Adminpage = () => {
   // const [showconfirm, setShowconfirm] = useState(false);
   // const role=localStorage.getItem("role");
   const [showupdate, setShowupdate] = useState(false)
     const [selectid, setSelectid] = useState(null)
-  
-  
+
+    const [refersh, setRefresh] = useState(true);
+    const {refreshFromUpdate} = useContext(UserContext)
   
   
     const handleupdate = (id) => {
@@ -39,7 +42,6 @@ const Adminpage = () => {
   // const navigate = useNavigate()
 
   const [value, setValue] = useState([])
-  console.log("Admin page",value.id);
   
 
   const [file, setFile] = useState(null);
@@ -57,10 +59,10 @@ const handleUpload = async () => {
     try {
       await axios.post(`${apiurl}/upload-excel`, formData);
       toast.success("File Uploaded Successfully!");
+      setRefresh(pre=>!pre)
     } catch (err) {
       toast.error("Upload Failed!");
     }
-
   }
 
   const [showpopup, setShowpopup] = useState(false)
@@ -74,7 +76,7 @@ const handleUpload = async () => {
     axios.get(`${apiurl}/read`)
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
-  }, [])
+  }, [refersh,refreshFromUpdate])
 
   
   
@@ -101,7 +103,10 @@ const handleUpload = async () => {
 
   //Set File URL
   const handleViewFile = (fileUrl) => {
+    console.log("FileUrl", fileUrl);
     const fileExtension = fileUrl.split('.').pop().toLowerCase();
+    console.log("File Extension",fileExtension);
+    
     const isImage = ['jpg', 'jpeg', 'png', 'gif', 'avif'].includes(fileExtension);
     const isPdf = fileExtension === 'pdf';
 

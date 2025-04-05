@@ -5,11 +5,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from './url';
 import { UserContext } from "./usecontext"; 
 
-const Editdata = ({ close, selectid, reFresh }) => {
+const Editdata = ({ close }) => {
 
     // const { userId } = useContext(UserContext);
     const email = localStorage.getItem('email');
-
+    const {setUpdate} = useContext(UserContext)
 
     const [values, setValues] = useState({
         email: email || "",
@@ -25,7 +25,6 @@ const Editdata = ({ close, selectid, reFresh }) => {
 
     useEffect(() => {
         if (!email) return;
-    
         console.log("Fetching data for Email:", email);
         axios.get(`${apiurl}/data-for-user-edit-by-email/${email}`)
             .then(res => {
@@ -47,7 +46,6 @@ const Editdata = ({ close, selectid, reFresh }) => {
                         enddate: formatDate(userData.enddate),
                     });
                     console.log("Set values:", userData);
-                    // reFresh()
 
                 } else {
                     toast.error("User not found");
@@ -84,6 +82,9 @@ const Editdata = ({ close, selectid, reFresh }) => {
               console.log('Response:', res);
               if (typeof close === 'function') {
                 toast.success(res.data.message);
+                // reFresh()
+                // console.log(typeof(reFresh ()));
+                setUpdate(pre=>!pre)
                 close();
               }
       
