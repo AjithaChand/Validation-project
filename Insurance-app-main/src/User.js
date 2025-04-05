@@ -4,20 +4,22 @@ import './User.css';
 import Formpopup from './Formpopup';
 import Editdialog from './Editdialog';
 import { FaEdit } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
-import { CgProfile } from "react-icons/cg";
-import { RiLogoutCircleRLine } from "react-icons/ri";
+// import { useNavigate } from 'react-router-dom';
+// import { CgProfile } from "react-icons/cg";
+// import { RiLogoutCircleRLine } from "react-icons/ri";
 // import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Modal, Button } from 'react-bootstrap';
-
+import DescriptionIcon from '@mui/icons-material/Description';
 // import { IoIosCloudUpload } from "react-icons/io";
 import { useContext } from "react";
 import { UserContext } from "./usecontext";
 import { apiurl } from "./url";
-import UserDialog from './UserDialog';
+// import UserDialog from './UserDialog';
 import { toast } from "react-toastify";
+import EditIcon from '@mui/icons-material/Edit';
+
 const User = () => {
 
   const {shareId} = useContext(UserContext);
@@ -28,13 +30,13 @@ const User = () => {
 
   const email = localStorage.getItem('email');
 
-  const navigate = useNavigate();
-  const username = localStorage.getItem("username");
+  // const navigate = useNavigate();
+  // const username = localStorage.getItem("username");
 
   const [showedit, setShowEdit] = useState(false);
   const [showform, setShowform] = useState(false);
   // logout
-  const [showconfirm, setShowconfirm] = useState(false);
+  // const [showconfirm, setShowconfirm] = useState(false);
 
   const [value, setValue] = useState([]);
   const [selectid, setSelectid] = useState(null);
@@ -111,27 +113,27 @@ const FetchData = () =>{
     setShowform(!showform);
   };
 
-  const handleLogout = () => {
-    setShowconfirm(true);
-  };
+  // const handleLogout = () => {
+  //   setShowconfirm(true);
+  // };
 
-  const confirmLogout = () => {
-    localStorage.removeItem("authToken");
-    navigate('/');
-  };
+  // const confirmLogout = () => {
+  //   localStorage.removeItem("authToken");
+  //   navigate('/');
+  // };
 
-  const cancelLogout = () => {
-    setShowconfirm(false);
-  };
+  // const cancelLogout = () => {
+  //   setShowconfirm(false);
+  // };
  return (
     <div className='user-containerform'>
-          <div className='user-profile'>
+          {/* <div className='user-profile'>
             <div className='userlogout-btn'><CgProfile /></div>
             <div className='userlogout-btn'>{username}</div>
             <button onClick={handleLogout} className='userlogout-btn'>
               <RiLogoutCircleRLine />
             </button>
-          </div>
+          </div> */}
           <div className="admin-headerpage">
             <div >
               <h3 className='text-center head p-3'>USER ENTRY</h3>
@@ -161,16 +163,16 @@ const FetchData = () =>{
     <td>
                 {data.file_path ? (
                   <button
-                    className='btn adminbutton btn-primary'
+                    className='adminbutton'
                     onClick={() => handleViewFile(data.file_path)}
                   >
-                    View File
+                    <DescriptionIcon style={{ fontSize: 26, color: "green" , cursor: "pointer" }} />
                   </button>
                 ) : ("No File")}
               </td>
     <td className='tablerow'>
       <button className='user-edit-btn' onClick={() => toggleEdit(data.id)}>
-        <FaEdit />
+      <EditIcon sx={{ fontSize: 24, color: 'orange', cursor: 'pointer' }} />
       </button>
     </td>
   </tr>
@@ -187,7 +189,7 @@ const FetchData = () =>{
 
         <Formpopup isVisible={showform} onClose={toggleForm} />
         <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} reFresh ={FetchData} />
-        <UserDialog  isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
+        {/* <UserDialog  isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} /> */}
         <ToastContainer position='top-right' autoclose={3000} />
 
         {/* {showModal && selectedFile && (

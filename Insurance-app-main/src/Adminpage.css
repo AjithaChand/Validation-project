@@ -1,9 +1,11 @@
 
 .admin-btn{
-    background-color: rgb(27, 27, 109);
-    color: white;
-    width: 150px;
-    border-radius: 7px;
+    background-color: #023265;
+    color:white;
+    width: 18%;
+    border-radius: 50px;
+    position: relative;
+    right: 20%;
 }
 
 .adminpage-header{
@@ -18,7 +20,7 @@
     width: 100%;
     height: 70px;
 }
-.admin-head {
+/* .admin-head {
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
     font-style: oblique;
@@ -27,42 +29,59 @@
     text-align: center;
     animation: glow 1.5s infinite alternate ease-in-out;
     color:darkblue;
+} */
+
+.admin-head{
+    font-weight: 700;
 }
 
 .admin-table{
     position: relative;
-    border-collapse: collapse;
+    border-collapse:collapse;
     margin: auto;
-    width: 90%;
-    left:3%;
-    margin-top: 100px;
+    width: 80%;
+    /* top: 10%; */
+    /* border: 1px solid gainsboro; */
+    box-shadow: 1px 7px 15px gainsboro;
 }
 
-.admin-table th,td{
-    padding: 10px;
+.admin-table td{
+    font-size: 17px;
+    font-weight: 200;
+    font-family: "Poppins",sans-serif;
 }
 
-.admin-table tr:nth-child(odd){
+/* .admin-table tr:nth-child(odd){
     background-color:#bbdefb;
-}
+} */
 
 .admin-table th{
-    background-color: #0d47a1;
+    padding: 12px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    /* background-color: rgb(138, 137, 137); */
+    background-color: #023265;
     color: white;
+    border-bottom: 1px solid gainsboro;
 }
 
-.admin-table tr:hover{
-    background-color: #64b5f6;
+.admin-table tbody td{
+    padding: 20px;
+}
+
+.admin-table tbody tr:hover{
+    background:  rgb(221, 220, 220);
 }
 
 .admin-btn:hover{
-    background-color: rgb(24, 24, 230);
+    background: rgb(1, 1, 99);
 }
 
 .admin-header-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content:space-between;
     padding: 10px;
     margin: auto;
     width: 80%;
@@ -103,77 +122,32 @@
     transform: scale(1.05);
 }
 
-.trustasure-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 30px;
-    font-weight: 700;
-    text-align: center;
-    animation: flicker 1.5s infinite alternate ease-in-out;
-    font-style: italic;
-}
-
 ::-webkit-scrollbar{
     display: none;
 }
 
-
-/** User Styles **/
-.users-btn {
-    background-color: rgb(27, 27, 109);
-    color: white;
-    width: 150px;
-    border-radius: 7px;
-    padding: 10px;
-    transition: background 0.3s ease-in-out;
-}
-
-.users-btn:hover {
-    background-color: rgb(24, 24, 230);
-    transform: scale(1.05);
-}
-
-.users-table{
-    position: relative;
-    border-collapse: collapse;
-    margin: auto;
-    width: 90%;
-    left:3%;
-    margin-top: 100px;
-}
-
-.users-table th,td{
-    padding: 10px;
-}
-
-.users-table tr:nth-child(odd){
-    background-color:#bbdefb;
-}
-
-.users-table th{
-    background-color: #0d47a1;
-    color: white;
-}
-
-.users-table tr:hover{
-    background-color: #64b5f6;
-}
-
-.edit-btn, .delete-btn {
-    border: none;
+.adminbutton{
+    width: 100%;
     background: none;
-    font-size: 22px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+    border: none;
 }
 
-.edit-btn {
-    color: green;
+.adminbutton:hover{
+    transform: scale(1.2)
 }
 
-.delete-btn {
-    color: rgb(148, 9, 9);
+.admin-table thead tr .tablerow{
+    height: 75px;
+    background-color: white;
+    color: black;
+    font-size: 25px;
 }
 
-.edit-btn:hover, .delete-btn:hover {
-    transform: scale(1.2);
+.delete-button{
+    background: none ;
+    border: none;
+}
+
+.delete-button:hover{
+    transform: scale(1.2)
 }

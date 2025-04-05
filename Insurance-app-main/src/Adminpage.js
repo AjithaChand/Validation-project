@@ -2,22 +2,23 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import './Adminpage.css'
 import Detailspopup from './Detailspopup';
-import { RiDeleteBinFill } from "react-icons/ri";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { IoIosCloudUpload } from "react-icons/io";
 import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom';
-import { RiLogoutCircleRLine } from "react-icons/ri";
+// import { useNavigate } from 'react-router-dom';
+// import { RiLogoutCircleRLine } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { apiurl } from './url';
 import UpdateBox from './updatebox';
-import Updatefile from './Updatefile';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DescriptionIcon from '@mui/icons-material/Description';
+import AddIcon from '@mui/icons-material/Add';
 
 const Adminpage = () => {
-  const [showconfirm, setShowconfirm] = useState(false);
-  const role=localStorage.getItem("role");
+  // const [showconfirm, setShowconfirm] = useState(false);
+  // const role=localStorage.getItem("role");
   const [showupdate, setShowupdate] = useState(false)
     const [selectid, setSelectid] = useState(null)
   
@@ -35,7 +36,7 @@ const Adminpage = () => {
     };
     
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const [value, setValue] = useState([])
   console.log("Admin page",value.id);
@@ -112,32 +113,28 @@ const handleUpload = async () => {
     }
   };
 
-  const handleLogout = () => {
-    setShowconfirm(true);
-  };
+  // const handleLogout = () => {
+  //   setShowconfirm(true);
+  // };
 
-  const confirmLogout = () => {
-    localStorage.removeItem("authToken");
-    navigate('/');
-  };
+  // const confirmLogout = () => {
+  //   localStorage.removeItem("authToken");
+  //   navigate('/');
+  // };
 
-  const cancelLogout = () => {
-    setShowconfirm(false);
-  };
+  // const cancelLogout = () => {
+  //   setShowconfirm(false);
+  // };
 
   return (
     <div>
-      <div className='adminpage-header p-3'>
-        <h2 className='trustasure-title'>TrustAssure</h2>
-        <div className='profileadmin'>
-        <h3>{role}</h3>
-        <button onClick={handleLogout} className='logout-btn'><RiLogoutCircleRLine /></button>
-        </div>
-      </div>
      <div className='row'>
-        <div className='col-12' style={{ marginTop: "7%" }} >
+        <div className='mt-5' >
         <div className="admin-header-container">
-  <h3 className="admin-head">Customer  Details</h3>
+        <button className='btn admin-btn mt-4' onClick={handlePopup}>Add Details{" "}
+        <AddIcon style={{ fontSize: 24, color: 'white', cursor: 'pointer' }} />
+        </button>
+  {/* <h3 className="admin-head">Customer  Details</h3> */}
   <div className="admin-header">
     <button className="upload-button3" onClick={handleDownload}>
       <PiMicrosoftExcelLogoFill />
@@ -160,9 +157,12 @@ const handleUpload = async () => {
           <table className='mt-5 text-center admin-table'>
             <thead>
               <tr>
+                <th className='tablerow' colSpan={6}>CUSTOMER  DETAILS</th>
+              </tr>
+              <tr>
                 <th>Email</th>
                 <th>Start Date</th>
-                <th>End Date</th>
+                <th>End Date</th> 
                 <th>Policy</th>
                 <th>Files</th>
                 <th>Actions</th>
@@ -178,25 +178,27 @@ const handleUpload = async () => {
                   <td>
                     {data.file_path ? (
                       <button
-                        className='btn adminbutton btn-primary'
+                        className=' adminbutton'
                         onClick={() => handleViewFile(data.file_path)}
                       >
-                        View File
+                        <DescriptionIcon style={{ fontSize: 24, color: "green", cursor: "pointer" }} />
                       </button>
                     ) : ("No File")}
                   </td>
                   <td>
                    <button className='edit-btn' onClick={() => handleupdate(data.id)}> <FaEdit /></button>
-                  <button  className='delete-button' onClick={() => handleDelete(data.id)}><RiDeleteBinFill /></button>
+                  <button  className='delete-button' onClick={() => handleDelete(data.id)}>
+                  <DeleteIcon style={{ fontSize: 24, color: 'darkred', cursor: 'pointer' }} />
+                    </button>
                 </td>
                 </tr>
               })}
                
             </tbody>
           </table>
-          <div className='mt-4'>
+          {/* <div className='mt-4'>
             <button className='btn admin-btn' onClick={handlePopup}>Add Details</button>
-          </div>
+          </div> */}
         </div>
       </div>
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
@@ -224,7 +226,7 @@ const handleUpload = async () => {
       </Modal>
       <ToastContainer position='top-right' autoClose={3000} />
 
-      {showconfirm && (
+      {/* {showconfirm && (
           <div className='admin-boxhover'>
           <div className="admin-confirmbox">
             <p>Are you sure you want to logout?</p>
@@ -235,7 +237,7 @@ const handleUpload = async () => {
             </div>
          
         </div>
-      )}
+      )} */}
       <UpdateBox onClose={() => handleupdate()} isVisible={showupdate} userid={selectid} />
 
     </div>

@@ -33,23 +33,27 @@
     margin: auto;
     width: 80%;
     top: 15%;
+    /* border: 1px solid gainsboro; */
+    box-shadow: 1px 7px 15px gainsboro;
 }
 
-.user-table tr:nth-child(odd) {
+/* .user-table tr:nth-child(odd) {
     background-color: whitesmoke;
-}
+} */
 
-.user-table tr:nth-child(even) {
+/* .user-table tr:nth-child(even) {
     background-color: rgb(221, 220, 220);
-}
+} */
 
 .user-table th {
     padding: 12px;
     font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    /* background-color: rgb(138, 137, 137); */
     background-color: #023265;
     color: white;
+    border-bottom: 1px solid gainsboro;
 }
 
 .user-table td {
@@ -58,33 +62,33 @@
     font-family: "Poppins",sans-serif;
 }
 
-.user-table tbody tr{
+/* .user-table tbody tr{
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* box-shadow: 0px 1px 2px #08589d; */
-}
+    box-shadow: 0px 1px 2px #08589d;
+} */
 
 .user-table tbody td{
     /* border-bottom: 1px solid rgba(255, 255, 255, 0.2); */
     /* border-bottom: 1px solid #08589d; */
-    padding: 15px;
+    padding: 20px;
 }
 
 .user-table tbody tr:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 5px 15px rgba(0, 82, 204, 0.4);
-    background: rgba(30, 60, 114, 0.9);
-     color: white;
+    /* transform: translateY(-5px); */
+    /* box-shadow: 0px 5px 15px rgba(0, 82, 204, 0.4); */
+    background:  rgb(221, 220, 220);
+     /* color: white; */
 }
 
 .user-btn {
-    background-color: rgb(2, 2, 78);
+    background-color: rgb(3, 3, 86);
     color:white;
     width: 150px;
     border-radius: 7px;
 }
 
 .user-btn:hover{
-    background: rgba(30, 60, 114, 0.9);
+    background:rgb(2, 2, 112);
 }
 
 .userbtn{

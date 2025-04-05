@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { IoIosCloudUpload } from "react-icons/io";
 import { apiurl } from './url';
-
+import AddIcon from '@mui/icons-material/Add';
 
 const Users = () => {
 
@@ -77,7 +77,10 @@ const Users = () => {
         <div className='user mt-5'>
         
          <div className="admin-header-container">
-          <h3 className="admin-head">User Details</h3>
+         <button className='users-btn mt-4 btn' onClick={handleDialog}>Create Account
+         <AddIcon style={{ fontSize: 24, color: 'white', cursor: 'pointer' }} />
+         </button>
+          {/* <h3 className="admin-head">User Details</h3> */}
           <div className="admin-header">
             <button className="upload-button3" onClick={handleDownload}>
               <PiMicrosoftExcelLogoFill />
@@ -101,6 +104,9 @@ const Users = () => {
           <div className="table-container">
             <table className='users-table text-center mt-5'>
               <thead>
+                <tr>
+                  <th  className='tablerow' colSpan={4}>USER DETAILS</th>
+                </tr>
                 <tr>
                   <th>Username</th>
                   <th>Email</th>
@@ -128,9 +134,9 @@ const Users = () => {
               </tbody>
             </table>
           </div>
-          <div className='button-container'>
+          {/* <div className='button-container'>
             <button className='users-btn mt-4 btn' onClick={handleDialog}>Create Account</button>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* Button after table */}
