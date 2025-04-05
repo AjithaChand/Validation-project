@@ -36,7 +36,10 @@ const Login = () => {
                 navigate("/dashboard/home")
             }
         })
-        .catch(err=>toast.error(err.response.data.error))
+        .catch(err=>{
+            toast.error(err.response.data.error)
+            console.log(err.message);
+        })
 
         console.log("I am from Login Page");
 

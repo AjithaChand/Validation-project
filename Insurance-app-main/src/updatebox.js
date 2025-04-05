@@ -1,14 +1,14 @@
 import React from 'react';
-import './UpdateDialog.css';
+import './Updatebox.css';
 import Updatefile from './Updatefile';
 
 const UpdateBox = ({ isVisible, onClose, userid }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="update-overlay">
-      <div className="update-content">
-        <button className="btn-update" onClick={onClose}>
+    <div className="updatebox-overlay">
+      <div className="updatebox-content">
+        <button className="btn-updatebox" onClick={onClose}>
           &times;
         </button>
         <div className="update-inner">

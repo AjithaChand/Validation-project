@@ -7,7 +7,7 @@ import { IoIosCloudUpload } from "react-icons/io";
 import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import { RiLogoutCircleRLine } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { apiurl } from './url';
@@ -16,41 +16,44 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DescriptionIcon from '@mui/icons-material/Description';
 import AddIcon from '@mui/icons-material/Add';
 import { UserContext } from "./usecontext";
+import Deletebox from './Deletebox';
 
 
 const Adminpage = () => {
-  // const [showconfirm, setShowconfirm] = useState(false);
+  const [showconfirm, setShowconfirm] = useState(false);
+  const [deleteid, setDeleteid] = useState(null)
   // const role=localStorage.getItem("role");
   const [showupdate, setShowupdate] = useState(false)
-    const [selectid, setSelectid] = useState(null)
+  const [selectid, setSelectid] = useState(null)
 
     const [refersh, setRefresh] = useState(true);
     const {refreshFromUpdate} = useContext(UserContext)
     const {refreshCreateFromAdmin}=useContext(UserContext);
   
-  
-    const handleupdate = (id) => {
-      if (id) {
-        setSelectid(id);
-        setShowupdate(true);
-      } else {
-        setShowupdate(false);
-        setSelectid(null);
-      }
-    };
-    
 
-  // const navigate = useNavigate()
+
+  const handleupdate = (id) => {
+    if (id) {
+      setSelectid(id);
+      setShowupdate(true);
+    } else {
+      setShowupdate(false);
+      setSelectid(null);
+    }
+  };
+
+
+  const navigate = useNavigate()
 
   const [value, setValue] = useState([])
-  
+
 
   const [file, setFile] = useState(null);
 
   const handleDownload = () => {
     window.location.href = `${apiurl}/download-excel`;
   }
-const handleUpload = async () => {
+  const handleUpload = async () => {
 
     if (!file) return toast.error("Select a file first!");
 
@@ -60,7 +63,7 @@ const handleUpload = async () => {
     try {
       await axios.post(`${apiurl}/upload-excel`, formData);
       toast.success("File Uploaded Successfully!");
-      setRefresh(pre=>!pre)
+      setRefresh(pre => !pre)
     } catch (err) {
       toast.error("Upload Failed!");
     }
@@ -79,24 +82,45 @@ const handleUpload = async () => {
       .catch(err => console.log(err))
   }, [refersh,refreshFromUpdate,refreshCreateFromAdmin])
 
-  
-  
+
+  const handleLogout = () => {
+    setShowconfirm(true);
+  };
+
+  const confirmLogout = () => {
+    axios.delete(`${apiurl}/delete/customer_details/${deleteid}`)
+      .then(res => {
+        console.log(res);
+        cancelLogout()
+        setValue(prev => prev.filter(data => data.id !== deleteid));
+        toast.success("Data deleted successfully");
+      })
+      .catch(err => {
+        toast.error(err.response?.data?.error || "An error occurred");
+      });
+  };
+
+  const cancelLogout = () => {
+    setShowconfirm(false);
+  };
 
   // Delete values
   const handleDelete = (id) => {
     console.log("id for delete", id);
-    
-    if (window.confirm("Are you sure you want to delete this data?")) {
-      axios.delete(`${apiurl}/delete/customer_details/${id}`)
-        .then(res => {
-          console.log(res);
-          setValue(prev => prev.filter(data => data.id !== id));
-          toast.success("Data deleted successfully");
-        })
-        .catch(err => {
-          toast.error(err.response?.data?.error || "An error occurred");
-        });
-    }
+    setDeleteid(id);
+    handleLogout()
+
+    // if (window.confirm("Are you sure you want to delete this data?")) {
+    //   axios.delete(`${apiurl}/delete/customer_details/${id}`)
+    //     .then(res => {
+    //       console.log(res);
+    //       setValue(prev => prev.filter(data => data.id !== id));
+    //       toast.success("Data deleted successfully");
+    //     })
+    //     .catch(err => {
+    //       toast.error(err.response?.data?.error || "An error occurred");
+    //     });
+    // }
   };
 
   const [showModal, setShowModal] = useState(false);
@@ -106,8 +130,8 @@ const handleUpload = async () => {
   const handleViewFile = (fileUrl) => {
     console.log("FileUrl", fileUrl);
     const fileExtension = fileUrl.split('.').pop().toLowerCase();
-    console.log("File Extension",fileExtension);
-    
+    console.log("File Extension", fileExtension);
+
     const isImage = ['jpg', 'jpeg', 'png', 'gif', 'avif'].includes(fileExtension);
     const isPdf = fileExtension === 'pdf';
 
@@ -119,36 +143,34 @@ const handleUpload = async () => {
     }
   };
 
- 
-
   return (
     <div>
-     <div className='row'>
+      <div className='row'>
         <div className='mt-5' >
-        <div className="admin-header-container">
-        <button className='btn admin-btn mt-4' onClick={handlePopup}>Add Details{" "}
-        <AddIcon style={{ fontSize: 24, color: 'white', cursor: 'pointer' }} />
-        </button>
-  {/* <h3 className="admin-head">Customer  Details</h3> */}
-  <div className="admin-header">
-    <button className="upload-button3" onClick={handleDownload}>
-      <PiMicrosoftExcelLogoFill />
-    </button>
-    <input
-      type="file"
-      id="fileInput"
-      className="file-input"
-      onChange={(e) => setFile(e.target.files[0])}
-    />
-    <label htmlFor="fileInput" className="file-label">
-      <span className="label-name">Choose File</span>
-    </label>
-    {file && <span className="file-name">{file.name}</span>}
-    <button className="upload-button4" onClick={handleUpload}>
-      <IoIosCloudUpload />
-    </button>
-  </div>
-</div>
+          <div className="admin-header-container">
+            <button className='btn admin-btn mt-4' onClick={handlePopup}>Add Details{" "}
+              <AddIcon style={{ fontSize: 24, color: 'white', cursor: 'pointer' }} />
+            </button>
+            {/* <h3 className="admin-head">Customer  Details</h3> */}
+            <div className="admin-header">
+              <button className="upload-button3" onClick={handleDownload}>
+                <PiMicrosoftExcelLogoFill />
+              </button>
+              <input
+                type="file"
+                id="fileInput"
+                className="file-input"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+              <label htmlFor="fileInput" className="file-label">
+                <span className="label-name">Choose File</span>
+              </label>
+              {file && <span className="file-name">{file.name}</span>}
+              <button className="upload-button4" onClick={handleUpload}>
+                <IoIosCloudUpload />
+              </button>
+            </div>
+          </div>
           <table className='mt-5 text-center admin-table'>
             <thead>
               <tr>
@@ -157,7 +179,7 @@ const handleUpload = async () => {
               <tr>
                 <th>Email</th>
                 <th>Start Date</th>
-                <th>End Date</th> 
+                <th>End Date</th>
                 <th>Policy</th>
                 <th>Files</th>
                 <th>Actions</th>
@@ -181,14 +203,14 @@ const handleUpload = async () => {
                     ) : ("No File")}
                   </td>
                   <td>
-                   <button className='edit-btn' onClick={() => handleupdate(data.id)}> <FaEdit /></button>
-                  <button  className='delete-button' onClick={() => handleDelete(data.id)}>
-                  <DeleteIcon style={{ fontSize: 24, color: 'darkred', cursor: 'pointer' }} />
+                    <button className='edit-btn' onClick={() => handleupdate(data.id)}> <FaEdit /></button>
+                    <button className='delete-button' onClick={() => handleDelete(data.id)}>
+                      <DeleteIcon style={{ fontSize: 24, color: 'darkred', cursor: 'pointer' }} />
                     </button>
-                </td>
+                  </td>
                 </tr>
               })}
-               
+
             </tbody>
           </table>
           {/* <div className='mt-4'>
@@ -234,7 +256,7 @@ const handleUpload = async () => {
         </div>
       )} */}
       <UpdateBox onClose={() => handleupdate()} isVisible={showupdate} userid={selectid} />
-
+      <Deletebox isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
     </div>
   )
 }
