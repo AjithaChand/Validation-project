@@ -11,7 +11,7 @@ const UserDialog = ({isVisible,onClose,cancel,logout}) => {
             <div className="delete-confirmbox">
               <p>Are you sure ?</p>
               <div className='delete-box'>
-                <button className="delete-confirm-btn" onClick={logout}>Confirm</button>
+                <button className="delete-confirm-btn" onClick={logout}>Delete</button>
                 <button className="delete-cancel-btn" onClick={cancel}>Cancel</button>
               </div>
             </div>
