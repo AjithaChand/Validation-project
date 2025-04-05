@@ -174,7 +174,7 @@
 }
 
 
-/* @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .users-btn {
         width: 30%;
         right: 10%;
@@ -266,4 +266,4 @@
         height: 50px;
         font-size: 14px;
     }
-} */
+}

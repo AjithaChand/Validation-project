@@ -118,18 +118,7 @@ const handleUpload = async () => {
     }
   };
 
-  // const handleLogout = () => {
-  //   setShowconfirm(true);
-  // };
-
-  // const confirmLogout = () => {
-  //   localStorage.removeItem("authToken");
-  //   navigate('/');
-  // };
-
-  // const cancelLogout = () => {
-  //   setShowconfirm(false);
-  // };
+ 
 
   return (
     <div>
