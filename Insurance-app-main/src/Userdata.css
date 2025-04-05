@@ -1,18 +1,15 @@
 .admin-slidebar{
     background:rgb(239, 238, 238);
-    /* color: white; */
     height:100%;
     width: 20%;
     position: fixed;
     left: 0;
     top: 9%;
-    /* padding: 7px; */
 }
 
 .userdata-container{
     margin-left: 20%;
- 
-    height: 100vh;
+    height: 100vh; 
 }
 
 .userdata-btn{
@@ -24,11 +21,6 @@
   padding: 7px;
   gap: 20px;
 }
-
-/* .userdata-btn:hover{
-    background: #054c8b;
-    color: white;
-} */
 
 .userdata-container{
     overflow-y: scroll;
@@ -44,3 +36,50 @@
     font-weight: bold;
 }
 
+.user-profile .userheader{
+    position: absolute;
+    left: 20%;
+    letter-spacing: 2px;
+    color: goldenrod;
+    font-variant: small-caps;
+    font-size:2rem ;
+}
+
+.user-profile .userheader .caps{
+    font-weight: bold;
+    color: rgb(2, 2, 73);
+    font-size: 2.2rem;
+}
+
+@media screen and  (max-width: 768px) {
+    .admin-slidebar {
+      display: none;
+    }
+  
+    .userdata-container {
+      margin-left: 0;
+      height: auto;
+      overflow-y: visible;
+      padding: 10px;
+    }
+  
+    .user-profile .userheader {
+      position: absolute;
+      left: 5%;
+      font-size: 1.5rem;
+    }
+  
+    .user-profile .userheader .caps {
+      font-size: 1.8rem;
+    }
+  
+    .userdata-btn {
+      font-size: 16px;
+      padding: 10px;
+    }
+  
+    .dashboard-icon:hover {
+      font-size: 18px;
+    }
+  }
+  
