@@ -1,6 +1,6 @@
 import React from 'react'
 import './Formpopup.css'
-import Create_For_User from '../UserEntry/Create_For_User';
+import Create_For_User  from '../UserEntry/Create_For_User';
 
 const Formpopup = ({isVisible,onClose}) => {
 

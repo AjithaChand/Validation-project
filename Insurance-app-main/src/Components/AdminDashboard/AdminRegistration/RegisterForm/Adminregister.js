@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import './Adminregister.css'
 import { ToastContainer, toast } from "react-toastify";
@@ -8,7 +8,7 @@ import { apiurl } from '../../../../url';
 
 const Adminregister = ({close}) => {
     
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const [values, setValues] = useState({
         username: "",
@@ -17,7 +17,8 @@ const Adminregister = ({close}) => {
         role:""
     })
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e) => { 
+        
         e.preventDefault();
 
         if(values.role==="select"){
