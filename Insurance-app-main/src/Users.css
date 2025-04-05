@@ -47,7 +47,832 @@
 
 .edit-btn,
 .delete-btn {
-    border: none;
+    border: none;.users-btn {
+        background-color: #023265;
+        color: white;
+        width: 18%;
+        border-radius: 50px;
+        position: relative;
+        right: 20%;
+        transition: background 0.3s;
+    }
+    
+    .users-btn:hover {
+        background: rgb(1, 1, 99);
+    }
+    
+    .users-table {
+        position: relative;
+        border-collapse: collapse;
+        margin: auto;
+        width: 80%;
+        top: 15%;
+        box-shadow: 1px 7px 15px gainsboro;
+    }
+    
+    .users-table th {
+        padding: 12px;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: #023265;
+        color: white;
+        border-bottom: 1px solid gainsboro;
+    }
+    
+    .users-table td {
+        font-size: 17px;
+        font-weight: 200;
+        font-family: "Poppins", sans-serif;
+    }
+    
+    .users-table tbody td {
+        padding: 20px;
+    }
+    
+    .users-table tbody tr:hover {
+        background: rgb(221, 220, 220);
+    }
+    
+    .edit-btn,
+    .delete-btn {
+        border: none;
+        background: none;
+        font-size: 22px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .edit-btn {
+        color: rgb(2, 103, 2);
+    }
+    
+    .delete-btn {
+        color: rgb(148, 9, 9);
+    }
+    
+    .edit-btn:hover,
+    .delete-btn:hover {
+        transform: scale(1.2);
+    }
+    
+    .toggle {
+        display: flex;
+        justify-content: space-between;
+        background-color: darkblue;
+        color: white;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1000;
+        width: 100%;
+        height: 70px;
+    }
+    
+    .admin-header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        margin-top: 50px;
+        width: 80%;
+        border-radius: 5px;
+    }
+    
+    .admin-head {
+        font-weight: bold;
+        font-size: 24px;
+        margin-left: 20px;
+        color: black;
+    }
+    
+    .admin-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 15px;
+    }
+    
+    .upload-button3,
+    .upload-button4 {
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all 0.3s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .upload-button3 {
+        background-color: #128e46;
+    }
+    
+    .upload-button4 {
+        background-color: #e67e22;
+    }
+    
+    .upload-button3:hover {
+        background-color: #27ae60;
+        transform: scale(1.05);
+    }
+    
+    .upload-button4:hover {
+        background-color: #d35400;
+        transform: scale(1.05);
+    }
+    
+    .upload-button3 svg,
+    .upload-button4 svg {
+        font-size: 22px;
+    }
+    
+    .file-input {
+        display: none;
+    }
+    
+    .file-label {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: bold;
+        font-size: 14px;
+        transition: background 0.3s;
+    }
+    
+    .file-label:hover {
+        background-color: #0056b3;
+    }
+    
+    .label-name {
+        display: block;
+    }
+    
+    .users-table thead tr .tablerow {
+        height: 75px;
+        background-color: white;
+        color: black;
+        font-size: 25px;
+    }
+    .table-row
+    {
+        font-size: 20px;
+        background-color: white;
+    }
+    
+    @media screen and (max-width: 768px) {
+        .users-btn {
+            width: 30%;
+            right: 10%;
+            border-radius: 35px;
+        }
+    
+        .users-table {
+            width: 70%;
+            top: 10%;
+           
+        }
+    
+        .admin-header-container {
+            width: 90%;
+        }
+    
+        .admin-header {
+            gap: 10px;
+        }
+    }
+    @media screen and (min-width: 375px) and (max-width: 430px) {
+        .users-btn {
+            width: 40%;
+            right: 5%;
+            border-radius: 30px;
+            font-size: 12px;
+        }
+    
+        .users-table {
+            width: 50%;
+            top: 8%;
+            margin-right: 30px;
+        }
+    
+        .users-table th {
+            padding: 7px;
+            font-size: 13px;
+        }
+    
+        .users-table td {
+            font-size: 12px;
+        }
+    
+        .users-table tbody td {
+            padding: 10px;
+        }
+    
+        .edit-btn,
+        .delete-btn {
+            font-size: 15px;
+        }
+    
+        .toggle {
+            height: 40px;
+        }
+    
+        .admin-header-container {
+            width: 95.users-btn {
+                background-color: #023265;
+                color: white;
+                width: 18%;
+                border-radius: 50px;
+                position: relative;
+                right: 20%;
+                transition: background 0.3s;
+            }
+            
+            .users-btn:hover {
+                background: rgb(1, 1, 99);
+            }
+            
+            .users-table {
+                position: relative;
+                border-collapse: collapse;
+                margin: auto;
+                width: 80%;
+                top: 15%;
+                box-shadow: 1px 7px 15px gainsboro;
+            }
+            
+            .users-table th {
+                padding: 12px;
+                font-size: 16px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                background-color: #023265;
+                color: white;
+                border-bottom: 1px solid gainsboro;
+            }
+            
+            .users-table td {
+                font-size: 17px;
+                font-weight: 200;
+                font-family: "Poppins", sans-serif;
+            }
+            
+            .users-table tbody td {
+                padding: 20px;
+            }
+            
+            .users-table tbody tr:hover {
+                background: rgb(221, 220, 220);
+            }
+            
+            .edit-btn,
+            .delete-btn {
+                border: none;
+                background: none;
+                font-size: 22px;
+                cursor: pointer;
+                transition: transform 0.2s ease-in-out;
+            }
+            
+            .edit-btn {
+                color: rgb(2, 103, 2);
+            }
+            
+            .delete-btn {
+                color: rgb(148, 9, 9);
+            }
+            
+            .edit-btn:hover,
+            .delete-btn:hover {
+                transform: scale(1.2);
+            }
+            
+            .toggle {
+                display: flex;
+                justify-content: space-between;
+                background-color: darkblue;
+                color: white;
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 1000;
+                width: 100%;
+                height: 70px;
+            }
+            
+            .admin-header-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px;
+                margin-top: 50px;
+                width: 80%;
+                border-radius: 5px;
+            }
+            
+            .admin-head {
+                font-weight: bold;
+                font-size: 24px;
+                margin-left: 20px;
+                color: black;
+            }
+            
+            .admin-header {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 15px;
+            }
+            
+            .upload-button3,
+            .upload-button4 {
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 18px;
+                transition: all 0.3s ease-in-out;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            
+            .upload-button3 {
+                background-color: #128e46;
+            }
+            
+            .upload-button4 {
+                background-color: #e67e22;
+            }
+            
+            .upload-button3:hover {
+                background-color: #27ae60;
+                transform: scale(1.05);
+            }
+            
+            .upload-button4:hover {
+                background-color: #d35400;
+                transform: scale(1.05);
+            }
+            
+            .upload-button3 svg,
+            .upload-button4 svg {
+                font-size: 22px;
+            }
+            
+            .file-input {
+                display: none;
+            }
+            
+            .file-label {
+                background-color: #007bff;
+                color: white;
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+                display: inline-block;
+                font-weight: bold;
+                font-size: 14px;
+                transition: background 0.3s;
+            }
+            
+            .file-label:hover {
+                background-color: #0056b3;
+            }
+            
+            .label-name {
+                display: block;
+            }
+            
+            .users-table thead tr .tablerow {
+                height: 75px;
+                background-color: white;
+                color: black;
+                font-size: 25px;
+            }
+            .table-row
+            {
+                font-size: 20px;
+                background-color: white;
+            }
+            
+            @media screen and (max-width: 768px) {
+                .users-btn {
+                    width: 30%;
+                    right: 10%;
+                    border-radius: 35px;
+                }
+            
+                .users-table {
+                    width: 70%;
+                    top: 10%;
+                   
+                }
+            
+                .admin-header-container {
+                    width: 90%;
+                }
+            
+                .admin-header {
+                    gap: 10px;
+                }
+            }
+            @media screen and (min-width: 375px) and (max-width: 430px) {
+                .users-btn {
+                    width: 40%;
+                    right: 5%;
+                    border-radius: 30px;
+                    font-size: 12px;
+                }
+            
+                .users-table {
+                    width: 60%;
+                    top: 8%;
+                    margin-left: 80px;
+                }
+            
+                .users-table th {
+                    padding: 7px;
+                    font-size: 13px;
+                }
+            
+                .users-table td {
+                    font-size: 12px;
+                }
+            
+                .users-table tbody td {
+                    padding: 10px;
+                }
+            
+                .edit-btn,
+                .delete-btn {
+                    font-size: 15px;
+                }
+            
+                .toggle {
+                    height: 40px;
+                }
+            
+                .admin-header-container {
+                    width: 80%;
+                    padding: 5px;
+                }
+            
+                .admin-head {
+                    font-size: 15px;
+                    margin-left: 10px;
+                }
+            
+                .admin-header {
+                    display: block; 
+                    gap: 0; 
+                }
+            
+                .upload-button3,
+                .upload-button4 {
+                    font-size: 12px;
+                    padding: 5px 10px;
+                    margin-top: 5px;
+                }
+            
+                .upload-button3 svg,
+                .upload-button4 svg {
+                    font-size: 15px;
+                }
+            
+                .file-label {
+                    font-size: 10px;
+                    padding: 7px 9px;
+                    border-radius: 3px;
+                }
+            
+                .users-table thead tr .tablerow {
+                    height: 50px;
+                    font-size: 14px;
+                }
+            }
+            %;
+            padding: 5px;
+        }
+    
+        .admin-head {
+            font-size: 15px;
+            margin-left: 10px;
+        }
+    
+        .admin-header {
+            display: block; 
+            gap: 0; 
+        }
+    
+        .upload-button3,
+        .upload-button4 {
+            font-size: 12px;
+            padding: 5px 10px;
+            margin-top: 5px;
+        }
+    
+        .upload-button3 svg,
+        .upload-button4 svg {
+            font-size: 15px;
+        }
+    
+        .file-label {
+            font-size: 10px;
+            padding: 7px 9px;
+            border-radius: 3px;
+        }
+    
+        .users-table thead tr .tablerow {
+            height: 50px;
+            font-size: 14px;
+        }
+    }
+    .users-btn {
+        background-color: #023265;
+        color: white;
+        width: 18%;
+        border-radius: 50px;
+        position: relative;
+        right: 20%;
+        transition: background 0.3s;
+    }
+    
+    .users-btn:hover {
+        background: rgb(1, 1, 99);
+    }
+    
+    .users-table {
+        position: relative;
+        border-collapse: collapse;
+        margin: auto;
+        width: 80%;
+        top: 15%;
+        box-shadow: 1px 7px 15px gainsboro;
+    }
+    
+    .users-table th {
+        padding: 12px;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: #023265;
+        color: white;
+        border-bottom: 1px solid gainsboro;
+    }
+    
+    .users-table td {
+        font-size: 17px;
+        font-weight: 200;
+        font-family: "Poppins", sans-serif;
+    }
+    
+    .users-table tbody td {
+        padding: 20px;
+    }
+    
+    .users-table tbody tr:hover {
+        background: rgb(221, 220, 220);
+    }
+    
+    .edit-btn,
+    .delete-btn {
+        border: none;
+        background: none;
+        font-size: 22px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .edit-btn {
+        color: rgb(2, 103, 2);
+    }
+    
+    .delete-btn {
+        color: rgb(148, 9, 9);
+    }
+    
+    .edit-btn:hover,
+    .delete-btn:hover {
+        transform: scale(1.2);
+    }
+    
+    .toggle {
+        display: flex;
+        justify-content: space-between;
+        background-color: darkblue;
+        color: white;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1000;
+        width: 100%;
+        height: 70px;
+    }
+    
+    .admin-header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        margin-top: 50px;
+        width: 80%;
+        border-radius: 5px;
+    }
+    
+    .admin-head {
+        font-weight: bold;
+        font-size: 24px;
+        margin-left: 20px;
+        color: black;
+    }
+    
+    .admin-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 15px;
+    }
+    
+    .upload-button3,
+    .upload-button4 {
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all 0.3s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .upload-button3 {
+        background-color: #128e46;
+    }
+    
+    .upload-button4 {
+        background-color: #e67e22;
+    }
+    
+    .upload-button3:hover {
+        background-color: #27ae60;
+        transform: scale(1.05);
+    }
+    
+    .upload-button4:hover {
+        background-color: #d35400;
+        transform: scale(1.05);
+    }
+    
+    .upload-button3 svg,
+    .upload-button4 svg {
+        font-size: 22px;
+    }
+    
+    .file-input {
+        display: none;
+    }
+    
+    .file-label {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: bold;
+        font-size: 14px;
+        transition: background 0.3s;
+    }
+    
+    .file-label:hover {
+        background-color: #0056b3;
+    }
+    
+    .label-name {
+        display: block;
+    }
+    
+    .users-table thead tr .tablerow {
+        height: 75px;
+        background-color: white;
+        color: black;
+        font-size: 25px;
+    }
+    .table-row
+    {
+        font-size: 20px;
+        background-color: white;
+    }
+    
+    @media screen and (max-width: 768px) {
+        .users-btn {
+            width: 30%;
+            right: 10%;
+            border-radius: 35px;
+        }
+    
+        .users-table {
+            width: 70%;
+            top: 10%;
+           
+        }
+    
+        .admin-header-container {
+            width: 90%;
+        }
+    
+        .admin-header {
+            gap: 10px;
+        }
+    }
+    @media screen and (min-width: 375px) and (max-width: 430px) {
+        .users-btn {
+            width: 40%;
+            right: 5%;
+            border-radius: 30px;
+            font-size: 12px;
+        }
+    
+        .users-table {
+            width: 60%;
+            top: 8%;
+            margin-left: 80px;
+        }
+    
+        .users-table th {
+            padding: 7px;
+            font-size: 13px;
+        }
+    
+        .users-table td {
+            font-size: 12px;
+        }
+    
+        .users-table tbody td {
+            padding: 10px;
+        }
+    
+        .edit-btn,
+        .delete-btn {
+            font-size: 15px;
+        }
+    
+        .toggle {
+            height: 40px;
+        }
+    
+        .admin-header-container {
+            width: 80%;
+            padding: 5px;
+        }
+    
+        .admin-head {
+            font-size: 15px;
+            margin-left: 10px;
+        }
+    
+        .admin-header {
+            display: block; 
+            gap: 0; 
+        }
+    
+        .upload-button3,
+        .upload-button4 {
+            font-size: 12px;
+            padding: 5px 10px;
+            margin-top: 5px;
+        }
+    
+        .upload-button3 svg,
+        .upload-button4 svg {
+            font-size: 15px;
+        }
+    
+        .file-label {
+            font-size: 10px;
+            padding: 7px 9px;
+            border-radius: 3px;
+        }
+    
+        .users-table thead tr .tablerow {
+            height: 50px;
+            font-size: 14px;
+        }
+    }
+        
     background: none;
     font-size: 22px;
     cursor: pointer;
@@ -236,7 +1061,282 @@
     }
 
     .admin-header-container {
-        width: 95%;
+        width: 95.users-btn {
+            background-color: #023265;
+            color: white;
+            width: 18%;
+            border-radius: 50px;
+            position: relative;
+            right: 20%;
+            transition: background 0.3s;
+        }
+        
+        .users-btn:hover {
+            background: rgb(1, 1, 99);
+        }
+        
+        .users-table {
+            position: relative;
+            border-collapse: collapse;
+            margin: auto;
+            width: 80%;
+            top: 15%;
+            box-shadow: 1px 7px 15px gainsboro;
+        }
+        
+        .users-table th {
+            padding: 12px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background-color: #023265;
+            color: white;
+            border-bottom: 1px solid gainsboro;
+        }
+        
+        .users-table td {
+            font-size: 17px;
+            font-weight: 200;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        .users-table tbody td {
+            padding: 20px;
+        }
+        
+        .users-table tbody tr:hover {
+            background: rgb(221, 220, 220);
+        }
+        
+        .edit-btn,
+        .delete-btn {
+            border: none;
+            background: none;
+            font-size: 22px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        
+        .edit-btn {
+            color: rgb(2, 103, 2);
+        }
+        
+        .delete-btn {
+            color: rgb(148, 9, 9);
+        }
+        
+        .edit-btn:hover,
+        .delete-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .toggle {
+            display: flex;
+            justify-content: space-between;
+            background-color: darkblue;
+            color: white;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 1000;
+            width: 100%;
+            height: 70px;
+        }
+        
+        .admin-header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            margin-top: 50px;
+            width: 80%;
+            border-radius: 5px;
+        }
+        
+        .admin-head {
+            font-weight: bold;
+            font-size: 24px;
+            margin-left: 20px;
+            color: black;
+        }
+        
+        .admin-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+        
+        .upload-button3,
+        .upload-button4 {
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .upload-button3 {
+            background-color: #128e46;
+        }
+        
+        .upload-button4 {
+            background-color: #e67e22;
+        }
+        
+        .upload-button3:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
+        }
+        
+        .upload-button4:hover {
+            background-color: #d35400;
+            transform: scale(1.05);
+        }
+        
+        .upload-button3 svg,
+        .upload-button4 svg {
+            font-size: 22px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-label {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        .file-label:hover {
+            background-color: #0056b3;
+        }
+        
+        .label-name {
+            display: block;
+        }
+        
+        .users-table thead tr .tablerow {
+            height: 75px;
+            background-color: white;
+            color: black;
+            font-size: 25px;
+        }
+        .table-row
+        {
+            font-size: 20px;
+            background-color: white;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .users-btn {
+                width: 30%;
+                right: 10%;
+                border-radius: 35px;
+            }
+        
+            .users-table {
+                width: 70%;
+                top: 10%;
+               
+            }
+        
+            .admin-header-container {
+                width: 90%;
+            }
+        
+            .admin-header {
+                gap: 10px;
+            }
+        }
+        @media screen and (min-width: 375px) and (max-width: 430px) {
+            .users-btn {
+                width: 40%;
+                right: 5%;
+                border-radius: 30px;
+                font-size: 12px;
+            }
+        
+            .users-table {
+                width: 60%;
+                top: 8%;
+                margin-left: 80px;
+            }
+        
+            .users-table th {
+                padding: 7px;
+                font-size: 13px;
+            }
+        
+            .users-table td {
+                font-size: 12px;
+            }
+        
+            .users-table tbody td {
+                padding: 10px;
+            }
+        
+            .edit-btn,
+            .delete-btn {
+                font-size: 15px;
+            }
+        
+            .toggle {
+                height: 40px;
+            }
+        
+            .admin-header-container {
+                width: 80%;
+                padding: 5px;
+            }
+        
+            .admin-head {
+                font-size: 15px;
+                margin-left: 10px;
+            }
+        
+            .admin-header {
+                display: block; 
+                gap: 0; 
+            }
+        
+            .upload-button3,
+            .upload-button4 {
+                font-size: 12px;
+                padding: 5px 10px;
+                margin-top: 5px;
+            }
+        
+            .upload-button3 svg,
+            .upload-button4 svg {
+                font-size: 15px;
+            }
+        
+            .file-label {
+                font-size: 10px;
+                padding: 7px 9px;
+                border-radius: 3px;
+            }
+        
+            .users-table thead tr .tablerow {
+                height: 50px;
+                font-size: 14px;
+            }
+        }
+        %;
         padding: 5px;
     }
 

@@ -7,7 +7,7 @@ import { IoIosCloudUpload } from "react-icons/io";
 import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom';
+
 // import { RiLogoutCircleRLine } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { apiurl } from './url';
@@ -41,7 +41,6 @@ const Adminpage = () => {
   };
 
 
-  const navigate = useNavigate()
 
   const [value, setValue] = useState([])
 
@@ -141,11 +140,6 @@ const Adminpage = () => {
     }
   };
 
-<<<<<<< HEAD
- 
-
-=======
->>>>>>> ec58456a70813db96692111be54ba47e1764782a
   return (
     <div>
       <div className='row'>
