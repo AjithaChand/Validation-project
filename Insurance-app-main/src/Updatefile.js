@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from './url';
 // import { UserContext } from "./usecontext"; 
 import { UserContext } from "./usecontext"; 
+import "./updatefile.css";
 
 const Updatefile = ({ close,selectid  }) => {
 
@@ -100,6 +101,7 @@ const Updatefile = ({ close,selectid  }) => {
          
     return (
         <div>
+            <div className='updatebox'>
             <form onSubmit={handleSubmit}>
                 <h3 className='text-center'> Admin Update Data</h3>
                 <div className='mt-3 form-group'>
@@ -153,6 +155,7 @@ const Updatefile = ({ close,selectid  }) => {
                 <button className='btn user-btn mt-3' style={{ backgroundColor: "#333", width: "30%" }}>Submit</button>
             </form>
             <ToastContainer position='top-right' autoClose={3000} />
+            </div>
         </div>
     );
 }

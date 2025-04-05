@@ -53,3 +53,102 @@
     background: linear-gradient(90deg, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
     color: white;
 }
+
+
+@media screen and (max-width: 1440px) {
+    .btn {
+        width: 35%;
+    }
+
+    .button-container .button-group {
+        width: 180px;
+    }
+}
+
+
+@media screen and (max-width: 1024px) {
+    .btn {
+        width: 40%;
+    }
+
+    .form-data {
+        padding: 25px;
+    }
+
+    .button-container .button-group {
+        width: 160px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .login-form {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .btn {
+        width: 60%;
+    }
+
+    .form-data {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-container .button-group {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+
+@media screen and (max-width: 425px) {
+    .btn {
+        width: 80%;
+        padding: 8px;
+    }
+
+    .form-data {
+        padding: 15px;
+    }
+
+    .button-container .button-group {
+        font-size: 14px;
+    }
+}
+
+
+@media screen and (max-width: 375px) {
+    .btn {
+        width: 90%;
+    }
+
+    .form-data {
+        padding: 10px;
+    }
+
+    .button-container .button-group {
+        font-size: 13px;
+        padding: 8px 16px;
+    }
+}
+@media screen and (max-width: 320px) {
+    .btn {
+        width: 95%;
+    }
+
+    .form-data {
+        padding: 8px;
+    }
+
+    .button-container .button-group {
+        font-size: 12px;
+        width: 100%;
+    }
+}
+
