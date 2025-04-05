@@ -5,7 +5,7 @@ import './Adminregister.css'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from './url';
-const Adminregister = () => {
+const Adminregister = ({close}) => {
     
     const navigate = useNavigate()
 
@@ -37,7 +37,8 @@ const Adminregister = () => {
         axios.post(`${apiurl}/admin/register`, values)
             .then(res => {
                 toast.success(res.data.message)
-                navigate("/admin/users")
+                // navigate("/dashboard/users")
+                close()
             })
             .catch(err => toast.error(err.response.data.error))
     }

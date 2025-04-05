@@ -25,7 +25,7 @@ const User = () => {
   const {shareId} = useContext(UserContext);
 
   const {update}= useContext(UserContext)
-  
+  const {refreshFromCreate}=useContext(UserContext)
   // const { userId } = useContext(UserContext);
 
   console.log("I am from User.jsx", shareId);
@@ -60,7 +60,7 @@ const FetchData = () =>{
 }
   useEffect(() => {
     FetchData();
-  }, [email,update]);
+  }, [email,update,refreshFromCreate]);
   
   console.log(value);          /*==========>> Got Responce*/
   

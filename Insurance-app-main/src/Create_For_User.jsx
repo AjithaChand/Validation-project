@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { apiurl } from './url';
+import { UserContext } from "./usecontext"; 
+
 
 const Create_For_User = ({ close }) => {
 
   // const {setShareId} = useContext(UserContext);
 
   const email = localStorage.getItem('email');
+
+  const {setRefreshFromCreate} = useContext(UserContext)
 
   const currentDate = new Date();
   const formattedDateForInput = currentDate.toISOString().split("T")[0];
@@ -48,6 +52,7 @@ const Create_For_User = ({ close }) => {
         console.log('Response:', res);
         if (typeof close === 'function') {
           toast.success(res.data.message);
+          setRefreshFromCreate(pre=>!pre)
           close();
         }
 

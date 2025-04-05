@@ -10,7 +10,7 @@ const Userpage = ({isVisible,onClose}) => {
     <div className='dialog-overlay'>
       <div className='dialog-content'>
         <button className='btn-close' onClick={onClose}>&times;</button>
-        <Adminregister/>
+        <Adminregister close={onClose}/>
       </div>
     </div>
   )

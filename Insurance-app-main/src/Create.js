@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // import User from './User';
 import { apiurl } from './url';
+import { UserContext } from './usecontext';
 const Create = ({close}) => {
 
 
@@ -18,6 +19,7 @@ const Create = ({close}) => {
         file:null
     })
 
+    const {setRefreshCreateFromAdmin}=useContext(UserContext)
    
 
     const handleFileChange = (e)=>{
@@ -42,6 +44,7 @@ const Create = ({close}) => {
           if (res && res.data) {
             toast.success(res.data.message);
             localStorage.setItem('email',res.data.email)
+            setRefreshCreateFromAdmin(pre=>!pre)
             close();
           } else {
             toast.error("Unexpected response format");

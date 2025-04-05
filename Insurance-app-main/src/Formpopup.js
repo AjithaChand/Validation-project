@@ -10,7 +10,7 @@ const Formpopup = ({isVisible,onClose}) => {
     <div className='form-overlay'>
       <div className='form-content'>
          <button className='btn-form' onClick={onClose}>&times;</button>
-         <Create_For_User/>
+         <Create_For_User close={onClose}/>
       </div>
     </div>
   )

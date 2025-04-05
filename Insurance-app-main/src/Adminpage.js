@@ -26,6 +26,7 @@ const Adminpage = () => {
 
     const [refersh, setRefresh] = useState(true);
     const {refreshFromUpdate} = useContext(UserContext)
+    const {refreshCreateFromAdmin}=useContext(UserContext);
   
   
     const handleupdate = (id) => {
@@ -76,7 +77,7 @@ const handleUpload = async () => {
     axios.get(`${apiurl}/read`)
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
-  }, [refersh,refreshFromUpdate])
+  }, [refersh,refreshFromUpdate,refreshCreateFromAdmin])
 
   
   
