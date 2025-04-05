@@ -91,9 +91,10 @@ const Adminpage = () => {
     axios.delete(`${apiurl}/delete/customer_details/${deleteid}`)
       .then(res => {
         console.log(res);
-        cancelLogout()
-        setValue(prev => prev.filter(data => data.id !== deleteid));
+        cancelLogout();
         toast.success("Data deleted successfully");
+
+        setValue(prev => prev.filter(data => data.id !== deleteid));
       })
       .catch(err => {
         toast.error(err.response?.data?.error || "An error occurred");
