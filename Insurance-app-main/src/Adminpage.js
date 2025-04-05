@@ -141,11 +141,6 @@ const Adminpage = () => {
     }
   };
 
-<<<<<<< HEAD
-=======
- 
-
->>>>>>> 6badec8348ecdada36d0c347176c282cf6308213
   return (
     <div>
       <div className='row'>
