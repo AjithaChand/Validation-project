@@ -139,173 +139,51 @@
    font-size: 20px;
    background-color: white;
 }
-
-@media screen and (max-width: 768px)
-{
-    .admin-btn{
-        background-color: #023265;
-        color:white;
+@media screen and (max-width: 768px) {
+    .users-btn {
         width: 30%;
-        border-radius: 40px;
-        position: relative;
         right: 10%;
+        border-radius: 35px;
     }
-    
-    .adminpage-header{
-        display: flex;
-        justify-content: space-between;
-        background-color:darkblue;
-        color: white;
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 1000;
-        width: 80%;
-        height: 50px;
-    }
-    
-    
-    .admin-head{
-        font-weight: 400;
-    }
-    
-    .admin-table{
-        position: relative;
-        border-collapse:collapse;
-        margin: auto;
+
+    .users-table {
         width: 70%;
-        box-shadow: 1px 7px 15px gainsboro;
+        top: 10%;
+       
     }
-    
-    .admin-table td{
-        font-size: 13px;
-        font-weight: 100;
-        font-family: "Poppins",sans-serif;
-    }
-    .admin-table th{
-        padding: 7px;
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        background-color: #023265;
-        color: white;
-        border-bottom: 1px solid gainsboro;
-    }
-    
-    .admin-table tbody td{
-        padding: 15px;
-    }
-    
-    .admin-table tbody tr:hover{
-        background:  rgb(221, 220, 220);
-    }
-    
-    .admin-btn:hover{
-        background: rgb(1, 1, 99);
-    }
-    
+
     .admin-header-container {
-        display: flex;
-        align-items: center;
-        justify-content:space-between;
-        padding: 10px;
-        margin: auto;
-        width: 60%;
-        border-radius: 3px;
+        width: 90%;
     }
-    
+
     .admin-header {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
         gap: 10px;
-    }
-    
-    .profileadmin {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color:darkblue;
-        padding: 8px 15px;
-        border-radius: 5px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        color: #fff;
-        font-size: 14px;
-    }
-    
-    .logout-btn {
-        color: white;
-        border: none;
-        padding: 4px 8px;
-        border-radius: 3px;
-        cursor: pointer;
-        transition: 0.3s ease;
-        font-size: 15px;
-        background-color: darkblue;
-    }
-    
-    .logout-btn:hover {
-        transform: scale(1.05);
-    }
-    
-    ::-webkit-scrollbar{
-        display: none;
-    }
-    
-    .adminbutton{
-        width: 100%;
-        background: none;
-        border: none;
-    }
-    
-    .adminbutton:hover{
-        transform: scale(1.2)
-    }
-    
-    .admin-table thead tr .tablerow{
-        height: 50px;
-        background-color: white;
-        color: black;
-        font-size: 25px;
-    }
-    
-    .delete-button{
-        background: none ;
-        border: none;
-    }
-    
-    .delete-button:hover{
-        transform: scale(1.2)
-    }
-    .tablerow
-    {
-        font-size: 15px;
     }
 }
 @media screen and (min-width: 375px) and (max-width: 430px) {
-    .admin-btn {
-        width: 30%;
+    .users-btn {
+        width: 40%;
         right: 5%;
-        border-radius: 25px;
+        border-radius: 30px;
         font-size: 12px;
     }
 
-    .admin-table {
+    .users-table {
         width: 60%;
         top: 8%;
-        margin-left: 70px;
+        margin-left: 80px;
     }
 
-    .admin-table th {
+    .users-table th {
         padding: 7px;
         font-size: 13px;
     }
 
-    .admin-table td {
+    .users-table td {
         font-size: 12px;
     }
 
-    .admin-table tbody td {
+    .users-table tbody td {
         padding: 10px;
     }
 
@@ -319,7 +197,7 @@
     }
 
     .admin-header-container {
-        width: 95%;
+        width: 80%;
         padding: 5px;
     }
 
@@ -355,8 +233,5 @@
         height: 50px;
         font-size: 14px;
     }
-    .tablerow
-    {
-        font-size: 10px;
-    }
 }
+
