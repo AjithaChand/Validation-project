@@ -9,7 +9,7 @@
     width: 100%;
     padding: 20px;
     gap: 10px;
-    background:rgb(239, 238, 238);
+    /* background:rgb(239, 238, 238); */
     position: fixed;
     left: 0;
     z-index: 1000;

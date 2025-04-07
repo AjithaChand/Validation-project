@@ -10,3 +10,88 @@
     justify-content: center;
     align-items: center;
 }
+.form-control-login {
+    width: 100%;
+    padding: 8px 11px;
+    font-size: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+  }
+
+@media screen and (max-width: 1440px) {
+    .btn {
+        width: 35%;
+    }
+
+    .button-container .button-group {
+        width: 180px;
+    }
+}
+
+
+
+
+@media screen and (max-width: 768px){
+.btn {
+    width: 40%;
+}
+
+.form-data {
+    padding: 25px;
+}
+
+.button-container .button-group {
+    width: 160px;
+}
+}
+
+
+
+
+@media screen and (max-width: 425px) {
+    .btn {
+        width: 80%;
+        padding: 8px;
+    }
+
+    .form-data {
+        padding: 15px;
+    }
+
+    .button-container .button-group {
+        font-size: 14px;
+    }
+}
+
+
+@media screen and (max-width: 375px) {
+    .btn {
+        width: 95%;
+    }
+
+    .form-data {
+        padding: 10px;
+    }
+
+    .button-container .button-group {
+        font-size: 13px;
+        padding: 8px 16px;
+    }
+}
+@media screen and (max-width: 320px) {
+    .btn {
+        width: 95%;
+    }
+
+    .form-data {
+        padding: 8px;
+    }
+
+    .button-container .button-group {
+        font-size: 12px;
+        width: 100%;
+    }
+}
+

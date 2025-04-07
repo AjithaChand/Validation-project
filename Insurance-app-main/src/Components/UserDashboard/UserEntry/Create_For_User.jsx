@@ -4,11 +4,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { apiurl } from '../../../url';
 import { UserContext } from "../../../usecontext"; 
-
-
+import "../UserEntry/CreateForuser.css"
 const Create_For_User = ({ close }) => {
 
-  // const {setShareId} = useContext(UserContext);
 
   const email = localStorage.getItem('email');
 
@@ -68,11 +66,10 @@ const Create_For_User = ({ close }) => {
 
 
   return (
-    <div>
+      <div className="create-user-container">
       <form onSubmit={handleSubmit}>
-        <h3 className="text-center">User Create Data</h3>
-
-        <div className="mt-3 form-group">
+        <h3 className=" heading text-center">Create Data</h3>
+           <div className="mt-3 form-group">
           <label>Email</label>
           <input
             type="email"
@@ -84,6 +81,7 @@ const Create_For_User = ({ close }) => {
         </div>
 
         <div className='mt-3 form-group'>
+        <label>Start Date</label>
           <input
             type="date"
             className="form-control"
@@ -126,8 +124,7 @@ const Create_For_User = ({ close }) => {
 
         <button
           className="btn user-btn mt-3"
-          style={{ backgroundColor: '#333', width: '30%' }}
-        >
+         >
           Submit
         </button>
       </form>

@@ -6,16 +6,12 @@ const UpdateBox = ({ isVisible, onClose, userid }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="updatebox-overlay">
-      <div className="updatebox-content">
-        <button className="btn-updatebox" onClick={onClose}>
-          &times;
-        </button>
-        <div className="update-inner">
-          <Updatefile close={onClose} selectid={userid} />
-        </div>
-      </div>
+    <div className='form-overlay'>
+    <div className='form-content'>
+       <button className='btn-form' onClick={onClose}>&times;</button>
+       <Updatefile close={onClose}/>
     </div>
+  </div>
   );
 };
 

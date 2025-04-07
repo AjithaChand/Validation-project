@@ -13,11 +13,11 @@
 
 .form-content{
     width: 28%;
-    height: 70%;
+    height: 95%;
     position: relative;
-    padding: 20px;
+    padding: 16px;
     background: white;
-    border-radius: 15px;
+    border-radius: 13px;
 }
 
 .btn-form{
@@ -28,4 +28,140 @@
     right: 10px;
     position: absolute;
     cursor: pointer;
+}
+@media screen and (min-width: 775px) and (max-width: 1024px)
+{
+    .form-overlay{
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0, 0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    
+    .form-content{
+        width: 30%;
+        height: 94%;
+        position: relative;
+        padding: 8px;
+        background: white;
+        border-radius: 15px;
+    }
+    
+    .btn-form{
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        top: 10px;
+        right: 10px;
+        position: absolute;
+        cursor: pointer;
+    }
+}
+@media screen and (min-width: 435px) and (max-width: 770px) {
+    .form-overlay{
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0, 0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    
+    .form-content{
+        width: 30%;
+        height: 94%;
+        position: relative;
+        padding: 3px;
+        background: white;
+        border-radius: 15px;
+    }
+    
+    .btn-form{
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        top: 10px;
+        right: 10px;
+        position: absolute;
+        cursor: pointer;
+    }
+  
+}
+@media screen and (min-width: 370px) and (max-width: 430px) {
+    .form-overlay{
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0, 0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    
+    .form-content{
+        width: 55%;
+        height: 92%;
+        position: relative;
+        padding: 10px;
+        background: white;
+        border-radius: 13px;
+    }
+    
+    .btn-form{
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        top: 10px;
+        right: 10px;
+        position: absolute;
+        cursor: pointer;
+    }
+  
+}
+@media screen and (min-width: 100px) and (max-width: 365px) {
+    .form-overlay{
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0, 0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    
+    .form-content{
+        width: 50%;
+        height: 70%;
+        position: relative;
+        padding: 16px;
+        background: white;
+        border-radius: 15px;
+    }
+    
+    .btn-form{
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        top: 10px;
+        right: 10px;
+        position: absolute;
+        cursor: pointer;
+    }
+  
 }
