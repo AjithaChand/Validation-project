@@ -124,7 +124,7 @@ app.post("/email_for_register",(req,res)=>{
         from: "ananthliterature@gmail.com",
         to:email,
         subject:`Hello${username}`,
-        content:`Thank YOu Register In Our Web. I Belive Your'e Doing Well`,
+        content:`Thank YOu Register In Our Web. I Belive Your'e Doing Wells`,
     }
 
     transPorter.sendMail(mailOptions,(err)=>{
