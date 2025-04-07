@@ -58,6 +58,12 @@ const Userdata = () => {
                   <span className='dashboard-icon'> Users</span>
                 </div>
               </li>
+              <li>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
+                  <AccountCircleIcon style={{ fontSize: 28, color: "black", cursor: "pointer" }} />{" "}
+                  <span className='dashboard-icon'> Payslip</span>
+                </div>
+              </li>
             </ul>
           </nav> </aside></>) : user === 'user' ? (<>
             <div className='user-profile'>
