@@ -4,19 +4,26 @@
     top:12%;
     height:100%;
     width: 100%; 
-    margin-left: 100px;
+    margin-left: 50px;
     margin-top: 100px;
   
 }
 .company-header
 {
     display: flex;
-    justify-content: space-between;
     margin-top:100px ;
     background-color:darkblue;
     color:white;
-    height: 300px;
+    height: 70px;
+
+
 }
+.heading-payslip
+{
+    width: 80%;
+    margin-left: 100px;
+}
+
 .employee-details
 {
     display: flex;
