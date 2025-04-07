@@ -3,7 +3,14 @@ import axios from 'axios';
 import './User.css';
 import Formpopup from './Dialogbox/Formpopup';
 import Editdialog from './Dialogbox/Editdialog';
+<<<<<<< HEAD
 import { FaEdit } from "react-icons/fa";
+=======
+// import { useNavigate } from 'react-router-dom';
+// import { CgProfile } from "react-icons/cg";
+// import { RiLogoutCircleRLine } from "react-icons/ri";
+// import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
+>>>>>>> 61b4b2cc70f115f6217cf44fadc16025bf1a8bc3
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Modal, Button } from 'react-bootstrap';
@@ -37,7 +44,7 @@ const User = () => {
   // const [showconfirm, setShowconfirm] = useState(false);
 
   const [value, setValue] = useState([]);
-  const [selectid, setSelectid] = useState(null);
+  // const [selectid, setSelectid] = useState(null);
 
 
 
@@ -105,7 +112,7 @@ const User = () => {
 
 
   const toggleEdit = (id) => {
-    setSelectid(id);
+    // setSelectid(id);
     setShowEdit(!showedit);
   };
 
@@ -179,7 +186,7 @@ const User = () => {
       )}
 
       <Formpopup isVisible={showform} onClose={toggleForm} />
-      <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} reFresh={FetchData} />
+      <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} />
       {/* <UserDialog  isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} /> */}
       <ToastContainer position='top-right' autoclose={3000} />
 
