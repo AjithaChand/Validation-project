@@ -95,10 +95,9 @@ const Users = () => {
         <div className='user mt-5'>
 
           <div className="admin-header-container">
-            <button className='users-btn mt-4 btn' onClick={handleDialog}>Create Account
-              <AddIcon style={{ fontSize: 24, color: 'white', cursor: 'pointer' }} />
+            <button className='users-btn mt-4 btn' onClick={handleDialog}><span className='createbutton'>Create Account </span>{" "}
+              <AddIcon className="user-addicon" />
             </button>
-            {/* <h3 className="admin-head">User Details</h3> */}
             <div className="admin-header">
               <button className="upload-button3" onClick={handleDownload}>
                 <PiMicrosoftExcelLogoFill />
@@ -140,10 +139,10 @@ const Users = () => {
                     <td>{data.password}</td>
                     <td>
                       <button className='edit-btn' onClick={() => handleupdate(data.id)}>
-                        <FaEdit />
+                        <FaEdit  className='useredit-icon'/>
                       </button>
                       <button className='ms-3 delete-btn' onClick={() => handleDelete(data.id)}>
-                        <RiDeleteBinFill />
+                        <RiDeleteBinFill className='userdelete-icon' />
                       </button>
                     </td>
                   </tr>

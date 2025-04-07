@@ -18,7 +18,6 @@ const Adminregister = ({close}) => {
     })
 
     const handleSubmit = (e) => { 
-        
         e.preventDefault();
 
         if(values.role==="select"){

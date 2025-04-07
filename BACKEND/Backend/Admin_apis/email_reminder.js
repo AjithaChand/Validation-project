@@ -116,6 +116,28 @@ app.post("/password_changed",(req,res)=>{
     })
 })
 
+app.post("/email_for_register",(req,res)=>{
+    const {username,email} = req.body;
+    console.log(`Received Email${email} For This ${username}`);
+    
+    const mailOptions ={
+        from: "ananthliterature@gmail.com",
+        to:email,
+        subject:`Hello${username}`,
+        content:`Thank YOu Register In Our Web. I Belive Your'e Doing Wells`,
+    }
+
+    transPorter.sendMail(mailOptions,(err)=>{
+        if(err){
+            console.log(`Resister Email Send Failed TO ${email}`);
+            return res.status(400).send({message : `Resister Email Send Fialed To ${email}`})
+        }
+        console.log(`Register Email Send To ${email}`);
+        
+        return res.status(200).send({message: `Register Email Send To ${email}`})
+    })
+})
+
 module.exports=app
 
 

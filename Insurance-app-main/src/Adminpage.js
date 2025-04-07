@@ -1,22 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios';
-import '../CustomerDetails/Adminpage.css'
-import Detailspopup from '../../AdminDashboard/CustomerDetails/Dialogbox/Detailspopup';
+import './Adminpage.css'
+import Detailspopup from './Detailspopup';
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { IoIosCloudUpload } from "react-icons/io";
 import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+
 // import { RiLogoutCircleRLine } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
-import { apiurl } from '../../../url';
-import UpdateBox from '../../AdminDashboard/CustomerDetails/Dialogbox/updatebox';
+import { apiurl } from './url';
+import UpdateBox from './updatebox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DescriptionIcon from '@mui/icons-material/Description';
 import AddIcon from '@mui/icons-material/Add';
-import { UserContext } from "../../../usecontext";
-import Deletebox from '../../AdminDashboard/CustomerDetails/Dialogbox/Deletebox';
+import { UserContext } from "./usecontext";
+import Deletebox from './Deletebox';
 
 
 const Adminpage = () => {
@@ -26,10 +27,10 @@ const Adminpage = () => {
   const [showupdate, setShowupdate] = useState(false)
   const [selectid, setSelectid] = useState(null)
 
-  const [refersh, setRefresh] = useState(true);
-  const { refreshFromUpdate } = useContext(UserContext)
-  const { refreshCreateFromAdmin } = useContext(UserContext);
-
+    const [refersh, setRefresh] = useState(true);
+    const {refreshFromUpdate} = useContext(UserContext)
+    const {refreshCreateFromAdmin}=useContext(UserContext);
+  
 
 
   const handleupdate = (id) => {
@@ -43,9 +44,11 @@ const Adminpage = () => {
   };
 
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const [value, setValue] = useState([])
+
+
 
 
   const [file, setFile] = useState(null);
@@ -80,7 +83,7 @@ const Adminpage = () => {
     axios.get(`${apiurl}/read`)
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
-  }, [refersh, refreshFromUpdate, refreshCreateFromAdmin])
+  }, [refersh,refreshFromUpdate,refreshCreateFromAdmin])
 
 
   const handleLogout = () => {
@@ -149,8 +152,8 @@ const Adminpage = () => {
       <div className='row'>
         <div className='mt-5' >
           <div className="admin-header-container">
-            <button className='btn admin-btn mt-4' onClick={handlePopup}><span className='addbutton'>Add Details</span>{" "}
-              <AddIcon className="addicon" />
+            <button className='btn admin-btn mt-4' onClick={handlePopup}>Add Details{" "}
+              <AddIcon style={{ fontSize: 24, color: 'white', cursor: 'pointer' }} />
             </button>
             {/* <h3 className="admin-head">Customer  Details</h3> */}
             <div className="admin-header">
@@ -199,14 +202,14 @@ const Adminpage = () => {
                         className=' adminbutton'
                         onClick={() => handleViewFile(data.file_path)}
                       >
-                         <DescriptionIcon  className="editicon" />
+                        <DescriptionIcon style={{ fontSize: 24, color: "green", cursor: "pointer" }} />
                       </button>
                     ) : ("No File")}
                   </td>
                   <td>
-                    <button className='edit-btn' onClick={() => handleupdate(data.id)}><FaEdit className='edit-icon' /></button>
+                    <button className='edit-btn' onClick={() => handleupdate(data.id)}> <FaEdit /></button>
                     <button className='delete-button' onClick={() => handleDelete(data.id)}>
-                    <DeleteIcon className="deleteicon" />
+                      <DeleteIcon style={{ fontSize: 24, color: 'darkred', cursor: 'pointer' }} />
                     </button>
                   </td>
                 </tr>
