@@ -8,12 +8,12 @@ const Payslip = () => {
     const[name,setName]=useState("")
     const[salary,setSalary]=useState(null);
     const[email,setEmail]=useState("");
-    const basicpay=parseFloat(salary);
-    const Pf=basicpay*0.12;
-    const Esi=basicpay*0.0075;
-    const Netsalary=basicpay-Pf-Esi;
-    const Grosssalary=basicpay;
-    const Totalsalary=Netsalary;
+    // const[pfnumber,setPfnumber]=useState(0);
+    const pf_amount=salary*0.12;
+    const esi_amount=salary*0.0075;
+    const net_amount=salary-pf_amount-esi_amount;
+    const gross_salary=salary;
+    const total_salary=gross_salary;
 
     const handlePayslipUpload = async () => {
         if(!name||!email||!salary)
@@ -24,15 +24,15 @@ const Payslip = () => {
         const formData = new FormData();
         formData.append("name",name);
         formData.append("email",email)
-        formData.append("basicpay", basicpay);
-        formData.append("pf",Pf);
-        formData.append("Esi",Esi);
-        formData.append("netsalary",Netsalary);
-        formData.append("grosssalary",Grosssalary);
-        formData.append("totalsalary",Totalsalary)
+        formData.append("salary", salary);
+        formData.append("pf",pf_amount);
+        formData.append("Esi",esi_amount);
+        formData.append("netsalary",net_amount);
+        formData.append("grosssalary",gross_salary);
+        formData.append("totalsalary",total_salary)
     
         try {
-          await axios.post(`${apiurl}/admin-post-salary`, formData);
+          await axios.post(`${apiurl}/admin_post_salary`, formData);
           toast.success("data uploaded Successfully!");
         } catch (err) {
           toast.error(" upload Failed!");
@@ -44,7 +44,7 @@ const Payslip = () => {
          <div>
             <h1 className='portal'>Payslip Portel </h1>
          </div>
-         <div className='payslipfield'>
+         {/* <div className='payslipfield'>
             <label>Name</label>
          <input
         type='text'
@@ -70,7 +70,7 @@ const Payslip = () => {
      onChange={(e) => setSalary(e.target.value)}
 />
 <button  className="payslip-button"onClick={handlePayslipUpload}>Submit</button>
-         </div>
+         </div> */}
      <div className='company-header'>
           <h3>company logo</h3>
         <h4>company name</h4>
@@ -83,11 +83,11 @@ const Payslip = () => {
        </div>
        <h2>Earnings</h2>
        <ul>
-        <li>ESI <span>{Esi}</span></li>
-        <li>PF<span>{Pf}</span></li>
-        <li>Gross Salary<span>{Grosssalary}</span></li>
-        <li>Net Salary<span>{Netsalary}</span></li>
-        <li>Total Salary<span>{Totalsalary}</span></li>
+        <li>ESI <span>{esi_amount}</span></li>
+        <li>PF<span>{pf_amount}</span></li>
+        <li>Gross Salary<span>{gross_salary}</span></li>
+        <li>Net Salary<span>{net_amount}</span></li>
+        <li>Total Salary<span>{total_salary}</span></li>
        </ul>
        <ToastContainer/>
     </div>
