@@ -26,10 +26,10 @@ const Adminpage = () => {
   const [showupdate, setShowupdate] = useState(false)
   const [selectid, setSelectid] = useState(null)
 
-    const [refersh, setRefresh] = useState(true);
-    const {refreshFromUpdate} = useContext(UserContext)
-    const {refreshCreateFromAdmin}=useContext(UserContext);
-  
+  const [refersh, setRefresh] = useState(true);
+  const { refreshFromUpdate } = useContext(UserContext)
+  const { refreshCreateFromAdmin } = useContext(UserContext);
+
 
 
   const handleupdate = (id) => {
@@ -80,7 +80,7 @@ const Adminpage = () => {
     axios.get(`${apiurl}/read`)
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
-  }, [refersh,refreshFromUpdate,refreshCreateFromAdmin])
+  }, [refersh, refreshFromUpdate, refreshCreateFromAdmin])
 
 
   const handleLogout = () => {
@@ -149,8 +149,8 @@ const Adminpage = () => {
       <div className='row'>
         <div className='mt-5' >
           <div className="admin-header-container">
-            <button className='btn admin-btn mt-4' onClick={handlePopup}>Add Details{" "}
-              <AddIcon style={{ fontSize: 24, color: 'white', cursor: 'pointer' }} />
+            <button className='btn admin-btn mt-4' onClick={handlePopup}><span className='addbutton'>Add Details</span>{" "}
+              <AddIcon className="addicon" />
             </button>
             {/* <h3 className="admin-head">Customer  Details</h3> */}
             <div className="admin-header">
@@ -199,14 +199,14 @@ const Adminpage = () => {
                         className=' adminbutton'
                         onClick={() => handleViewFile(data.file_path)}
                       >
-                        <DescriptionIcon style={{ fontSize: 24, color: "green", cursor: "pointer" }} />
+                         <DescriptionIcon  className="editicon" />
                       </button>
                     ) : ("No File")}
                   </td>
                   <td>
-                    <button className='edit-btn' onClick={() => handleupdate(data.id)}> <FaEdit /></button>
+                    <button className='edit-btn' onClick={() => handleupdate(data.id)}><FaEdit className='edit-icon' /></button>
                     <button className='delete-button' onClick={() => handleDelete(data.id)}>
-                      <DeleteIcon style={{ fontSize: 24, color: 'darkred', cursor: 'pointer' }} />
+                    <DeleteIcon className="deleteicon" />
                     </button>
                   </td>
                 </tr>
