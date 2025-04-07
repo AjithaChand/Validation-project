@@ -8,6 +8,7 @@ const Payslip = () => {
     const[name,setName]=useState("")
     const[salary,setSalary]=useState(null);
     const[email,setEmail]=useState("");
+    const [showPayslip, setShowPayslip] = useState(false); 
     // const[pfnumber,setPfnumber]=useState(0);
     const pf_amount=salary*0.12;
     const esi_amount=salary*0.0075;
@@ -34,6 +35,7 @@ const Payslip = () => {
         try {
           await axios.post(`${apiurl}/admin_post_salary`, formData);
           toast.success("data uploaded Successfully!");
+          setShowPayslip(true);
         } catch (err) {
           toast.error(" upload Failed!");
         }
@@ -44,7 +46,8 @@ const Payslip = () => {
          <div>
             <h1 className='portal'>Payslip Portel </h1>
          </div>
-         {/* <div className='payslipfield'>
+       
+         <div className='payslipfield'>
             <label>Name</label>
          <input
         type='text'
@@ -70,13 +73,14 @@ const Payslip = () => {
      onChange={(e) => setSalary(e.target.value)}
 />
 <button  className="payslip-button"onClick={handlePayslipUpload}>Submit</button>
-         </div> */}
+         </div>
+         {showPayslip&&(
+     <div className='heading -payslip'>
      <div className='company-header'>
-          <h3>company logo</h3>
-        <h4>company name</h4>
+     <img className='image' src="logo.svg" alt="" />
+     <h3>Nastaf Technologies LLP</h3>
       </div>
-      
-      <p>payslip for the month of April </p>
+      <p className='text-center'>payslip for the month of April </p>
       <div className='employee-details'>
       <h3>Employee Name :{name}</h3>
       <h2>PF No :</h2>
@@ -90,6 +94,8 @@ const Payslip = () => {
         <li>Total Salary<span>{total_salary}</span></li>
        </ul>
        <ToastContainer/>
+       </div>
+         )}
     </div>
   )
 }

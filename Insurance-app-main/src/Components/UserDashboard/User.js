@@ -3,7 +3,14 @@ import axios from 'axios';
 import './User.css';
 import Formpopup from './Dialogbox/Formpopup';
 import Editdialog from './Dialogbox/Editdialog';
+<<<<<<< HEAD
 import { FaEdit } from "react-icons/fa";
+=======
+// import { useNavigate } from 'react-router-dom';
+// import { CgProfile } from "react-icons/cg";
+// import { RiLogoutCircleRLine } from "react-icons/ri";
+// import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
+>>>>>>> f2c65fee4ed21769e7fc98d8f4f57b90467c54b1
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Modal, Button } from 'react-bootstrap';

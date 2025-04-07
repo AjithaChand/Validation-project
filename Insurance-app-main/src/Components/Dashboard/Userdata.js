@@ -35,10 +35,10 @@ const Userdata = () => {
       {user === 'admin' ? (<>
         <div className='user-profile'>
           <h3 className='userheader'><span className='caps'>T</span>rust<span className='caps'>A</span>ssure</h3>
-          <div className='userlogout-btn'><FaUserCircle size={34} color="#023265" style={{ cursor: "pointer" }} /></div>
+          <div className='userlogout-btn'><FaUserCircle className='logo'/></div>
           <div className='userlogout-btn username'>{user}</div>
           <button onClick={handleLogout} className='userlogout-btn'>
-            <MdLogout size={30} color="darkred" style={{ cursor: "pointer" }} />
+          <MdLogout className='logoutbutton' />
           </button>
         </div>
         <aside className='admin-slidebar'><div className='p-4'>
@@ -48,30 +48,24 @@ const Userdata = () => {
             <ul className='ps-5 user-list'>
               <li>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/adminpage')}>
-                  <MdDashboard size={28} color="black" style={{ cursor: "pointer" }} />{" "}
+                <MdDashboard className='dashboardicons' />{" "}
                   <span className='dashboard-icon'> Dashboard </span>
                 </div>
               </li>
               <li>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                  <AccountCircleIcon style={{ fontSize: 28, color: "black", cursor: "pointer" }} />{" "}
+                <AccountCircleIcon  className='dashboardicons' />{" "}
                   <span className='dashboard-icon'> Users</span>
-                </div>
-              </li>
-              <li>
-                <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
-                  <AccountCircleIcon style={{ fontSize: 28, color: "black", cursor: "pointer" }} />{" "}
-                  <span className='dashboard-icon'> Payslip</span>
                 </div>
               </li>
             </ul>
           </nav> </aside></>) : user === 'user' ? (<>
             <div className='user-profile'>
               <h3 className='userheader'><span className='caps'>T</span>rust<span className='caps'>A</span>ssure</h3>
-              <div className='userlogout-btn'><FaUserCircle size={34} color="#023265" style={{ cursor: "pointer" }} /></div>
+              <div className='userlogout-btn'><FaUserCircle   className='logo' /></div>
               <div className='userlogout-btn username'>{username}</div>
               <button onClick={handleLogout} className='userlogout-btn'>
-                <MdLogout size={30} color="darkred" style={{ cursor: "pointer" }} />
+              <MdLogout className='logoutbutton'/>
               </button>
             </div>
             <aside className='admin-slidebar'>
@@ -82,7 +76,7 @@ const Userdata = () => {
                 <ul className='ps-5 user-list'>
                   <li>
                     <div className='userdata-btn' onClick={() => navigate('/dashboard/home')}>
-                      <MdDashboard size={28} color="black" style={{ cursor: "pointer" }} />{" "}
+                    <MdDashboard  className='dashboardicons' />{" "}
                       <span className='dashboard-icon'> Dashboard</span>
                     </div>
                   </li>

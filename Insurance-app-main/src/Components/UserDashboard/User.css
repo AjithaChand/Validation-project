@@ -110,16 +110,86 @@
 @media screen and (max-width: 768px){
     .user-containerform {
         height: 100vh;
-        position: absolute;
-        top: 20%;
-        left: 5%;
+        overflow-y: scroll;
     }
+    
     .user-table {
         position: relative;
         border-collapse:collapse;
         margin: auto;
-        width: 100%;
-        top: 5%;
+        width: 80%;
+        top: 15%;
         box-shadow: 1px 7px 15px gainsboro;
+    }
+    
+    .user-table th {
+        padding: 12px;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: #023265;
+        color: white;
+        border-bottom: 1px solid gainsboro;
+    }
+    
+    .user-table td {
+        font-size: 17px;
+        font-weight: 200;
+        font-family: "Poppins",sans-serif;
+    }
+    
+    .user-table tbody td{
+        padding: 20px;
+    }
+    
+    .user-table tbody tr:hover {
+        background:  rgb(221, 220, 220);
+    }
+    
+    .user-btn {
+        background-color: rgb(3, 3, 86);
+        color:white;
+        width: 150px;
+        border-radius: 7px;
+    }
+    
+    .user-btn:hover{
+        background:rgb(2, 2, 112);
+    }
+    
+    .userbtn{
+        position: relative;
+        top: 15%;
+    }
+    
+    .file-input {
+        display: none;
+    }
+    
+    .file-label {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+    
+    .user-headerpage {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        top: 15%;
+    }
+    
+    .head{
+        font-weight: 700;
+    }
+    
+    .username{
+        color: black;
+        font-weight: bold;
     }
 }
