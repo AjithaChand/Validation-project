@@ -133,8 +133,8 @@ app.post("/email_for_register",(req,res)=>{
             return res.status(400).send({message : `Resister Email Send Fialed To ${email}`})
         }
         console.log(`Register Email Send To ${email}`);
-        return res.status(200).send({message: `Register Email Send To ${email}`})
         
+        return res.status(200).send({message: `Register Email Send To ${email}`})
     })
 })
 
