@@ -10,6 +10,8 @@ const admin_users = require("./Admin_apis/Admin_user/Admin_user_api");
 const login = require("./Login_Register/login");
 const register = require("./Login_Register/register");
 const userpage = require("./User_Pages/user_dashboard_apis");
+const admin_payslip= require("../Backend/Admin_apis/Admin_payslip/admin_payslip");
+const user_payslip= require("../Backend/User_Pages/user_payslip")
 
 const { verifyToken, isAdmin, isUser } = require("../Backend/Login_Register/auth")
 
@@ -28,6 +30,8 @@ app.use("/", verifyToken, isAdmin, admin_users);
 app.use("/",verifyToken,isAdmin,excelServer);
 app.use("/",verifyToken,isAdmin,emailReminder);
 app.use("/",verifyToken,isUser,userpage);
+app.use("/",verifyToken,isAdmin, admin_payslip)
+app.use("/",verifyToken,isUser, user_payslip)
 
 const port = process.env.PORT || 7009;
 

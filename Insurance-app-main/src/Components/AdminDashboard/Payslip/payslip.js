@@ -4,6 +4,7 @@ import { apiurl } from '../../../url';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import img from "./insurance.jpg"; 
 
 
 const Payslip = () => {
@@ -49,7 +50,7 @@ const Payslip = () => {
     try {
       const response = await axios.put(`${apiurl}/admin-edit-salary`, data, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json",Authorization:`Bearer ${localStorage.getItem("token")}`
         },
       });
   
@@ -78,6 +79,7 @@ console.log("showPayslip will be set to true now.");
   
     const pfNum = generatePfNumber(); 
     setPf_Number(pfNum);   
+
     const data = {
       name,
       email,
@@ -92,7 +94,7 @@ console.log("showPayslip will be set to true now.");
     try {
       const response = await axios.post(`${apiurl}/admin-post-salary`, data, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json",Authorization:`Bearer ${localStorage.getItem("token")}`
         },
       });
   
@@ -146,10 +148,12 @@ console.log("showPayslip will be set to true now.");
               onChange={(e) => setSalary(Number(e.target.value))}
             />
             <div className='button-for-payslip'>
-   <button className='payslip-button' onClick={handleupdatepayslip}>
-upload
-  </button>
-  <button className="payslip-button" onClick={handlePayslipUpload}>Submit</button>
+  <button className="payslip-button" onClick={handlePayslipUpload}>Upload</button>
+
+  <button className='payslip-button' onClick={handleupdatepayslip}>
+      Update
+</button>
+
 </div>
 
 
@@ -160,10 +164,10 @@ upload
   {showPayslip && (
         <div className='heading-payslip'>
           <div className='company-header'>
-            <img className='image' src="logo.jpg" alt="Company Logo" />
+            <img className='image' src={img} alt="Company Logo" />
             <h3>Nastaf Technologies LLP</h3>
           </div>
-          <p className='text-center'>Payslip for the month of {new Date().toLocaleString('default', { month: 'long' })}</p>
+          <p className='payslip-month'>Payslip for the month of {new Date().toLocaleString('default', { month: 'long' })}</p>
 
           <div className='employee-details'>
             <h5>Employee Name: {name}</h5>
