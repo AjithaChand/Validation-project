@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./payslip.css";
+import "./payslipuser.css";
 import { apiurl } from '../../../url';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,11 +9,13 @@ import "jspdf-autotable"; // For structured tables
 import { FaFilePdf } from "react-icons/fa"; // PDF Icon
 import autoTable from "jspdf-autotable";
 import img from "./insurance.jpg"; 
+import { IoMdArrowBack } from "react-icons/io";
 const PayslipUser = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [showPayslip, setShowPayslip] = useState(false);
   const [payslipvalue, setPayslipvalue] = useState({});
+  
  
   const handlePayslipget = async () => {
     if (!name || !email) {
@@ -120,14 +122,17 @@ const PayslipUser = () => {
 
       {showPayslip && payslipvalue && (
         <div className='heading-payslip'>
+            <IoMdArrowBack className='pageback-icon' 
+            onClick={() => {setShowPayslip(false)
+                setName('');
+                setEmail('');
+              }}
+            />
           <div className='company-header'>
-
             <img className='image' src={img} alt="Company Logo" />
             <h3>Nastaf Technologies LLP</h3>
           </div>
-          <p className='text-center'>
-            Payslip for {new Date().toLocaleString('default', { month: 'long' })}
-          </p>
+          <p className='payslip-month'>Payslip for the month of {new Date().toLocaleString('default', { month: 'long' })}</p>
 
           <div className='employee-details'>
             <h5>Employee Name: {payslipvalue.emp_name}</h5>
@@ -142,10 +147,11 @@ const PayslipUser = () => {
             <li>Net Salary: <span>{payslipvalue.net_amount}</span></li>
             <li>Total Salary: <span>{payslipvalue.total_salary}</span></li>
           </ul>
-
-          <button className="pdf-download-btn" onClick={generatePDF}>
-            <FaFilePdf className="pdf-icon" /> Download Payslip
+<div className='pdf-button-download'>
+          <button className="pdfbutton" onClick={generatePDF}>
+             <FaFilePdf className="pdf-icon" /> Download Payslip
           </button>
+        </div>
         </div>
       )}
 

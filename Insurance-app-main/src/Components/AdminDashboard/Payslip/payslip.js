@@ -5,7 +5,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import img from "./insurance.jpg"; 
-
+import { IoMdArrowBack } from "react-icons/io";
 
 const Payslip = () => {
   const [name, setName] = useState("");
@@ -14,7 +14,7 @@ const Payslip = () => {
   const [pf_number, setPf_Number] = useState("");
   const [showPayslip, setShowPayslip] = useState(false);
   const [getPfNumber,setgetPfNumber]=useState("");
-
+  const[hover,setHover]=useState("upload");
 
   const pf_amount = salary * 0.12;
   const esi_amount = salary * 0.0075;
@@ -151,10 +151,7 @@ console.log("showPayslip will be set to true now.");
             />
             <div className='button-for-payslip'>
   <button className="payslip-button" onClick={handlePayslipUpload}>Upload</button>
-
-  <button className='payslip-button' onClick={handleupdatepayslip}>
-      Update
-</button>
+  <button className='payslip-button' onClick={handleupdatepayslip}>Update</button>
 
 </div>
 
@@ -165,6 +162,13 @@ console.log("showPayslip will be set to true now.");
      )} 
   {showPayslip && (
         <div className='heading-payslip'>
+            <IoMdArrowBack className='pageback-icon' 
+            onClick={() =>{ setShowPayslip(false)
+              setName('');
+              setEmail('');
+              setSalary('');
+            }}
+         />
           <div className='company-header'>
             <img className='image' src={img} alt="Company Logo" />
             <h3>Nastaf Technologies LLP</h3>
