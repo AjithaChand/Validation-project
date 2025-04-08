@@ -6,6 +6,7 @@ import UserDialog from './Dialogbox/UserDialog';
 import { useState } from 'react';
 import { MdDashboard } from "react-icons/md";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { FaReceipt } from "react-icons/fa";
 
 const Userdata = () => {
 
@@ -58,6 +59,12 @@ const Userdata = () => {
                   <span className='dashboard-icon'> Users</span>
                 </div>
               </li>
+              <li>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
+                <FaReceipt  className='dashboardicons' />{" "}
+                  <span className='dashboard-icon'> payslip</span>
+                </div>
+              </li>
             </ul>
           </nav> </aside></>) : user === 'user' ? (<>
             <div className='user-profile'>
@@ -78,6 +85,12 @@ const Userdata = () => {
                     <div className='userdata-btn' onClick={() => navigate('/dashboard/home')}>
                     <MdDashboard  className='dashboardicons' />{" "}
                       <span className='dashboard-icon'> Dashboard</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className='userdata-btn' onClick={() => navigate('/dashboard/payslipUser')}>
+                    <FaReceipt  className='dashboardicons' />{" "}
+                      <span className='dashboard-icon'> Payslip</span>
                     </div>
                   </li>
                 </ul>

@@ -1,57 +1,143 @@
 
-.payslip-design{
-   position:relative;
-    top:12%;
-    height:100%;
-    width: 100%; 
-    margin-left: 50px;
-    margin-top: 100px;
-  
+.payslip-design {
+  position: relative;
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
 }
-.company-header
-{
-    display: flex;
-    margin-top:100px ;
-    background-color:darkblue;
-    color:white;
-    height: 70px;
 
 
+.portal {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-top: 3dvh;
+}
+
+
+.payslip-field {
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 500px;
+  margin: 0 auto 40px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  gap: 16px;
+  margin-top: 70px;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-fields label {
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.payslipinput {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.payslipinput:focus {
+  border-color: #007bff;
+}
+
+
+.payslip-button {
+  align-self: center;
+  background-color:darkblue;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.payslip-button:hover {
+  background-color: #5a32a3;
+}
+
+
+.heading-payslip {
+  width: 90%;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.company-header {
+  display: flex;
+  align-items: center;
+  background-color: #002f6c;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  gap: 16px;
+}
+
+.company-header img {
+  height: 50px;
+  width: 50px;
+}
+
+.text-center {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #555;
+}
+
+.employee-details {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
 }
 .heading-payslip
-{
-    width: 80%;
-    margin-left: 100px;
+{margin-top: 200px;}
+
+
+.heading-payslip h2 {
+  margin-top: 20px;
+  color: #2c3e50;
 }
 
-.employee-details
-{
-    display: flex;
+.heading-payslip ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
 }
-.portal
-{
-  text-align: center;
-  margin-right: 100px;
+
+.heading-payslip ul li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e1e1e1;
+  font-size: 16px;
+  color: #333;
 }
-.payslipfield
+.pf-number
 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color:lightgrey;
-    width: 400px;
+  margin-right: 200px;
 }
-.payslipinput
+.button-for-payslip
 {
-    width: 300px;
-    padding: 5px;
-    border-radius: 3px;
-}
-.payslip-button
-{
-    border-radius: 3px;
-    background-color: blueviolet;
-    width: 150px;
-    padding: 5px;
-    margin-top: 30px;
+display: flex;
+justify-content:space-around;
 }

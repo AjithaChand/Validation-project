@@ -132,18 +132,7 @@ console.log(dd,"kk")
     setShowform(!showform);
   };
 
-  // const handleLogout = () => {
-  //   setShowconfirm(true);
-  // };
 
-  // const confirmLogout = () => {
-  //   localStorage.removeItem("authToken");
-  //   navigate('/');
-  // };
-
-  // const cancelLogout = () => {
-  //   setShowconfirm(false);
-  // };
   return (
     <div className='user-containerform'>
       <div className="user-headerpage">
