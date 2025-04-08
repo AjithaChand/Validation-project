@@ -13,6 +13,7 @@ const Payslip = () => {
   const [email, setEmail] = useState("");
   const [pf_number, setPf_Number] = useState("");
   const [showPayslip, setShowPayslip] = useState(false);
+  const [getPfNumber,setgetPfNumber]=useState("");
 
 
   const pf_amount = salary * 0.12;
@@ -55,6 +56,7 @@ const Payslip = () => {
       });
   
       toast.success(response.data.message); 
+      setgetPfNumber(response.data.pf_number)
       setShowPayslip(true);
 console.log("showPayslip will be set to true now.");
 
@@ -171,7 +173,7 @@ console.log("showPayslip will be set to true now.");
 
           <div className='employee-details'>
             <h5>Employee Name: {name}</h5>
-            <h5 className='pf-number'>PF No: {pf_number}</h5>
+            <h5 className='pf-number'>PF No: {getPfNumber ? getPfNumber : pf_number}</h5>
           </div>
           <h4>Earnings</h4>
           <ul>
