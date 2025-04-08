@@ -6,6 +6,8 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
+
+const { verifyToken, isAdmin } = require("../../Login_Register/auth");
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -31,7 +33,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post('/create', upload.single('file'), (req, res) => {
+app.post('/create',verifyToken,isAdmin, upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
 
@@ -49,7 +51,7 @@ app.post('/create', upload.single('file'), (req, res) => {
 });
 
 // Get all customer records
-app.get('/read', (req, res) => {
+app.get('/read',verifyToken,isAdmin, (req, res) => {
     const sql = "SELECT * FROM customer_details";
     db.query(sql, (err, data) => {
         if (err) return res.status(500).json({ error: err.message });
@@ -58,8 +60,10 @@ app.get('/read', (req, res) => {
 });
 
 // Get a specific customer record by ID
-app.get('/read-data-by-id/:id', (req, res) => {
+app.get('/read-data-by-id/:id',verifyToken,isAdmin, (req, res) => {
     const id = req.params.id;
+
+    console.log("Fetching record for ID:", id);
     const sql = "SELECT * FROM customer_details WHERE id=?";
     
     db.query(sql, [id], (err, result) => {
@@ -69,7 +73,7 @@ app.get('/read-data-by-id/:id', (req, res) => {
 });
 
 // Update customer record, with optional file upload
-app.put('/update-data-in-admin/:id', upload.single('file'), (req, res) => {
+app.put('/update-data-in-admin/:id',verifyToken,isAdmin, upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
     const { id } = req.params;
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
@@ -97,7 +101,7 @@ app.put('/update-data-in-admin/:id', upload.single('file'), (req, res) => {
 });
 
 // Delete customer record
-app.delete('/delete/customer_details/:id', (req, res) => {
+app.delete('/delete/customer_details/:id',verifyToken,isAdmin, (req, res) => {
     const id = req.params.id;
     const sql = "DELETE FROM customer_details WHERE id=?";
     

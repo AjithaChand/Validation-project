@@ -44,7 +44,8 @@ const Create_For_User = ({ close }) => {
 
     axios
       .post(`${apiurl}/create-for-user`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'multipart/form-data',
+        Authorization:`Bearer ${localStorage.getItem("token")}` },
       })
       .then((res) => {
         console.log('Response:', res);

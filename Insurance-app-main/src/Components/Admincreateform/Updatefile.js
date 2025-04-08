@@ -7,7 +7,7 @@ import { apiurl } from '../../url';
 import { UserContext } from "../../usecontext"; 
 import "./updatefile.css";
 
-const Updatefile = ({ close,selectid  }) => {
+const Updatefile = ({ close,selectid}) => {
 
     // const { userId } = useContext(UserContext);
     // const email = localStorage.getItem('email');
@@ -21,6 +21,7 @@ const Updatefile = ({ close,selectid  }) => {
         policy: "",
         // file: null
     });
+    console.log(selectid,"fghjkl")
 
       const handleFileChange = (e) => {
     setValues({ ...values, file: e.target.files[0] });
@@ -30,7 +31,11 @@ const Updatefile = ({ close,selectid  }) => {
         if (!selectid) return;
     
         console.log("Fetching data for Email:", selectid);
-        axios.get(`${apiurl}/read-data-by-id/${selectid}`)
+        axios.get(`${apiurl}/read-data-by-id/${selectid}`,{
+            headers:{
+                Authorization:`Bearer ${localStorage.getItem("token")}`
+            }
+        })
             .then(res => {
                 console.log("API Response:", res);
                 if (res.data && res.data.result) {
@@ -81,7 +86,8 @@ const Updatefile = ({ close,selectid  }) => {
         
             
             axios.put(`${apiurl}/update-data-in-admin/${selectid}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
+                headers: { 'Content-Type': 'multipart/form-data',
+                Authorization:`Bearer ${localStorage.getItem("token")}`},
             })
             .then((res) => {
               console.log('Response:', res);

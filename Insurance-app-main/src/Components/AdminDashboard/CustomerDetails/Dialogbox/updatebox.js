@@ -9,7 +9,7 @@ const UpdateBox = ({ isVisible, onClose, userid }) => {
     <div className='form-overlay'>
     <div className='form-content'>
        <button className='btn-form' onClick={onClose}>&times;</button>
-       <Updatefile close={onClose}/>
+       <Updatefile close={onClose} selectid={userid}/>
     </div>
   </div>
   );

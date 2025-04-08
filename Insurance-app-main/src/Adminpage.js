@@ -54,7 +54,8 @@ const Adminpage = () => {
   const [file, setFile] = useState(null);
 
   const handleDownload = () => {
-    window.location.href = `${apiurl}/download-excel`;
+    window.location.href = `${apiurl}/download-excel`,{
+    };
   }
   const handleUpload = async () => {
 
@@ -80,7 +81,11 @@ const Adminpage = () => {
 
   // Fetch files from backend
   useEffect(() => {
-    axios.get(`${apiurl}/read`)
+    axios.get(`${apiurl}/read`,{
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem("token")}`
+      }
+    })
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
   }, [refersh,refreshFromUpdate,refreshCreateFromAdmin])
@@ -91,7 +96,11 @@ const Adminpage = () => {
   };
 
   const confirmLogout = () => {
-    axios.delete(`${apiurl}/delete/customer_details/${deleteid}`)
+    axios.delete(`${apiurl}/delete/customer_details/${deleteid}`,{
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem("token")}`
+      }
+    })
       .then(res => {
         console.log(res);
         cancelLogout();
@@ -140,7 +149,9 @@ const Adminpage = () => {
     const isPdf = fileExtension === 'pdf';
 
     if (isImage || isPdf) {
-      setSelectedFile(`${apiurl}${fileUrl}`);
+      setSelectedFile(`${apiurl}${fileUrl}`
+        
+      );
       setShowModal(true);
     } else {
       toast.error("Unsupported file type");
@@ -229,16 +240,17 @@ const Adminpage = () => {
           <Modal.Title>File Preview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {selectedFile ? (
-            selectedFile.endsWith('.pdf') ? (
-              <embed src={selectedFile} type="application/pdf" width="100%" height="600px" />
-            ) : (
-              <img src={selectedFile} alt="file preview" style={{ width: '100%', height: 'auto' }} />
-            )
-          ) : (
-            <p>No file selected</p>
-          )}
-        </Modal.Body>
+  {selectedFile ? (
+    selectedFile.endsWith('.pdf') ? (
+      <embed src={selectedFile} type="application/pdf" width="100%" height="600px" />
+    ) : (
+      <img src={selectedFile} alt="file preview" style={{ width: '100%', height: 'auto' }} />
+    )
+  ) : (
+    <p>No file selected</p>
+  )}
+</Modal.Body>
+
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Close

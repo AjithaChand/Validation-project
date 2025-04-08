@@ -5,6 +5,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from '../../url';
+
 const Login = () => {
 
     const navigate = useNavigate();
@@ -17,34 +18,38 @@ const Login = () => {
         password:""
     })
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${apiurl}/login`,values)
-        .then(res=>{
-            toast.success(res.data.message)
-            localStorage.setItem("token",res.data.token)
-            localStorage.setItem("role",res.data.role)
-            localStorage.setItem("username",res.data.username)
-            localStorage.setItem("email",res.data.email)
-            console.log("Email:", res.data.email)
-            if(res.data.role==="admin"){
-                navigate("/dashboard")
-            }
-            else{
-                navigate("/dashboard/home")
-            }
-        })
-        .catch(err=>{
-            toast.error(err.response.data.error)
-            console.log(err.message);
-        })
+        axios.post(`${apiurl}/login`, values)
+            .then(res => {
+                console.log("Login successful message",res.data.message)
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("role", res.data.role);
+                localStorage.setItem("username", res.data.username);
+                localStorage.setItem("email", res.data.email);
+                console.log("Email:", res.data.email);
+                
+    console.log(res.data.role,"login response");
+    
+                if (res.data.role === "admin") {
+                    toast.success(res.data.message);
+                    
+                     navigate("/dashboard");
 
+                    
+                } else {
+                    toast.success(res.data.message);
+                    navigate("/dashboard/home");
+                }
+            })
+            .catch(err => {
+                toast.error(err.response?.data?.error || "Login failed");
+                console.log("Login Error:", err.message);
+            });
+    
         console.log("I am from Login Page");
-
-     
-        
     }
-   
+    
 
     return (
         <div className='login-container' style={{height:"100vh",width:"100vw"}}>

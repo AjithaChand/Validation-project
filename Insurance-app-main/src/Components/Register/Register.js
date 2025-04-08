@@ -31,11 +31,14 @@ const Register = () => {
         try {
             const res = await axios.post(`${apiurl}/register`, values)
             toast.success(res.data.message)
+            navigate("/")
+
+            
             await axios.post(`${apiurl}/email_for_register`, {
                 email: values.email,
                 username: values.username
             })
-            navigate("/")
+         
         } catch (err) {
             toast.error(err.response.data.error)
         }

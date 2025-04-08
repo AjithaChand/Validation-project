@@ -36,6 +36,7 @@ const Adminpage = () => {
     if (id) {
       setSelectid(id);
       setShowupdate(true);
+      console.log("Admin page id",id)
     } else {
       setShowupdate(false);
       setSelectid(null);
@@ -61,7 +62,11 @@ const Adminpage = () => {
     formData.append("file", file);
 
     try {
-      await axios.post(`${apiurl}/upload-excel`, formData);
+      await axios.post(`${apiurl}/upload-excel`, formData,{
+        headers:{
+          Authorization:`Bearer ${localStorage.getItem("token")}`
+        }
+      });
       toast.success("File Uploaded Successfully!");
       setRefresh(pre => !pre)
     } catch (err) {
@@ -77,7 +82,11 @@ const Adminpage = () => {
 
   // Fetch files from backend
   useEffect(() => {
-    axios.get(`${apiurl}/read`)
+    axios.get(`${apiurl}/read`,{
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem("token")}`
+      }
+    })
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
   }, [refersh, refreshFromUpdate, refreshCreateFromAdmin])
@@ -88,7 +97,11 @@ const Adminpage = () => {
   };
 
   const confirmLogout = () => {
-    axios.delete(`${apiurl}/delete/customer_details/${deleteid}`)
+    axios.delete(`${apiurl}/delete/customer_details/${deleteid}`,{
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem("token")}`
+      }
+    })
       .then(res => {
         console.log(res);
         cancelLogout();
@@ -204,7 +217,7 @@ const Adminpage = () => {
                     ) : ("No File")}
                   </td>
                   <td>
-                    <button className='edit-btn' onClick={() => handleupdate(data.id)}><FaEdit className='edit-icon' /></button>
+                    <button className='edit-btn' onClick={() => handleupdate(data?.id)}><FaEdit className='edit-icon' /></button>
                     <button className='delete-button' onClick={() => handleDelete(data.id)}>
                     <DeleteIcon className="deleteicon" />
                     </button>

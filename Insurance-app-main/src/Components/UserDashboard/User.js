@@ -3,14 +3,10 @@ import axios from 'axios';
 import './User.css';
 import Formpopup from './Dialogbox/Formpopup';
 import Editdialog from './Dialogbox/Editdialog';
-<<<<<<< HEAD
-import { FaEdit } from "react-icons/fa";
-=======
 // import { useNavigate } from 'react-router-dom';
 // import { CgProfile } from "react-icons/cg";
 // import { RiLogoutCircleRLine } from "react-icons/ri";
 // import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
->>>>>>> f2c65fee4ed21769e7fc98d8f4f57b90467c54b1
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Modal, Button } from 'react-bootstrap';
@@ -46,14 +42,24 @@ const User = () => {
   const [value, setValue] = useState([]);
   // const [selectid, setSelectid] = useState(null);
 
-
+const dd = localStorage.getItem("token");
+console.log(dd,"kk")
 
   const FetchData = () => {
     if (email) {
-      axios.get(`${apiurl}/data-for-user-edit-by-email/${email}`)
+      console.log("For checking email",email);
+      
+      axios.get(`${apiurl}/data-for-user-edit-by-email/${email}`,{
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      })
+      
         .then(res => {
           console.log("API Response:", res.data);
           setValue(Array.isArray(res.data) ? res.data : res.data.result || []);
+          console.log("USer page data",res.data.result);
+          
         })
         .catch(err => {
           console.error("Error fetching data:", err);
@@ -65,7 +71,7 @@ const User = () => {
     FetchData();
   }, [email, update, refreshFromCreate]);
 
-  console.log(value);          /*==========>> Got Responce*/
+  console.log(value);        
 
 
   //   const handleViewFile = (fileUrl) => {
@@ -74,7 +80,7 @@ const User = () => {
   //       return;
   //     }
 
-  // const completeFileUrl = `${apiurl}${fileUrl}`;
+  // const completeFileUrl = ${apiurl}${fileUrl};
   //     console.log("File URL:", completeFileUrl);
 
   //     const fileExtension = fileUrl.split('.').pop().toLowerCase();
@@ -103,7 +109,13 @@ const User = () => {
     const isPdf = fileExtension === 'pdf';
 
     if (isImage || isPdf) {
-      setSelectedFile(`${apiurl}${fileUrl}`);
+      setSelectedFile(`${apiurl}${fileUrl}`,{
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }
+        
+      );
       setShowModal(true);
     } else {
       toast.error("Unsupported file type");

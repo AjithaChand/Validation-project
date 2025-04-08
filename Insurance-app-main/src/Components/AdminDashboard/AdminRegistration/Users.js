@@ -32,7 +32,12 @@ const Users = () => {
   }
   const [value, setValue] = useState([])
   useEffect(() => {
-    axios.get(`${apiurl}/getuser`)
+    axios.get(`${apiurl}/getuser`,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    }
+    )
       .then(res => {
         setValue(res.data)
         setRefresh(!refresh);
@@ -45,7 +50,11 @@ const Users = () => {
   };
 
   const confirmLogout = () => {
-    axios.delete(`${apiurl}/delete/${deleteid}`)
+    axios.delete(`${apiurl}/delete/${deleteid}`,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
       .then(res => {
         console.log(res)
         cancelLogout()

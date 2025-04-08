@@ -29,7 +29,11 @@ const Updatedata = ( {selectid , close} ) => {
 
     if(!selectid) return;
 
-    axios.get(`${apiurl}/getuser/${selectid}`)
+    axios.get(`${apiurl}/getuser/${selectid}`,{
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem("token")}`
+      }
+    })
     .then(res=>{
       if(res.data){
         setData(res.data)
@@ -43,7 +47,11 @@ const Updatedata = ( {selectid , close} ) => {
 const handleSubmit = (e) =>{
 
     e.preventDefault();
-    axios.put(`${apiurl}/edituser/${selectid}`,datas)
+    axios.put(`${apiurl}/edituser/${selectid}`,datas,{
+      headers:{
+         Authorization:`Bearer ${localStorage.getItem("token")}`
+      }
+    })
     .then(res=>{
       toast.success(res.data.message)
       close()

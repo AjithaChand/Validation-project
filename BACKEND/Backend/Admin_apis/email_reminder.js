@@ -2,7 +2,7 @@ const express= require('express');
 const nodemailer= require('nodemailer');
 const mysql=require('mysql2');
 const cors=require('cors');
-
+const {verifyToken,isAdmin}=require("../Login_Register/auth")
 const app= express();
 app.use(cors());
 app.use(express.json());
@@ -91,7 +91,7 @@ setInterval(sendReminderEmails, 24 * 60 * 60 * 1000);
 
 
 
-app.post("/password_changed",(req,res)=>{
+app.post("/password_changed",verifyToken,isAdmin,(req,res)=>{
 
     const {email, password} = req.body;
     

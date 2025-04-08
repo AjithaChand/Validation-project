@@ -12,9 +12,9 @@ app.use(express.json());
 
 const db = require('../db')
 
+const {verifyToken,isAdmin}=require("../Login_Register/auth")
 
-
-app.get("/download-excel", (req, res) => {
+app.get("/download-excel",verifyToken,isAdmin,(req, res) => {
    
     const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details";
 
@@ -68,7 +68,7 @@ app.get("/download-excel", (req, res) => {
 });
 
 
-app.get("/download-excel-for-user-data", (req, res) => {
+app.get("/download-excel-for-user-data",verifyToken,isAdmin, (req, res) => {
    
     const query = "SELECT username, email, password FROM users";
 
@@ -123,7 +123,7 @@ app.get("/download-excel-for-user-data", (req, res) => {
 
 const upload = multer({ dest: "uploads/" });
 
-app.post("/upload-excel", upload.single("file"), (req, res) => {
+app.post("/upload-excel",verifyToken,isAdmin, upload.single("file"), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
     }
@@ -173,7 +173,7 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
     });
 });
   
-app.post("/upload-excel-for-userdata", upload.single("file"), (req, res) => {
+app.post("/upload-excel-for-userdata",verifyToken,isAdmin,upload.single("file"), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
     }

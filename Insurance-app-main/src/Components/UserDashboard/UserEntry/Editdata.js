@@ -26,7 +26,17 @@ const Editdata = ({ close }) => {
     useEffect(() => {
         if (!email) return;
         console.log("Fetching data for Email:", email);
-        axios.get(`${apiurl}/data-for-user-edit-by-email/${email}`)
+        // axios.get(`${apiurl}/data-for-user-edit-by-email/${email}`,{
+        //     headers:{
+        //         Authorization:`Bearer ${localStorage.getItem("token")}`
+        //     }
+        // })
+        axios.get(`${apiurl}/data-for-user-edit-by-email/${email}`,{
+            headers:{
+                Authorization:`Bearer ${localStorage.getItem("token")}`
+            }
+        })
+       
             .then(res => {
                 console.log("API Response:", res);
                 if (res.data && res.data.result) {
@@ -76,7 +86,8 @@ const Editdata = ({ close }) => {
         
             
             axios.put(`${apiurl}/edit-user-data-by-email/${email}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
+                headers: { 'Content-Type': 'multipart/form-data',
+                Authorization:`Bearer ${localStorage.getItem("token")}` },
             })
             .then((res) => {
               console.log('Response:', res);

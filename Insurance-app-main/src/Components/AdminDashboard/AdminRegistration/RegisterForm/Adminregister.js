@@ -35,7 +35,11 @@ const Adminregister = ({close}) => {
         if (!passwordRegex.test(values.password)) {
             return toast.warning("Password must be 8 characters includes one number one special character")
         }
-        axios.post(`${apiurl}/admin/register`, values)
+        axios.post(`${apiurl}/admin/register`, values,{
+            headers:{
+                Authorization:`Bearer ${localStorage.getItem("token")}`
+            }
+        })
             .then(res => {
                 toast.success(res.data.message)
                 // navigate("/dashboard/users")

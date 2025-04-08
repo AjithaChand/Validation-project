@@ -37,7 +37,9 @@ const Create = ({close}) => {
         formData.append('file',values.file);
 
         axios.post(`${apiurl}/create`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
+          headers: { 'Content-Type': 'multipart/form-data',
+            Authorization:`Bearer ${localStorage.getItem("token")}`
+           }
         })
         .then(res => {
           console.log("Response:", res);
