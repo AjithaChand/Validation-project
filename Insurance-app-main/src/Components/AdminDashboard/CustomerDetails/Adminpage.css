@@ -1,36 +1,34 @@
+.admin-container{
+    margin-top: 100px;
+}
+
 .admin-btn{
     background-color: #023265;
     color:white;
-    width: 18%;
     border-radius: 50px;
-    position: relative;
-    right: 20%;
+    padding: 15px;
+    border: none;
 }
 
-.adminpage-header{
+.tablerow-admin{
+    text-align: center;
     display: flex;
-    justify-content: space-between;
-    background-color:darkblue;
-    color: white;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1000;
-    width: 100%;
-    height: 70px;
-}
-
-
-.admin-head{
-    font-weight: 700;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .admin-table{
-    position: relative;
     border-collapse:collapse;
     margin: auto;
-    width: 80%;
+    width: 100%;
     box-shadow: 1px 7px 15px gainsboro;
+}
+
+.admin-table thead th{
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .admin-table td{
@@ -38,6 +36,7 @@
     font-weight: 200;
     font-family: "Poppins",sans-serif;
 }
+
 .admin-table th{
     padding: 12px;
     font-size: 16px;
@@ -62,12 +61,12 @@
 
 .admin-header-container {
     display: flex;
-    align-items: center;
+    align-items: center !important;
     justify-content:space-between;
-    padding: 10px;
+    /* padding: 50px; */
     margin: auto;
-    width: 80%;
-    border-radius: 5px;
+    padding: 10px;
+    margin-top: 60px;
 }
 
 .admin-header {
@@ -75,37 +74,6 @@
     align-items: center;
     justify-content: flex-end;
     gap: 15px;
-}
-
-.profileadmin {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color:darkblue;
-    padding: 10px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    color: #fff;
-    font-size: 18px;
-}
-
-.logout-btn {
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    font-size: 18px;
-    background-color: darkblue;
-}
-
-.logout-btn:hover {
-    transform: scale(1.05);
-}
-
-::-webkit-scrollbar{
-    display: none;
 }
 
 .adminbutton{
@@ -118,13 +86,6 @@
     transform: scale(1.2)
 }
 
-.admin-table thead tr .tablerow{
-    height: 75px;
-    background-color: white;
-    color: black;
-    font-size: 25px;
-}
-
 .delete-button{
     background: none ;
     border: none;
@@ -134,8 +95,8 @@
     transform: scale(1.2)
 }
 
-.upload-button3, .upload-button4 {
-    background-color: #023265;
+.admin-header .upload-button3, 
+.admin-header .upload-button4 {
     color: white;
     border: none;
     padding: 8px 12px;
@@ -143,8 +104,31 @@
     cursor: pointer;
 }
 
+.upload-button3 {
+    background-color: #128e46;
+}
+
+.upload-button4 {
+    background-color: #e67e22;
+}
+
+.upload-button3:hover {
+    background-color: #27ae60;
+    transform: scale(1.05);
+}
+
+.upload-button4:hover {
+    background-color: #d35400;
+    transform: scale(1.05);
+}
+
+.upload-button3 svg,
+.upload-button4 svg {
+    font-size: 22px;
+}
+
 .file-label {
-    background-color: #f0f0f0;
+    background-color: #0056b3;
     padding: 6px 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -178,206 +162,74 @@
     cursor: pointer;
 }
 
-.admin-table .adminbutton .delete-button .deleteicon{
+.delete-button .deleteicon{
     font-size: 30px;
     color: darkred;
     cursor: pointer;
 }
 
+.admintable-container{
+    height: 70vh;
+    overflow-y: auto;
+}
 
-/* @media screen and (max-width: 768px)
-{
-    .admin-btn{
-        background-color: #023265;
-        color:white;
-        width: 15%;
-        border-radius: 50px;
-        position: relative;
-        right: 15%;
-    }
-
-    .users-table {
-        width: 70%;
-        top: 10%;
-       
-    }
-
-    .admin-header-container {
-        width: 90%;
-    }
-
-    .admin-header {
-        gap: 10px;
-    }
-    
-    .profileadmin {
+@media only screen and (min-width:319px) and (max-width:500px) {
+    .admin-header{
+        /* background-color: red; */
+        flex-wrap: wrap;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color:darkblue;
-        padding: 8px 15px;
-        border-radius: 5px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        color: #fff;
-        font-size: 14px;
+        flex-direction: column;      
     }
-    
-    .logout-btn {
-        color: white;
-        border: none;
-        padding: 4px 8px;
-        border-radius: 3px;
-        cursor: pointer;
-        transition: 0.3s ease;
-        font-size: 15px;
-        background-color: darkblue;
-    }
-    
-    .logout-btn:hover {
-        transform: scale(1.05);
-    }
-    
-    ::-webkit-scrollbar{
+
+    .admin-slidebar{
         display: none;
     }
-    
-    .adminbutton{
-        width: 100%;
-        background: none;
-        border: none;
-    }
-    
-    .adminbutton:hover{
-        transform: scale(1.2)
-    }
-    
-    .admin-table thead tr .tablerow{
-        height: 50px;
-        background-color: white;
-        color: black;
-        font-size: 25px;
-    }
-    
-    .delete-button{
-        background: none ;
-        border: none;
-    }
-    
-    .delete-button:hover{
-        transform: scale(1.2)
-    }
-}
-@media screen and (min-width: 375px) and (max-width: 430px) {
-    .users-btn {
-        width: 40%;
-        right: 5%;
-        border-radius: 30px;
-        font-size: 12px;
-    }
-
-    .users-table {
-        width: 95%;
-        top: 8%;
-    }
-
-    .users-table th {
-        padding: 7px;
-        font-size: 13px;
-    }
-
-    .users-table td {
-        font-size: 12px;
-    }
-
-    .users-table tbody td {
-        padding: 10px;
-    }
-
-    .edit-btn,
-    .delete-btn {
-        font-size: 15px;
-    }
-
-    .toggle {
-        height: 40px;
-    }
 
     .admin-header-container {
-        width: 80%;
-        padding: 5px;
-    }
-
-    .admin-head {
-        font-size: 15px;
-        margin-left: 10px;
-    }
-
-    .admin-header {
-        display: block; 
-        gap: 0; 
-    }
-
-    .upload-button3,
-    .upload-button4 {
-        font-size: 12px;
-        padding: 5px 10px;
-        margin-top: 5px;
-    }
-
-    .upload-button3 svg,
-    .upload-button4 svg {
-        font-size: 15px;
-    }
-
-    .file-label {
-        font-size: 10px;
-        padding: 7px 9px;
-        border-radius: 3px;
-    }
-} */
-
-@media screen and (max-width: 768px){
-    .admin-btn{
-        background-color: #023265;
-        color:white;
-        width: 25%;
-        border-radius: 50px;
-        position: relative;
-        right: 20%;
-        padding: 6px 10px;
-    }
-
-    .admin-header-container .addbutton{
-        font-size: 13px;
-        color: white;
-        cursor: pointer;
-    }
-
-    .admin-header-container .addicon{
-        font-size: 18px;
-        color: white;
-        cursor: pointer;
-    }
-    
-    .adminpage-header{
         display: flex;
-        justify-content: space-between;
-        background-color:darkblue;
-        color: white;
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 1000;
-        width: 100%;
-        height: 70px;
+        align-items: center;
+        justify-content:space-between;
+        padding: 10px;
+        margin: auto;
+        width: 100% !important;
+        margin-top: 15px;
     }
-    
-    .admin-header-container .admin-table{
-        position: relative;
+
+    .tablerow-admin{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .admin-table{
         border-collapse:collapse;
         margin: auto;
         width: 100%;
         box-shadow: 1px 7px 15px gainsboro;
+    }
+
+    .userdata-container {
+        margin-left: 0% !important;
+        height: 100vh;
+    }  
+
+    .admin-header-container .addbutton{
+        font-size: 14px;
+        color: white;
+        cursor: pointer;
+    }
+    .admin-header-container .addicon{
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .admin-table thead th{
+        position: sticky;
+        top: 0;
+        z-index: 1;
     }
     
     .admin-table td{
@@ -385,142 +237,42 @@
         font-weight: 200;
         font-family: "Poppins",sans-serif;
     }
+    
     .admin-table th{
-        padding:5px  10px;
+        padding: 8px;
         font-size: 12px;
         text-transform: uppercase;
+        letter-spacing: 1px;
         background-color: #023265;
         color: white;
         border-bottom: 1px solid gainsboro;
     }
     
     .admin-table tbody td{
-        padding: 5px 7px;
+        padding: 5px;
     }
     
     .admin-table tbody tr:hover{
         background:  rgb(221, 220, 220);
     }
     
-    .admin-btn:hover{
-        background: rgb(1, 1, 99);
+    .admintable-container{
+        height: 70vh;
+        padding: 0 20px 0 20px;
+        overflow-y: auto;
     }
-    
-    .admin-header-container {
-        display: flex;
-        align-items: center;
-        justify-content:space-between;
-        padding: 10px;
-        margin: auto;
-        width: 80%;
-        border-radius: 5px;
-    }
-    
-    .admin-header-container .admin-header {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 5px;
-    }
-    
-    /* .profileadmin {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color:darkblue;
-        padding: 10px 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        color: #fff;
-        font-size: 18px;
-    } */
-    
-    /* .logout-btn {
-        color: white;
-        border: none;
-        padding: 8px 12px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: 0.3s ease;
-        font-size: 18px;
-        background-color: darkblue;
-    } */
-    
-    /* .logout-btn:hover {
-        transform: scale(1.05);
-    } */
-    
-    ::-webkit-scrollbar{
-        display: none;
-    }
-    
     .adminbutton{
         width: 100%;
         background: none;
         border: none;
     }
-    
-    .adminbutton:hover{
-        transform: scale(1.2)
-    }
-    
-    .admin-table thead tr .tablerow{
-        height: 60px;
-        background-color: white;
-        color: black;
-        font-size: 20px;
-    }
-    
-    .delete-button{
-        background: none ;
-        border: none;
-    }
-    
-    .delete-button:hover{
-        transform: scale(1.2)
-    }
-    
-    .admin-header .upload-button3{
-        background-color: green;
-        color: white;
-        border: none;
-        padding: 6px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .admin-header .upload-button4 {
-        background-color: rgb(222, 148, 9);
-        color: white;
-        border: none;
-        padding: 6px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    
-    .admin-header .file-label {
-        background-color:rgb(17, 17, 153);
-        padding: 6px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    
-    .admin-header .file-input {
-        display: none;
-    }
-    
-    .file-name {
-        margin-left: 10px;
-        font-size: 14px;
-    }
-    
     .adminbutton .editicon{
         font-size: 20px;
         color: green;
         cursor: pointer;
     }
     
-    .admin-table tbody .delete-button .deleteicon{
+    .delete-button .deleteicon{
         font-size: 20px;
         color: darkred;
         cursor: pointer;
@@ -531,4 +283,133 @@
         color: green;
         cursor: pointer;
     }
+}
+
+@media only screen and (min-width:501px) and (max-width:768px) {
+    .admin-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+    .admin-slidebar{
+        display: none;
+    }
+
+    .admin-header-container {
+        display: flex;
+        align-items: center;
+        justify-content:space-between;
+        padding: 10px;
+        margin: auto;
+        width: 100% !important;
+        margin-top: 15px;
+    }
+
+    .admin-table{
+        border-collapse:collapse;
+        margin: auto;
+        width: 100%;
+        box-shadow: 1px 7px 15px gainsboro;
+    }
+
+    .userdata-container {
+        margin-left: 0% !important;
+        height: 100vh;
+    }  
+
+    .admin-header-container .addbutton{
+        font-size: 14px;
+        color: white;
+        cursor: pointer;
+    }
+    .admin-header-container .addicon{
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .admin-table thead th{
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+    
+    .admin-table td{
+        font-size: 14px;
+        font-weight: 200;
+        font-family: "Poppins",sans-serif;
+    }
+    
+    .admin-table th{
+        padding: 8px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: #023265;
+        color: white;
+        border-bottom: 1px solid gainsboro;
+    }
+    
+    .admin-table tbody td{
+        padding: 5px;
+    }
+    
+    .admin-table tbody tr:hover{
+        background:  rgb(221, 220, 220);
+    }
+    
+    .tablerow-admin{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    
+    .admintable-container{
+        height: 70vh;
+        padding: 0 20px 0 20px;
+        overflow-y: auto;
+    }
+    .adminbutton{
+        width: 100%;
+        background: none;
+        border: none;
+    }
+    .adminbutton .editicon{
+        font-size: 20px;
+        color: green;
+        cursor: pointer;
+    }
+    
+    .delete-button .deleteicon{
+        font-size: 20px;
+        color: darkred;
+        cursor: pointer;
+    }
+
+    .admin-table tbody .edit-btn .edit-icon{
+        font-size: 20px;
+        color: green;
+        cursor: pointer;
+    }
+    
+}
+
+@media only screen and (max-width:768px) {
+     .admin-slidebar{
+        display: none;
+    }
+}
+
+@media only screen and (min-width:500.11px) and (max-width:768px) {
+    .admin-header-container{
+        margin-top: 20px;
+    }
+
+}
+
+@media only screen and (min-width:769px) and (max-width:1024px) {
+    
 }

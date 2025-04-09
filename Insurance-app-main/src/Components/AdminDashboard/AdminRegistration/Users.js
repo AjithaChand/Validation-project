@@ -95,21 +95,14 @@ const Users = () => {
   };
 
   return (
-    <div className='users-container'>
-      {/* <div className='toggle p-3'>
-      <h2 className='trustasure-title'>TrustAssure</h2>
-      </div> */}
-
-      <div className='row'>
-        <div className='user mt-5'>
-
-          <div className="admin-header-container">
-            <button className='users-btn mt-4 btn' onClick={handleDialog}>Create Account
-              <AddIcon style={{ fontSize: 24, color: 'white', cursor: 'pointer' }} />
+    <div>
+        <div className='users-container'>
+          <div className="admin-header-container-user">
+            <button className='users-btn' onClick={handleDialog}><span className='createbutton'>Create Account </span>{" "}
+              <AddIcon className="user-addicon" />
             </button>
-            {/* <h3 className="admin-head">User Details</h3> */}
-            <div className="admin-header">
-              <button className="upload-button3" onClick={handleDownload}>
+            <div className="admin-header-user">
+              <button className="upload-button1" onClick={handleDownload}>
                 <PiMicrosoftExcelLogoFill />
               </button>
               <input
@@ -122,18 +115,19 @@ const Users = () => {
                 <span className="label-name">Choose File</span>
               </label>
               {file && <span className="file-name">{file.name}</span>}
-              <button className="upload-button4" onClick={handleUpload}>
+              <button className="upload-button2" onClick={handleUpload}>
                 <IoIosCloudUpload />
               </button>
             </div>
           </div>
-          {/* Scrollable table container */}
+
+        <div>    
+        <p className='tablerow-user'>USER DETAILS</p>
+        </div>
+        
           <div className="table-container">
-            <table className='users-table text-center mt-5'>
+            <table className='users-table text-center'>
               <thead>
-                <tr>
-                  <th className='tablerow' colSpan={4}>USER DETAILS</th>
-                </tr>
                 <tr>
                   <th>Username</th>
                   <th>Email</th>
@@ -141,18 +135,18 @@ const Users = () => {
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className='tbody-users ajay'>
                 {value.map((data, index) => (
-                  <tr key={index}>
+                  <tr key={index} >
                     <td>{data.username}</td>
                     <td>{data.email}</td>
                     <td>{data.password}</td>
                     <td>
                       <button className='edit-btn' onClick={() => handleupdate(data.id)}>
-                        <FaEdit />
+                        <FaEdit  className='useredit-icon'/>
                       </button>
                       <button className='ms-3 delete-btn' onClick={() => handleDelete(data.id)}>
-                        <RiDeleteBinFill />
+                        <RiDeleteBinFill className='userdelete-icon' />
                       </button>
                     </td>
                   </tr>
@@ -161,12 +155,7 @@ const Users = () => {
               </tbody>
             </table>
           </div>
-          {/* <div className='button-container'>
-            <button className='users-btn mt-4 btn' onClick={handleDialog}>Create Account</button>
-          </div> */}
         </div>
-      </div>
-      {/* Button after table */}
       <Userpage onClose={handleDialog} isVisible={dialogbox} />
       <UpdateDialog onClose={handleupdate} isVisible={showupdate} userid={selectid} />
       <ToastContainer position='top-right' autoClose={3000} />

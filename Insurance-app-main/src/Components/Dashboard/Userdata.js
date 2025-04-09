@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { MdDashboard } from "react-icons/md";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { FaReceipt } from "react-icons/fa";
+import { Menu, } from "lucide-react";
+import Sidebar from '../Sidebar/Sidebar';
 
 const Userdata = () => {
 
@@ -17,6 +19,12 @@ const Userdata = () => {
   const navigate = useNavigate()
 
   const [showconfirm, setShowconfirm] = useState(false);
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  }
 
   const handleLogout = () => {
     setShowconfirm(true);
@@ -32,7 +40,7 @@ const Userdata = () => {
   };
 
   return (
-    <div className='user-container'>
+    <div className='user-container' >
       {user === 'admin' ? (<>
         <div className='user-profile'>
           <h3 className='userheader'><span className='caps'>T</span>rust<span className='caps'>A</span>ssure</h3>
@@ -41,6 +49,11 @@ const Userdata = () => {
           <button onClick={handleLogout} className='userlogout-btn'>
           <MdLogout className='logoutbutton' />
           </button>
+          <div>
+          <button className='sidebarmenu-btn' onClick={toggleSidebar}>
+            <Menu className="menu-btn" />
+          </button>
+        </div>
         </div>
         <aside className='admin-slidebar'><div className='p-4'>
           <h3 className='userdata-head' >Admin Panel</h3>
@@ -103,6 +116,7 @@ const Userdata = () => {
       </main>
 
       <UserDialog isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
+      <Sidebar  isVisible={sidebarOpen} onClose={handleLogout} onCloseClick={toggleSidebar}  />
     </div>
   )
 }

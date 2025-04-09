@@ -36,7 +36,7 @@ const Adminpage = () => {
     if (id) {
       setSelectid(id);
       setShowupdate(true);
-      console.log("Admin page id",id)
+      console.log("Admin page id", id)
     } else {
       setShowupdate(false);
       setSelectid(null);
@@ -62,9 +62,9 @@ const Adminpage = () => {
     formData.append("file", file);
 
     try {
-      await axios.post(`${apiurl}/upload-excel`, formData,{
-        headers:{
-          Authorization:`Bearer ${localStorage.getItem("token")}`
+      await axios.post(`${apiurl}/upload-excel`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
         }
       });
       toast.success("File Uploaded Successfully!");
@@ -82,9 +82,9 @@ const Adminpage = () => {
 
   // Fetch files from backend
   useEffect(() => {
-    axios.get(`${apiurl}/read`,{
-      headers:{
-        Authorization:`Bearer ${localStorage.getItem("token")}`
+    axios.get(`${apiurl}/read`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
       .then(res => setValue(res.data))
@@ -97,9 +97,9 @@ const Adminpage = () => {
   };
 
   const confirmLogout = () => {
-    axios.delete(`${apiurl}/delete/customer_details/${deleteid}`,{
-      headers:{
-        Authorization:`Bearer ${localStorage.getItem("token")}`
+    axios.delete(`${apiurl}/delete/customer_details/${deleteid}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
       .then(res => {
@@ -159,37 +159,38 @@ const Adminpage = () => {
 
   return (
     <div>
-      <div className='row'>
-        <div className='mt-5' >
-          <div className="admin-header-container">
-            <button className='btn admin-btn mt-4' onClick={handlePopup}><span className='addbutton'>Add Details</span>{" "}
-              <AddIcon className="addicon" />
+      <div className='admin-container' >
+        <div className="admin-header-container">
+          <button className=' admin-btn' onClick={handlePopup}>
+            <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
+          </button>
+          <div className="admin-header">
+            <button className="upload-button3" onClick={handleDownload}>
+              <PiMicrosoftExcelLogoFill />
             </button>
-            {/* <h3 className="admin-head">Customer  Details</h3> */}
-            <div className="admin-header">
-              <button className="upload-button3" onClick={handleDownload}>
-                <PiMicrosoftExcelLogoFill />
-              </button>
-              <input
-                type="file"
-                id="fileInput"
-                className="file-input"
-                onChange={(e) => setFile(e.target.files[0])}
-              />
-              <label htmlFor="fileInput" className="file-label">
-                <span className="label-name">Choose File</span>
-              </label>
-              {file && <span className="file-name">{file.name}</span>}
-              <button className="upload-button4" onClick={handleUpload}>
-                <IoIosCloudUpload />
-              </button>
-            </div>
+            <input
+              type="file"
+              id="fileInput"
+              className="file-input"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <label htmlFor="fileInput" className="file-label">
+              <span className="label-name">Choose File</span>
+            </label>
+            {file && <span className="file-name">{file.name}</span>}
+            <button className="upload-button4" onClick={handleUpload}>
+              <IoIosCloudUpload />
+            </button>
           </div>
-          <table className='mt-5 text-center admin-table'>
+        </div>
+
+        <div>    
+        <p className='tablerow-admin'>USER DETAILS</p>
+        </div>
+
+        <div className='admintable-container'>
+          <table className='text-center admin-table '>
             <thead>
-              <tr>
-                <th className='tablerow' colSpan={6}>CUSTOMER  DETAILS</th>
-              </tr>
               <tr>
                 <th>Email</th>
                 <th>Start Date</th>
@@ -212,14 +213,14 @@ const Adminpage = () => {
                         className=' adminbutton'
                         onClick={() => handleViewFile(data.file_path)}
                       >
-                         <DescriptionIcon  className="editicon" />
+                        <DescriptionIcon className="editicon" />
                       </button>
                     ) : ("No File")}
                   </td>
                   <td>
                     <button className='edit-btn' onClick={() => handleupdate(data?.id)}><FaEdit className='edit-icon' /></button>
                     <button className='delete-button' onClick={() => handleDelete(data.id)}>
-                    <DeleteIcon className="deleteicon" />
+                      <DeleteIcon className="deleteicon" />
                     </button>
                   </td>
                 </tr>
@@ -227,9 +228,6 @@ const Adminpage = () => {
 
             </tbody>
           </table>
-          {/* <div className='mt-4'>
-            <button className='btn admin-btn' onClick={handlePopup}>Add Details</button>
-          </div> */}
         </div>
       </div>
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
@@ -256,19 +254,6 @@ const Adminpage = () => {
         </Modal.Footer>
       </Modal>
       <ToastContainer position='top-right' autoClose={3000} />
-
-      {/* {showconfirm && (
-          <div className='admin-boxhover'>
-          <div className="admin-confirmbox">
-            <p>Are you sure you want to logout?</p>
-            <div className='admin-box'>
-            <button className="admin-confirm-btn" onClick={confirmLogout}>Confirm</button>
-            <button className="admin-cancel-btn" onClick={cancelLogout}>Cancel</button>
-            </div>
-            </div>
-         
-        </div>
-      )} */}
       <UpdateBox onClose={() => handleupdate()} isVisible={showupdate} userid={selectid} />
       <Deletebox isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
     </div>
