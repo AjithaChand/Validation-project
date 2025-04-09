@@ -24,7 +24,7 @@ const PayslipUser = () => {
     }
   
     try {
-      const response = await axios.get(`${apiurl}/get-user-payslip?email=${email}`, {
+      const response = await axios.get(`${apiurl}/get-user-payslip?email=${email}&name=${name}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -38,9 +38,10 @@ const PayslipUser = () => {
         toast.error("No payslip found for this email.");
         setShowPayslip(false);
       }
-    } catch (err) {
-      toast.error(err.response?.data?.error || "Something went wrong");
+    }catch (err) {
+      toast.error(err.response?.data?.message || err.response?.data?.error || "Something went wrong");
     }
+    
   };
 
   

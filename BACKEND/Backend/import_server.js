@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require("express");
 const cors = require("cors");
+const path =require("path")
 
 const excelServer = require("./Admin_apis/excel_server");
 const emailReminder = require("./Admin_apis/email_reminder");
@@ -13,7 +14,7 @@ const userpage = require("./User_Pages/user_dashboard_apis");
 const admin_payslip= require("../Backend/Admin_apis/Admin_payslip/admin_payslip");
 const user_payslip= require("../Backend/User_Pages/user_payslip")
 
-const { verifyToken, isAdmin, isUser } = require("../Backend/Login_Register/auth")
+const checkApi = require('./Login_Register/checkapi')
 
 const db = require('./db');
 
@@ -24,14 +25,17 @@ app.use(express.json());
 app.use("/", login);
 app.use("/", register);
 
-
-app.use("/", verifyToken, isAdmin, admin_dashboard);
-app.use("/", verifyToken, isAdmin, admin_users);
-app.use("/",verifyToken,isAdmin,excelServer);
-app.use("/",verifyToken,isAdmin,emailReminder);
-app.use("/",verifyToken,isUser,userpage);
-app.use("/",verifyToken,isAdmin, admin_payslip)
-app.use("/",verifyToken,isUser, user_payslip)
+app.use("/",checkApi)
+app.use("/", admin_dashboard);
+app.use("/",  admin_users);
+app.use("/",excelServer);
+app.use("/",emailReminder);
+app.use("/",userpage);
+app.use("/",admin_payslip)
+app.use("/",user_payslip)
+const image = path.join(__dirname,'uploads')
+console.log(image,"gfgbhjiuygvbhygv bnjuhgv ")
+app.use('/imageuser',express.static(image))
 
 const port = process.env.PORT || 7009;
 

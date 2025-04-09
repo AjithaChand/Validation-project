@@ -32,6 +32,7 @@ const Users = () => {
   }
   const [value, setValue] = useState([])
   useEffect(() => {
+    console.log("ajtha")
     axios.get(`${apiurl}/getuser`,{
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -43,7 +44,7 @@ const Users = () => {
         setRefresh(!refresh);
       })
       .catch(err => console.log(err))
-  }, [refresh])
+  }, [])
 
   const handleLogout = () => {
     setShowconfirm(true);

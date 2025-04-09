@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 
-const{verifyToken,isAdmin}=require("../../Login_Register/auth")
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -9,7 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = require("../../db");
 
-app.post("/admin-post-salary",verifyToken,isAdmin, (req, res) => {
+app.post("/admin-post-salary",(req, res) => {
     const { name, email, total_salary, pf_number, esi_amount, pf_amount, gross_salary, net_amount } = req.body;
 
     console.log("admin salary post",name,email,total_salary,pf_amount);
@@ -18,9 +17,36 @@ app.post("/admin-post-salary",verifyToken,isAdmin, (req, res) => {
         return res.status(400).send({ message: "Email is required" });
     }
 
-    const query = "SELECT * FROM payslip WHERE emp_email = ?";
+    const selectQuery = "SELECT * FROM users WHERE email = ? AND username = ?";
+
+    db.query(selectQuery,[email,name],(err,info)=>{
+     
+        if (err) {
+            console.log("Database Error:", err);
+            return res.status(500).send({ message: "Database Error" });
+        } 
+
+        if (info.length === 0) {
+            console.log("Invalid Employee");
+            return res.status(404).json({ message: "Invalid Employee" });
+          }
+          
+          if (info[0].email !== email) {
+            console.log("Invalid Employee Email");
+            return res.status(404).json({ message: "Invalid Employee Email" });
+          }
+
+          if (info[0].username !== name) {
+            console.log("Invalid Employee Name");
+            return res.status(404).json({ message: "Invalid Employee Name" });
+          }
+          
+
+          
+    const query = "SELECT * FROM payslip WHERE emp_email = ? AND emp_name = ?";
     
-    db.query(query, [email], (err, info) => { 
+    db.query(query, [email,name], (err, info) => { 
+      
         if (err) {
             console.log("Database Error:", err);
             return res.status(500).send({ message: "Database Error" });
@@ -49,20 +75,52 @@ app.post("/admin-post-salary",verifyToken,isAdmin, (req, res) => {
             } 
             console.log(`Admin salary added for ${email}`);
             return res.status(201).send({ message: "Salary Added Successfully" });
+            })
         });
     });
 });
 
-app.put('/admin-edit-salary',verifyToken,isAdmin, (req, res) => {
-    const { total_salary, esi_amount, pf_amount, gross_salary, net_amount, email } = req.body;
+
+app.put('/admin-edit-salary',(req, res) => {
+    const { total_salary, esi_amount, pf_amount, gross_salary, net_amount, email, name } = req.body;
 
     if (!email) {
         return res.status(400).send({ message: "Email is required" });
     }
 
-    const selectQuery = "SELECT * FROM payslip WHERE emp_email = ?";
+    const FirstQuery = "SELECT * FROM users WHERE email = ? AND username = ?";
 
-    db.query(selectQuery, [email], (err, info) => {
+    db.query(FirstQuery,[email,name],(err,info)=>{
+        if (err) {
+            console.log("Database Error", err);
+            return res.status(500).send({ message: "Database Error" });
+        }
+
+        if (info.length === 0) {
+            console.log("Unknown Employee For Update");
+            return res.status(409).send({ message: "Unknown Employee For Update" });
+        }
+
+        console.log("All data", info);
+        
+
+        if (info[0].email !== email) {     
+            // console.log("Received Email For Update",email)
+            // console.log("Get Email For Update",info[0].email)
+            // // console.log("Invalid Employee Email For Salary Update");
+            return res.status(409).send({ message: "Invalid Employee Email" });
+        }
+
+        if (info[0].username !== name) {
+            // console.log("Received Name For Update",name)
+            // console.log("Get Name For Update",info[0].username)
+            // console.log("Invalid Employee Name");
+            return res.status(409).json({ message: "Invalid Employee Name" });
+          }
+          
+    const selectQuery = "SELECT * FROM payslip WHERE emp_email = ? AND emp_name = ?";
+
+    db.query(selectQuery, [email,name], (err, info) => {
         if (err) {
             console.log("Database Error", err);
             return res.status(500).send({ message: "Database Error" });
@@ -70,8 +128,26 @@ app.put('/admin-edit-salary',verifyToken,isAdmin, (req, res) => {
 
         if (info.length === 0) {
             console.log("Unknown Email For Update");
-            return res.status(409).send({ message: "Unknown Email For Update" });
+            return res.status(409).send({ message: "Unknown Employee For Update" });
         }
+
+        if (info[0].emp_name !== name) {
+
+            console.log("Received Name For Update",name)
+            console.log("Get Name For Update",info[0].emp_name)
+
+            return res.status(409).send({ message: "Invalid Employee Name For Salary Update" });
+        }
+
+        if (info[0].emp_email !== email) {
+            // console.log("Invalid Email");
+
+             console.log("Received Email For Update",email)
+            console.log("Get Email For Update",info[0].email)
+
+            return res.status(409).send({ message: "Invalid Employee Email For Salary Update" });
+        }
+
 
         const pf_number = info[0].pf_number; 
 
@@ -94,6 +170,7 @@ app.put('/admin-edit-salary',verifyToken,isAdmin, (req, res) => {
             console.log("Admin updated the salary, PF Number:", pf_number);
 
             return res.status(201).send({ message: "Admin updated the salary",pf_number: pf_number });
+            })
         });
     });
 });

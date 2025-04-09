@@ -45,7 +45,8 @@ const Payslip = () => {
       net_amount,
       gross_salary,
       total_salary,
-      email
+      email,
+      name
     };
   
     try {
@@ -60,14 +61,9 @@ const Payslip = () => {
       setShowPayslip(true);
 console.log("showPayslip will be set to true now.");
 
-    } catch (err) {
-      if (err.response) {
-        toast.error(err.response.data.message || "Something went wrong");
-      } else {
-        toast.error("Network error or server is unreachable");
-      }
-    }
- 
+    }catch (err) {
+      toast.error(err.response?.data?.message || err.response?.data?.error || "Something went wrong");
+    }    
   };
   
 
@@ -107,12 +103,9 @@ console.log("showPayslip will be set to true now.");
 console.log("showPayslip will be set to true now.");
 
     } catch (err) {
-      if (err.response) {
-        toast.error(err.response.data.message || "Something went wrong");
-      } else {
-        toast.error("Network error or server is unreachable");
-      }
+      toast.error(err.response?.data?.message || err.response?.data?.error || "Something went wrong");
     }
+    
   };
   
   return (

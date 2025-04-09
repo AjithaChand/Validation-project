@@ -6,8 +6,8 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
+const verifyToken=require("../../Login_Register/auth")
 
-const { verifyToken, isAdmin } = require("../../Login_Register/auth");
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -15,6 +15,7 @@ app.use(express.json());
 const db = require('../../db'); 
 
 const uploadDir = path.join(__dirname, '../../uploads');
+console.log(uploadDir,"from admin api")
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
@@ -33,8 +34,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post('/create',verifyToken,isAdmin, upload.single('file'), (req, res) => {
+app.post('/create',verifyToken, upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
+    console.log(email,email, startdate, enddate, policy ,"igfdhjklgfdcvbhjkl")
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
 
     if (!filePath) {
@@ -51,7 +53,7 @@ app.post('/create',verifyToken,isAdmin, upload.single('file'), (req, res) => {
 });
 
 // Get all customer records
-app.get('/read',verifyToken,isAdmin, (req, res) => {
+app.get('/read',verifyToken, (req, res) => {
     const sql = "SELECT * FROM customer_details";
     db.query(sql, (err, data) => {
         if (err) return res.status(500).json({ error: err.message });
@@ -60,7 +62,7 @@ app.get('/read',verifyToken,isAdmin, (req, res) => {
 });
 
 // Get a specific customer record by ID
-app.get('/read-data-by-id/:id',verifyToken,isAdmin, (req, res) => {
+app.get('/read-data-by-id/:id',verifyToken, (req, res) => {
     const id = req.params.id;
 
     console.log("Fetching record for ID:", id);
@@ -73,11 +75,11 @@ app.get('/read-data-by-id/:id',verifyToken,isAdmin, (req, res) => {
 });
 
 // Update customer record, with optional file upload
-app.put('/update-data-in-admin/:id',verifyToken,isAdmin, upload.single('file'), (req, res) => {
+app.put('/update-data-in-admin/:id',verifyToken, upload.single('file'), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
     const { id } = req.params;
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
-
+     console.log(filePath,"file url")
     // Fetch the existing file path to retain it if no new file is uploaded
     const fetchSql = "SELECT file_path FROM customer_details WHERE id = ?";
     db.query(fetchSql, [id], (err, results) => {
@@ -101,7 +103,7 @@ app.put('/update-data-in-admin/:id',verifyToken,isAdmin, upload.single('file'), 
 });
 
 // Delete customer record
-app.delete('/delete/customer_details/:id',verifyToken,isAdmin, (req, res) => {
+app.delete('/delete/customer_details/:id',verifyToken, (req, res) => {
     const id = req.params.id;
     const sql = "DELETE FROM customer_details WHERE id=?";
     

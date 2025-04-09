@@ -6,7 +6,7 @@ const multer = require("multer");
 const path =require ("path")
 const fs = require("fs")
 
-const {verifyToken,isAdmin}=require("../../Login_Register/auth")
+const verifyToken=require('../../Login_Register/auth')
 
 const app= express();
 app.use(cors());
@@ -17,7 +17,7 @@ const db = require('../../db');
 //Admin registraion from admin page
 
 
-app.post("/admin/register",verifyToken,isAdmin, (req, res) => {
+app.post("/admin/register",verifyToken,(req, res) => {
     const { username, email, password, role } = req.body;
 
     console.log(`FOr Checking to Login`,username,email,password,role);
@@ -49,7 +49,7 @@ app.post("/admin/register",verifyToken,isAdmin, (req, res) => {
 // Get all users
 
 
-app.get('/getuser',verifyToken,isAdmin, (req, res) => {
+app.get('/getuser',verifyToken, (req, res) => {
     const sql = "SELECT * FROM users"
     db.query(sql, (err, result) => {
         if (err)
@@ -62,12 +62,13 @@ app.get('/getuser',verifyToken,isAdmin, (req, res) => {
 
 //Edit data for single user
 
-app.get('/getuser/:id',verifyToken,isAdmin, (req, res) => {
+app.get('/getuser/:id',verifyToken, (req, res) => {
     const id = req.params.id;
     const sql = "SELECT * FROM users WHERE id = ?";
 
     console.log("Checking ID:", id);
-
+    
+    
     db.query(sql, [id], (err, data) => {
         if (err) return res.status(500).json({ error: err.message });
         if (data.length === 0) return res.status(404).json({ error: "User not found" });
@@ -82,7 +83,7 @@ app.get('/getuser/:id',verifyToken,isAdmin, (req, res) => {
 
 //Edit user
 
-app.put('/edituser/:id',verifyToken,isAdmin,async(req,res)=>{
+app.put('/edituser/:id',verifyToken,async(req,res)=>{
     const id = req.params.id;
     const {username,email,password} = req.body;
 
@@ -102,7 +103,7 @@ app.put('/edituser/:id',verifyToken,isAdmin,async(req,res)=>{
 
 
 
-app.delete('/delete/:id',verifyToken,isAdmin,(req,res)=>{
+app.delete('/delete/:id',verifyToken,(req,res)=>{
  
     const id = req.params.id;
 

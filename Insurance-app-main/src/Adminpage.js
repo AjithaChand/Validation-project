@@ -141,22 +141,27 @@ const Adminpage = () => {
 
   //Set File URL
   const handleViewFile = (fileUrl) => {
-    console.log("FileUrl", fileUrl);
-    const fileExtension = fileUrl.split('.').pop().toLowerCase();
-    console.log("File Extension", fileExtension);
+  console.log("RAW fileUrl:", fileUrl);
 
-    const isImage = ['jpg', 'jpeg', 'png', 'gif', 'avif'].includes(fileExtension);
-    const isPdf = fileExtension === 'pdf';
+  const fileName = fileUrl.split('/').pop(); // Get the file name
+  const numberPart = fileName.replace(/\.[^/.]+$/, ""); // Remove the file extension
+  console.log("Extracted number:", numberPart); // Logs: 1743580288467-904020474
 
-    if (isImage || isPdf) {
-      setSelectedFile(`${apiurl}${fileUrl}`
-        
-      );
-      setShowModal(true);
-    } else {
-      toast.error("Unsupported file type");
-    }
-  };
+  // Rest of your existing code...
+  const fileExtension = fileName.split('.').pop().toLowerCase();
+  const isImage = ['jpg', 'jpeg', 'png', 'gif', 'avif'].includes(fileExtension);
+  const isPdf = fileExtension === 'pdf';
+
+  if (isImage || isPdf) {
+    setSelectedFile(`${apiurl}${fileUrl}`);
+    setShowModal(true);
+  } else {
+    toast.error("Unsupported file type");
+  }
+};
+
+
+  
 
   return (
     <div>
