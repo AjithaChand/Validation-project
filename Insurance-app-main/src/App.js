@@ -15,10 +15,6 @@ import { UserProvider } from "./usecontext";
 import Updatefile from './Components/Admincreateform/Updatefile';
 import Payslip from './Components/AdminDashboard/Payslip/payslip';
 
-
-
-
-
 const App = () => {
 return (
     <UserProvider>

@@ -7,8 +7,6 @@ import { IoIosCloudUpload } from "react-icons/io";
 import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom';
-// import { RiLogoutCircleRLine } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { apiurl } from '../../../url';
 import UpdateBox from '../../AdminDashboard/CustomerDetails/Dialogbox/updatebox';
@@ -42,9 +40,6 @@ const Adminpage = () => {
       setSelectid(null);
     }
   };
-
-
-  const navigate = useNavigate()
 
   const [value, setValue] = useState([])
 
@@ -123,18 +118,6 @@ const Adminpage = () => {
     console.log("id for delete", id);
     setDeleteid(id);
     handleLogout()
-
-    // if (window.confirm("Are you sure you want to delete this data?")) {
-    //   axios.delete(`${apiurl}/delete/customer_details/${id}`)
-    //     .then(res => {
-    //       console.log(res);
-    //       setValue(prev => prev.filter(data => data.id !== id));
-    //       toast.success("Data deleted successfully");
-    //     })
-    //     .catch(err => {
-    //       toast.error(err.response?.data?.error || "An error occurred");
-    //     });
-    // }
   };
 
   const [showModal, setShowModal] = useState(false);

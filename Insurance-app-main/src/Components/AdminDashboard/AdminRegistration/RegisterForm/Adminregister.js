@@ -14,9 +14,17 @@ const Adminregister = ({close}) => {
         role:""
     })
 
-    const [checkbox,setCheckbox] = useState({
-    
+    const [permission,setPermission] = useState({
+        create:false,
+        read:false,
+        update:false,
+        remove:false
     })
+    console.log(permission)
+
+    const handlePermission = (e) =>{
+        setPermission({...permission,[e.target.name]:e.target.checked})
+    }
 
     const handleSubmit = (e) => { 
         e.preventDefault();
@@ -36,14 +44,13 @@ const Adminregister = ({close}) => {
         if (!passwordRegex.test(values.password)) {
             return toast.warning("Password must be 8 characters includes one number one special character")
         }
-        axios.post(`${apiurl}/admin/register`, values,{
+        axios.post(`${apiurl}/admin/register`,{...values, permission},{
             headers:{
                 Authorization:`Bearer ${localStorage.getItem("token")}`
             }
         })
             .then(res => {
                 toast.success(res.data.message)
-                // navigate("/dashboard/users")
                 close()
             })
             .catch(err => toast.error(err.response.data.error))
@@ -54,31 +61,31 @@ const Adminregister = ({close}) => {
             <div className='adminregister-form'>
                 <form onSubmit={handleSubmit} className='adminform-data' style={{ width: "35%" }}>
                     <h3 className='text-center register-head mb-5'>Register Form</h3>
-                    <div className='mt-4 form-group'>
+                    <div className='mt-3 form-group'>
                         <label className='register-label'>Username</label>
                         <input type='text' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e => setValues({ ...values, username: e.target.value })} placeholder='Enter your name' required />
                     </div>
-                    <div className='mt-4 form-group'>
+                    <div className='mt-3 form-group'>
                         <label className='register-label'>Email</label>
                         <input type='email' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e => setValues({ ...values, email: e.target.value })} placeholder='Enter your email' required />
                     </div>
-                    <div className='mt-4 form-group'>
+                    <div className='mt-3 form-group'>
                         <label className='register-label'>Password</label>
                         <input type='password' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e => setValues({ ...values, password: e.target.value })} placeholder='Enter your password' required />
                     </div>
-                    <div className='mt-4 form-group'>
+                    <div className='mt-3 form-group'>
                         <label className='register-label'>Select Account</label>
                         <select className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e => setValues({ ...values, role: e.target.value })} >
-                            <option  value={"select"} default></option>
+                            <option  value="" disabled >Select role</option>
                             <option value={"admin"}>Admin</option>
                             <option value={"user"}>User</option>
                         </select>
                     </div>
-                    <div className='user-checkbox'>
-                        <div><label>Create</label><input value={0} type='checkbox'/></div>
-                        <div><label>Read</label><input value={0} type='checkbox'/></div>
-                        <div><label>Update</label><input value={0} type='checkbox'/></div>
-                        <div><label>Delete</label><input value={0} type='checkbox'/></div>
+                    <div className='mt-3 user-checkbox'>
+                        <label><input name='create' onChange={handlePermission} type='checkbox'/>Create</label>
+                        <label><input name='read'  onChange={handlePermission} type='checkbox'/>Read</label>
+                        <label><input name='update' onChange={handlePermission} type='checkbox'/>Update</label>
+                        <label><input name='remove'  onChange={handlePermission} type='checkbox'/>Delete</label>
                     </div>
                     <button className='btn mt-3 adminregister-btn'>Register</button>
                 </form>
