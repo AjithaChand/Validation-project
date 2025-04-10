@@ -1,4 +1,4 @@
-.create-user-container {
+/* .create-user-container {
   width: 300px;
   margin: 40px auto;
   padding: 20px 16px;
@@ -20,9 +20,9 @@
   margin-bottom: 24px;
   text-align: center;
   color: #222;
-}
+} */
 
-.form-group {
+/* .form-group {
   margin-bottom: 15px;
 }
 
@@ -32,9 +32,9 @@
   display: block;
   color: #333;
   font-size: 14px;
-}
+} */
 
-.form-control {
+/* .form-control {
   width: 100%;
   padding: 8px 11px;
   font-size: 15px;
@@ -55,9 +55,9 @@ input[type="file"] {
   margin-top: 6px;
   display: block;
   color: #444;
-}
+} */
 
-.user-btn {
+/* .user-btn {
   background-color: #1a73e8;
   color: #fff;
   padding: 12px 20px;
@@ -73,8 +73,10 @@ input[type="file"] {
 .user-btn:hover {
   background-color: #155ab6;
   cursor: pointer;
-}
-@media screen and (min-width: 1300px) and (max-width: 1450px)
+} */
+
+
+/* @media screen and (min-width: 1300px) and (max-width: 1450px)
 {
   .create-user-container {
     width: 250px;
@@ -311,5 +313,5 @@ input[type="file"] {
     width: 50%;
     font-weight: 500;
   }
-}
+} */
   

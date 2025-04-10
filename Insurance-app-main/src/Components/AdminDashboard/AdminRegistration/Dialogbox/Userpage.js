@@ -1,5 +1,5 @@
 import React from 'react'
-import './Userpage.css'
+import '../Dialogbox/Userpage.css'
 import Adminregister from '../RegisterForm/Adminregister';
 
 const Userpage = ({isVisible,onClose}) => {

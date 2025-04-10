@@ -29,3 +29,31 @@
     background: none;
     cursor: pointer;
 }
+
+@media only screen and (min-width:319px) and (max-width:400px){
+    .update-content{
+        width: 80%;
+        height: 55%;
+    }
+}
+
+@media only screen and (min-width:401px) and (max-width:500px){
+    .update-content{
+        width: 60%;
+        height: 55%;
+    }
+}
+
+@media only screen and (min-width:501px) and (max-width:700px){
+    .update-content{
+        width: 55%;
+        height: 55%;
+    }
+}
+
+@media only screen and (min-width:701px) and (max-width:1024px){
+    .update-content{
+        width: 40%;
+        height: 57%;
+    }
+}

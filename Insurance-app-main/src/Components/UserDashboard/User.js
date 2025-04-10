@@ -136,11 +136,10 @@ console.log(dd,"kk")
   return (
     <div className='user-containerform'>
       <div className="user-headerpage">
-        <div >
-          <h3 className='text-center head p-3'>USER ENTRY</h3>
-        </div>
+          <h3 className='text-center head mt-5'>USER ENTRY</h3>
       </div>
 
+      <div className='usertable-container'>
       <table className='user-table mt-3 text-center'>
         <thead>
           <tr>
@@ -162,16 +161,16 @@ console.log(dd,"kk")
               <td>
                 {data.file_path ? (
                   <button
-                    className='adminbutton'
+                    className='userbutton'
                     onClick={() => handleViewFile(data.file_path)}
                   >
-                    <DescriptionIcon style={{ fontSize: 26, color: "green", cursor: "pointer" }} />
+                    <DescriptionIcon className="view-btn" />
                   </button>
                 ) : ("No File")}
               </td>
               <td className='tablerow'>
                 <button className='user-edit-btn' onClick={() => toggleEdit(data.id)}>
-                  <EditIcon sx={{ fontSize: 24, color: 'orange', cursor: 'pointer' }} />
+                  <EditIcon className='user-editbtn' />
                 </button>
               </td>
             </tr>
@@ -179,6 +178,7 @@ console.log(dd,"kk")
 
         </tbody>
       </table>
+      </div>
 
       {value.length === 0 && (
         <div className='mt-5 userbtn'>
@@ -188,21 +188,7 @@ console.log(dd,"kk")
 
       <Formpopup isVisible={showform} onClose={toggleForm} />
       <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} />
-      {/* <UserDialog  isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} /> */}
       <ToastContainer position='top-right' autoclose={3000} />
-
-      {/* {showModal && selectedFile && (
-        <div className="file-modal">
-          <div className="modal-content">
-            {selectedFile.endsWith(".pdf") ? (
-              <iframe src={selectedFile} width="100%" height="500px"></iframe>
-            ) : (
-              <img src={selectedFile} alt="Uploaded File" style={{ maxWidth: "100%" }} />
-            )}
-            <button onClick={() => setShowModal(false)}>Close</button>
-          </div>
-        </div>
-      )} */}
 
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>

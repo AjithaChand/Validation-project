@@ -1,4 +1,4 @@
-.create-user-container {
+/* .create-user-container {
     width: 300px;
     margin: 40px auto;
     padding: 20px 16px;
@@ -8,9 +8,9 @@
     border: 1px solid #e0e0e0;
     transition: box-shadow 0.3s ease-in-out;
     height: 83%;
-  }
+  } */
   
-  .create-user-container:hover {
+  /* .create-user-container:hover {
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
   }
   
@@ -73,243 +73,60 @@
   .user-btn:hover {
     background-color: #155ab6;
     cursor: pointer;
+  } */
+
+@media only screen and (min-width:319px) and (max-width:400px) {
+  .heading {
+    font-size: 18px;
+    font-weight: bold;
   }
-  @media screen and (min-width: 1300px) and (max-width: 1450px)
-  {
-    .create-user-container {
-      width: 250px;
-      margin: 20px auto;
-      padding: 13px 10px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-      height: 85%;
-    }
-    
-    .create-user-container:hover {
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
-    }
-    
-    .create-user-container h3 {
-      font-size: 22px;
-      font-weight: 500;
-      margin-bottom: 16px;
-     }
-    
-    .form-group {
-      margin-bottom: 11px;
-    }
-    
-    .form-group label {
-      font-weight: 500;
-      margin-bottom: 4px;
-     font-size: 12px;
-    }
-    
-    .form-control {
-      width: 100%;
-      padding: 2px 4px;
-      font-size: 10px;
-      border-radius: 3px;
-     }
-    input[type="file"] {
-      font-size: 13px;
-      display: block;
-    }
-    
-    .user-btn {
-      padding: 8px 10px;
-      border-radius: 8px;
-      width: 30%;
-      font-weight: 500;
-      font-size: 13px;
-      margin-top: 2px;
-      }
+
+  .update-label {
+    font-size: 14px;
   }
-  @media screen and (min-width: 775px) and (max-width: 1024px)
-  {
-    .create-user-container {
-      width: 250px;
-      margin: 20px auto;
-      padding: 13px 10px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-      height: 85%;
-    }
-    
-    .create-user-container:hover {
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
-    }
-    
-    .create-user-container h3 {
-      font-size: 22px;
-      font-weight: 500;
-      margin-bottom: 16px;
-     }
-    
-    .form-group {
-      margin-bottom: 11px;
-    }
-    
-    .form-group label {
-      font-weight: 500;
-      margin-bottom: 6px;
-     font-size: 14px;
-    }
-    
-    .form-control {
-      width: 100%;
-      padding: 4px 5px;
-      font-size: 10px;
-      border-radius: 3px;
-     }
-    input[type="file"] {
-      font-size: 13px;
-      display: block;
-    }
-    
-    .user-btn {
-      padding: 8px 10px;
-      border-radius: 8px;
-      width: 30%;
-      font-weight: 500;
-      font-size: 13px;
-     
-      }
+}
+
+@media only screen and (min-width:401px) and (max-width:500px) {
+  .heading {
+    font-size: 19px;
+    font-weight: bold;
   }
-  @media screen and (min-width: 435px) and (max-width: 770px){
-    .create-user-container {
-      width: 180px;
-      margin: 30px auto;
-      padding: 6px 3px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-      height: 83%;
-    }
-    
-    .create-user-container:hover {
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
-    }
-    
-    .create-user-container h3 {
-      font-size: 20px;
-      font-weight: 500;
-      margin-bottom: 20px;
-     }
-    
-    .form-group {
-      margin-bottom: 11px;
-    }
-    
-    .form-group label {
-      font-weight: 500;
-      margin-bottom: 4px;
-     font-size: 12px;
-    }
-    
-    .form-control {
-      width: 100%;
-      padding: 4px 5px;
-      font-size: 13px;
-      border-radius: 3px;
-     }
-    input[type="file"] {
-      font-size: 10px;
-      display: block;
-    }
-    
-    .user-btn {
-      padding: 1px 2px;
-      border-radius: 8px;
-      width: 45%;
-      font-weight: 500;
-      font-size: 13px;
-      }
-      .heading
-      {
-        font-size: 10px
-      }
+
+  .update-label {
+    font-size: 15px;
   }
-  @media screen and (min-width: 370px) and (max-width: 430px)  {
-    .create-user-container {
-      width: 90%;
-      padding: 8px 6px;
-      border-radius: 8px;
-      height: auto;
-    }
-  
-    .create-user-container h3 {
-      font-size: 20px;
-      font-weight: 500;
-      margin-bottom: 9px;
-    }
-  
-    .form-group {
-      margin-bottom: 5px;
-    }
-  
-    .form-group label {
-      font-size: 12px;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-  
-    .form-control {
-      padding: 4px 8px;
-      font-size: 13px;
-      border-radius: 3px;
-    }
-  
-    input[type="file"] {
-      font-size: 12px;
-    }
-  
-    .user-btn {
-      padding: 7px 12px;
-      font-size: 12px;
-      width: 50%;
-      font-weight: 500;
-    }
+
+  .updatebox .user-btn {
+    padding: 10px;
   }
-    
-  @media screen and (min-width: 100px) and (max-width: 365px) {
-    .create-user-container {
-      width: 90%;
-      padding: 14px 10px;
-      border-radius: 10px;
-      height: auto;
-    }
-  
-    .create-user-container h3 {
-      font-size: 20px;
-      font-weight: 500;
-      margin-bottom: 14px;
-    }
-  
-    .form-group {
-      margin-bottom: 15px;
-    }
-  
-    .form-group label {
-      font-size: 12px;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-  
-    .form-control {
-      padding: 9px 13px;
-      font-size: 15px;
-      border-radius: 3px;
-    }
-  
-    input[type="file"] {
-      font-size: 12px;
-    }
-  
-    .user-btn {
-      padding: 9px 14px;
-      font-size: 12px;
-      width: 50%;
-      font-weight: 500;
-    }
+}
+
+@media only screen and (min-width:501px) and (max-width:700px) {
+  .heading {
+    font-size: 19px;
+    font-weight: bold;
   }
-    
+
+  .update-label {
+    font-size: 15px;
+  }
+
+  .updatebox .user-btn {
+    padding: 10px;
+  }
+}
+
+@media only screen and (min-width:701px) and (max-width:800px) {
+  .heading {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .update-label {
+    font-size: 15px;
+  }
+
+  .updatebox .user-btn {
+    padding: 10px;
+  }
+}

@@ -145,7 +145,7 @@
     background-color: #0056b3;
 }
 
-.label-name {
+.userslabel-name {
     display: block;
 }
 
@@ -176,182 +176,261 @@
     display: none;
 }
 
-
-@media screen and (max-width: 768px){
-    .users-btn {
-        background-color: #023265;
-        color: white;
-        width: 25%;
-        border-radius: 50px;
-        position: relative;
-        right: 20%;
-        padding: 6px 10px;
-    }
-    
-    .users-btn:hover {
-        background: rgb(1, 1, 99);
-    }
-    
-    .admin-header-container-user .createbutton{
-        font-size: 13px;
-        color: white;
-        cursor: pointer;
+@media only screen and (min-width:319px) and (max-width:500px) {
+    .admin-header-user{
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: row; 
+        gap: 5px;      
     }
 
-    .admin-header-container-user .user-addicon{
-        font-size: 18px;
-        color: white;
-        cursor: pointer;
+    .admin-slidebar{
+        display: none;
     }
 
-    .users-table {
-        position: relative;
-        border-collapse: collapse;
-        margin: auto;
-        width: 80%;
-        top: 15%;
-        box-shadow: 1px 7px 15px gainsboro;
-    }
-    
-    .users-table th {
-        padding:5px  10px;
-        font-size: 12px;
-        text-transform: uppercase;
-        background-color: #023265;
-        color: white;
-        border-bottom: 1px solid gainsboro;
-    }
-    
-    .users-table td {
-        font-size: 14px;
-        font-weight: 200;
-        font-family: "Poppins",sans-serif;
-    }
-    
-    .users-table tbody td {
-        padding: 5px 7px;
-    }
-    
-    .users-table tbody tr:hover {
-        background: rgb(221, 220, 220);
-    }
-    
-    .delete-btn .userdelete-icon {
-        border: none;
-        background: none;
-        font-size: 20px;
-        cursor: pointer;
-    }
-
-    .edit-btn .useredit-icon{
-        border: none;
-        background: none;
-        font-size: 15px;
-        cursor: pointer;
-    }
-    
-    .edit-btn {
-        color: rgb(2, 103, 2);
-    }
-    
-    .delete-btn {
-        color: rgb(148, 9, 9);
-    }
-    
-    .edit-btn:hover,
-    .delete-btn:hover {
-        transform: scale(1.2);
-    }
-    
     .admin-header-container-user {
         display: flex;
         align-items: center;
         justify-content:space-between;
         padding: 10px;
         margin: auto;
-        width: 80%;
-        border-radius: 5px;
+        width: 100% !important;
+        margin-top: 15px;
     }
-    
-    .admin-header-container-user .admin-header {
+
+    .upload-button1,
+    .upload-button2 {
+    color: white;
+    border: none;
+    padding: 2px 6px;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+
+    .upload-button1 svg,
+    .upload-button2 svg {
+        font-size: 20px;
+    }
+
+    .userslabel-name{
+        font-size: 12px;
+    }
+
+    .file-label {
+        background-color: #0056b3;
+        padding: 2px 6px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .tablerow-user{
+        text-align: center;
         display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 5px;
-        padding-top: 20px;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: bold;
     }
-    
-    .admin-header .upload-button3{
-        background-color: green;
+
+    .users-table{
+        /* border: 1px solid black; */
+        border-collapse:collapse;
+        margin: auto;
+        width: 100%;
+        box-shadow: 1px 7px 15px gainsboro;
+    }
+
+    .userdata-container {
+        margin-left: 0% !important;
+        height: 100vh;
+    }  
+
+    .admin-header-container-user .createbutton{
+        font-size: 12px;
         color: white;
-        border: none;
-        padding: 6px 10px;
-        border-radius: 5px;
+        cursor: pointer;
+    }
+    .admin-header-container-user .user-addicon{
+        font-size: 12px;
+        color: white;
         cursor: pointer;
     }
 
-    .admin-header .upload-button4 {
-        background-color: rgb(222, 148, 9);
+    .users-table thead th{
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .users-table td {
+        font-size: 14px;
+        font-weight: 200;
+        font-family: "Poppins", sans-serif;
+    }
+    
+    .users-table tbody td {
+        padding: 5px;
+        border-bottom: 1px solid black;
+    }
+    
+    .users-table th{
+        padding: 8px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: #023265;
         color: white;
+        border-bottom: 1px solid gainsboro;
+    }
+
+    .users-btn {
+        background-color: #023265;
+        color: white;
+        border-radius: 50px;
         border: none;
-        padding: 6px 10px;
-        border-radius: 5px;
+        padding: 5px;
+    }
+    
+    .users-table tbody tr:hover{
+        background:  rgb(221, 220, 220);
+    }
+    
+    .table-container{
+        height: 70vh;
+        border: 1px solid black;
+        width: 90%;
+        margin: auto;
+        overflow-y: auto;
+    }
+    
+    .delete-btn .userdelete-icon{
+        font-size: 20px;
+        color: darkred;
         cursor: pointer;
     }
-    
-    .upload-button3:hover {
-        background-color: #27ae60;
-        transform: scale(1.05);
+
+   .edit-btn .useredit-icon{
+        font-size: 20px;
+        color: green;
+        cursor: pointer;
     }
-    
-    .upload-button4:hover {
-        background-color: #d35400;
-        transform: scale(1.05);
+}
+
+@media only screen and (min-width:501px) and (max-width:768px) {
+    .admin-header-user {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
     }
-    
-    .upload-button3 svg,
-    .upload-button4 svg {
-        font-size: 22px;
-    }
-    
-    .file-input {
+    .admin-slidebar{
         display: none;
     }
-    
-    .file-label {
-        background-color: #007bff;
+
+    .admin-header-container-user {
+        display: flex;
+        align-items: center;
+        justify-content:space-between;
+        padding: 10px;
+        margin: auto;
+        width: 100% !important;
+        margin-top: 15px;
+    }
+
+    .users-table{
+        /* border: 1px solid black; */
+        border-collapse:collapse;
+        margin: auto;
+        width: 100%;
+        box-shadow: 1px 7px 15px gainsboro;
+    }
+
+    .userdata-container {
+        margin-left: 0% !important;
+        height: 100vh;
+    }  
+
+    .admin-header-container-user .createbutton{
+        font-size: 14px;
         color: white;
-        padding: 10px 15px;
-        border-radius: 5px;
         cursor: pointer;
-        display: inline-block;
-        font-weight: bold;
+    }
+    .admin-header-container-user .user-addicon{
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .users-table thead th{
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+    
+    .users-table td{
+        font-size: 14px;
+        font-weight: 200;
+        font-family: "Poppins",sans-serif;
+    }
+    
+    .users-table th{
+        padding: 8px;
         font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: #023265;
+        color: white;
+        border-bottom: 1px solid gainsboro;
     }
     
-    .file-label:hover {
-        background-color: #0056b3;
+    .users-table tbody td{
+        padding: 5px;
+        border-bottom: 1px solid black;
     }
     
-    .label-name {
-        display: block;
+    .users-table tbody tr:hover{
+        background:  rgb(221, 220, 220);
     }
     
+    .tablerow-user{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    
+    .table-container{
+        height: 70vh;
+        border: 1px solid black;
+        width: 90%;
+        margin: auto;
+        overflow-y: auto;
+    }
+    
+    .delete-btn .userdelete-icon{
+        font-size: 20px;
+        color: darkred;
+        cursor: pointer;
+    }
+
     .edit-btn .useredit-icon{
         font-size: 20px;
         color: green;
         cursor: pointer;
     }
     
-    .edit-btn .userdelete-icon{
-        font-size: 20px;
-        color: darkred;
-        cursor: pointer;
-    }
 }
 
-/* .ajay{
-    position: sticky;
-    top: 100px !important ;
+@media only screen and (max-width:768px) {
+    .admin-slidebar{
+       display: none;
+   }
+}
 
-} */
+@media only screen and (min-width:500.11px) and (max-width:768px) {
+    .admin-header-container-user{
+        margin-top: 20px;
+    }
+
+}

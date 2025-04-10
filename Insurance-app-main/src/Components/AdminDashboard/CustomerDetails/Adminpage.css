@@ -135,6 +135,10 @@
     margin-left: 10px;
 }
 
+.label-name {
+    display: block;
+}
+
 .admin-header .file-input {
     display: none;
 }
@@ -175,10 +179,10 @@
 
 @media only screen and (min-width:319px) and (max-width:500px) {
     .admin-header{
-        /* background-color: red; */
         flex-wrap: wrap;
         display: flex;
-        flex-direction: column;      
+        flex-direction: row; 
+        gap: 2px;     
     }
 
     .admin-slidebar{
@@ -195,6 +199,32 @@
         margin-top: 15px;
     }
 
+    .admin-header .upload-button3, 
+    .admin-header .upload-button4 {
+        color: white;
+        border: none;
+        padding: 2px 6px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .upload-button3 svg,
+    .upload-button4 svg {
+        font-size: 20px;
+    }
+
+    .file-label {
+        background-color: #0056b3;
+        padding: 2px 6px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .label-name{
+        font-size: 12px;
+    }
+
     .tablerow-admin{
         text-align: center;
         display: flex;
@@ -204,9 +234,9 @@
     }
 
     .admin-table{
+        /* border: 1px solid black; */
         border-collapse:collapse;
         margin: auto;
-        width: 100%;
         box-shadow: 1px 7px 15px gainsboro;
     }
 
@@ -216,12 +246,12 @@
     }  
 
     .admin-header-container .addbutton{
-        font-size: 14px;
+        font-size: 12px;
         color: white;
         cursor: pointer;
     }
     .admin-header-container .addicon{
-        font-size: 20px;
+        font-size: 18px;
         color: white;
         cursor: pointer;
     }
@@ -250,6 +280,7 @@
     
     .admin-table tbody td{
         padding: 5px;
+        border-bottom: 1px solid black;
     }
     
     .admin-table tbody tr:hover{
@@ -258,7 +289,9 @@
     
     .admintable-container{
         height: 70vh;
-        padding: 0 20px 0 20px;
+        width: 90%;
+        border: 1px solid black;
+        margin: auto;
         overflow-y: auto;
     }
     .adminbutton{
@@ -270,6 +303,13 @@
         font-size: 20px;
         color: green;
         cursor: pointer;
+    }
+    .admin-btn{
+        background-color: #023265;
+        color:white;
+        border-radius: 50px;
+        padding: 10px;
+        border: none;
     }
     
     .delete-button .deleteicon{
@@ -307,6 +347,7 @@
     }
 
     .admin-table{
+        /* border: 1px solid black; */
         border-collapse:collapse;
         margin: auto;
         width: 100%;
@@ -353,6 +394,7 @@
     
     .admin-table tbody td{
         padding: 5px;
+        border-bottom: 1px solid black;
     }
     
     .admin-table tbody tr:hover{
@@ -369,7 +411,9 @@
     
     .admintable-container{
         height: 70vh;
-        padding: 0 20px 0 20px;
+        border: 1px solid black;
+        width: 90%;
+        margin: auto;
         overflow-y: auto;
     }
     .adminbutton{
@@ -411,5 +455,58 @@
 }
 
 @media only screen and (min-width:769px) and (max-width:1024px) {
+    .admin-table tbody td{
+        padding: 10px;
+    }
+}
+
+@media only screen and (min-width:769px) and (max-width:1009px){
+    .tablerow-admin{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .admin-table th{
+        padding: 8px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: #023265;
+        color: white;
+        border-bottom: 1px solid gainsboro;
+    }
+    .admin-table tbody td{
+        padding: 4px;
+    }
+    .adminbutton .editicon{
+        font-size: 20px;
+        color: green;
+        cursor: pointer;
+    }
     
+    .delete-button .deleteicon{
+        font-size: 19px;
+        color: darkred;
+        cursor: pointer;
+    }
+
+    .admin-table tbody .edit-btn .edit-icon{
+        font-size: 19px;
+        color: green;
+        cursor: pointer;
+    }
+    
+}
+
+@media only screen and (min-width:1025px) and (max-width:1113px) {
+    .admin-table td{
+        font-size: 14px;
+        font-weight: 200;
+        font-family: "Poppins",sans-serif;
+    }
+    .admin-table tbody td{
+        padding: 3px;
+    }
 }

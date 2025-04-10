@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import '../Admincreateform/Create.css'
 // import User from './User';
 import { apiurl } from '../../url';
 import { UserContext } from '../../usecontext';
@@ -66,28 +66,28 @@ const Create = ({close}) => {
         
   return (
     <div >
-      <form onSubmit={handleSubmit}>
-        <h3 className='text-center'>Admin Create Data</h3>
+      <form className='create-form' onSubmit={handleSubmit}>
+        <h3 className='text-center create-head'>Admin Create Data</h3>
         <div className='mt-3 form-gruop'>
-            <label>Email</label>
+            <label className='create-label'>Email</label>
             <input type='email' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,email:e.target.value})}/>
         </div>
         <div className='mt-3 form-gruop'>
-            <label>StartDate</label>
+            <label className='create-label'>StartDate</label>
             <input type='date' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,startdate:e.target.value})} />
         </div>
         <div className='mt-3 form-gruop'>
-            <label>EndData</label>
+            <label className='create-label'>EndData</label>
             <input type='date' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,enddate:e.target.value})} />
         </div>
         <div className='mt-3 form-gruop'>
-            <label>Policy</label>
+            <label className='create-label'>Policy</label>
             <input type='text' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,policy:e.target.value})} />
         </div>
         <div className='mt-3'>
           <input type='file' accept='*/*' onChange={handleFileChange} className='mt-3'/>
         </div>
-        <button className='btn user-btn mt-3' style={{backgroundColor:"#333",width:"30%"}}>Submit</button>
+        <button className='btn user-btn mt-3' style={{backgroundColor:"#333"}}>Submit</button>
       </form>
       <ToastContainer position='top-right' autoClose={3000}/>
 

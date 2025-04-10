@@ -175,7 +175,7 @@ const Adminpage = () => {
               onChange={(e) => setFile(e.target.files[0])}
             />
             <label htmlFor="fileInput" className="file-label">
-              <span className="label-name">Choose File</span>
+              <span className="text-white label-name">Choose File</span>
             </label>
             {file && <span className="file-name">{file.name}</span>}
             <button className="upload-button4" onClick={handleUpload}>
@@ -185,10 +185,10 @@ const Adminpage = () => {
         </div>
 
         <div>    
-        <p className='tablerow-admin'>USER DETAILS</p>
+        <p className='tablerow-admin'>CUSTOMER DETAILS</p>
         </div>
 
-        <div className='admintable-container'>
+        <div className='admintable-container table-div'>
           <table className='text-center admin-table '>
             <thead>
               <tr>

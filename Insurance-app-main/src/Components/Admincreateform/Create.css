@@ -1,52 +1,35 @@
-.adminregister-form{
-    width: 80%;
-}
-
-.adminregister-btn{
-    background-color: #333;
-}
-
-.adminregister-btn:hover{
-    background-color: #5d5c5c;
-}
-
-.user-checkbox{
-    display: flex;
-    justify-content: space-around; 
-}
-
 @media only screen and (min-width:319px) and (max-width:400px){
-    .register-head{
+    .create-head{
         font-size: 18px;
         font-weight: bold;
     }
-    .register-label{
+    .create-label{
         font-size: 14px;
     }
 }
 
 @media only screen and (min-width:401px) and (max-width:500px){
-    .register-head{
+    .create-head{
         font-size: 19px;
         font-weight: bold;
     }
-    .register-label{
+    .create-label{
         font-size: 15px;
     }
-    .adminregister-btn{
+    .create-form .user-btn{
         padding: 10px;
     }
 }
 
 @media only screen and (min-width:701px) and (max-width:800px){
-    .register-head{
+    .create-head{
         font-size: 20px;
         font-weight: bold;
     }
-    .register-label{
+    .create-label{
         font-size: 15px;
     }
-    .adminregister-btn{
+    .create-form .user-btn{
         padding: 10px;
     }
 }

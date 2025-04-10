@@ -32,7 +32,6 @@ const Users = () => {
   }
   const [value, setValue] = useState([])
   useEffect(() => {
-    console.log("ajtha")
     axios.get(`${apiurl}/getuser`,{
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -99,8 +98,8 @@ const Users = () => {
     <div>
         <div className='users-container'>
           <div className="admin-header-container-user">
-            <button className='users-btn' onClick={handleDialog}><span className='createbutton'>Create Account </span>{" "}
-              <AddIcon className="user-addicon" />
+            <button className='users-btn' onClick={handleDialog}>
+              <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
             </button>
             <div className="admin-header-user">
               <button className="upload-button1" onClick={handleDownload}>
@@ -113,7 +112,7 @@ const Users = () => {
                 onChange={(e) => setFile(e.target.files[0])}
               />
               <label htmlFor="fileInput" className="file-label">
-                <span className="label-name">Choose File</span>
+                <span className="text-white userslabel-name">Choose File</span>
               </label>
               {file && <span className="file-name">{file.name}</span>}
               <button className="upload-button2" onClick={handleUpload}>
@@ -146,7 +145,7 @@ const Users = () => {
                       <button className='edit-btn' onClick={() => handleupdate(data.id)}>
                         <FaEdit  className='useredit-icon'/>
                       </button>
-                      <button className='ms-3 delete-btn' onClick={() => handleDelete(data.id)}>
+                      <button className='delete-btn' onClick={() => handleDelete(data.id)}>
                         <RiDeleteBinFill className='userdelete-icon' />
                       </button>
                     </td>

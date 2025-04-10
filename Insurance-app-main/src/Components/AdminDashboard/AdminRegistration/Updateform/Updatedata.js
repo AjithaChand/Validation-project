@@ -4,6 +4,7 @@ import '../Updateform/Updatedata.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from '../../../../url';
+import '../Updateform/Updatedata.css';
 
 const Updatedata = ( {selectid , close} ) => {
 
@@ -79,20 +80,20 @@ const handleSubmit = (e) =>{
   return (
     <div >
       <form onSubmit={handleSubmit} className='update-form' >
-        <h3 className='text-center mt-2'>Update Data</h3>
+        <h3 className='text-center updatehead mt-2'>Update Data</h3>
         <div className='form-group mt-3'>
-          <label>Username</label>
+          <label className='userupdate-label'>Username</label>
           <input className='form-control' type='text' value={datas.username} onChange={e=>setData({...datas,username:e.target.value})} placeholder='Enter your username' />
         </div>
         <div className='form-group mt-3'>
-          <label>Email</label>
+          <label className='userupdate-label'>Email</label>
           <input type='email' className='form-control' value={datas.email} onChange={e=>setData({...datas,email:e.target.value})} placeholder='Enter your email' />
         </div>
         <div className='form-group mt-3'>
-          <label>Password</label>
+          <label className='userupdate-label'>Password</label>
           <input type='password' className='form-control' value={datas.password} onChange={e=>setData({...datas,password:e.target.value})} placeholder='Enter your password' />
         </div>
-        <button className='btn mt-4' style={{backgroundColor:"#333"}}>Submit</button>
+        <button className='btn userupdate-btn mt-4' style={{backgroundColor:"#333"}}>Submit</button>
       </form>
       <ToastContainer position='top-right' autoClose={3000} />
     </div>

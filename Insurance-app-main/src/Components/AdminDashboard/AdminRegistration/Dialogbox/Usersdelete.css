@@ -74,3 +74,87 @@
     justify-content: center;
     gap: 30px;
 }
+
+@media only screen and (min-width:319px) and (max-width:400px){
+    .userdeletedialog-content{
+        width: 70%;
+    }
+    .userdelete-confirmbox p{
+        font-size: 16px;
+        padding: 5px;
+    }
+    .userdelete-box .userdelete-confirm-btn{
+        padding: 5px;
+        width: 30%;
+        font-size: 14px;
+    }
+    
+    .userdelete-box .userdelete-cancel-btn{
+        padding: 5px;
+        width: 30%;
+        font-size: 14px;
+    } 
+}
+
+@media only screen and (min-width:401px) and (max-width:500px){
+    .userdeletedialog-content{
+        width: 50%;
+    }
+    .userdelete-confirmbox p{
+        font-size: 19px;
+        padding: 5px;
+    }
+    .userdelete-box .userdelete-confirm-btn{
+        padding: 7px;
+        width: 35%;
+        font-size: 16px;
+    }
+    
+    .userdelete-box .userdelete-cancel-btn{
+        padding: 5px;
+        width: 35%;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width:501px) and (max-width:700px){
+    .userdeletedialog-content{
+        width: 40%;
+    }
+    .userdelete-confirmbox p{
+        font-size: 19px;
+        padding: 5px;
+    }
+    .userdelete-box .userdelete-confirm-btn{
+        padding: 5px;
+        width: 35%;
+        font-size: 16px;
+    }
+    
+    .userdelete-box .userdelete-cancel-btn{
+        padding: 5px;
+        width: 35%;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width:701px) and (max-width:1024px){
+    .userdeletedialog-content{
+        width: 30%;
+    }
+    .userdelete-confirmbox p{
+        font-size: 19px;
+        padding: 5px;
+    }
+    .userdelete-box .userdelete-confirm-btn{
+        padding: 5px;
+        width: 35%;
+        font-size: 16px;
+    }
+    
+    .userdelete-box .userdelete-cancel-btn{
+        padding: 5px;
+        width: 35%;
+        font-size: 16px;
+    }
+}

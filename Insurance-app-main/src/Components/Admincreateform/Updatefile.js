@@ -109,9 +109,9 @@ const Updatefile = ({ close,selectid}) => {
         <div>
             <div className='updatebox'>
             <form onSubmit={handleSubmit}>
-                <h3 className='heading'> Admin Update Data</h3>
+                <h3 className='heading mt-2 text-center'> Admin Update Data</h3>
                 <div className='mt-3 form-group'>
-                    <label>Email</label>
+                    <label className='update-label'>Email</label>
                     <input 
                         type='email' 
                         className='form-control' 
@@ -120,7 +120,7 @@ const Updatefile = ({ close,selectid}) => {
                     />
                 </div>
                 <div className='mt-3 form-group'>
-                    <label>StartDate</label>
+                    <label className='update-label'>StartDate</label>
                     <input 
                         type='date' 
                         className='form-control' 
@@ -129,7 +129,7 @@ const Updatefile = ({ close,selectid}) => {
                     />
                 </div>
                 <div className='mt-3 form-group'>
-                    <label>EndDate</label>
+                    <label className='update-label'>EndDate</label>
                     <input 
                         type='date' 
                         className='form-control' 
@@ -138,7 +138,7 @@ const Updatefile = ({ close,selectid}) => {
                     />
                 </div>
                 <div className='mt-3 form-group'>
-                    <label>Policy</label>
+                    <label className='update-label'>Policy</label>
                     <input 
                         type='text' 
                         className='form-control' 
@@ -154,7 +154,7 @@ const Updatefile = ({ close,selectid}) => {
             className="mt-3"
           />
         </div>
-          <button className='btn user-btn mt-3' >Submit</button>
+          <button className='btn user-btn mt-3' style={{backgroundColor:"#333"}} >Submit</button>
             </form>
             <ToastContainer position='top-right' autoClose={3000} />
             </div>
