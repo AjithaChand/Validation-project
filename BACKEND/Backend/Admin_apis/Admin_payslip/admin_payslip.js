@@ -177,29 +177,44 @@ app.put('/admin-edit-salary',(req, res) => {
 
 
 
-// app.get("/get-user-payslip", (req, res) => {
-//   const email = req.query.email;
+// All Employee Names Send To Frontend;
 
-//   if (!email) {
-//     return res.status(400).json({ error: "Email is required" });
-//   }
-
-//   const query = "SELECT total_salary, pf_amount, esi_amount, gross_salary, net_amount FROM payslip WHERE emp_email = ?";
-
-//   db.query(query, [email], (err, results) => {
-//     if (err) {
-//       console.error("Error fetching payslip:", err);
-//       return res.status(500).json({ error: "Database error" });
-//     }
-
-//     if (results.length === 0) {
-//       return res.status(404).json({ error: "No payslip found for this email" });
-//     }
-	
-// 	res.send({results:results[0]});
-//   });
-// });
-
-
-
+app.get("/get-all-employee-names", (req, res) => {
+    const selectQuery = "SELECT username FROM users";
+  
+    db.query(selectQuery, (err, results) => {
+      if (err) {
+        console.log("Database Error:", err);
+        return res.status(500).json({ message: "Database Error" });
+      }
+      
+      console.log("Successfully sent all usernames");
+      return res.status(200).json({ results });
+    });
+  });
+  
+  app.get("/get-single-employee-data", (req, res) => {
+    const { name } = req.query;
+  
+    if (!name) {
+      return res.status(400).json({ message: "Name query parameter is required" });
+    }
+  
+    const selectQuery = "SELECT emp_email, total_salary, pf_amount, esi_amount, net_amount FROM payslip WHERE emp_name = ?";
+    
+    db.query(selectQuery, [name], (err, info) => {
+      if (err) {
+        console.log("Database Error:", err);
+        return res.status(500).json({ message: "Database Error" });
+      }
+  
+      if (info.length === 0) {
+        return res.status(404).json({ message: "No employee found with this name" });
+      }
+  
+      console.log("Fetched Employee Data:", info[0]); 
+      return res.status(200).json({ results: info[0] });
+    });
+  });
+  
 module.exports=app;

@@ -14,7 +14,7 @@ import Updatedata from './Components/AdminDashboard/AdminRegistration/Updateform
 import { UserProvider } from "./usecontext";  
 import Updatefile from './Components/Admincreateform/Updatefile';
 import Payslip from './Components/AdminDashboard/Payslip/payslip';
-import PayslipUser from './Components/AdminDashboard/Payslip/Payslipuser';
+
 const App = () => {
 return (
     <UserProvider>
@@ -30,7 +30,7 @@ return (
             <Route path='users' element={<Users />} />
             <Route path='home' element={<User />} />
             <Route path='payslip' element={<Payslip />} />
-            <Route path='payslipUser' element={<PayslipUser />} />
+           
           </Route>
           <Route path='/getuser/:id' element={<Users />} />
           <Route path='/edituser/:id' element={<Updatedata />} />
