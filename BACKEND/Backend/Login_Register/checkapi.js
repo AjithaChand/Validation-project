@@ -1,5 +1,5 @@
 const express = require('express');
-const verifyToken = require('../Login_Register/auth');
+const {verifyToken} = require('../Login_Register/auth')
 const cors = require('cors')
 const app = express();
 

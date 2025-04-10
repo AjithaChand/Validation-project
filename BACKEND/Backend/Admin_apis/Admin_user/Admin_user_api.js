@@ -6,7 +6,9 @@ const multer = require("multer");
 const path =require ("path")
 const fs = require("fs")
 
-const verifyToken=require('../../Login_Register/auth')
+// const verifyToken=require('../../Login_Register/auth')
+
+const {verifyToken,verifyAdmin}=require('../../Login_Register/auth')
 
 const app= express();
 app.use(cors());
@@ -17,7 +19,7 @@ const db = require('../../db');
 //Admin registraion from admin page
 
 
-app.post("/admin/register",verifyToken,(req, res) => {
+app.post("/admin/register",verifyToken,verifyAdmin,(req, res) => {
     const { username, email, password, role } = req.body;
 
     console.log(`FOr Checking to Login`,username,email,password,role);
@@ -49,7 +51,7 @@ app.post("/admin/register",verifyToken,(req, res) => {
 // Get all users
 
 
-app.get('/getuser',verifyToken, (req, res) => {
+app.get('/getuser',verifyToken,verifyAdmin, (req, res) => {
     const sql = "SELECT * FROM users"
     db.query(sql, (err, result) => {
         if (err)
@@ -62,7 +64,7 @@ app.get('/getuser',verifyToken, (req, res) => {
 
 //Edit data for single user
 
-app.get('/getuser/:id',verifyToken, (req, res) => {
+app.get('/getuser/:id',verifyToken,verifyAdmin, (req, res) => {
     const id = req.params.id;
     const sql = "SELECT * FROM users WHERE id = ?";
 
@@ -83,7 +85,7 @@ app.get('/getuser/:id',verifyToken, (req, res) => {
 
 //Edit user
 
-app.put('/edituser/:id',verifyToken,async(req,res)=>{
+app.put('/edituser/:id',verifyToken,verifyAdmin,async(req,res)=>{
     const id = req.params.id;
     const {username,email,password} = req.body;
 
@@ -103,7 +105,7 @@ app.put('/edituser/:id',verifyToken,async(req,res)=>{
 
 
 
-app.delete('/delete/:id',verifyToken,(req,res)=>{
+app.delete('/delete/:id',verifyToken,verifyAdmin,(req,res)=>{
  
     const id = req.params.id;
 

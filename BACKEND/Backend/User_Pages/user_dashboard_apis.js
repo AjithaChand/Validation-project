@@ -6,7 +6,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-const verifyToken = require('../Login_Register/auth')
+const {verifyToken,verifyUser} = require('../Login_Register/auth')
 
 const app = express();
 app.use(cors());
@@ -38,7 +38,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Create customer table in user
-app.post("/create-for-user",verifyToken, upload.single("file"), (req, res) => {
+app.post("/create-for-user",verifyToken,verifyUser, upload.single("file"), (req, res) => {
     const { email, startdate, enddate, policy } = req.body;
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
 
@@ -83,7 +83,7 @@ app.post("/create-for-user",verifyToken, upload.single("file"), (req, res) => {
 //     });
 // });
 
-app.get("/data-for-user-edit-by-email/:email",verifyToken,(req, res) => {
+app.get("/data-for-user-edit-by-email/:email",verifyToken,verifyUser,(req, res) => {
     console.log("FULL URL:", req.originalUrl);
     console.log("PARAMS:", req.params);
     console.log("EMAIL from params:", req.params.email);
@@ -111,7 +111,7 @@ db.query(query, [email], (err, result) => {
 });
 
 // Update user details
-app.put("/edit-user-data-by-email/:email",verifyToken, upload.single("file"), (req, res) => {
+app.put("/edit-user-data-by-email/:email",verifyToken,verifyUser, upload.single("file"), (req, res) => {
     const email = req.params.email;
     let { startdate, enddate, policy } = req.body;
     const filePath = req.file ? `/uploads/${req.file.filename}` : req.body.file_path;

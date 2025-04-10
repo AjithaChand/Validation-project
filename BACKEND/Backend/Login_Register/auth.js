@@ -18,7 +18,24 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-module.exports = verifyToken;
+
+
+const verifyAdmin = (req, res, next) => {
+  if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Admins only." });
+  }
+  next();
+};
+
+const verifyUser = (req, res, next) => {
+  if (req.user.role !== "user") {
+      return res.status(403).json({ message: "Users only." });
+  }
+  next();
+};
+module.exports = {verifyToken,verifyAdmin,verifyUser};
+
+// module.exports =verifyToken;
 
 
 
