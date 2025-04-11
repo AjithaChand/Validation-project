@@ -44,6 +44,8 @@ const Users = () => {
       })
       .catch(err => console.log(err))
   }, [])
+  console.log("fdddddddd",value);
+  
 
   const handleLogout = () => {
     setShowconfirm(true);
@@ -132,6 +134,7 @@ const Users = () => {
                   <th>Username</th>
                   <th>Email</th>
                   <th>Password</th>
+                  <th>Salary</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -141,6 +144,7 @@ const Users = () => {
                     <td>{data.username}</td>
                     <td>{data.email}</td>
                     <td>{data.password}</td>
+                    <td>{data.total_salary !== null ? data.total_salary : 'N/A'}</td>
                     <td>
                       <button className='edit-btn' onClick={() => handleupdate(data.id)}>
                         <FaEdit  className='useredit-icon'/>

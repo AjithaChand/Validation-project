@@ -38,7 +38,8 @@ app.post("/login", (req, res) => {
 
         const user = result[0];
 
-     
+            console.log(info,"Its contain Person_Code");
+            
         if (password !== user.password) {
             return res.status(400).json({ error: "Invalid password" });
         }

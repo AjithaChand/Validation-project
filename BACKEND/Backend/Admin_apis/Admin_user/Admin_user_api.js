@@ -89,7 +89,7 @@ app.post("/admin/register", verifyToken, verifyAdmin, (req, res) => {
 
 
 app.get('/getuser', verifyToken, verifyAdmin, (req, res) => {
-    const sql = "SELECT * FROM users"
+    const sql = "SELECT u.*, p.total_salary FROM users u LEFT JOIN payslip p ON u.email = p.emp_email";
     db.query(sql, (err, result) => {
         if (err)
             return res.status(500).json({ error: err.message })

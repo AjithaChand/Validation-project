@@ -25,6 +25,9 @@ const User = () => {
 
   const { update } = useContext(UserContext)
   const { refreshFromCreate } = useContext(UserContext)
+
+  const {results} = useContext(UserContext);
+
   // const { userId } = useContext(UserContext);
 
   console.log("I am from User.jsx", shareId);
@@ -132,7 +135,10 @@ console.log(dd,"kk")
     setShowform(!showform);
   };
 
-
+const handleClick = () =>{
+  console.log(results[0]);
+  
+}
   return (
     <div className='user-containerform'>
       <div className="user-headerpage">
@@ -185,6 +191,7 @@ console.log(dd,"kk")
           <button className='btn mt-5 user-btn' onClick={toggleForm}>Add Details</button>
         </div>
       )}
+      <button onClick={handleClick}>Show</button>
 
       <Formpopup isVisible={showform} onClose={toggleForm} />
       <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} />
