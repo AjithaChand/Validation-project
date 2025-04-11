@@ -3,6 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { apiurl } from "../../../url";
 import "./Payslipdialog.css"
+import { MdCancel } from "react-icons/md";
+
 const PayslipDialog = ({ onClose, onUploadSuccess,generatePDF }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,6 +18,7 @@ const PayslipDialog = ({ onClose, onUploadSuccess,generatePDF }) => {
     localStorage.setItem("lastPfNumber", nextNumber);
     return pf;
   };
+
 
   const handleSubmit = async () => {
     if (!name || !email || !salary) {
@@ -63,31 +66,41 @@ const PayslipDialog = ({ onClose, onUploadSuccess,generatePDF }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>Upload New Payslip</h2>
+      <button className="uploadpayslip-button-cancel" onClick={onClose}><MdCancel /></button>
+        <h2 className="upload">Upload Payslip</h2>
+        <div className="uploadinput-fields">
+        <label>Name</label>
         <input
           type="text"
           placeholder="Name"
-          className="payslipinput"
+          className="uploadpayslipinput"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+        </div>
+        <div className="uploadinput-fields">
+         <label>Email</label>
         <input
           type="email"
           placeholder="Email"
-          className="payslipinput"
+          className="uploadpayslipinput"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        </div>
+        <div className="uploadinput-fields">
+         <label>Salary</label>
         <input
           type="number"
           placeholder="Salary"
-          className="payslipinput"
+          className="uploadpayslipinput"
           value={salary}
           onChange={(e) => setSalary(Number(e.target.value))}
         />
+        </div>
         <div className="modal-buttons">
-          <button className="payslip-button" onClick={handleSubmit}>submit</button>
-          <button className="payslip-button cancel" onClick={onClose}>Cancel</button>
+          <button className="uploadpayslip-button" onClick={handleSubmit}>submit</button>
+         
         
         </div>
       </div>

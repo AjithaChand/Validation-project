@@ -200,7 +200,7 @@ app.get("/get-all-employee-names", (req, res) => {
       return res.status(400).json({ message: "Name query parameter is required" });
     }
   
-    const selectQuery = "SELECT emp_email, total_salary, pf_amount, esi_amount, net_amount FROM payslip WHERE emp_name = ?";
+    const selectQuery = "SELECT emp_id, emp_email, total_salary, pf_amount, esi_amount, net_amount FROM payslip WHERE emp_name = ?";
     
     db.query(selectQuery, [name], (err, info) => {
       if (err) {
