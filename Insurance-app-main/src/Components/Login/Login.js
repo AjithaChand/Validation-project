@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Login/Login.css'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from '../../url';
@@ -12,6 +12,7 @@ const Login = () => {
 
     const [active, setActive] = useState("login")
 
+    const [results,setResult]=useState([]);
 
     const [values,setValues] = useState({
         email:"",
@@ -27,6 +28,7 @@ const Login = () => {
                 localStorage.setItem("role", res.data.role);
                 localStorage.setItem("username", res.data.username);
                 localStorage.setItem("email", res.data.email);
+                localStorage.setItem("Person_code", res.data.person_code);
                 console.log("Email:", res.data.email);
                 
     console.log(res.data.role,"login response");
@@ -49,7 +51,21 @@ const Login = () => {
     
         console.log("I am from Login Page");
     }
-    
+
+const person_code = localStorage.getItem("Person_code");
+
+console.log("Person Code from LocalStorage:", person_code);
+
+
+useEffect(()=>{
+    if(person_code){
+        axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
+        .then(result=>setResult(result.data.info))
+        .catch(err=>console.log(err.message))
+    }
+},[person_code])
+
+console.log("All results from login",results);
 
     return (
         <div className='login-container' style={{height:"100vh",width:"100vw"}}>
