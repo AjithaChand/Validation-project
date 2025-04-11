@@ -8,11 +8,11 @@ export const UserProvider = ({ children }) => {
   const [refreshFromUpdate,setRefreshFromUpdate]=useState(true);
   const [refreshFromCreate, setRefreshFromCreate]=useState(true);
   const[refreshCreateFromAdmin,setRefreshCreateFromAdmin]=useState(true);
-
-      const [results,setResult]=useState([]);
+  const [results,setResult]=useState([]);
+  const [value,setValue] = useState([])
   
   return (
-    <UserContext.Provider value={{ userId, setUserId , update, setUpdate, refreshFromUpdate, setRefreshFromUpdate, refreshFromCreate, setRefreshFromCreate, refreshCreateFromAdmin, setRefreshCreateFromAdmin, results, setResult}}>
+    <UserContext.Provider value={{ userId, setUserId , update, setUpdate, refreshFromUpdate, setRefreshFromUpdate, refreshFromCreate, setRefreshFromCreate, refreshCreateFromAdmin, setRefreshCreateFromAdmin, results, setResult, value , setValue}}>
       {children}
     </UserContext.Provider>
   );

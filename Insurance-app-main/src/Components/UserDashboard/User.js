@@ -3,23 +3,21 @@ import axios from 'axios';
 import './User.css';
 import Formpopup from './Dialogbox/Formpopup';
 import Editdialog from './Dialogbox/Editdialog';
-// import { useNavigate } from 'react-router-dom';
-// import { CgProfile } from "react-icons/cg";
-// import { RiLogoutCircleRLine } from "react-icons/ri";
-// import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Modal, Button } from 'react-bootstrap';
 import DescriptionIcon from '@mui/icons-material/Description';
-// import { IoIosCloudUpload } from "react-icons/io";
 import { useContext } from "react";
 import { UserContext } from "../../usecontext";
 import { apiurl } from "../../url";
-// import UserDialog from './UserDialog';
 import { toast } from "react-toastify";
 import EditIcon from '@mui/icons-material/Edit';
 
 const User = () => {
+
+  const [loading ,setLoading] = useState(true)
+
+  const{value,setValue} = useContext(UserContext);
 
   const { shareId } = useContext(UserContext);
 
@@ -28,22 +26,14 @@ const User = () => {
 
   const {results} = useContext(UserContext);
 
-  // const { userId } = useContext(UserContext);
-
   console.log("I am from User.jsx", shareId);
 
   const email = localStorage.getItem('email');
 
-  // const navigate = useNavigate();
-  // const username = localStorage.getItem("username");
-
   const [showedit, setShowEdit] = useState(false);
   const [showform, setShowform] = useState(false);
-  // logout
-  // const [showconfirm, setShowconfirm] = useState(false);
 
-  const [value, setValue] = useState([]);
-  // const [selectid, setSelectid] = useState(null);
+  // const [value, setValue] = useState([]);
 
 const dd = localStorage.getItem("token");
 console.log(dd,"kk")
@@ -51,6 +41,8 @@ console.log(dd,"kk")
   const FetchData = () => {
     if (email) {
       console.log("For checking email",email);
+
+      setLoading(true)
       
       axios.get(`${apiurl}/data-for-user-edit-by-email/${email}`,{
         headers:{
@@ -62,43 +54,31 @@ console.log(dd,"kk")
           console.log("API Response:", res.data);
           setValue(Array.isArray(res.data) ? res.data : res.data.result || []);
           console.log("USer page data",res.data.result);
-          
         })
         .catch(err => {
           console.error("Error fetching data:", err);
           setValue([]);
-        });
+        })
+        .finally(()=>{
+          setLoading(false)
+        })
     }
   }
   useEffect(() => {
     FetchData();
   }, [email, update, refreshFromCreate]);
 
-  console.log(value);        
+  console.log(value);      
 
-
-  //   const handleViewFile = (fileUrl) => {
-  //     if (!fileUrl) {
-  //       toast.error("No file available");
-  //       return;
-  //     }
-
-  // const completeFileUrl = ${apiurl}${fileUrl};
-  //     console.log("File URL:", completeFileUrl);
-
-  //     const fileExtension = fileUrl.split('.').pop().toLowerCase();
-  //     const isImage = ['jpg', 'jpeg', 'png', 'gif', 'avif'].includes(fileExtension);
-  //     const isPdf = fileExtension === 'pdf';
-
-  //     if (isImage || isPdf) {
-  //       setSelectedFile(completeFileUrl);
-  //       setShowModal(true);
-  //     } else {
-  //       toast.error("Unsupported file type");
-  //     }
-  //   };
-
-
+  useEffect(()=>{
+    if(!loading){
+      if(value.length===0){
+        setShowform(true)
+      }else{
+        setShowform(false)
+      }
+    }
+  },[value,loading])
 
   const [showModal, setShowModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState("");
@@ -175,8 +155,8 @@ const handleClick = () =>{
                 ) : ("No File")}
               </td>
               <td className='tablerow'>
-                <button className='user-edit-btn' onClick={() => toggleEdit(data.id)}>
-                  <EditIcon className='user-editbtn' />
+                <button className='user-edit-btn' onClick={() => toggleEdit(data.id)} disabled={results[0]?.can_update !== 1}>
+                  <EditIcon className='user-editbtn'/>
                 </button>
               </td>
             </tr>
@@ -186,11 +166,11 @@ const handleClick = () =>{
       </table>
       </div>
 
-      {value.length === 0 && (
+       {/* {(
         <div className='mt-5 userbtn'>
-          <button className='btn mt-5 user-btn' onClick={toggleForm}>Add Details</button>
+          <button className='btn mt-5 user-btn' onClick={toggleForm} disabled={results[0]?.can_create !== 1}>Add Details</button>
         </div>
-      )}
+      )} */}
       <button onClick={handleClick}>Show</button>
 
       <Formpopup isVisible={showform} onClose={toggleForm} />

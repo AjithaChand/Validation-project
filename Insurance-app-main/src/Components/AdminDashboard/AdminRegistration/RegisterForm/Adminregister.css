@@ -1,5 +1,10 @@
 .adminregister-form{
-    width: 80%;
+    width: 100%;
+}
+
+.adminregister-container{
+    height:100vh ;
+    width:100vw
 }
 
 .adminregister-btn{
@@ -16,10 +21,16 @@
 }
 
 @media only screen and (min-width:319px) and (max-width:400px){
+
+    .adminregister-form{
+        width: 100%;
+    }
+
     .register-head{
         font-size: 18px;
         font-weight: bold;
     }
+
     .register-label{
         font-size: 14px;
     }

@@ -15,8 +15,8 @@ const Adminregister = ({close}) => {
     })
 
     const [permission,setPermission] = useState({
-        create:false,
-        read:false,
+        create:true,
+        read:true,
         update:false,
         remove:false
     })
@@ -57,7 +57,7 @@ const Adminregister = ({close}) => {
     }
 
     return (
-        <div  className='adminregister-container' style={{height:"100vh",width:"100vw"}}>
+        <div  className='adminregister-container'>
             <div className='adminregister-form'>
                 <form onSubmit={handleSubmit} className='adminform-data' style={{ width: "35%" }}>
                     <h3 className='text-center register-head mb-5'>Register Form</h3>

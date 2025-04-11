@@ -23,12 +23,12 @@ return (
           <Route path='/' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/user' element={<Create />} />
-          <Route path='/home' element={<User />} />
+          {/* <Route path='/home' element={<User />} /> */}
           <Route path='/dashboard' element={<Userdata />}>
             <Route index element={<Adminpage />} />
             <Route path='adminpage' element={<Adminpage />} />
             <Route path='users' element={<Users />} />
-            <Route path='home' element={<User />} />
+            {/* <Route path='home' element={<User />} /> */}
             <Route path='payslip' element={<Payslip />} />
            
           </Route>

@@ -42,7 +42,7 @@ const Login = () => {
                     
                 } else {
                     toast.success(res.data.message);
-                    navigate("/dashboard/home");
+                    navigate("/dashboard");
                 }
             })
             .catch(err => {

@@ -93,16 +93,27 @@ const Userdata = () => {
                 <h3 className='userdata-head' >User Panel</h3>
               </div>
               <nav>
-                <ul className='ps-5 user-list'>
-                  <li>
-                    <div className='userdata-btn' onClick={() => navigate('/dashboard/home')}>
-                    <MdDashboard  className='dashboardicons' />{" "}
-                      <span className='dashboard-icon'> Dashboard</span>
-                    </div>
-                  </li>
-                 
-                </ul>
-              </nav>
+            <ul className='ps-5 user-list'>
+              <li>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/adminpage')}>
+                <MdDashboard className='dashboardicons' />{" "}
+                  <span className='dashboard-icon'> Dashboard </span>
+                </div>
+              </li>
+              {/* <li>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
+                <AccountCircleIcon  className='dashboardicons' />{" "}
+                  <span className='dashboard-icon'> Users</span>
+                </div>
+              </li> */}
+              <li>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
+                <FaReceipt  className='dashboardicons' />{" "}
+                  <span className='dashboard-icon'> payslip</span>
+                </div>
+              </li>
+            </ul>
+          </nav>
             </aside>
           </>
           ) : (<></>)}
