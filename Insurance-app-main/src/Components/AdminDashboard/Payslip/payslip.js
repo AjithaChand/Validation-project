@@ -174,7 +174,6 @@ const Payslip = () => {
     }} 
   />
 </div>
-
               <div className="input-fields"><label>PF Amount</label><input value={pfAmount} readOnly /></div>
               <div className="input-fields"><label>ESI Amount</label><input value={esiAmount} readOnly /></div>
               <div className="input-fields"><label>Net Amount</label><input value={netAmount} readOnly /></div>
@@ -234,8 +233,7 @@ const Payslip = () => {
           toast.success("PDF downloaded");
         }}
       />
-      
-      )}
+    )}
 
       <ToastContainer />
     </div>

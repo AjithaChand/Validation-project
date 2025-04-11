@@ -31,7 +31,6 @@ const Login = () => {
                 localStorage.setItem("role", res.data.role);
                 localStorage.setItem("username", res.data.username);
                 localStorage.setItem("email", res.data.email);
-                localStorage.setItem("Person_code", res.data.person_code);
                 
                 fetchPersonDetails(res.data.person_code);
 
@@ -53,11 +52,6 @@ const Login = () => {
     
         console.log("I am from Login Page");
     }
-
-const person_code = localStorage.getItem("Person_code");
-
-console.log("Person Code from LocalStorage:", person_code);
-
 
 const fetchPersonDetails = async (person_code) =>{
         try{
