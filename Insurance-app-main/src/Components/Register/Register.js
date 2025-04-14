@@ -12,11 +12,7 @@ const Register = () => {
     const [values, setValues] = useState({
         username: "",
         email: "",
-        password: "",
-        create : true,
-        read : true,
-        update : false,
-        remove : false
+        password: ""
     })
 
     const handleSubmit = async (e) => {

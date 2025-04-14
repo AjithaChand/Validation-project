@@ -31,7 +31,8 @@ const Login = () => {
                 localStorage.setItem("role", res.data.role);
                 localStorage.setItem("username", res.data.username);
                 localStorage.setItem("email", res.data.email);
-                
+                localStorage.setItem("permission", JSON.stringify(res.data.permission));
+       
                 fetchPersonDetails(res.data.person_code);
 
                 if (res.data.role === "admin") {
@@ -41,6 +42,11 @@ const Login = () => {
 
                     
                 } else {
+
+                    if(!res.data.permission || res.data.permission.length===0){
+                        toast.error("You don't have permission to access this page")
+                        return;
+                    }
                     toast.success(res.data.message);
                     navigate("/dashboard");
                 }

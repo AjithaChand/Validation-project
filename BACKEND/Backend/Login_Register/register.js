@@ -20,7 +20,7 @@ const db = require("../db");
 
 // Registration 
 app.post("/register", (req, res) => {
-    const { username, email, password, create, read, update, remove } = req.body;
+    const { username, email, password} = req.body;
 
     db.query("SELECT * FROM users WHERE email = ?", [email], (err, result) => {
         if (err) return res.status(500).json({ error: "Database error" });
@@ -41,35 +41,37 @@ app.post("/register", (req, res) => {
 
                 if (selectErr) return res.status(500).json({ error: selectErr.message });
 
-                const person_code = selectResult[0]?.person_code;
+                return res.status(200).json({ message: "User Registered successfully" });
 
-                if (!person_code) return res.status(500).json({ error: "Person code not found" });
+    //             const person_code = selectResult[0]?.person_code;
 
-                const pages = ["dashboard", "payslip"];
+    //             if (!person_code) return res.status(500).json({ error: "Person code not found" });
 
-                const permissionSql = `
-                    INSERT INTO permissions (person_code, page_name, can_create, can_read, can_update, can_delete)
-                    VALUES ?
-                `;
-                const permissionValues = pages.map(page => [
-                    person_code,
-                    page,
-                    create,
-                    read,
-                    update,
-                    remove
-                ]);
+    //             const pages = ["dashboard", "payslip"];
 
-                console.log("permissionValues",permissionValues);
+    //             const permissionSql = `
+    //                 INSERT INTO permissions (person_code, page_name, can_create, can_read, can_update, can_delete)
+    //                 VALUES ?
+    //             `;
+    //             const permissionValues = pages.map(page => [
+    //                 person_code,
+    //                 page,
+    //                 create,
+    //                 read,
+    //                 update,
+    //                 remove
+    //             ]);
+
+    //             console.log("permissionValues",permissionValues);
                 
                 
-                db.query(permissionSql, [permissionValues], (permErr) => {
-                    console.log(permErr);
+    //             db.query(permissionSql, [permissionValues], (permErr) => {
+    //                 console.log(permErr);
                     
-                    if (permErr) return res.status(500).json({ error: "Failed to insert permissions" });
+    //                 if (permErr) return res.status(500).json({ error: "Failed to insert permissions" });
 
-                    return res.status(200).json({ message: "User Registered successfully" });
-        })
+    //              
+    //     })
       });
     });
   });
