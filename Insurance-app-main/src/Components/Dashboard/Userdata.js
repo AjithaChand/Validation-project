@@ -61,7 +61,7 @@ const Userdata = () => {
           <nav>
             <ul className='ps-5 user-list'>
               <li>
-                <div className='userdata-btn' onClick={() => navigate('/dashboard/adminpage')}>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
                 <MdDashboard className='dashboardicons' />{" "}
                   <span className='dashboard-icon'> Dashboard </span>
                 </div>
@@ -95,7 +95,7 @@ const Userdata = () => {
               <nav>
             <ul className='ps-5 user-list'>
               <li>
-                <div className='userdata-btn' onClick={() => navigate('/dashboard/adminpage')}>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
                 <MdDashboard className='dashboardicons' />{" "}
                   <span className='dashboard-icon'> Dashboard </span>
                 </div>

@@ -26,7 +26,7 @@ return (
           {/* <Route path='/home' element={<User />} /> */}
           <Route path='/dashboard' element={<Userdata />}>
             <Route index element={<Adminpage />} />
-            <Route path='adminpage' element={<Adminpage />} />
+            <Route path='' element={<Adminpage />} />
             <Route path='users' element={<Users />} />
             {/* <Route path='home' element={<User />} /> */}
             <Route path='payslip' element={<Payslip />} />
