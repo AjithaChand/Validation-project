@@ -33,7 +33,7 @@ const Payslip = () => {
   const [empId, setEmpId] = useState("");
   const payslipRef = useRef();
   const[showpdf,setShowpdf]=useState(false)
-  const[showslip,setShowslip]=useState(true)
+  // const[showslip,setShowslip]=useState(true)
   useEffect(() => {
     axios.get(`${apiurl}/get-all-employee-names`)
       .then(res => {
@@ -85,7 +85,7 @@ const Payslip = () => {
         setPfNumber(data.pf_number || "");
         setShowFields(true);
         setShowpdf(false);
-        setShowslip(true);
+       
       }
     } catch {
       // toast.error("Failed to fetch employee details");
@@ -119,7 +119,8 @@ const Payslip = () => {
       setShowFields(false);
       setShowinput(false)
       setShowpdf(true)
-      setShowslip(false)
+      setShowbackicon(true)
+  
     } catch (err) {
       toast.error(err.response?.data?.message || "Update failed");
     }
@@ -162,30 +163,21 @@ const Payslip = () => {
     setShowForm(false);
     setShowinput(false)
     setShowpdf(true)
-    setShowslip(false)
+   
   };
 
   return (
     <div className="payslip-design">
-      {showPayslip&&(
+      {showbackicon&&(
      <FaBackward className="pageback-icon"
            onClick={() => {setShowPayslip(false);
                setShowinput(true);
                setShowpdf(false);
-               setShowslip(true)
-               setShowFields(false)
+              setShowFields(false)
+            
            } }/>
            )}
-           {showslip&&(
-        <IoIosAddCircle 
-  className='add-payslip' 
-  onClick={() => {
-    setShowForm(true);  
-    setShowinput(false); 
-    setShowslip(false);    
-  }}
-/> 
-           )}
+ 
 
             <h1 className="portal">Payslip Portal</h1>
       {showinput && (
@@ -203,26 +195,7 @@ const Payslip = () => {
           {showFields && (
             <>
               <div className="input-fields" ><label>Email</label><input className="payslipinput" value={email} readOnly /></div>
-              <div className="input-fields">
-  <label>Total Salary</label>
-  <input 
-    type="number" 
-   className="payslipinput"
-    value={totalSalary}  
-    onChange={(e) => {
-      const newSalary = parseFloat(e.target.value) || null;
-      setTotalSalary(newSalary);
-      setSalary(newSalary); // Update salary too
-      const pf = (newSalary * 0.12).toFixed(2);
-      const esi = (newSalary * 0.0075).toFixed(2);
-      const net = (newSalary - pf - esi).toFixed(2);
-      setPfAmount(pf);
-      setEsiAmount(esi);
-      setNetAmount(net);
-    }} 
-  />
-</div>
-           
+             <div className="input-fields"><label>Total salary</label><input  className="payslipinput" value={totalSalary} readOnly /></div>
               <div className="input-fields"><label>PF Amount</label><input  className="payslipinput" value={pfAmount} readOnly /></div>
               <div className="input-fields"><label>ESI Amount</label><input   className="payslipinput"value={esiAmount} readOnly /></div>
               <div className="input-fields"><label>Net Amount</label><input   className="payslipinput"value={netAmount} readOnly /></div>

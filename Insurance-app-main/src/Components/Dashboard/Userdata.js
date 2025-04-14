@@ -10,6 +10,7 @@ import { FaReceipt } from "react-icons/fa";
 import { Menu, } from "lucide-react";
 import Sidebar from '../Sidebar/Sidebar';
 import { FaUserLock } from 'react-icons/fa';
+import { Fa500Px } from "react-icons/fa";
 
 const Userdata = () => {
 
@@ -131,6 +132,12 @@ const Userdata = () => {
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
                   <FaReceipt className='dashboardicons' />{" "}
                   {dashboardSidebaropen && <span className='dashboard-icon'> payslip</span>}
+                </div>
+              </li>
+              <li>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
+                <Fa500Px  className='dashboardicons' />{" "}
+                  <span className='dashboard-icon'>Attendance</span>
                 </div>
               </li>
             </ul>
