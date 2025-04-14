@@ -15,8 +15,6 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import AddIcon from '@mui/icons-material/Add';
 import { UserContext } from "../../../usecontext";
 import Deletebox from '../../AdminDashboard/CustomerDetails/Dialogbox/Deletebox';
-
-
 import '../../UserDashboard/User.css';
 import Formpopup from '../../UserDashboard/Dialogbox/Formpopup';
 import Editdialog from '../../UserDashboard/Dialogbox/Editdialog';
@@ -36,21 +34,11 @@ const Adminpage = () => {
 
   const [showconfirm, setShowconfirm] = useState(false);
   const [deleteid, setDeleteid] = useState(null)
-  // const role=localStorage.getItem("role");
   const [showupdate, setShowupdate] = useState(false)
   const [selectid, setSelectid] = useState(null)
 
   const [refersh, setRefresh] = useState(true);
-  // const { refreshFromUpdate } = useContext(UserContext)
-  // const { refreshCreateFromAdmin } = useContext(UserContext);
-  const [loading, setLoading] = useState(true)
-
-  // const { shareId } = useContext(UserContext);
-
-  // const { update } = useContext(UserContext)
-  // const { refreshFromCreate } = useContext(UserContext)
-
-  // const { results } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
 
   console.log("I am from User.jsx", shareId);
 
@@ -88,6 +76,7 @@ const Adminpage = () => {
         })
     }
   }
+
   useEffect(() => {
     FetchData();
   }, [email, update, refreshFromCreate]);
@@ -104,32 +93,6 @@ const Adminpage = () => {
     }
   }, [value, loading])
 
-  // const [showModal, setShowModal] = useState(false);
-  // const [selectedFile, setSelectedFile] = useState("");
-
-  // //Set File URL
-  // const handleViewFile = (fileUrl) => {
-  //   console.log(fileUrl);
-
-  //   const fileExtension = fileUrl.split('.').pop().toLowerCase();
-  //   const isImage = ['jpg', 'jpeg', 'png', 'gif', 'avif'].includes(fileExtension);
-  //   const isPdf = fileExtension === 'pdf';
-
-  //   if (isImage || isPdf) {
-  //     setSelectedFile(`${apiurl}${fileUrl}`,{
-  //       headers:{
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       }
-  //     }
-
-  //     );
-  //     setShowModal(true);
-  //   } else {
-  //     toast.error("Unsupported file type");
-  //   }
-  // };
-
-
   const toggleEdit = (id) => {
     // setSelectid(id);
     setShowEdit(!showedit);
@@ -138,13 +101,6 @@ const Adminpage = () => {
   const toggleForm = () => {
     setShowform(!showform);
   };
-
-  // const handleClick = () => {
-  //   console.log(results[0]);
-
-  // }
-
-
 
   const handleupdate = (id) => {
     if (id) {
@@ -156,11 +112,6 @@ const Adminpage = () => {
       setSelectid(null);
     }
   };
-
-  // const [value, setValue] = useState([])
-
-
-  // const [file, setFile] = useState(null);
 
   const handleDownload = () => {
     window.location.href = `${apiurl}/download-excel`;
@@ -302,68 +253,32 @@ const Adminpage = () => {
               </thead>
               <tbody>
                 {deletevalue.map((data, index) => {
-                  return <tr key={index}>
-                    <td>{data.email}</td>
-                    <td>{new Date(data.startdate).toLocaleDateString('en-GB')}</td>
-                    <td>{new Date(data.enddate).toLocaleDateString('en-GB')}</td>
-                    <td>{data.policy}</td>
-                    <td>
-                      {data.file_path ? (
-                        <button
-                          className=' adminbutton'
-                          onClick={() => handleViewFile(data.file_path)}
-                        >
-                          <DescriptionIcon className="editicon" />
+                    return <tr key={index}>
+                      <td>{data.email}</td>
+                      <td>{new Date(data.startdate).toLocaleDateString('en-GB')}</td>
+                      <td>{new Date(data.enddate).toLocaleDateString('en-GB')}</td>
+                      <td>{data.policy}</td>
+                      <td>
+                        {data.file_path ? (
+                          <button
+                            className=' adminbutton'
+                            onClick={() => handleViewFile(data.file_path)}
+                          >
+                            <DescriptionIcon className="editicon" />
+                          </button>
+                        ) : ("No File")}
+                      </td>
+                      <td>
+                        <button className='edit-btn' onClick={() => handleupdate(data?.id)}><FaEdit className='edit-icon' /></button>
+                        <button className='delete-button' onClick={() => handleDelete(data.id)}>
+                          <DeleteIcon className="deleteicon" />
                         </button>
-                      ) : ("No File")}
-                    </td>
-                    <td>
-                      <button className='edit-btn' onClick={() => handleupdate(data?.id)}><FaEdit className='edit-icon' /></button>
-                      <button className='delete-button' onClick={() => handleDelete(data.id)}>
-                        <DeleteIcon className="deleteicon" />
-                      </button>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
                 })}
-
               </tbody>
             </table>
           </div>
-
-          {/* {(
-        <div className='mt-5 userbtn'>
-          <button className='btn mt-5 user-btn' onClick={toggleForm} disabled={results[0]?.can_create !== 1}>Add Details</button>
-        </div>
-      )} */}
-      {/* <button onClick={handleClick}>Show</button> */}
-
-{/* <Formpopup isVisible={showform} onClose={toggleForm} />
-<Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} />
-<ToastContainer position='top-right' autoclose={3000} /> */}
-
-{/* <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
-  <Modal.Header closeButton>
-    <Modal.Title>File Preview</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-    {selectedFile ? (
-      selectedFile.endsWith('.pdf') ? (
-        <embed src={selectedFile} type="application/pdf" width="100%" height="600px" />
-      ) : (
-        <img src={selectedFile} alt="file preview" style={{ width: '100%', height: 'auto' }} />
-      )
-    ) : (
-      <p>No file selected</p>
-    )}
-  </Modal.Body>
-  <Modal.Footer>
-    <Button variant="secondary" onClick={() => setShowModal(false)}>
-      Close
-    </Button>
-  </Modal.Footer>
-</Modal> */}
-{/* <ToastContainer position='top-right' autoClose={3000} /> */}
-
         </div>
       </>) : user === 'user' ? (<>
         <div className='user-containerform'>
@@ -419,22 +334,8 @@ const Adminpage = () => {
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
       <UpdateBox onClose={() => handleupdate()} isVisible={showupdate} userid={selectid} />
       <Deletebox isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
-
-
-
-      {/* user page */}
-      {/* {(
-        <div className='mt-5 userbtn'>
-          <button className='btn mt-5 user-btn' onClick={toggleForm} disabled={results[0]?.can_create !== 1}>Add Details</button>
-        </div>
-      )} */}
-      {/* <button onClick={handleClick}>Show</button> */}
-
-    
-
       <Formpopup isVisible={showform} onClose={toggleForm} />
       <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} />
-      <ToastContainer position='top-right' autoclose={3000} />
 
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>

@@ -7,8 +7,22 @@
   top: 9%;
 }
 
+.toggle-slidebar{
+  background: rgb(239, 238, 238);
+  height: 100vh;
+  width: 10%;
+  position: fixed;
+  left: 0;
+  top: 9%;
+}
+
 .userdata-container {
   margin-left: 20%;
+  height: 100vh;
+}
+
+.toggle-container {
+  margin-left: 10%;
   height: 100vh;
 }
 
@@ -34,7 +48,7 @@
 
 .user-profile .userheader {
   position: absolute;
-  left: 20%;
+  left: 0;
   letter-spacing: 2px;
   color: goldenrod;
   font-variant: small-caps;
@@ -103,6 +117,14 @@
   display: none;
 }
 
+.dashboard-menu{
+  position: absolute;
+  left: 20%;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 @media only screen and (min-width:320px) and (max-width:768px) {
   .sidebarmenu-btn{
     display: block;
@@ -116,6 +138,9 @@
     position: absolute;
     left: 1%;
     font-size: 1rem;
+  }
+  .dashboard-menu{
+    display: none;
   }
 }
 
@@ -144,7 +169,7 @@
   }
 }
 
-@media only screen and (min-width:769px) and (max-width:1009px){
+@media only screen and (min-width:769px) and (max-width:1008px){
   .admin-slidebar {
     background: rgb(239, 238, 238);
     height: 100vh;
@@ -183,10 +208,13 @@
     font-variant: small-caps;
     font-size: 1.5rem;
   }
+  .dashboard-menu{
+    display: none;
+  }
 
 }
 
-@media only screen and (min-width:1010px) and (max-width:1024px) {
+@media only screen and (min-width:1009px) and (max-width:1024px) {
   .sidebarmenu-btn{
     display: none;
   }
@@ -197,7 +225,19 @@
     width: 20%;
     position: fixed;
     left: 0;
-    top: 8%;
+    top: 9%;
+  }
+  .user-profile .userheader {
+    position: absolute;
+    left: 0;
+    letter-spacing: 2px;
+    color: goldenrod;
+    font-variant: small-caps;
+    font-size: 1.5rem;
   }
 
+  .userdata-head{
+    font-size: 25px;
+  }
 }
+
