@@ -180,7 +180,7 @@ app.put('/admin-edit-salary',(req, res) => {
 // All Employee Names Send To Frontend;
 
 app.get("/get-all-employee-names", (req, res) => {
-    const selectQuery = "SELECT username FROM users";
+    const selectQuery = "SELECT username FROM users WHERE username IS NOT  NULL";
   
     db.query(selectQuery, (err, results) => {
       if (err) {
