@@ -4,7 +4,6 @@ import { apiurl } from '../../../url';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import img from "./nastaflogo.jpg";
-import { IoMdArrowBack } from "react-icons/io";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import html2canvas from "html2canvas";
@@ -30,6 +29,7 @@ const Payslip = () => {
   const [showForm, setShowForm] = useState(false);
   const [showFields, setShowFields] = useState(false);
   const[showinput,setShowinput]=useState(true)
+  const[showbackicon,setShowbackicon]=useState(false)
   const [empId, setEmpId] = useState("");
   const payslipRef = useRef();
   const[showpdf,setShowpdf]=useState(false)
@@ -167,6 +167,7 @@ const Payslip = () => {
 
   return (
     <div className="payslip-design">
+      {showPayslip&&(
      <FaBackward className="pageback-icon"
            onClick={() => {setShowPayslip(false);
                setShowinput(true);
@@ -174,6 +175,7 @@ const Payslip = () => {
                setShowslip(true)
                setShowFields(false)
            } }/>
+           )}
            {showslip&&(
         <IoIosAddCircle 
   className='add-payslip' 
