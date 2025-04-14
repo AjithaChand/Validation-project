@@ -21,7 +21,7 @@
     }
 }
 
-@media only screen and (min-width:701px) and (max-width:940px){
+@media only screen and (min-width:701px) and (max-width:1000px){
     .create-head{
         font-size: 19px;
         font-weight: bold;
