@@ -43,20 +43,39 @@ const Payslip = () => {
       })
       .catch(() => toast.error("Error fetching employee names"));
   }, []);
-const handleUserSelect = async (selectedName) => {
+  const handleUserSelect = async (selectedName) => {
     setName(selectedName);
-    if (!selectedName||salary==="") return;
-
+  
+    if (!selectedName) {
+      toast.error("Please select a valid employee");
+      return;
+    }
+  
     try {
       const res = await axios.get(`${apiurl}/get-single-employee-data?name=${selectedName}`);
-      const data = res.data.results;
-
+     
+      const data = res?.data?.results;
+  
       if (data) {
-        const salaryVal = parseFloat(data.total_salary || 0);
+        const salaryVal = parseFloat(data.total_salary);
+  
+        if (!salaryVal || salaryVal === 0) {
+      
+          setShowFields(false); // hide the fields
+          setEmail("");
+          setSalary("");
+          setTotalSalary("");
+          setPfAmount("");
+          setEsiAmount("");
+          setNetAmount("");
+          return;
+        }
+  
         const pf = (salaryVal * 0.12).toFixed(2);
         const esi = (salaryVal * 0.0075).toFixed(2);
         const net = (salaryVal - pf - esi).toFixed(2);
-        setEmpId(data.emp_id)
+  
+        setEmpId(data.emp_id);
         setEmail(data.emp_email || "");
         setSalary(salaryVal);
         setTotalSalary(salaryVal);
@@ -65,14 +84,15 @@ const handleUserSelect = async (selectedName) => {
         setNetAmount(net);
         setPfNumber(data.pf_number || "");
         setShowFields(true);
-        setShowpdf(false)
-        setShowslip(true)
-        console.log(data.emp_id)
+        setShowpdf(false);
+        setShowslip(true);
       }
     } catch {
-      toast.error("Failed to fetch employee details");
+      // toast.error("Failed to fetch employee details");
+      toast.error("Salary is not updated by the admin");
     }
   };
+  
 
   const handleUpdatePayslip = async () => {
     const data = {
@@ -154,14 +174,16 @@ const handleUserSelect = async (selectedName) => {
                setShowslip(true)
                setShowFields(false)
            } }/>
+           {showslip&&(
         <IoIosAddCircle 
   className='add-payslip' 
   onClick={() => {
-    setShowForm(true);     // to open PayslipDialog
-    setShowinput(false);   // hide input fields
-    setShowslip(false);    // hide "Add Payslip" button
+    setShowForm(true);  
+    setShowinput(false); 
+    setShowslip(false);    
   }}
-/> Add payslip
+/> 
+           )}
 
             <h1 className="portal">Payslip Portal</h1>
       {showinput && (
