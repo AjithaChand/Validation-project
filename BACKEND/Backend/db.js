@@ -12,7 +12,7 @@ const db = mysql.createPool({
 
     database:process.env.DB_DATABASENAME,
 
-    port:process.env.PORT_NAME,
+    port: process.env.PORT_NAME,
 
     waitForConnections:true,
 
@@ -21,13 +21,14 @@ const db = mysql.createPool({
     queueLimit: 0
 })
 
-db.getConnection((err, connection)=>{
-    if(err){
-        console.log("Db coneection failed")
+db.getConnection((err, connection) => {
+    if (err) {
+        console.log("DB connection failed", err.message);
+        return;
     }
-    else 
-    console.log("Db connected Successfully")
+
+    console.log("DB connected successfully");
     connection.release();
-})
+});
 
 module.exports=db;
