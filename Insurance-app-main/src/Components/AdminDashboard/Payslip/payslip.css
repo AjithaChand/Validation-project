@@ -194,7 +194,7 @@
   border: none;
   font-size: 30px;
   color:darkblue;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 .add-payslip
 {
@@ -205,7 +205,7 @@
   border: none;
   font-size: 30px;
   color:darkblue;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 .design {
   width: 100%;
@@ -266,10 +266,15 @@
   margin-right: 5px;
   color: #444;
 }
-/* .signature
+.signature
 {
-  margin-left: 830px;
-} */
+display: flex;
+justify-content: end;
+}
+.sign-1{
+  display: flex;
+  flex-direction: column;
+}
 .company h3,p
 {
   color:  #2c3e50;
@@ -342,7 +347,7 @@
     
     .heading-payslip {
       width: 100%;
-      margin: 0 auto 60px auto;
+      margin: 0 auto 0 auto;
       padding: 30px;
       border-radius: 12px;
      }
@@ -492,10 +497,7 @@
   margin-right: 5px;
   color: #444;
 }
-/* .signature
-{
-  margin-left: 830px;
-} */
+
 .company h3,p
 {
   color:  #2c3e50;
@@ -506,10 +508,11 @@
 .address h6,p{
   color:  #2c3e50; 
 }
-.payslip-style
+.address
 {
-  margin-bottom: 100px;
+  margin-left: 100px;
 }
+
 
 .option
 {
@@ -786,10 +789,7 @@
       margin-right: 5px;
       color: #444;
     }
-    /* .signature
-    {
-      margin-left: 830px;
-    } */
+  
     .company h3,p
     {
       color:  #2c3e50;
@@ -1079,10 +1079,7 @@
       margin-right: 5px;
       color: #444;
     }
-    /* .signature
-    {
-      margin-left: 830px;
-    } */
+    
     .company h3,p
     {
       color:  #2c3e50;
