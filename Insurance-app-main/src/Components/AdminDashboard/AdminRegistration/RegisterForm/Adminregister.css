@@ -3,8 +3,7 @@
 }
 
 .adminregister-container{
-    height:100vh ;
-    width:100vw
+    width: 100%;
 }
 
 .adminregister-btn{
@@ -33,6 +32,9 @@
 
     .register-label{
         font-size: 14px;
+    }
+    .adminregister-btn{
+        width: 50%;
     }
 }
 

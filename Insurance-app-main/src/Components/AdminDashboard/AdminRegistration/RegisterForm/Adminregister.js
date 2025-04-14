@@ -59,8 +59,8 @@ const Adminregister = ({close}) => {
     return (
         <div  className='adminregister-container'>
             <div className='adminregister-form'>
-                <form onSubmit={handleSubmit} className='adminform-data' style={{ width: "35%" }}>
-                    <h3 className='text-center register-head mb-5'>Register Form</h3>
+                <form onSubmit={handleSubmit} className='adminform-data'>
+                    <h3 className='text-center register-head mb-2'>Register Form</h3>
                     <div className='mt-3 form-group'>
                         <label className='register-label'>Username</label>
                         <input type='text' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e => setValues({ ...values, username: e.target.value })} placeholder='Enter your name' required />

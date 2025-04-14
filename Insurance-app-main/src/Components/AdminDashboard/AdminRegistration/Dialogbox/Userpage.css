@@ -33,23 +33,27 @@
 @media only screen and (min-width:319px) and (max-width:400px){
     .dialog-content{
         width: 80%;
+        height: 75%;
     }
 }
 
 @media only screen and (min-width:401px) and (max-width:500px){
     .dialog-content{
         width: 60%;
+        height: 75%;
     }
 }
 
 @media only screen and (min-width:501px) and (max-width:700px){
     .dialog-content{
         width: 55%;
+        height: 73%;
     }
 }
 
-@media only screen and (min-width:701px) and (max-width:800px){
+@media only screen and (min-width:701px) and (max-width:1024px){
     .dialog-content{
         width: 40%;
+        height: 73%;
     }
 }
