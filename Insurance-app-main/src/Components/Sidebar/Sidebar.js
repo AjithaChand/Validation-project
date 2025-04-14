@@ -22,7 +22,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                 <nav>
                     <ul className='sidebar-ul'>
                         <li className='sidebar-list'>
-                            <div className='sidebar-icons' onClick={() => navigate('/dashboard/adminpage')}>
+                            <div className='sidebar-icons' onClick={() => navigate('/dashboard')}>
                                 <MdDashboard className='' />
                                 <span className=''> Dashboard </span>
                             </div>
