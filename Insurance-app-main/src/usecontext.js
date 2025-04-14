@@ -11,8 +11,15 @@ export const UserProvider = ({ children }) => {
   const [results,setResult]=useState([]);
   const [value,setValue] = useState([])
   
+  //Admin--> Users-->Resister
+  const [createNewUser,setCreateNewUser] = useState(true);
+  //Admin--> Users-->Update
+  const [updateOldUser,setUpdateOldUser] = useState(true);
+
+
+
   return (
-    <UserContext.Provider value={{ userId, setUserId , update, setUpdate, refreshFromUpdate, setRefreshFromUpdate, refreshFromCreate, setRefreshFromCreate, refreshCreateFromAdmin, setRefreshCreateFromAdmin, results, setResult, value , setValue}}>
+    <UserContext.Provider value={{ userId, setUserId , update, setUpdate, refreshFromUpdate, setRefreshFromUpdate, refreshFromCreate, setRefreshFromCreate, refreshCreateFromAdmin, setRefreshCreateFromAdmin, results, setResult, value , setValue, createNewUser ,setCreateNewUser, updateOldUser ,setUpdateOldUser}}>
       {children}
     </UserContext.Provider>
   );

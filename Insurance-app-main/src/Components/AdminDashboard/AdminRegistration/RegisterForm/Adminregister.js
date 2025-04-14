@@ -1,100 +1,139 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios';
 import '../RegisterForm/Adminregister.css'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from '../../../../url';
+import { UserContext } from '../../../../usecontext';
 
-const Adminregister = ({close}) => {
+const Adminregister = ({ close }) => {
+
+    const {setCreateNewUser} = useContext(UserContext);
 
     const [values, setValues] = useState({
         username: "",
         email: "",
         password: "",
-        role:""
-    })
+        total_salary:0,
+        role: "",
+        pf_amount: 0,
+        esi_amount: 0,
+        net_amount: 0,
+        gross_salary: 0,
+        pf_number: "",
+        esi_number: ""
+    });
 
-    const [permission,setPermission] = useState({
-        create:true,
-        read:true,
-        update:false,
-        remove:false
-    })
-    console.log(permission)
+    const handleSalarychange = (e) => {
+        const salary = parseFloat(e.target.value);
+        if (isNaN(salary)) return;
+        const total_salary=salary;
+        const pf = (salary * 0.12).toFixed(2);
+        const esi = (salary * 0.0075).toFixed(2);
+        const net = (salary - pf - esi).toFixed(2);
+        const gross_salary = salary;
+        const pf_number = generatePfNumber();
+        const esi_number = generateesiNumber();
 
-    const handlePermission = (e) =>{
-        setPermission({...permission,[e.target.name]:e.target.checked})
+        setValues(prev => ({
+            ...prev,
+            total_salary:salary,
+            pf_amount: pf,
+            esi_amount: esi,
+            net_amount: net,
+            gross_salary,
+            pf_number,
+            esi_number
+        }));
     }
 
-    const handleSubmit = (e) => { 
+    const generatePfNumber = () => {
+        const prefix = "NASTAF639000";
+        const lastNumber = localStorage.getItem("lastPfNumber");
+        const nextNumber = lastNumber ? parseInt(lastNumber) + 1 : 1;
+        const formattedNumber = String(nextNumber).padStart(3, "0");
+        const pf = `${prefix}${formattedNumber}`;
+        localStorage.setItem("lastPfNumber", nextNumber);
+        return pf;
+    };
+
+    const generateesiNumber = () => {
+        const prefix = "121000388110001302";
+        const lastNumber = localStorage.getItem("lastEsiNumber");
+        const nextNumber = lastNumber ? parseInt(lastNumber) + 1 : 1;
+        const formattedNumber = String(nextNumber).padStart(3, "0");
+        const pf = `${prefix}${formattedNumber}`;
+        localStorage.setItem("lastEsiNumber", nextNumber);
+        return pf;
+    };
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(values.role==="select"){
-            toast.error("Choose the account type")
+        console.log("Values",values);
+        
+        if (values.role === "select" || values.role === "") {
+            return toast.error("Choose the account type");
         }
 
-        // email regex
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if(!emailRegex.test(values.email)){
-           return toast.error("Invalid Email")
+        if (!emailRegex.test(values.email)) {
+            return toast.error("Invalid Email");
         }
 
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*])[A-Za-z\d!@#$%&*]{8,}$/;
-
         if (!passwordRegex.test(values.password)) {
-            return toast.warning("Password must be 8 characters includes one number one special character")
+            return toast.warning("Password must be 8 characters, include one number and one special character");
         }
-        axios.post(`${apiurl}/admin/register`, { ...values, ...permission }, {
+
+        axios.post(`${apiurl}/admin/register`, values, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
-        })        
+        })
             .then(res => {
-                toast.success(res.data.message)
-                close()
+                toast.success(res.data.message);
+                setCreateNewUser(pre=>!pre)
+                close();
             })
-            .catch(err => toast.error(err.response.data.error))
+            .catch(err => toast.error(err.response?.data?.error || "Something went wrong"));
     }
 
     return (
-        <div  className='adminregister-container'>
+        <div className='adminregister-container'>
             <div className='adminregister-form'>
                 <form onSubmit={handleSubmit} className='adminform-data'>
                     <h3 className='text-center register-head mb-2'>Register Form</h3>
                     <div className='mt-3 form-group'>
                         <label className='register-label'>Username</label>
-                        <input type='text' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e => setValues({ ...values, username: e.target.value })} placeholder='Enter your name' required />
+                        <input type='text' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, username: e.target.value })} placeholder='Enter your name' required />
                     </div>
                     <div className='mt-3 form-group'>
                         <label className='register-label'>Email</label>
-                        <input type='email' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e => setValues({ ...values, email: e.target.value })} placeholder='Enter your email' required />
+                        <input type='email' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, email: e.target.value })} placeholder='Enter your email' required />
                     </div>
                     <div className='mt-3 form-group'>
                         <label className='register-label'>Password</label>
-                        <input type='password' className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e => setValues({ ...values, password: e.target.value })} placeholder='Enter your password' required />
+                        <input type='password' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, password: e.target.value })} placeholder='Enter your password' required />
+                    </div>
+                    <div className='mt-3 form-group'>
+                        <label className='register-label'>Salary</label>
+                        <input type='number' className='form-control' onChange={handleSalarychange} style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} placeholder='Enter salary' required />
                     </div>
                     <div className='mt-3 form-group'>
                         <label className='register-label'>Select Account</label>
-                        <select className='form-control' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e => setValues({ ...values, role: e.target.value })} >
-                            <option  value="" disabled >Select role</option>
-                            <option value={"admin"}>Admin</option>
-                            <option value={"user"}>User</option>
+                        <select className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, role: e.target.value })} required>
+                            <option value="" disabled>Select role</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
                         </select>
-                    </div>
-                    <div className='mt-3 user-checkbox'>
-                        <label><input name='create' onChange={handlePermission} type='checkbox'/>Create</label>
-                        <label><input name='read'  onChange={handlePermission} type='checkbox'/>Read</label>
-                        <label><input name='update' onChange={handlePermission} type='checkbox'/>Update</label>
-                        <label><input name='remove'  onChange={handlePermission} type='checkbox'/>Delete</label>
                     </div>
                     <button className='btn mt-3 adminregister-btn'>Register</button>
                 </form>
-                
             </div>
-            <ToastContainer position='top-right' autoClose={3000}/> 
+            <ToastContainer position='top-right' autoClose={3000} />
         </div>
-
     )
 }
 
-export default Adminregister
+export default Adminregister;
