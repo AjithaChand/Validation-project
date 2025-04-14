@@ -89,7 +89,7 @@ const Payslip = () => {
       }
     } catch {
       // toast.error("Failed to fetch employee details");
-      toast.error("Salary is not updated by the admin");
+      toast.error("The admin has not updated the salary yet.");
     }
   };
   
