@@ -19,6 +19,11 @@ const admin_register = require('./Admin_apis/Admin_user/Admin_Register_api')
 
 const checkApi = require('./Login_Register/checkapi')
 
+
+//this code for admin attendance page
+const admin_attendance = require("./Admin_apis/Admin_Attendance/admin_attendance")
+
+
 const db = require('./db');
 
 const app = express();
@@ -36,7 +41,7 @@ app.use("/",emailReminder);
 app.use("/",userpage);
 app.use("/",admin_payslip)
 app.use("/",user_payslip);
-
+app.use("/",admin_attendance)
 
 
 //new file for checking admin registration
