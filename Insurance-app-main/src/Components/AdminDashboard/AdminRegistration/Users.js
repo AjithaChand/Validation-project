@@ -130,10 +130,13 @@ const Users = () => {
           <table className='users-table text-center'>
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Username</th>
                 <th>Email</th>
                 <th>Password</th>
                 <th>Salary</th>
+                <th>Pf Number</th>
+                <th>Esi Number</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -148,6 +151,8 @@ const Users = () => {
                     <td>{data.username}</td>
                     <td>{data.email}</td>
                     <td>{data.password}</td>
+                    <td>{data.pf_number}</td>
+                    <td>{data.esi_number}</td>
                     <td>{data.total_salary}</td>
                     <td>
                       <button className='edit-btn' onClick={() => handleupdate(data.id,data.email)}>

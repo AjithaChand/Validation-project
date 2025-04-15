@@ -95,6 +95,12 @@ const Userdata = () => {
                   {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
                 </div>
               </li>
+              <li className='list-style'>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
+                  <Fa500Px className='dashboardicons' />
+                  {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
+                </div>
+              </li>
             </ul>
           </nav>
         </aside>
@@ -131,12 +137,7 @@ const Userdata = () => {
                   {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
                 </div>
               </li>
-              {/* <li>
-                <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                <FaUser  className='dashboardicons' />
-                  <span className='dashboard-icon'> Users</span>
-                </div>
-              </li> */}
+             
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
                 <IoReceipt  className='dashboardicons' />
