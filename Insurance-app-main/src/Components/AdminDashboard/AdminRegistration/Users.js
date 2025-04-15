@@ -143,7 +143,7 @@ const Users = () => {
             <tbody className='tbody-users ajay'>
               {loading ? (
                 <tr>
-                  <td colSpan={6}><div className='users-spinner'></div></td>
+                  <td colSpan={8}><div className='users-spinner'></div></td>
                 </tr>
               ) : (
                 value.map((data, index) => (
