@@ -13,7 +13,9 @@
   }
   
   .attendance {
-    overflow-x: auto;
+    height: 70vh;
+    overflow-y: auto;
+    border: 1px solid #ccc;
   }
   
   .attend-1 {
@@ -22,16 +24,18 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  .attend-1 th, 
+  .attend-1 th,
   .attend-1 td {
-    padding: 12px 15px;
-    text-align: left;
+    padding: 8px;
     border: 1px solid #ddd;
+    text-align: left;
   }
   
   .attend-1 th {
     background-color: #333;
     color: #fff;
+    position: sticky;
+    top: 0;
   }
   
   .attend-1 tr:nth-child(even) {

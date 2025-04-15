@@ -35,8 +35,8 @@ const Attendance = () => {
               <tr key={index}>
                 <td>{data.emp_name}</td>
                 <td>{data.emp_email}</td>
-                <td>30</td> {/* Hardcoded or dynamically calculated if needed */}
-                <td>4</td>  {/* Hardcoded or dynamically calculated if needed */}
+                <td>30</td> 
+                <td>4</td>  
                 <td>{data.leave_days}</td>
               </tr>
             ))}
