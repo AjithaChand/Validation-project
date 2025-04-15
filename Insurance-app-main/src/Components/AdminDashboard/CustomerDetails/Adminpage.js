@@ -20,12 +20,11 @@ import Formpopup from '../../UserDashboard/Dialogbox/Formpopup';
 import Editdialog from '../../UserDashboard/Dialogbox/Editdialog';
 import EditIcon from '@mui/icons-material/Edit';
 
-
 const Adminpage = () => {
 
   const user = localStorage.getItem('role')
 
-  const { value, setValue ,refreshFromUpdate, refreshCreateFromAdmin ,shareId,update,refreshFromCreate,results} = useContext(UserContext);
+  const { value, setValue, refreshFromUpdate, refreshCreateFromAdmin, shareId, update, refreshFromCreate, results } = useContext(UserContext);
 
   const [deletevalue, setDeletevalue] = useState([])
 
@@ -82,16 +81,6 @@ const Adminpage = () => {
   }, [email, update, refreshFromCreate]);
 
   console.log(value);
-
-  useEffect(() => {
-    if (!loading) {
-      if (value.length === 0 && user === "user") {
-        setShowform(true)
-      } else {
-        setShowform(false)
-      }
-    }
-  }, [value, loading])
 
   const toggleEdit = (id) => {
     // setSelectid(id);
@@ -252,7 +241,12 @@ const Adminpage = () => {
                 </tr>
               </thead>
               <tbody>
-                {deletevalue.map((data, index) => {
+                {loading ? (
+                  <tr>
+                    <td colSpan={6}><div className='spinner'></div></td>
+                  </tr>
+                ) : (
+                  deletevalue.map((data, index) => {
                     return <tr key={index}>
                       <td>{data.email}</td>
                       <td>{new Date(data.startdate).toLocaleDateString('en-GB')}</td>
@@ -275,7 +269,8 @@ const Adminpage = () => {
                         </button>
                       </td>
                     </tr>
-                })}
+                  })
+                )}
               </tbody>
             </table>
           </div>
@@ -299,33 +294,43 @@ const Adminpage = () => {
                 </tr  >
               </thead>
               <tbody>
-                {Array.isArray(value) && value.map((data, index) => (
-                  <tr key={index}>
-                    <td>{data.email}</td>
-                    <td>{new Date(data.startdate).toLocaleDateString("en-CA")}</td>
-                    <td>{new Date(data.enddate).toLocaleDateString("en-CA")}</td>
-                    <td>{data.policy}</td>
-                    <td>
-                      {data.file_path ? (
-                        <button
-                          className='userbutton'
-                          onClick={() => handleViewFile(data.file_path)}
-                        >
-                          <DescriptionIcon className="view-btn" />
-                        </button>
-                      ) : ("No File")}
-                    </td>
-                    <td className='tablerow'>
-                      <button className='user-edit-btn' onClick={() => toggleEdit(data.id)} disabled={results[0]?.can_update !== 1}>
-                        <EditIcon className='user-editbtn' />
-                      </button>
-                    </td>
+                {loading ? (
+                  <tr>
+                    <td colSpan={6}><div className='spinner'></div></td>
                   </tr>
-                ))}
-
+                ) : (
+                  Array.isArray(value) && value.map((data, index) => (
+                    <tr key={index}>
+                      <td>{data.email}</td>
+                      <td>{new Date(data.startdate).toLocaleDateString("en-CA")}</td>
+                      <td>{new Date(data.enddate).toLocaleDateString("en-CA")}</td>
+                      <td>{data.policy}</td>
+                      <td>
+                        {data.file_path ? (
+                          <button
+                            className='userbutton'
+                            onClick={() => handleViewFile(data.file_path)}
+                          >
+                            <DescriptionIcon className="view-btn" />
+                          </button>
+                        ) : ("No File")}
+                      </td>
+                      <td className='tablerow'>
+                        <button className='user-edit-btn' onClick={() => toggleEdit(data.id)} disabled={results[0]?.can_update !== 1}>
+                          <EditIcon className='user-editbtn' />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
+          {(
+            <div className='mt-5 userbtn'>
+              <button className='btn mt-5 user-btn' onClick={toggleForm} disabled={results[0]?.can_create !== 1}>Add Details</button>
+            </div>
+          )}
         </div>
       </>) : (<></>)}
 

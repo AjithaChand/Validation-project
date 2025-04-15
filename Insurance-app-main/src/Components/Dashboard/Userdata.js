@@ -5,12 +5,16 @@ import { MdLogout } from "react-icons/md";
 import UserDialog from './Dialogbox/UserDialog';
 import { useState } from 'react';
 import { MdDashboard } from "react-icons/md";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { FaReceipt } from "react-icons/fa";
 import { Menu, } from "lucide-react";
 import Sidebar from '../Sidebar/Sidebar';
 import { FaUserLock } from 'react-icons/fa';
 import { Fa500Px } from "react-icons/fa";
+import { MdOutlineMenuOpen } from "react-icons/md";
+import { MdSpaceDashboard } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
+import { IoReceipt } from "react-icons/io5";
+import img from "../AdminDashboard/Payslip/nastaflogo.jpg";
 
 const Userdata = () => {
 
@@ -48,11 +52,8 @@ const Userdata = () => {
   return (
     <div className='user-container' >
       {user === 'admin' ? (<>
-        <div className='user-profile'>
+        <div className={`${dashboardSidebaropen ? 'user-profile' : 'toggle-profile'}`}>
           <h3 className='userheader'><span className='caps'>T</span>rust<span className='caps'>A</span>ssure</h3>
-          <button className='dashboard-menu'>
-            <Menu className='dashboard-menu-btn' onClick={() => setDashboardSidebaropen(!dashboardSidebaropen)} />
-          </button>
           <div className='userlogout-btn'><FaUserCircle className='logo' /></div>
           <div className='userlogout-btn username'>{user}</div>
           <button onClick={handleLogout} className='userlogout-btn'>
@@ -65,33 +66,33 @@ const Userdata = () => {
           </div>
         </div>
         <aside className={`${dashboardSidebaropen ? 'admin-slidebar' : 'toggle-slidebar'}`}>
-          <div className='p-4'>
-            {dashboardSidebaropen && <h3 className='userdata-head' >Admin Panel</h3>}
+          <div className='user-heading'>
+            {dashboardSidebaropen && <img className="company-logo" src={img} alt="Company Logo" />}
+            <button className={`${dashboardSidebaropen ? 'dashboard-menu' : 'toggledashboard-menu'}`}>
+              <MdOutlineMenuOpen className='dashboard-menu-btn' onClick={() => setDashboardSidebaropen(!dashboardSidebaropen)} />
+            </button>
+          </div>
+          <div className=''>
+            {dashboardSidebaropen && <h4 className='userdata-head' >Admin Panel</h4>}
           </div>
           <nav>
-            <ul className='ps-5 user-list'>
-              <li>
+            <ul className='user-list'>
+              <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
-                  <MdDashboard className='dashboardicons' />{" "}
+                  <MdSpaceDashboard className='dashboardicons' />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
                 </div>
               </li>
-              <li>
+              <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                  <AccountCircleIcon className='dashboardicons' />{" "}
+                  <FaUser  className='dashboardicons' />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
                 </div>
               </li>
-              <li>
+              <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
-                  <FaReceipt className='dashboardicons' />{" "}
-                  {dashboardSidebaropen && <span className='dashboard-icon'> payslip</span>}
-                </div>
-              </li>
-              <li>
-                <div className='userdata-btn' onClick={() => navigate('/dashboard/permission')}>
-                <FaUserLock className='dashboardicons' />{" "}
-                  {dashboardSidebaropen && <span className='dashboard-icon'> Permission</span>}
+                  <IoReceipt  className='dashboardicons' />
+                  {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
                 </div>
               </li>
             </ul>
@@ -99,45 +100,53 @@ const Userdata = () => {
         </aside>
 
       </>) : user === 'user' ? (<>
-        <div className='user-profile'>
-          <h3 className='userheader'><span className='caps'>T</span>rust<span className='caps'>A</span>ssure</h3>
-          <button className='dashboard-menu'>
-            <Menu className='dashboard-menu-btn' onClick={() => setDashboardSidebaropen(!dashboardSidebaropen)} />
-          </button>
+        <div className={`${dashboardSidebaropen ? 'user-profile' : 'toggle-profile'}`}>
+        <h3 className='userheader'><span className='caps'>T</span>rust<span className='caps'>A</span>ssure</h3>
           <div className='userlogout-btn'><FaUserCircle className='logo' /></div>
           <div className='userlogout-btn username'>{username}</div>
           <button onClick={handleLogout} className='userlogout-btn'>
             <MdLogout className='logoutbutton' />
           </button>
+          <div>
+            <button className='sidebarmenu-btn' onClick={toggleSidebar}>
+              <Menu className="menu-btn" />
+            </button>
+          </div>
         </div>
         <aside className={`${dashboardSidebaropen ? 'admin-slidebar' : 'toggle-slidebar'}`}>
-          <div className='p-4'>
-            {dashboardSidebaropen && <h3 className='userdata-head' >User Panel</h3>}
+        <div className='user-heading'>
+            {dashboardSidebaropen && <img className="company-logo" src={img} alt="Company Logo" />}
+            <button className={`${dashboardSidebaropen ? 'dashboard-menu' : 'toggledashboard-menu'}`}>
+              <MdOutlineMenuOpen className='dashboard-menu-btn' onClick={() => setDashboardSidebaropen(!dashboardSidebaropen)} />
+            </button>
+          </div>
+          <div className=''>
+            {dashboardSidebaropen && <h4 className='userdata-head' >User Panel</h4>}
           </div>
           <nav>
-            <ul className='ps-5 user-list'>
-              <li>
+            <ul className=' user-list'>
+              <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
-                  <MdDashboard className='dashboardicons' />{" "}
+                  <MdSpaceDashboard className='dashboardicons' />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
                 </div>
               </li>
               {/* <li>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                <AccountCircleIcon  className='dashboardicons' />{" "}
+                <FaUser  className='dashboardicons' />
                   <span className='dashboard-icon'> Users</span>
                 </div>
               </li> */}
-              <li>
+              <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
-                  <FaReceipt className='dashboardicons' />{" "}
+                <IoReceipt  className='dashboardicons' />
                   {dashboardSidebaropen && <span className='dashboard-icon'> payslip</span>}
                 </div>
               </li>
-              <li>
+              <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
-                <Fa500Px  className='dashboardicons' />{" "}
-                  <span className='dashboard-icon'>Attendance</span>
+                  <Fa500Px className='dashboardicons' />
+                  {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
                 </div>
               </li>
             </ul>

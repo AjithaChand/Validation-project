@@ -19,6 +19,16 @@
     justify-content: space-around; 
 }
 
+.permissions{
+    display: flex;
+    justify-content: space-around;
+}
+
+.permissions-role{
+    display: flex;
+    gap: 30px;
+}
+
 @media only screen and (min-width:319px) and (max-width:400px){
 
     .adminregister-form{

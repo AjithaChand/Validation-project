@@ -15,7 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const User = () => {
 
-  const [loading ,setLoading] = useState(true)
+  // const [loading ,setLoading] = useState(true)
 
   const{value,setValue} = useContext(UserContext);
 
@@ -42,7 +42,7 @@ console.log(dd,"kk")
     if (email) {
       console.log("For checking email",email);
 
-      setLoading(true)
+      // setLoading(true)
       
       axios.get(`${apiurl}/data-for-user-edit-by-email/${email}`,{
         headers:{
@@ -59,9 +59,9 @@ console.log(dd,"kk")
           console.error("Error fetching data:", err);
           setValue([]);
         })
-        .finally(()=>{
-          setLoading(false)
-        })
+        // .finally(()=>{
+        //   setLoading(false)
+        // })
     }
   }
   useEffect(() => {
@@ -70,15 +70,15 @@ console.log(dd,"kk")
 
   console.log(value);      
 
-  useEffect(()=>{
-    if(!loading){
-      if(value.length===0){
-        setShowform(true)
-      }else{
-        setShowform(false)
-      }
-    }
-  },[value,loading])
+  // useEffect(()=>{
+  //   if(!loading){
+  //     if(value.length===0){
+  //       setShowform(true)
+  //     }else{
+  //       setShowform(false)
+  //     }
+  //   }
+  // },[value,loading])
 
   const [showModal, setShowModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState("");
@@ -166,12 +166,11 @@ const handleClick = () =>{
       </table>
       </div>
 
-       {/* {(
+       {(
         <div className='mt-5 userbtn'>
           <button className='btn mt-5 user-btn' onClick={toggleForm} disabled={results[0]?.can_create !== 1}>Add Details</button>
         </div>
-      )} */}
-      <button onClick={handleClick}>Show</button>
+      )}
 
       <Formpopup isVisible={showform} onClose={toggleForm} />
       <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} />

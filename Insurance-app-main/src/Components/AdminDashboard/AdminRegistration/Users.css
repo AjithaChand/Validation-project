@@ -177,6 +177,21 @@
     display: none;
 }
 
+.users-spinner{
+    border: 4px solid  #f3f3f3;
+    border-top: 4px solid #065c96;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}
+
 @media only screen and (min-width:319px) and (max-width:500px) {
     .admin-header-user{
         flex-wrap: wrap;
@@ -316,6 +331,15 @@
         color: green;
         cursor: pointer;
     }
+    .users-spinner{
+        border: 4px solid  #f3f3f3;
+        border-top: 4px solid #065c96;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 50% auto;
+    }
 }
 
 @media only screen and (min-width:501px) and (max-width:768px) {
@@ -422,6 +446,15 @@
         color: green;
         cursor: pointer;
     }
+    .users-spinner{
+        border: 4px solid #f3f3f3;
+        border-top:4px solid #065c96 ;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 30% auto;
+    }
     
 }
 
@@ -436,4 +469,55 @@
         margin-top: 20px;
     }
 
+}
+
+@media only screen and (min-width:769px) and (max-width:1024px) {
+    .users-table tbody td{
+        padding: 10px;
+    }
+}
+
+@media only screen and (min-width:769px) and (max-width:1009px){
+    .tablerow-user{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .users-table th{
+        padding: 8px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: #023265;
+        color: white;
+        border-bottom: 1px solid gainsboro;
+    }
+    .users-table tbody td{
+        padding: 4px;
+    }
+    .edit-btn .useredit-icon{
+        font-size: 19px;
+        color: green;
+        cursor: pointer;
+    }
+    
+    .delete-btn .userdelete-icon{
+        font-size: 19px;
+        color: darkred;
+        cursor: pointer;
+    }
+    
+}
+
+@media only screen and (min-width:1025px) and (max-width:1113px) {
+    .users-table td{
+        font-size: 14px;
+        font-weight: 200;
+        font-family: "Poppins",sans-serif;
+    }
+    .users-table tbody td{
+        padding: 3px;
+    }
 }

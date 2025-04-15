@@ -25,6 +25,7 @@ const Users = () => {
   const [selectid, setSelectid] = useState(null);
   const[selectemail,setSelectemail]=useState(null)
   const [value, setValue] = useState([]);
+  const [loading , setLoading] = useState(true)
 
   const {createNewUser} = useContext(UserContext);
   const {updateOldUser} = useContext(UserContext);
@@ -38,13 +39,19 @@ const Users = () => {
   };
 
   useEffect(() => {
+
+    setLoading(true)
+
     axios.get(`${apiurl}/getuser`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
       .then(res => setValue(res.data))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(()=>{
+        setLoading(false)
+      })
   }, [refresh,createNewUser,updateOldUser]);
 
   const handleLogout = () => setShowconfirm(true);
@@ -131,22 +138,28 @@ const Users = () => {
               </tr>
             </thead>
             <tbody className='tbody-users ajay'>
-              {value.map((data, index) => (
-                <tr key={index}>
-                  <td>{data.username}</td>
-                  <td>{data.email}</td>
-                  <td>{data.password}</td>
-                  <td>{data.total_salary}</td>
-                  <td>
-                    <button className='edit-btn' onClick={() => handleupdate(data.id,data.email)}>
-                      <FaEdit className='useredit-icon' />
-                    </button>
-                    <button className='delete-btn' onClick={() => handleDelete(data.id)}>
-                      <RiDeleteBinFill className='userdelete-icon' />
-                    </button>
-                  </td>
+              {loading ? (
+                <tr>
+                  <td colSpan={6}><div className='users-spinner'></div></td>
                 </tr>
-              ))}
+              ) : (
+                value.map((data, index) => (
+                  <tr key={index}>
+                    <td>{data.username}</td>
+                    <td>{data.email}</td>
+                    <td>{data.password}</td>
+                    <td>{data.total_salary}</td>
+                    <td>
+                      <button className='edit-btn' onClick={() => handleupdate(data.id,data.email)}>
+                        <FaEdit className='useredit-icon' />
+                      </button>
+                      <button className='delete-btn' onClick={() => handleDelete(data.id)}>
+                        <RiDeleteBinFill className='userdelete-icon' />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

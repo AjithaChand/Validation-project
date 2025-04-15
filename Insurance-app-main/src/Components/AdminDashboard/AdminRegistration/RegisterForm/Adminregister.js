@@ -131,7 +131,7 @@ const Adminregister = ({ close }) => {
                     </div>
                     <div className='mt-3 form-group'>
                         <label className='register-label'>Select Role</label>
-                        <div style={{ display: 'flex', gap: '20px', marginTop: '10px' }}>
+                        <div className='permissions-role mt-2'>
                             <label>
                                 <input
                                     type='radio'
@@ -156,8 +156,10 @@ const Adminregister = ({ close }) => {
                             </label>
                         </div>
                     </div>
-                    <h4>Dashboard Permissions</h4>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    
+                    <div className='mt-3 form-group'>
+                    <label className='register-label'>Dashboard Permissions</label>
+                    <div className='permissions mt-2'>
                         <label>
                             <input
                                 type="checkbox"
@@ -199,10 +201,11 @@ const Adminregister = ({ close }) => {
                             /> Delete
                         </label>
                     </div>
+                    </div>
 
-
-                    <h4>Payslip Permissions</h4>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <div className='mt-3 form-group'>
+                    <label className='register-label'>Payslip Permissions</label>
+                    <div className='permissions mt-2'>
                         <label>
                             <input
                                 type="checkbox"
@@ -244,7 +247,7 @@ const Adminregister = ({ close }) => {
                             /> Delete
                         </label>
                     </div>
-                    <button onClick={()=>{console.log("Checking the value for permission",permission)}}>Checking permission</button>
+                    </div>
                    
                     <button className='btn mt-3 adminregister-btn'>Register</button>
                 </form>
