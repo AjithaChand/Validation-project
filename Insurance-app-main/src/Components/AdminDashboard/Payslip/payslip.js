@@ -229,7 +229,9 @@ const handleUserSelect = async (selectedName) => {
 
   return (
     <div className="payslip-design">
-      {showBackIcon && (
+      
+      <div className='payslip-file'>
+     {showBackIcon && (
         <FaBackward
           className="pageback-icon"
           aria-label="Go back"
@@ -241,8 +243,10 @@ const handleUserSelect = async (selectedName) => {
           }}
         />
       )}
+       <h1 className="portal">Payslip Portal</h1>
+</div>
 
-      <h1 className="portal">Payslip Portal</h1>
+     
 
       {showInput && (
         <div className="payslip-field">
@@ -270,8 +274,8 @@ const handleUserSelect = async (selectedName) => {
         </div>
       )}
 
-      {showPayslip && (
         <div className="heading-payslip">
+      {showPayslip && (
           <div className='payslip-style' ref={payslipRef}>
             <div className="design"></div>
             <div className="company-header">
@@ -335,15 +339,16 @@ const handleUserSelect = async (selectedName) => {
 
             <div className="bottom-design"></div>
           </div>
-        </div>
       )}
+              </div>
+
 
       {showPdf && (
         <div className='pdf-button-download'>
           <button className="pdfbutton" onClick={generatePDF}>
             <FaFilePdf className="pdf-icon" /> Download Pdf
           </button>
-          <button onClick={showValue}>Show the value</button>
+         
         </div>
       )}
 

@@ -134,9 +134,9 @@ const Users = () => {
                 <th>Username</th>
                 <th>Email</th>
                 <th>Password</th>
-                <th>Salary</th>
                 <th>Pf Number</th>
                 <th>Esi Number</th>
+                <th>Salary</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -148,6 +148,7 @@ const Users = () => {
               ) : (
                 value.map((data, index) => (
                   <tr key={index}>
+                    <td>{data.emp_id}</td>
                     <td>{data.username}</td>
                     <td>{data.email}</td>
                     <td>{data.password}</td>
