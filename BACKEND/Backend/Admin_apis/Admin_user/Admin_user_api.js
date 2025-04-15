@@ -20,23 +20,24 @@ const db = require('../../db');
 
 
 app.post("/admin/register", verifyToken, verifyAdmin, (req, res) => {
-    const { username, email, password, role, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount } = req.body;
+    const { username, email, password, role, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, permissions } = req.body;
 
-
-    console.log(`For Checking for  register`, username, email, password, role);
-    console.log("For Checking for Payslip",total_salary,esi_amount,pf_amount);
     
 
+    console.log(`For Checking for  register`, username, email, password, role);
+    console.log("For Checking for Payslip", total_salary, esi_amount, pf_amount);
+
+
     db.query("SELECT * FROM users WHERE email=?", [email], async (err, result) => {
-      
+
         if (err)
             return res.status(500).json({ error: err.message })
-     
+
         if (result.length > 0) {
             return res.status(400).json({ error: "Email already exists" })
         }
         // const hashedPassword = await bcrypt.hash(password, 10)
-      
+
         const sql = "INSERT INTO users (username,email,password,role)VALUES(?,?,?,?)";
 
         const values = [username, email, password, role]
@@ -47,53 +48,95 @@ app.post("/admin/register", verifyToken, verifyAdmin, (req, res) => {
                 return res.status(400).json({ error: "Can not register" })
             }
 
-            const query = "SELECT * FROM payslip WHERE emp_email = ?";
-    
-            db.query(query, [email], (err, info) => { 
-                          
-                if (err) {
-                    console.log("Database Error:", err);
-                    return res.status(500).send({ message: "Database Error" });
-                } 
-        
-                if (info.length > 0) {
-                    console.log("Already salary uploaded");
-                    return res.status(409).send({ message: "Already salary uploaded" });
-                } 
-        
-                const new_total_salary = Number(parseFloat(total_salary).toFixed(2));
-                const new_esi_amount = Number(parseFloat(esi_amount).toFixed(2));
-                const new_pf_amount = Number(parseFloat(pf_amount).toFixed(2));
-                const new_gross_salary = Number(parseFloat(gross_salary).toFixed(2));
-                const new_net_amount = Number(parseFloat(net_amount).toFixed(2));
-        
-                const values = [username, email, new_total_salary, pf_number, new_esi_amount, esi_number, new_pf_amount, new_gross_salary, new_net_amount];
-                
-                
-                const insertQuery = `INSERT INTO payslip (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount) 
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        
-                db.query(insertQuery, values, (err, result) => {
+            //  Getting the person_code for permission table 
+            const getCodeQuery = "SELECT person_code FROM users WHERE email =?"
+
+            db.query(getCodeQuery, [email], (err, codeResult) => {
+
+                if (err || codeResult.length === 0) {
+
+                    return res.status(500).json({ error: "Failed to fetch the person details" })
+
+                }
+
+                const person_code = codeResult[0].person_code;
+
+
+                const permissionRows = [];
+
+                for (const [page, perm] of Object.entries(permissions)) {
+
+                    permissionRows.push([
+                        person_code,
+                        page,
+                        perm.read ? 1 : 0,
+                        perm.create ? 1 : 0,
+                        perm.update ? 1 : 0,
+                        perm.delete ? 1 : 0
+                    ]);
+                }
+
+                const permQuery = "INSERT INTO permissions (person_code, page_name, can_read, can_create, can_update, can_delete) VALUES ? "
+
+                db.query(permQuery, [permissionRows], (err, permResult)=>{
+                 
+                    if(err){
+                        console.log("checking the permission error" , err);
+                        
+                        return res.status(500).json({error:"can't add the values"})
+                    }
+
+                const query = "SELECT * FROM payslip WHERE emp_email = ?";
+
+                db.query(query, [email], (err, info) => {
+
                     if (err) {
-                        console.log(`payslip insert failed to${email}:`, err);
-                        return res.status(500).send({ message: "Salary Add Failed! Try Again." });
-                    } 
-         
-                   const msg = role === "admin" ? "Admin Registered Successfully" : "User Registered with Permissions";
-                   return res.status(200).json({ message: msg });
+                        console.log("Database Error:", err);
+                        return res.status(500).send({ message: "Database Error" });
+                    }
+
+                    if (info.length > 0) {
+                        console.log("Already salary uploaded");
+                        return res.status(409).send({ message: "Already salary uploaded" });
+                    }
+
+                    const new_total_salary = Number(parseFloat(total_salary).toFixed(2));
+                    const new_esi_amount = Number(parseFloat(esi_amount).toFixed(2));
+                    const new_pf_amount = Number(parseFloat(pf_amount).toFixed(2));
+                    const new_gross_salary = Number(parseFloat(gross_salary).toFixed(2));
+                    const new_net_amount = Number(parseFloat(net_amount).toFixed(2));
+
+                    const values = [username, email, new_total_salary, pf_number, new_esi_amount, esi_number, new_pf_amount, new_gross_salary, new_net_amount];
+
+
+                    const insertQuery = `INSERT INTO payslip (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+                    db.query(insertQuery, values, (err, result) => {
+                        if (err) {
+                            console.log(`payslip insert failed to${email}:`, err);
+                            return res.status(500).send({ message: "Salary Add Failed! Try Again." });
+                        }
+
+
+                            
+                        const msg = role === "admin" ? "Admin Registered Successfully" : "User Registered with Permissions";
+                        return res.status(200).json({ message: msg });
+                    });
+                });
             });
-        });
-    });
+        })
+
+    })
 })
 
 })
 
-
-// Get all users
+/// Get all users
 
 
 app.get('/getuser', verifyToken, verifyAdmin, (req, res) => {
-    const sql = "SELECT u.*, p.total_salary FROM users u LEFT JOIN payslip p ON u.email = p.emp_email";
+    const sql = "SELECT u.*, p.total_salary, p.esi_number, p.pf_number FROM users u LEFT JOIN payslip p ON u.email = p.emp_email";
     db.query(sql, (err, result) => {
         if (err)
             return res.status(500).json({ error: err.message })
@@ -108,9 +151,9 @@ app.get('/getuser', verifyToken, verifyAdmin, (req, res) => {
 app.get('/getuser/single', verifyToken, verifyAdmin, (req, res) => {
 
     const { email } = req.query;
-    
-    console.log(email,"For Filled in backend");
-    
+
+    console.log(email, "For Filled in backend");
+
     const sql = "SELECT u.*, p.total_salary FROM users u LEFT JOIN payslip p ON u.email = p.emp_email WHERE u.email = ?  ";
 
     db.query(sql, [email], (err, data) => {
@@ -130,42 +173,38 @@ app.get('/getuser/single', verifyToken, verifyAdmin, (req, res) => {
 //Edit user
 
 app.put('/edituser/:id', verifyToken, verifyAdmin, async (req, res) => {
-   
+
     const id = req.params.id;
 
     const { username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount } = req.body;
 
-    console.log(username,email,password,total_salary,esi_amount,pf_amount,gross_salary,net_amount, id ,"In backend");
-    
+    console.log(username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount, id, "In backend");
+
 
     const sql = "UPDATE users SET username=?,email =?,password=? WHERE id=?"
-   
+
     const values = [username, email, password, id]
 
     db.query(sql, values, (err, data) => {
-    
+
         if (err) return res.status(500).json({ error: err.message })
 
-    const updateQuery = "UPDATE payslip SET total_salary= ?, esi_amount= ?, pf_amount= ?, gross_salary= ?, net_amount= ? WHERE emp_email = (SELECT email FROM users WHERE id = ?)"
-   
-    db.query(updateQuery,[total_salary,esi_amount,pf_amount,gross_salary,net_amount,id],(err, result)=>{
-      
-        console.log(updateQuery);
-        
-        if(err){
-            return res.status(400).send({ message : "Database Error"})
-        }
-       console.log(result);
-       
-        return res.status(200).json({ message: "Changes Submitted successfully" })
-    })   
-   
+        const updateQuery = "UPDATE payslip SET total_salary= ?, esi_amount= ?, pf_amount= ?, gross_salary= ?, net_amount= ? WHERE emp_email = (SELECT email FROM users WHERE id = ?)"
+
+        db.query(updateQuery, [total_salary, esi_amount, pf_amount, gross_salary, net_amount, id], (err, result) => {
+
+            console.log(updateQuery);
+
+            if (err) {
+                return res.status(400).send({ message: "Database Error" })
+            }
+            console.log(result);
+
+            return res.status(200).json({ message: "Changes Submitted successfully" })
+        })
+
     })
 })
-
-
-
-
 
 
 app.delete('/delete/:id', verifyToken, verifyAdmin, (req, res) => {

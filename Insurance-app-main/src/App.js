@@ -14,7 +14,7 @@ import Updatedata from './Components/AdminDashboard/AdminRegistration/Updateform
 import { UserProvider } from "./usecontext";  
 import Updatefile from './Components/Admincreateform/Updatefile';
 import Payslip from './Components/AdminDashboard/Payslip/payslip';
-import Permission from './Components/Permission/Permission';
+
 import Attendance from './Components/AdminDashboard/Attendance/attendance';
 const App = () => {
 return (
@@ -31,7 +31,7 @@ return (
             <Route path='users' element={<Users />} />
             {/* <Route path='home' element={<User />} /> */}
             <Route path='payslip' element={<Payslip />} />
-            <Route path='permission' element={<Permission />} />
+       
             <Route path="attendance" element={<Attendance/>}/>
           </Route>
           <Route path='/getuser/:id' element={<Users />} />

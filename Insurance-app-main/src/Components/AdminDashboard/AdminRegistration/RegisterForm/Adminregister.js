@@ -8,13 +8,13 @@ import { UserContext } from '../../../../usecontext';
 
 const Adminregister = ({ close }) => {
 
-    const {setCreateNewUser} = useContext(UserContext);
+    const { setCreateNewUser } = useContext(UserContext);
 
     const [values, setValues] = useState({
         username: "",
         email: "",
         password: "",
-        total_salary:0,
+        total_salary: 0,
         role: "",
         pf_amount: 0,
         esi_amount: 0,
@@ -24,10 +24,16 @@ const Adminregister = ({ close }) => {
         esi_number: ""
     });
 
+    const [permission, setPermission] = useState({
+        'dashboard': { read: false, create: false, update: false, delete: false },
+
+        'payslip': { read: false, create: false, update: false, delete: false },
+    })
+
     const handleSalarychange = (e) => {
         const salary = parseFloat(e.target.value);
         if (isNaN(salary)) return;
-        const total_salary=salary;
+        const total_salary = salary;
         const pf = (salary * 0.12).toFixed(2);
         const esi = (salary * 0.0075).toFixed(2);
         const net = (salary - pf - esi).toFixed(2);
@@ -37,7 +43,7 @@ const Adminregister = ({ close }) => {
 
         setValues(prev => ({
             ...prev,
-            total_salary:salary,
+            total_salary: salary,
             pf_amount: pf,
             esi_amount: esi,
             net_amount: net,
@@ -70,8 +76,10 @@ const Adminregister = ({ close }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log("Values",values);
-        
+        console.log("Values", values);
+        console.log("permissions", permission);
+
+
         if (values.role === "select" || values.role === "") {
             return toast.error("Choose the account type");
         }
@@ -86,14 +94,15 @@ const Adminregister = ({ close }) => {
             return toast.warning("Password must be 8 characters, include one number and one special character");
         }
 
-        axios.post(`${apiurl}/admin/register`, values, {
+        axios.post(`${apiurl}/admin/register`,
+            { ...values, permissions: permission }, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         })
             .then(res => {
                 toast.success(res.data.message);
-                setCreateNewUser(pre=>!pre)
+                setCreateNewUser(pre => !pre)
                 close();
             })
             .catch(err => toast.error(err.response?.data?.error || "Something went wrong"));
@@ -121,13 +130,122 @@ const Adminregister = ({ close }) => {
                         <input type='number' className='form-control' onChange={handleSalarychange} style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} placeholder='Enter salary' required />
                     </div>
                     <div className='mt-3 form-group'>
-                        <label className='register-label'>Select Account</label>
-                        <select className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, role: e.target.value })} required>
-                            <option value="" disabled>Select role</option>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
-                        </select>
+                        <label className='register-label'>Select Role</label>
+                        <div style={{ display: 'flex', gap: '20px', marginTop: '10px' }}>
+                            <label>
+                                <input
+                                    type='radio'
+                                    name='role'
+                                    value='admin'
+                                    onChange={e => setValues({ ...values, role: e.target.value })}
+                                    checked={values.role === 'admin'}
+                                    required
+                                />
+                                Admin
+                            </label>
+                            <label>
+                                <input
+                                    type='radio'
+                                    name='role'
+                                    value='user'
+                                    onChange={e => setValues({ ...values, role: e.target.value })}
+                                    checked={values.role === 'user'}
+                                    required
+                                />
+                                User
+                            </label>
+                        </div>
                     </div>
+                    <h4>Dashboard Permissions</h4>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.dashboard.read}
+                                onChange={e => setPermission(prev => ({
+                                    ...prev,
+                                    dashboard: { ...prev.dashboard, read: e.target.checked }
+                                }))}
+                            /> Read
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.dashboard.create}
+                                onChange={e => setPermission(prev => ({
+                                    ...prev,
+                                    dashboard: { ...prev.dashboard, create: e.target.checked }
+                                }))}
+                            /> Create
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.dashboard.update}
+                                onChange={e => setPermission(permission => ({
+                                    ...permission,
+                                    dashboard: { ...permission.dashboard, update: e.target.checked }
+                                }))}
+                            /> Update
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.dashboard.delete}
+                                onChange={e => setPermission(permission => ({
+                                    ...permission,
+                                    dashboard: { ...permission.dashboard, delete: e.target.checked }
+                                }))}
+                            /> Delete
+                        </label>
+                    </div>
+
+
+                    <h4>Payslip Permissions</h4>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.payslip.read}
+                                onChange={e => setPermission(permission => ({
+                                    ...permission,
+                                    payslip: { ...permission.payslip, read: e.target.checked }
+                                }))}
+                            /> Read
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.payslip.create}
+                                onChange={e => setPermission(permission => ({
+                                    ...permission,
+                                    payslip: { ...permission.payslip, create: e.target.checked }
+                                }))}
+                            /> Create
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.payslip.update}
+                                onChange={e => setPermission(permission => ({
+                                    ...permission,
+                                    payslip: { ...permission.payslip, update: e.target.checked }
+                                }))}
+                            /> Update
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.payslip.delete}
+                                onChange={e => setPermission(permission => ({
+                                    ...permission,
+                                    payslip: { ...permission.payslip, delete: e.target.checked }
+                                }))}
+                            /> Delete
+                        </label>
+                    </div>
+                    <button onClick={()=>{console.log("Checking the value for permission",permission)}}>Checking permission</button>
+                   
                     <button className='btn mt-3 adminregister-btn'>Register</button>
                 </form>
             </div>

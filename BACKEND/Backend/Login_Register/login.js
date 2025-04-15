@@ -50,12 +50,13 @@ app.post('/login', (req, res) => {
 
             const person_code = info[0]?.person_code;
 
+            console.log("im from backend PErson_Code", person_code);
+            
             if (!person_code) return res.status(400).json({ error: "Person code not found" })
                 console.log(person_code ,"Person_Code in backend")
 
                 
-            const permissionQuery =
-                "SELECT page_name,can_create,can_read,can_update,can_delete FROM permissions WHERE person_code=?"
+            const permissionQuery = "SELECT * FROM permissions WHERE person_code= ?";
 
             db.query(permissionQuery, [person_code], (perErr, perResult) => {
 
@@ -63,6 +64,8 @@ app.post('/login', (req, res) => {
 
                 const token = jwt.sign({ email: user.email, role: user.role }, SECRET_KEY, { expiresIn: "1h" })
 
+                console.log("All result in backend",perResult);
+                
                 return res.status(200).json({
                     message: user.role == "admin" ? "Admin Login Successfull" : "Login Successfull",
                     token,
@@ -122,23 +125,23 @@ app.post('/login', (req, res) => {
 // });
 
 
-app.get('/person-code-details', (req, res) => {
+// app.get('/person-code-details', (req, res) => {
 
-    const { person_code } = req.query;
+//     const { person_code } = req.query;
 
-    console.log(person_code, "I am from backend");
+//     console.log(person_code, "I am from backend");
 
-    const selectQuery = "SELECT * FROM permissions WHERE person_code = ? ";
+//     const selectQuery = "SELECT * FROM permissions WHERE person_code = ? ";
 
-    db.query(selectQuery, [person_code], (err, info) => {
+//     db.query(selectQuery, [person_code], (err, info) => {
 
-        if (err) return res.status(400).send({ message: "Database Error" })
+//         if (err) return res.status(400).send({ message: "Database Error" })
 
-        console.log("All information from backend", info[0]);
+//         console.log("All information from backend", info[0]);
 
-        return res.status(200).send({ info: info })
-    })
-})
+//         return res.status(200).send({ info: info })
+//     })
+// })
 
 
 

@@ -13,6 +13,7 @@ const Login = () => {
 
     const [active, setActive] = useState("login")
 
+  const { setAllPermission } = useContext(UserContext)
     // const [results,setResult]=useState([]);
 
     const { setResult } = useContext(UserContext);
@@ -31,9 +32,13 @@ const Login = () => {
                 localStorage.setItem("role", res.data.role);
                 localStorage.setItem("username", res.data.username);
                 localStorage.setItem("email", res.data.email);
+                setAllPermission(res.data.permission)
                 localStorage.setItem("permission", JSON.stringify(res.data.permission));
-       
-                fetchPersonDetails(res.data.person_code);
+                console.log(res.data.permission);
+                
+                
+
+                // fetchPersonDetails(res.data.person_code);
 
                 if (res.data.role === "admin") {
                     toast.success(res.data.message);
@@ -54,21 +59,19 @@ const Login = () => {
             .catch(err => {
                 toast.error(err.response?.data?.error || "Login failed");
                 console.log("Login Error:", err.message);
-            });
-    
-        console.log("I am from Login Page");
+            });            
     }
 
-const fetchPersonDetails = async (person_code) =>{
-        try{
-            const result = await axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
-            setResult(result.data.info)
-            console.log("Fetched person details:", result.data.info);
-        }
-        catch(err){
-            console.log("Error fetching person details:", err.message);
-        }
-}
+// const fetchPersonDetails = async (person_code) =>{
+//         try{
+//             const result = await axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
+//             setResult(result.data.info)
+//             console.log("Fetched person details:", result.data.info);
+//         }
+//         catch(err){
+//             console.log("Error fetching person details:", err.message);
+//         }
+// }
 
 
 // console.log("All results from login",results);

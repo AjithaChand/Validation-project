@@ -17,9 +17,13 @@ export const UserProvider = ({ children }) => {
   const [updateOldUser,setUpdateOldUser] = useState(true);
 
 
+  // All Permissions For All Component
+
+  const [allPermission,setAllPermission]=useState({})
+
 
   return (
-    <UserContext.Provider value={{ userId, setUserId , update, setUpdate, refreshFromUpdate, setRefreshFromUpdate, refreshFromCreate, setRefreshFromCreate, refreshCreateFromAdmin, setRefreshCreateFromAdmin, results, setResult, value , setValue, createNewUser ,setCreateNewUser, updateOldUser ,setUpdateOldUser}}>
+    <UserContext.Provider value={{ userId, setUserId , update, setUpdate, refreshFromUpdate, setRefreshFromUpdate, refreshFromCreate, setRefreshFromCreate, refreshCreateFromAdmin, setRefreshCreateFromAdmin, results, setResult, value , setValue, createNewUser ,setCreateNewUser, updateOldUser ,setUpdateOldUser, allPermission, setAllPermission}}>
       {children}
     </UserContext.Provider>
   );
