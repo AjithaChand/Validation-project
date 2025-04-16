@@ -1,4 +1,3 @@
-// Updated Users.js
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios';
 import Userpage from '../AdminRegistration/Dialogbox/Userpage';
@@ -14,6 +13,7 @@ import { apiurl } from '../../../url';
 import AddIcon from '@mui/icons-material/Add';
 import Usersdelete from '../AdminRegistration/Dialogbox/Usersdelete';
 import { UserContext } from '../../../usecontext';
+import { FaSearch } from "react-icons/fa";
 
 const Users = () => {
 
@@ -143,13 +143,15 @@ const Users = () => {
             <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
           </button>
           )}
-          <div>
+          <div className='user-searchbar'>
             <input
               type='text'
               value={searchValue}
               placeholder='Search here'
               onChange={(e)=>setSearchValue(e.target.value)}
+              className='user-search-input'
             />
+             <FaSearch className="user-search-icon" />
           </div>
           </div>
           <div className="admin-header-user">
@@ -192,7 +194,7 @@ const Users = () => {
             <tbody className='tbody-users ajay'>
               {loading ? (
                 <tr>
-                  <td colSpan={8}><div className='users-spinner'></div></td>
+                  <td colSpan={9}><div className='users-spinner'></div></td>
                 </tr>
               ) : (
                 filterValue.map((data, index) => (
@@ -200,6 +202,7 @@ const Users = () => {
                     <td>{data.id}</td>
                     <td>{data.username}</td>
                     <td>{data.email}</td>
+                    <td></td>
                     <td>{data.password}</td>
                     <td>{data.pf_number}</td>
                     <td>{data.esi_number}</td>

@@ -54,7 +54,7 @@
 }
 
 .users-table tbody td {
-    padding: 20px;
+    padding: 18px;
 }
 
 .users-table tbody tr:hover {
@@ -190,6 +190,31 @@
 @keyframes spin {
     0% { transform: rotate(0deg);}
     100% { transform: rotate(360deg);}
+}
+
+.user-search-icon{
+    font-size: 25px;
+    color: #023265;
+}
+
+.user-head-search{
+    display: flex;
+    gap: 15px;
+    justify-content:center;
+    align-items: center;
+}
+
+.user-searchbar{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.user-search-input{
+    padding: 5px 0 5px 0;
+    width: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
 }
 
 @media only screen and (min-width:319px) and (max-width:500px) {
