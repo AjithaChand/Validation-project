@@ -18,13 +18,10 @@ import Deletebox from '../../AdminDashboard/CustomerDetails/Dialogbox/Deletebox'
 import '../../UserDashboard/User.css';
 import Formpopup from '../../UserDashboard/Dialogbox/Formpopup';
 import Editdialog from '../../UserDashboard/Dialogbox/Editdialog';
-import EditIcon from '@mui/icons-material/Edit';
 
 const Adminpage = () => {
 
-  const user = localStorage.getItem('role')
-
-  const { value, setValue, refreshFromUpdate, refreshCreateFromAdmin, shareId, update, refreshFromCreate, results } = useContext(UserContext);
+  const { value, setValue, refreshFromUpdate, refreshCreateFromAdmin, shareId, update, refreshFromCreate } = useContext(UserContext);
 
   const [deletevalue, setDeletevalue] = useState([])
 
@@ -37,7 +34,8 @@ const Adminpage = () => {
   const [selectid, setSelectid] = useState(null)
 
   const [refersh, setRefresh] = useState(true);
-  const [loading, setLoading] = useState(true);
+
+  const [adminloading, setAdminloading] = useState(true);
 
   console.log("I am from User.jsx", shareId);
 
@@ -53,8 +51,6 @@ const Adminpage = () => {
     if (email) {
       console.log("For checking email", email);
 
-      setLoading(true)
-
       axios.get(`${apiurl}/data-for-user-edit-by-email/${email}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -69,9 +65,6 @@ const Adminpage = () => {
         .catch(err => {
           console.error("Error fetching data:", err);
           setValue([]);
-        })
-        .finally(() => {
-          setLoading(false)
         })
     }
   }
@@ -133,6 +126,9 @@ const Adminpage = () => {
 
   // Fetch files from backend
   useEffect(() => {
+
+    setAdminloading(true)
+
     axios.get(`${apiurl}/read`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -140,6 +136,9 @@ const Adminpage = () => {
     })
       .then(res => setDeletevalue(res.data))
       .catch(err => console.log(err))
+      .finally(()=>{
+        setAdminloading(false)
+      })
   }, [refersh, refreshFromUpdate, refreshCreateFromAdmin])
 
 
@@ -198,7 +197,6 @@ const Adminpage = () => {
 
   return (
     <div>
-      {user === 'admin' ? (<>
         <div className='admin-container' >
           <div className="admin-header-container">
             <button className=' admin-btn' onClick={handlePopup}>
@@ -241,7 +239,7 @@ const Adminpage = () => {
                 </tr>
               </thead>
               <tbody>
-                {loading ? (
+                {adminloading ? (
                   <tr>
                     <td colSpan={6}><div className='spinner'></div></td>
                   </tr>
@@ -275,67 +273,7 @@ const Adminpage = () => {
             </table>
           </div>
         </div>
-      </>) : user === 'user' ? (<>
-        <div className='user-containerform'>
-          <div className="user-headerpage">
-            <h3 className='text-center head mt-5'>USER ENTRY</h3>
-          </div>
 
-          <div className='usertable-container'>
-            <table className='user-table mt-3 text-center'>
-              <thead>
-                <tr>
-                  <th >Email</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Policy</th>
-                  <th>File</th>
-                  <th>Action</th>
-                </tr  >
-              </thead>
-              <tbody>
-                {loading ? (
-                  <tr>
-                    <td colSpan={6}><div className='spinner'></div></td>
-                  </tr>
-                ) : (
-                  Array.isArray(value) && value.map((data, index) => (
-                    <tr key={index}>
-                      <td>{data.email}</td>
-                      <td>{new Date(data.startdate).toLocaleDateString("en-CA")}</td>
-                      <td>{new Date(data.enddate).toLocaleDateString("en-CA")}</td>
-                      <td>{data.policy}</td>
-                      <td>
-                        {data.file_path ? (
-                          <button
-                            className='userbutton'
-                            onClick={() => handleViewFile(data.file_path)}
-                          >
-                            <DescriptionIcon className="view-btn" />
-                          </button>
-                        ) : ("No File")}
-                      </td>
-                      <td className='tablerow'>
-                        <button className='user-edit-btn' onClick={() => toggleEdit(data.id)} disabled={results[0]?.can_update !== 1}>
-                          <EditIcon className='user-editbtn' />
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-          {(
-            <div className='mt-5 userbtn'>
-              <button className='btn mt-5 user-btn' onClick={toggleForm} disabled={results[0]?.can_create !== 1}>Add Details</button>
-            </div>
-          )}
-        </div>
-      </>) : (<></>)}
-
-
-      {/* admin page */}
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
       <UpdateBox onClose={() => handleupdate()} isVisible={showupdate} userid={selectid} />
       <Deletebox isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
