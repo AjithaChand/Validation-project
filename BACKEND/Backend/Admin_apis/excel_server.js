@@ -13,6 +13,7 @@ app.use(express.json());
 const db = require('../db')
 
 
+// dashboard page 
 
 app.get("/download-excel",(req, res) => {
    
@@ -67,6 +68,7 @@ app.get("/download-excel",(req, res) => {
     });
 });
 
+// user page
 
 app.get("/download-excel-for-user-data", (req, res) => {
    
@@ -106,6 +108,55 @@ app.get("/download-excel-for-user-data", (req, res) => {
     });
 });
 
+// attendance page
+
+app.get("/download-excel-for-attendance-data", (req, res) => {
+   
+    const query = "SELECT emp_name, emp_email, office_name, total_salary, pf_number, esi_number, pf_amount, esi_amount, net_amount, leave_days, revised_salary FROM payslip";
+
+    db.query(query,(err, results) => {
+
+        if (err) {
+            console.error("Database Query Error:", err);
+            return res.status(500).json({ error: "Database Query Failed" });
+        }
+
+        const worksheet = xlsx.utils.json_to_sheet(results);
+
+              worksheet['!cols'] = [
+                { wpx: 150 }, 
+                { wpx: 150 }, 
+                { wpx: 150 },
+                { wpx: 150 },
+                { wpx: 150 },
+                { wpx: 150 },
+                { wpx: 150 },
+                { wpx: 150 },
+                { wpx: 150 },
+                { wpx: 150 },
+                { wpx: 150 }
+            ];
+
+        const workbook = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(workbook, worksheet, "Payslip");
+
+        const dir = "./downloads";
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+
+        const filePath = `${dir}/payslip_data.xlsx`;
+        xlsx.writeFile(workbook, filePath);
+        
+        res.download(filePath, "payslip_data.xlsx", (err) => {
+            if (err) console.error("File Download Error:", err);
+
+            fs.unlinkSync(filePath);
+        });
+    });
+});
+
+
 // app.get("/download-excel", (req, res) => {
 //     const query = "SELECT id, email, startdate, enddate, policy, subject, content FROM customer_details";
 //     generateExcel(query, [], res); 
@@ -119,7 +170,7 @@ app.get("/download-excel-for-user-data", (req, res) => {
 
 
 
-//Upload the excel sheet
+//Upload the excel sheet in dashboard page
 
 const upload = multer({ dest: "uploads/" });
 
@@ -173,6 +224,9 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
     });
 });
   
+
+//Upload the excel sheet in user page
+
 app.post("/upload-excel-for-userdata",upload.single("file"), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
@@ -214,6 +268,68 @@ db.query(query, [values], (err,result) => {
     return res.json({ success: true, message: "Data Inserted/Updated Successfully" });
 });
 
+});
+
+
+// upload in attendance page 
+
+
+app.post("/upload-excel-for-attendancedata", upload.single("file"), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const filePath = req.file.path;
+    const workbook = xlsx.readFile(filePath);
+    const sheetName = workbook.SheetNames[0];
+    const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+    const values = sheetData.map((row) => [
+        row.emp_name,
+        row.emp_email,
+        row.office_name,
+        row.total_salary,
+        row.pf_number,
+        row.esi_number,
+        row.pf_amount,
+        row.esi_amount,
+        row.net_amount,
+        row.leave_days,
+        row.revised_salary
+    ]);
+
+    if (values.length === 0) {
+        fs.unlinkSync(filePath);
+        return res.status(400).json({ error: "No valid data in the file" });
+    }
+
+    const query = `
+        INSERT INTO payslip (
+            emp_name, emp_email, office_name, total_salary, pf_number,
+            esi_number, pf_amount, esi_amount, net_amount, leave_days, revised_salary
+        ) VALUES ?
+        ON DUPLICATE KEY UPDATE 
+            emp_name = VALUES(emp_name),
+            office_name = VALUES(office_name),
+            total_salary = VALUES(total_salary),
+            pf_number = VALUES(pf_number),
+            esi_number = VALUES(esi_number),
+            pf_amount = VALUES(pf_amount),
+            esi_amount = VALUES(esi_amount),
+            net_amount = VALUES(net_amount),
+            leave_days = VALUES(leave_days),
+            revised_salary = VALUES(revised_salary)
+    `;
+
+    db.query(query, [values], (err, result) => {
+        fs.unlinkSync(filePath);
+        if (err) {
+            console.error("Database Insert/Update Error:", err);
+            return res.status(500).json({ error: "Database Operation Failed" });
+        }
+        console.log("Rows affected from Excel:", result.affectedRows);
+        return res.json({ success: true, message: "Data Inserted/Updated Successfully" });
+    });
 });
 
  

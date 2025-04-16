@@ -217,4 +217,33 @@ app.get("/get-all-employee-names", (req, res) => {
     });
   });
   
+
+
+    // date wise send all data;
+  
+    app.get("/get-all-employee-datas", (req, res) => {
+    
+        const { month, year } = req.query;
+    
+        if (!month) {
+          return res.status(400).json({ message: "Month query parameter is required" });
+        }
+      
+        const selectQuery = "SELECT * FROM payslip WHERE MONTH(dates)= ? AND YEAR(dates) = ?";
+        
+        db.query(selectQuery, [month,year], (err, info) => {
+          if (err) {
+            console.log("Database Error:", err);
+            return res.status(500).json({ message: "Database Error" });
+          }
+      
+          if (info.length === 0) {
+            return res.status(404).json({ message: "No employee found with this Month" });
+          }
+      
+          console.log("Fetched Employee Data:",info); 
+          return res.status(200).json({ results: info });
+        });
+      });
+    
 module.exports=app;
