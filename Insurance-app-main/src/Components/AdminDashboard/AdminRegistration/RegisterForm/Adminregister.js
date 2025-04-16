@@ -21,7 +21,8 @@ const Adminregister = ({ close }) => {
         net_amount: 0,
         gross_salary: 0,
         pf_number: "",
-        esi_number: ""
+        esi_number: "",
+        date:""
     });
 
     const [permission, setPermission] = useState({
@@ -38,9 +39,7 @@ const Adminregister = ({ close }) => {
         const esi = (salary * 0.0075).toFixed(2);
         const net = (salary - pf - esi).toFixed(2);
         const gross_salary = salary;
-        const pf_number = generatePfNumber();
-        const esi_number = generateesiNumber();
-
+       
         setValues(prev => ({
             ...prev,
             total_salary: salary,
@@ -48,31 +47,11 @@ const Adminregister = ({ close }) => {
             esi_amount: esi,
             net_amount: net,
             gross_salary,
-            pf_number,
-            esi_number
+           
         }));
     }
 
-    const generatePfNumber = () => {
-        const prefix = "NASTAF639000";
-        const lastNumber = localStorage.getItem("lastPfNumber");
-        const nextNumber = lastNumber ? parseInt(lastNumber) + 1 : 1;
-        const formattedNumber = String(nextNumber).padStart(3, "0");
-        const pf = `${prefix}${formattedNumber}`;
-        localStorage.setItem("lastPfNumber", nextNumber);
-        return pf;
-    };
-
-    const generateesiNumber = () => {
-        const prefix = "121000388110001302";
-        const lastNumber = localStorage.getItem("lastEsiNumber");
-        const nextNumber = lastNumber ? parseInt(lastNumber) + 1 : 1;
-        const formattedNumber = String(nextNumber).padStart(3, "0");
-        const pf = `${prefix}${formattedNumber}`;
-        localStorage.setItem("lastEsiNumber", nextNumber);
-        return pf;
-    };
-
+  
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -128,6 +107,18 @@ const Adminregister = ({ close }) => {
                     <div className='mt-3 form-group'>
                         <label className='register-label'>Salary</label>
                         <input type='number' className='form-control' onChange={handleSalarychange} style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} placeholder='Enter salary' required />
+                    </div>
+                    <div className='mt-3 form-group'>
+                        <label className='register-label'>Pf Number</label>
+                        <input type='number' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, pf_number: e.target.value })} placeholder='Enter Pf number' required />
+                    </div>
+                    <div className='mt-3 form-group'>
+                        <label className='register-label'>Esi Number</label>
+                        <input type='number' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, esi_number: e.target.value })} placeholder='Enter Esi number' required />
+                    </div>
+                    <div className='mt-3 form-group'>
+                        <label className='register-label'>Date</label>
+                        <input type='date' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values,date: e.target.value })} placeholder='select date' required />
                     </div>
                     <div className='mt-3 form-group'>
                         <label className='register-label'>Select Role</label>
