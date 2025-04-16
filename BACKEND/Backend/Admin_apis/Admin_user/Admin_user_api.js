@@ -20,12 +20,12 @@ const db = require('../../db');
 
 
 app.post("/admin/register", verifyToken, (req, res) => {
-    const { username, email, password, role, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, permissions , date} = req.body;
+    const { username, email, password, role, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, permissions , date, joining_date, revised_salary} = req.body;
 
     
 
     console.log(`For Checking for  register`, username, email, password, role);
-    console.log("For Checking for Payslip", total_salary, esi_amount, pf_amount);
+    console.log("For Checking for Payslip", joining_date);
 
 
     db.query("SELECT * FROM users WHERE email=?", [email], async (err, result) => {
@@ -106,11 +106,12 @@ app.post("/admin/register", verifyToken, (req, res) => {
                     const new_gross_salary = Number(parseFloat(gross_salary).toFixed(2));
                     const new_net_amount = Number(parseFloat(net_amount).toFixed(2));
 
-                    const values = [username, email, new_total_salary, pf_number, new_esi_amount, esi_number, new_pf_amount, new_gross_salary, new_net_amount, date];
-
-
-                    const insertQuery = `INSERT INTO payslip (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, dates) 
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                    const values = [username, email, new_total_salary, pf_number, new_esi_amount, esi_number, new_pf_amount, new_gross_salary, new_net_amount, date, joining_date, revised_salary];
+                      
+                    console.log(values,"for insert payslip");
+                        
+                    const insertQuery = `INSERT INTO payslip (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, dates, joining_date, revised_salary) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
                     db.query(insertQuery, values, (err, result) => {
                         if (err) {
@@ -136,7 +137,7 @@ app.post("/admin/register", verifyToken, (req, res) => {
 
 
 app.get('/getuser', verifyToken,(req, res) => {
-    const sql = "SELECT u.*, p.total_salary, p.esi_number, p.pf_number, p.dates FROM users u LEFT JOIN payslip p ON u.email = p.emp_email";
+    const sql = "SELECT u.*, p.total_salary, p.esi_number, p.pf_number, p.joining_date FROM users u LEFT JOIN payslip p ON u.email = p.emp_email";
     db.query(sql, (err, result) => {
         if (err)
             return res.status(500).json({ error: err.message })

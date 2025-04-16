@@ -15,9 +15,11 @@ import { IoMdCall, IoMdMailUnread } from "react-icons/io";
 const Payslip = () => {
   const [employeedata, setEmployeedata] = useState([]);
   const [dates, setDates] = useState("");
+  const [datesTo, setDatesTo] = useState("");
   const [showBackIcon, setShowBackIcon] = useState(false);
   const [showPaySlip, setShowPaySlip] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0); 
   const payslipRefs = useRef([]);
 
   useEffect(() => {
@@ -26,8 +28,11 @@ const Payslip = () => {
     const monthNumber = new Date(`${dates}-01`).getMonth() + 1;
     const year = new Date(`${dates}-01`).getFullYear();
 
+    const monthNumberTO = new Date(`${datesTo}-01`).getMonth() + 1;
+    const yearTo = new Date(`${datesTo}-01`).getFullYear();
+
     axios
-      .get(`${apiurl}/get-all-employee-datas?month=${monthNumber}&year=${year}`)
+      .get(`${apiurl}/get-all-employee-datas?month=${monthNumber}&year=${year}&monthTo=${monthNumberTO}&yearTo=${yearTo}`)
       .then((res) => {
         if (Array.isArray(res.data.results)) {
           setEmployeedata(res.data.results);
@@ -48,6 +53,7 @@ const Payslip = () => {
 
   const generateAllPDFs = async () => {
     setLoading(true); // Start loader
+    setProgress(0); // Reset progress
     toast.info("Generating ZIP, please wait...");
 
     if (!employeedata.length) {
@@ -77,6 +83,8 @@ const Payslip = () => {
         const pdfBlob = pdf.output("blob");
 
         zip.file(`Payslip_${employee.emp_id}.pdf`, pdfBlob);
+
+        setProgress(Math.round(((i + 1) / employeedata.length) * 100));
       } catch (err) {
         console.error(`Error generating PDF for ${employee.emp_id}`, err);
       }
@@ -92,7 +100,7 @@ const Payslip = () => {
         toast.error("Failed to create ZIP");
       })
       .finally(() => {
-        setLoading(false); // Stop loader
+        setLoading(false); 
       });
   };
 
@@ -101,7 +109,14 @@ const Payslip = () => {
       {loading && (
         <div className="loading-overlay">
           <div className="loading-spinner"></div>
-          <p style={{color:"white"}}>Generating payslips ZIP... Please wait</p>
+          <p style={{ color: "white" }}>Generating payslips ZIP... Please wait</p>
+          <div className="progress-bar">
+            <div
+              className="progress-bar-filled"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+          <p style={{ color: "white" }}>{progress}%</p>
         </div>
       )}
 
@@ -122,12 +137,22 @@ const Payslip = () => {
 
       <div className="payslip-field">
         <div className="input-fields">
-          <label>Month</label>
+          <label>From Month</label>
           <input
             type="month"
             className="payslipinput"
             value={dates}
             onChange={(e) => setDates(e.target.value)}
+          />
+        </div>
+
+        <div className="input-fields">
+          <label>To Month</label>
+          <input
+            type="month"
+            className="payslipinput"
+            value={datesTo}
+            onChange={(e) => setDatesTo(e.target.value)}
           />
         </div>
       </div>

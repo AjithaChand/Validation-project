@@ -67,6 +67,7 @@ const Attendance = () => {
         <table className='attend-1'>
           <thead>
             <tr>
+              <th>Id</th>
               <th>Username</th>
               <th>Email</th>
               <th>Working Days</th>
@@ -77,6 +78,7 @@ const Attendance = () => {
           <tbody>
             {attendanceData.map((data, index) => (
               <tr key={index}>
+                <td>{data.referal_Id}</td>
                 <td>{data.emp_name}</td>
                 <td>{data.emp_email}</td>
                 <td>30</td> 
