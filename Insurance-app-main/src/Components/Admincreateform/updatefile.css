@@ -75,7 +75,7 @@
     cursor: pointer;
   } */
 
-@media only screen and (min-width:319px) and (max-width:400px) {
+/* @media only screen and (min-width:319px) and (max-width:400px) {
   .heading {
     font-size: 18px;
     font-weight: bold;
@@ -129,4 +129,4 @@
   .updatebox .user-btn {
     padding: 10px;
   }
-}
+} */

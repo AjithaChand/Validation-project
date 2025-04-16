@@ -12,8 +12,8 @@
 }
 
 .create-content{
-    width: 28%;
-    height: 70%;
+    width: fit-content;
+    height: fit-content;
     background: white;
     border-radius: 15px;
     position: relative;
@@ -30,7 +30,7 @@
     cursor: pointer;
 }
 
-@media only screen and (min-width:319px) and (max-width:400px){
+/* @media only screen and (min-width:319px) and (max-width:400px){
     .create-content{
         width: 80%;
         height: 65%;
@@ -56,4 +56,4 @@
         width: 45%;
         height: 75%;
     }
-}
+} */

@@ -12,8 +12,8 @@
 }
 
 .update-content{
-    width: 25%;
-    height: 63%;
+    width: fit-content;
+    height: fit-content;
     background: white;
     border-radius: 15px;
     position: relative;
@@ -30,11 +30,8 @@
     cursor: pointer;
 }
 
-@media only screen and (min-width:319px) and (max-width:400px){
-    .update-content{
-        width: 80%;
-        height: 60%;
-    }
+/* @media only screen and (min-width:319px) and (max-width:400px){
+   
 }
 
 @media only screen and (min-width:401px) and (max-width:500px){
@@ -56,4 +53,4 @@
         width: 40%;
         height: 70%;
     }
-}
+} */

@@ -29,6 +29,10 @@ const Adminregister = ({ close }) => {
         'dashboard': { read: false, create: false, update: false, delete: false },
 
         'payslip': { read: false, create: false, update: false, delete: false },
+
+        'users': { read: false, create: false, update: false, delete: false },
+
+        'attendance': { read: false, create: false, update: false, delete: false },
     })
 
     const handleSalarychange = (e) => {
@@ -234,6 +238,98 @@ const Adminregister = ({ close }) => {
                                 onChange={e => setPermission(permission => ({
                                     ...permission,
                                     payslip: { ...permission.payslip, delete: e.target.checked }
+                                }))}
+                            /> Delete
+                        </label>
+                    </div>
+                    </div>
+
+                    <div className='mt-3 form-group'>
+                    <label className='register-label'>users Permissions</label>
+                    <div className='permissions mt-2'>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.users.read}
+                                onChange={e => setPermission(prev => ({
+                                    ...prev,
+                                    users: { ...prev.users, read: e.target.checked }
+                                }))}
+                            /> Read
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.users.create}
+                                onChange={e => setPermission(prev => ({
+                                    ...prev,
+                                    users: { ...prev.users, create: e.target.checked }
+                                }))}
+                            /> Create
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.users.update}
+                                onChange={e => setPermission(permission => ({
+                                    ...permission,
+                                    users: { ...permission.users, update: e.target.checked }
+                                }))}
+                            /> Update
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.users.delete}
+                                onChange={e => setPermission(permission => ({
+                                    ...permission,
+                                    users: { ...permission.users, delete: e.target.checked }
+                                }))}
+                            /> Delete
+                        </label>
+                    </div>
+                    </div>
+
+                    <div className='mt-3 form-group'>
+                    <label className='register-label'>Attendance Permissions</label>
+                    <div className='permissions mt-2'>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.attendance.read}
+                                onChange={e => setPermission(prev => ({
+                                    ...prev,
+                                    attendance: { ...prev.attendance, read: e.target.checked }
+                                }))}
+                            /> Read
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.attendance.create}
+                                onChange={e => setPermission(prev => ({
+                                    ...prev,
+                                    attendance: { ...prev.attendance, create: e.target.checked }
+                                }))}
+                            /> Create
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.attendance.update}
+                                onChange={e => setPermission(permission => ({
+                                    ...permission,
+                                    attendance: { ...permission.attendance, update: e.target.checked }
+                                }))}
+                            /> Update
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={permission.attendance.delete}
+                                onChange={e => setPermission(permission => ({
+                                    ...permission,
+                                    attendance: { ...permission.attendance, delete: e.target.checked }
                                 }))}
                             /> Delete
                         </label>

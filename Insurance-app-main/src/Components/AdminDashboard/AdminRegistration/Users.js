@@ -143,7 +143,7 @@ const Users = () => {
             <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
           </button>
           )}
-          <div className='user-searchbar'>
+          {/* <div className='user-searchbar'>
             <input
               type='text'
               value={searchValue}
@@ -152,7 +152,7 @@ const Users = () => {
               className='user-search-input'
             />
              <FaSearch className="user-search-icon" />
-          </div>
+          </div> */}
           </div>
           <div className="admin-header-user">
             <button className="upload-button1" onClick={handleDownload}>

@@ -251,7 +251,7 @@ const Adminpage = () => {
             <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
           </button>
           )}
-          <div className='searchbar'>
+          {/* <div className='searchbar'>
               <input
                 type='text'
                 value={search}
@@ -260,7 +260,7 @@ const Adminpage = () => {
                 className='search-input'
               />
               <FaSearch className="search-icon" />
-            </div>
+            </div> */}
             </div>
           <div className="admin-header">
             <button className="upload-button3" onClick={handleDownload}>
