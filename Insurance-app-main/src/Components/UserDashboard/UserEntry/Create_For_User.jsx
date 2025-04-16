@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,6 +9,8 @@ const Create_For_User = ({ close }) => {
 
 
   const email = localStorage.getItem('email');
+
+  // const {allPermission} = useContext(UserContext);
 
   const {setRefreshFromCreate} = useContext(UserContext)
 
@@ -26,6 +28,28 @@ const Create_For_User = ({ close }) => {
   // const { setShareEmail } = useContext(UserContext);
 
 
+
+// const person_code =localStorage.getItem("person_code");
+
+// console.log(person_code,"From Create for user");
+
+// const [getPermission, setGetPermission]=useState({});
+
+// useEffect(()=>{
+//   if(person_code){
+        
+//     axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
+//     .then(res=>setGetPermission(res.data.info))
+//     .catch(err=>console.log(err.message))
+//   }
+// },[person_code])
+
+
+// const handleShow=()=>{
+
+//   console.log(getPermission[0]);
+  
+// }
   const handleFileChange = (e) => {
     setValues({ ...values, file: e.target.files[0] });
   };
@@ -113,7 +137,6 @@ const Create_For_User = ({ close }) => {
             onChange={(e) => setValues({ ...values, policy: e.target.value })}
           />
         </div>
-
         <div className="mt-3">
           <input
             type="file"
@@ -122,12 +145,13 @@ const Create_For_User = ({ close }) => {
             className="mt-3"
           />
         </div>
-
+    
         <button
           className="btn user-btn mt-3"
-         >
+       >
           Submit
         </button>
+      
       </form>
 
       <ToastContainer position="top-right" autoClose={3000} />

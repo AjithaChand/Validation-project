@@ -10,7 +10,7 @@ const admin_dashboard = require("./Admin_apis/Admin_Dashborad/admin_dashboard_ap
 const admin_users = require("./Admin_apis/Admin_user/Admin_user_api");
 const login = require("./Login_Register/login");
 const register = require("./Login_Register/register");
-const userpage = require("./User_Pages/user_dashboard_apis");
+// const userpage = require("./User_Pages/user_dashboard_apis");
 const admin_payslip= require("../Backend/Admin_apis/Admin_payslip/admin_payslip");
 const user_payslip= require("../Backend/User_Pages/user_payslip");
 
@@ -42,7 +42,7 @@ app.use("/", admin_dashboard);
 app.use("/",  admin_users);
 app.use("/",excelServer);
 app.use("/",emailReminder);
-app.use("/",userpage);
+// app.use("/",userpage);
 app.use("/",admin_payslip)
 app.use("/",user_payslip);
 app.use("/",admin_attendance)

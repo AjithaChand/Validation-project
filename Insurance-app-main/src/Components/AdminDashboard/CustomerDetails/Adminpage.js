@@ -18,10 +18,41 @@ import Deletebox from '../../AdminDashboard/CustomerDetails/Dialogbox/Deletebox'
 import '../../UserDashboard/User.css';
 import Formpopup from '../../UserDashboard/Dialogbox/Formpopup';
 import Editdialog from '../../UserDashboard/Dialogbox/Editdialog';
+import { FaSearch } from "react-icons/fa";
 
 const Adminpage = () => {
 
+
+  const user = localStorage.getItem('role')
+
   const { value, setValue, refreshFromUpdate, refreshCreateFromAdmin, shareId, update, refreshFromCreate } = useContext(UserContext);
+
+  //permission code 
+
+  const person_code = localStorage.getItem("person_code")
+
+  console.log(person_code, "Person code from adminpage")
+
+  const [getPermission, setGetPermission] = useState({})
+
+
+  useEffect(() => {
+
+    if (person_code) {
+
+      axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
+
+        .then(res => setGetPermission(res.data.info))
+
+        .catch(err => console.log(err.message))
+
+    }
+
+
+  }, [person_code])
+
+  //
+
 
   const [deletevalue, setDeletevalue] = useState([])
 
@@ -43,6 +74,8 @@ const Adminpage = () => {
 
   const [showedit, setShowEdit] = useState(false);
   const [showform, setShowform] = useState(false);
+
+  const [search, setSearch] = useState("")
 
   const dd = localStorage.getItem("token");
   console.log(dd, "kk")
@@ -136,7 +169,7 @@ const Adminpage = () => {
     })
       .then(res => setDeletevalue(res.data))
       .catch(err => console.log(err))
-      .finally(()=>{
+      .finally(() => {
         setAdminloading(false)
       })
   }, [refersh, refreshFromUpdate, refreshCreateFromAdmin])
@@ -195,84 +228,139 @@ const Adminpage = () => {
     }
   };
 
+  const filterData = deletevalue.filter((value) =>{
+    return value.email?.toLowerCase().includes(search.toLowerCase()) ||
+    value.policy?.toLowerCase().includes(search.toLowerCase())
+  });
+
+
   return (
     <div>
-        <div className='admin-container' >
-          <div className="admin-header-container">
-            <button className=' admin-btn' onClick={handlePopup}>
-              <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
-            </button>
-            <div className="admin-header">
-              <button className="upload-button3" onClick={handleDownload}>
-                <PiMicrosoftExcelLogoFill />
-              </button>
+      <div className='admin-container' >
+        <div className="admin-header-container">
+          <div className='admin-head-search'>
+          {user === 'admin' ? (
+            <button className=' admin-btn' onClick={handlePopup}
+          >
+            <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
+          </button>
+          ) : (
+            <button className=' admin-btn' onClick={handlePopup}
+            disabled={getPermission.length === 0 || getPermission[0]?.can_create !== 1}
+          >
+            <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
+          </button>
+          )}
+          <div className='searchbar'>
               <input
-                type="file"
-                id="fileInput"
-                className="file-input"
-                onChange={(e) => setFile(e.target.files[0])}
+                type='text'
+                value={search}
+                placeholder='Search here'
+                onChange={(e)=>setSearch(e.target.value)}
+                className='search-input'
               />
-              <label htmlFor="fileInput" className="file-label">
-                <span className="text-white label-name">Choose File</span>
-              </label>
-              {file && <span className="file-name">{file.name}</span>}
-              <button className="upload-button4" onClick={handleUpload}>
-                <IoIosCloudUpload />
-              </button>
+              <FaSearch className="search-icon" />
             </div>
-          </div>
-
-          <div>
-            <p className='tablerow-admin'>CUSTOMER DETAILS</p>
-          </div>
-
-          <div className='admintable-container table-div'>
-            <table className='text-center admin-table '>
-              <thead>
-                <tr>
-                  <th>Email</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Policy</th>
-                  <th>Files</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {adminloading ? (
-                  <tr>
-                    <td colSpan={6}><div className='spinner'></div></td>
-                  </tr>
-                ) : (
-                  deletevalue.map((data, index) => {
-                    return <tr key={index}>
-                      <td>{data.email}</td>
-                      <td>{new Date(data.startdate).toLocaleDateString('en-GB')}</td>
-                      <td>{new Date(data.enddate).toLocaleDateString('en-GB')}</td>
-                      <td>{data.policy}</td>
-                      <td>
-                        {data.file_path ? (
-                          <button
-                            className=' adminbutton'
-                            onClick={() => handleViewFile(data.file_path)}
-                          >
-                            <DescriptionIcon className="editicon" />
-                          </button>
-                        ) : ("No File")}
-                      </td>
-                      <td>
-                        <button className='edit-btn' onClick={() => handleupdate(data?.id)}><FaEdit className='edit-icon' /></button>
-                        <button className='delete-button' onClick={() => handleDelete(data.id)}>
-                          <DeleteIcon className="deleteicon" />
-                        </button>
-                      </td>
-                    </tr>
-                  })
-                )}
-              </tbody>
-            </table>
+            </div>
+          <div className="admin-header">
+            <button className="upload-button3" onClick={handleDownload}>
+              <PiMicrosoftExcelLogoFill />
+            </button>
+            <input
+              type="file"
+              id="fileInput"
+              className="file-input"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <label htmlFor="fileInput" className="file-label">
+              <span className="text-white label-name">Choose File</span>
+            </label>
+            {file && <span className="file-name">{file.name}</span>}
+            <button className="upload-button4" onClick={handleUpload}>
+              <IoIosCloudUpload />
+            </button>
           </div>
         </div>
+
+        <div>
+          <p className='tablerow-admin'>CUSTOMER DETAILS</p>
+        </div>
+
+        <div className='admintable-container table-div'>
+          <table className='text-center admin-table '>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Policy</th>
+                <th>Files</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {adminloading ? (
+                <tr>
+                  <td colSpan={6}><div className='spinner'></div></td>
+                </tr>
+              ) : (
+                filterData.map((data, index) => {
+                  return <tr key={index}>
+                    <td>{data.email}</td>
+                    <td>{new Date(data.startdate).toLocaleDateString('en-GB')}</td>
+                    <td>{new Date(data.enddate).toLocaleDateString('en-GB')}</td>
+                    <td>{data.policy}</td>
+                    <td>
+                      {data.file_path ? (
+                        <button
+                          className=' adminbutton'
+                          onClick={() => handleViewFile(data.file_path)}
+                        >
+                          <DescriptionIcon className="editicon" />
+                        </button>
+                      ) : ("No File")}
+                    </td>
+                    <td>
+                     {user==="admin" ? (
+                       <button
+                       className='edit-btn'
+                       onClick={() => handleupdate(data?.id)}
+                     
+                     >
+                       <FaEdit className='edit-icon' />
+                     </button>
+                     ):(
+                      <button
+                      className='edit-btn'
+                      onClick={() => handleupdate(data?.id)}
+                      disabled={getPermission.length === 0 || getPermission[0]?.can_update !== 1}
+                    >
+                      <FaEdit className='edit-icon' />
+                    </button>
+                     )}
+                     {user ==="admin" ?(
+                       <button className='delete-button'
+                       onClick={() => handleDelete(data.id)}
+                      //  disabled={getPermission.length === 0 || getPermission[0]?.can_delete !== 1}
+                     >
+                       <DeleteIcon className="deleteicon" />
+                     </button>
+                     ):(
+                      <button className='delete-button'
+                      onClick={() => handleDelete(data.id)}
+                      disabled={getPermission.length === 0 || getPermission[0]?.can_delete !== 1}
+                    >
+                      <DeleteIcon className="deleteicon" />
+                    </button>
+                     )}
+                    </td>
+                  </tr>
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
       <UpdateBox onClose={() => handleupdate()} isVisible={showupdate} userid={selectid} />

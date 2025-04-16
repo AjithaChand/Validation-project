@@ -8,7 +8,7 @@ const fs = require("fs")
 
 // const verifyToken=require('../../Login_Register/auth')
 
-const { verifyToken, verifyAdmin } = require('../../Login_Register/auth')
+const { verifyToken} = require('../../Login_Register/auth')
 
 const app = express();
 app.use(cors());
@@ -19,7 +19,7 @@ const db = require('../../db');
 //Admin registraion from admin page
 
 
-app.post("/admin/register", verifyToken, verifyAdmin, (req, res) => {
+app.post("/admin/register", verifyToken, (req, res) => {
     const { username, email, password, role, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, permissions , date} = req.body;
 
     
@@ -135,7 +135,7 @@ app.post("/admin/register", verifyToken, verifyAdmin, (req, res) => {
 /// Get all users
 
 
-app.get('/getuser', verifyToken, verifyAdmin, (req, res) => {
+app.get('/getuser', verifyToken,(req, res) => {
     const sql = "SELECT u.*, p.total_salary, p.esi_number, p.pf_number, p.dates FROM users u LEFT JOIN payslip p ON u.email = p.emp_email";
     db.query(sql, (err, result) => {
         if (err)
@@ -150,7 +150,7 @@ app.get('/getuser', verifyToken, verifyAdmin, (req, res) => {
 
 //Edit data for single user
 
-app.get('/getuser/single', verifyToken, verifyAdmin, (req, res) => {
+app.get('/getuser/single', verifyToken,(req, res) => {
 
     const { email } = req.query;
 
@@ -174,7 +174,7 @@ app.get('/getuser/single', verifyToken, verifyAdmin, (req, res) => {
 
 //Edit user
 
-app.put('/edituser/:id', verifyToken, verifyAdmin, async (req, res) => {
+app.put('/edituser/:id', verifyToken, async (req, res) => {
 
     const id = req.params.id;
 
@@ -209,7 +209,7 @@ app.put('/edituser/:id', verifyToken, verifyAdmin, async (req, res) => {
 })
 
 
-app.delete('/delete/:id', verifyToken, verifyAdmin, (req, res) => {
+app.delete('/delete/:id', verifyToken, (req, res) => {
 
     const id = req.params.id;
 

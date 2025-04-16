@@ -193,6 +193,31 @@
     100% { transform: rotate(360deg); }
 }
 
+.search-icon{
+    font-size: 25px;
+    color: #023265;
+}
+
+.admin-head-search{
+    display: flex;
+    gap: 15px;
+    justify-content:center;
+    align-items: center;
+}
+
+.searchbar{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search-input{
+    padding: 5px 0 5px 0;
+    width: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+
 @media only screen and (min-width:319px) and (max-width:500px) {
     .admin-header{
         flex-wrap: wrap;
