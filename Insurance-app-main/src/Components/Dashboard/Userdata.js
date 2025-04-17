@@ -11,10 +11,10 @@ import { MdOutlineMenuOpen } from "react-icons/md";
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { IoReceipt } from "react-icons/io5";
-import img from "../AdminDashboard/Payslip/nastaflogo.jpg";
+import { companyName,companyLogo } from '../settings';
 import axios from 'axios';
 import { apiurl } from '../../url';
-
+// import { companyName } from '../settings';
 const Userdata = () => {
 
   const person_code = localStorage.getItem("person_code")
@@ -71,7 +71,7 @@ const Userdata = () => {
   return (
     <div className='user-container' >
       <div className={`${dashboardSidebaropen ? 'user-profile' : 'toggle-profile'}`}>
-        <h3 className='userheader'><span className='caps'>T</span>rust<span className='caps'>A</span>ssure</h3>
+        <h3 className='userheader'>{companyName}</h3>
         <div className='userlogout-btn'><FaUserCircle className='logo' /></div>
         {user === 'admin' ? (<div className='userlogout-btn username'>{user}</div>) :
           (<div className='userlogout-btn username'>{username}</div>)}
@@ -86,7 +86,7 @@ const Userdata = () => {
       </div>
       <aside className={`${dashboardSidebaropen ? 'admin-slidebar' : 'toggle-slidebar'}`}>
         <div className='user-heading'>
-          {dashboardSidebaropen && <img className="company-logo" src={img} alt="Company Logo" />}
+          {dashboardSidebaropen && <img className="company-logo" src={companyLogo} alt="Company Logo" />}
           <button className={`${dashboardSidebaropen ? 'dashboard-menu' : 'toggledashboard-menu'}`}>
             <MdOutlineMenuOpen className='dashboard-menu-btn' onClick={() => setDashboardSidebaropen(!dashboardSidebaropen)} />
           </button>

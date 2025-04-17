@@ -157,17 +157,49 @@
  .payslip-button:hover {
    background-color:rgb(34, 125, 161);
  }
- 
+ .heading-payslip {
+  width: 80%;
+  margin: 2rem auto;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
 
-  .heading-payslip {
-   width: 70%;
-   margin: 2rem auto;
-  border-radius: 5px;
-   background-color: #ffffff;
-   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+.payslip-style {
+  padding: 20px;
+}
 
-  
- } 
+/* Decorative Design Bars */
+.design,
+.bottom-design {
+  height: 20px;
+  width: 100%;
+  position: relative; /* Needed for absolute positioning of cross */
+}
+
+.design {
+  background: linear-gradient(to right, #2caaa9 0%, #888 100%);
+}
+
+.bottom-design {
+  background: linear-gradient(to right, #888 0%, #2caaa9 100%);
+}
+
+/* .design::before,
+.design::after,
+.bottom-design::before,
+.bottom-design::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px; 
+  height: 2px; 
+  background-color: white;
+  transform-origin: center;
+} */
 
 .design,
 .bottom-design {
@@ -204,155 +236,122 @@
 }
 
 
+
+
 .company-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
- flex-wrap: wrap;
+  flex-wrap: wrap;
   gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.image-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
 }
 
 .company {
-  display: flex;
-  flex-direction: column;
+  flex: 1;
+  text-align: center;
 }
 
 .company h3 {
   margin: 0;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 600;
   color: #2c3e50;
 }
 
 .contact-line {
-  font-size: 13px;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  color: #2c3e50;
-}
-
-.icon {
-  margin-right: 5px;
-  color: #444;
-}
-.address
-{justify-content: end;}
-.address h6 {
-  margin: 0 0 4px 0;
   font-size: 14px;
   color: #2c3e50;
-}
-
-.address p {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.3;
-  color: #2c3e50;
-}
-
-.gap {
-  border-bottom: 8px solid #2caaa9;
-  margin: 0.5rem 0;
-}
-
-.info-sections {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
   gap: 10px;
-  margin: 5px 0;
+  margin-top: 5px;
+}
+
+.address {
+  max-width: 250px;
+  font-size: 15px;
+  color: #2c3e50;
+  text-align: right;
+}
+
+.address h6 {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+/* Employee & Attendance Sections */
+.gap {
+  margin: 1rem 0;
+  border-bottom: 4px solid #2caaa9;
+}
+
+.info-sections,
+.bottom-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 1rem 0;
 }
 
 .info-column {
   flex: 1;
-  padding: 2px;
-  border-radius: 8px;
-   min-width: 250px;
+  min-width: 250px;
 }
 
 .info-column h4 {
-  font-size: 15px;
-  border-bottom: 1px solid #2caaa9;
-  padding-bottom: 0.4rem;
-  margin-bottom: 0.75rem;
+  font-size: 16px;
   color: #2c3e50;
+  border-bottom: 2px solid #2caaa9;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
 }
 
 .info-column ul {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 .info-column li {
-  font-size: 13px;
-  margin-bottom: 0.3rem;
   display: flex;
   justify-content: space-between;
+  font-size: 14px;
+  text-align: left;
+  margin: 5px 0;
 }
 
 .info-column span {
-  font-weight: bold;
+  font-weight: 600;
 }
 
-.bottom-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  gap: 1rem;
-  margin-top: 2rem;
-  border-top: 2px solid rgb(44, 170, 170);
-  padding-top: 1rem;
-}
-
+/* Signature Section */
 .signature-box {
-  display: flex;
-  flex-direction: column;
-  padding: 1px 2px;
-  border-radius: 8px;
-  text-align: right;
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+.image-sign {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+.signature-box p {
+  font-size: 13px;
   font-style: italic;
-  font-size: 14px;
-  color: #34495e;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  color: #2c3e50;
 }
 
-
-
- .company-header {
-   display: flex;
-   justify-content: space-between;
-   padding: 5px 5px 5px 5px;
-   border-radius: 8px;
-   gap: 10px;
-   text-align: center;
- 
- }
- 
- .image-logo{
-   height: 70px;
-   width: 70px;
- 
- }
- .image-sign
- {
-  height: 70px;
-  width: 70px;
-  margin-left: 40px;
-}
-
- .company-header h5 {
-   padding: 10px;
-   margin-top: 2px;
-}
-
-
- 
 
  
 
@@ -399,39 +398,7 @@
   margin-top: 50px;
 }
 
-.contact-line {
 
-  font-size: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-
-}
-
-.icon {
-  margin-right: 5px;
-  color: #444;
-}
-.signature
-{
-display: flex;
-justify-content: end;
-}
-.sign-1{
-  display: flex;
-  flex-direction: column;
-}
-.company h3,p
-{
-  color:  #2c3e50;
-}
-.contact-line p{
-  color:  #2c3e50; 
-}
-.address h6,p{
-  color:  #2c3e50; 
-}
 .option
 {
   color:  #2c3e50; 

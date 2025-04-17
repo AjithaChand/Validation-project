@@ -3,7 +3,6 @@ import "./payslip.css";
 import { apiurl } from '../../../url';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import img from "./nastaflogo.jpg";
 import image from "./sign.jpg";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -11,6 +10,7 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { FaFilePdf, FaBackward } from "react-icons/fa";
 import { IoMdCall, IoMdMailUnread } from "react-icons/io";
+import { companyName, email, phone, address, companyLogo } from '../../settings';
 
 const Payslip = () => {
   const [employeedata, setEmployeedata] = useState([]);
@@ -318,20 +318,18 @@ const Payslip = () => {
               >
                 <div className="design"></div>
                 <div className="company-header">
-                  <img className="image-logo" src={img} alt="Company Logo" />
+                  <img className="image-logo" src={companyLogo} alt="Company Logo" />
                   <div className="company">
                     <h3>Payslip</h3>
                     <p className="contact-line">
-                      <IoMdCall className="icon" /> 075502 56616 &nbsp;
-                      <IoMdMailUnread className="icon" /> info@nastaf.com
+                      <IoMdCall className="icon" /> {phone} &nbsp;
+                      <IoMdMailUnread className="icon" /> {email}
                     </p>
                   </div>
                   <div className="address">
-                    <h6>Nastaf Technologies LLP</h6>
+                    <h6>{companyName}</h6>
                     <p>
-                      II Floor, Swathi Complex, No.34,<br />
-                      Flat No 2, Nandanam, Chennai,<br />
-                      Tamil Nadu 6000017
+                      {address}
                     </p>
                     <p>Date: {new Date().toLocaleDateString("en-GB")}</p>
                   </div>
@@ -345,8 +343,8 @@ const Payslip = () => {
                     <ul>
                       <li>Employee ID: <span>{employee.emp_id}</span></li>
                       <li>Name: <span>{employee.emp_name || "N/A"}</span></li>
-                      <li>Bank Details: <span>XXXX-XXXX-1234</span></li>
-                      <li>Date of Joining: <span>{employee.dates || "N/A"}</span></li>
+                      <li>Bank Details: <span>{employee.bank_details}</span></li>
+                      <li>Date of Joining: <span>{ new Date(employee.joining_date).toISOString("").split("T")[0]}</span></li>
                     </ul>
                   </div>
 
