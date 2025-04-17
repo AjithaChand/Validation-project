@@ -65,7 +65,7 @@ const Register = () => {
                         <label className='text-white'>Password</label>
                         <input type='password' className='form-control-register' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, password: e.target.value })} placeholder='Enter your password' required />
                     </div>
-                    <button className='btn mt-4'>Register</button>
+                    <button className='btn register-btn mt-4'>Register</button>
                 </form>
             </div>
             <ToastContainer position='top-right' autoClose={3000} />

@@ -98,7 +98,7 @@ const Create = ({ close }) => {
         <div className='mt-3'>
           <input type='file' accept='*/*' onChange={handleFileChange} className='mt-3' />
         </div>
-        <button className='btn mt-3' style={{ backgroundColor: "#333" }}>Submit</button>
+        <button className='btn create-button mt-3' style={{ backgroundColor: "#333" }}>Submit</button>
       </form>
       <ToastContainer position='top-right' autoClose={3000} />
 

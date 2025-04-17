@@ -178,7 +178,7 @@ const Users = () => {
           </div>
         </div>
 
-        <div className='user-searchbar-res'>
+        <div className='user-searchbar-res mt-3'>
               <input
                 type='text'
                 value={searchValue}
@@ -186,10 +186,10 @@ const Users = () => {
                 onChange={(e) => setSearchValue(e.target.value)}
                 className='user-search-input'
               />
-             
+              {/* <FaSearch className="user-search-icon" /> */}
           </div>
 
-        <div><p className='tablerow-user'>USER DETAILS</p></div>
+        <div><p className='tablerow-user mt-3'>USER DETAILS</p></div>
 
         <div className="table-container">
           <table className='users-table text-center'>
@@ -200,11 +200,14 @@ const Users = () => {
                 <th>Email</th>
                 <th>JoingDate</th>
                 <th>Password</th>
-                <th>Bank details</th>
                 <th>Pf Number</th>
                 <th>Esi Number</th>
                 <th>Salary</th>
-                <th>Actions</th>
+                {user === 'admin' ? (<th>Action</th>) : (
+                  getPermission.length !== 0 && (getPermission[2]?.can_update === 1 || getPermission[2]?.can_delete === 1) && (
+                    <th>Actions</th>
+                  )
+                )}
               </tr>
             </thead>
             <tbody className='tbody-users ajay'>
@@ -218,7 +221,7 @@ const Users = () => {
                     <td>{data.id}</td>
                     <td>{data.username}</td>
                     <td>{data.email}</td>
-                    <td>{data.joining_date}</td>
+                    <td>{new Date(data.joining_date).toISOString("").split("T")[0]}</td>
                     <td>{data.password}</td>
                     <td>{data.pf_number}</td>
                     <td>{data.esi_number}</td>
@@ -253,6 +256,12 @@ const Users = () => {
                     )}
                   </tr>
                 ))
+              )}
+
+              {loading === false && filterValue.length === 0 && (
+                <tr>
+                  <td colSpan={9}><div className='users-msg'> No User Found</div></td>
+                </tr>
               )}
             </tbody>
           </table>

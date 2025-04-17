@@ -223,6 +223,10 @@
     display: none;
 }
 
+.user-msg{
+    margin: 20px auto;
+}
+
 @media only screen and (min-width:319px) and (max-width:500px) {
     .admin-header{
         flex-wrap: wrap;
@@ -334,7 +338,8 @@
     }
     
     .admintable-container{
-        height: 70vh;
+        max-height: 70vh;
+        height: fit-content;
         width: 90%;
         border: 1px solid black;
         margin: auto;
@@ -541,6 +546,14 @@
 @media only screen and (min-width:769px) and (max-width:1024px) {
     .admin-table tbody td{
         padding: 10px;
+    }
+    .searchbar{
+        display: none;
+    }
+
+    .searchbar-res{
+        display: block;
+        text-align: center;
     }
 }
 

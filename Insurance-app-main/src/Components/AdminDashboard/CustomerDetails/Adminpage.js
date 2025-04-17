@@ -284,7 +284,7 @@ const Adminpage = () => {
           </div>
         </div>
 
-        <div className='searchbar-res'>
+        <div className='searchbar-res mt-3'>
               <input
                 type='text'
                 value={search}
@@ -296,7 +296,7 @@ const Adminpage = () => {
             </div>
 
         <div>
-          <p className='tablerow-admin'>CUSTOMER DETAILS</p>
+          <p className='tablerow-admin mt-3'>CUSTOMER DETAILS</p>
         </div>
 
         <div className='admintable-container table-div'>
@@ -379,6 +379,11 @@ const Adminpage = () => {
 
                   </tr>
                 })
+              )}
+              { adminloading === false && filterData.length === 0 && (
+                <tr>
+                  <td colSpan={6}><div className='user-msg'> No User Found</div></td>
+                </tr>
               )}
             </tbody>
           </table>

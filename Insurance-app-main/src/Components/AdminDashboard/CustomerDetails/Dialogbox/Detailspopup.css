@@ -30,14 +30,13 @@
     cursor: pointer;
 }
 
-/* @media only screen and (min-width:319px) and (max-width:400px){
+@media only screen and (min-width:319px) and (max-width:400px){
     .create-content{
-        width: 80%;
-        height: 65%;
+       width: 80%;
     }
 }
 
-@media only screen and (min-width:401px) and (max-width:500px){
+/*@media only screen and (min-width:401px) and (max-width:500px){
     .create-content{
         width: 60%;
         height: 75%;

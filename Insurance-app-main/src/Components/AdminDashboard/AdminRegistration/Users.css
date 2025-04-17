@@ -54,7 +54,7 @@
 }
 
 .users-table tbody td {
-    padding: 18px;
+    padding: 10px;
 }
 
 .users-table tbody tr:hover {
@@ -192,10 +192,10 @@
     100% { transform: rotate(360deg);}
 }
 
-.user-search-icon{
+/* .user-search-icon{
     font-size: 25px;
     color: #023265;
-}
+} */
 
 .user-head-search{
     display: flex;
@@ -212,14 +212,22 @@
 
 .user-search-input{
     padding: 5px 0 5px 0;
-    width: 300px;
+    width: 350px;
     border: 1px solid rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
+    border-radius: 50px;
+}
+
+.user-search-input::placeholder{
+    color: black;
+    font-size: bold;
 }
 
 .user-searchbar-res{
     display: none;
-    /* text-align: center; */
+}
+
+.users-msg{
+    margin: 20px auto;
 }
 
 @media only screen and (min-width:319px) and (max-width:500px) {
@@ -279,7 +287,6 @@
     }
 
     .users-table{
-        /* border: 1px solid black; */
         border-collapse:collapse;
         margin: auto;
         width: 100%;
@@ -343,7 +350,8 @@
     }
     
     .table-container{
-        height: 70vh;
+        height: fit-content;
+        max-height: 70vh;
         border: 1px solid black;
         width: 90%;
         margin: auto;
@@ -492,6 +500,13 @@
         animation: spin 1s linear infinite;
         margin: 30% auto;
     }
+    .user-searchbar-res{
+        display: block;
+        text-align: center;
+    }
+    .user-searchbar{
+        display: none;
+    }
     
 }
 
@@ -511,6 +526,13 @@
 @media only screen and (min-width:769px) and (max-width:1024px) {
     .users-table tbody td{
         padding: 10px;
+    }
+    .user-searchbar-res{
+        display: block;
+        text-align: center;
+    }
+    .user-searchbar{
+        display: none;
     }
 }
 

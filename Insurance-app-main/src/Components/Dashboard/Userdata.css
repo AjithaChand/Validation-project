@@ -329,3 +329,9 @@
   }
 }
 
+@media only screen and (min-width:1024px) {
+  .userdata-head{
+    padding: 5px;
+  }
+}
+

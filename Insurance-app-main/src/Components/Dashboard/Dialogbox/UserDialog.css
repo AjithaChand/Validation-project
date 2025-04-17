@@ -121,8 +121,8 @@
 
 @media only screen and (min-width:501px) and (max-width:700px){
     .userdialog-content{
-        width: 55%;
-        height: 23%;
+        width: 50%;
+        height: 25%;
     }
     .user-confirmbox p{
         font-size: 19px;

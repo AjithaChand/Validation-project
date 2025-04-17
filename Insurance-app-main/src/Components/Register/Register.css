@@ -22,8 +22,17 @@
     transition: border 0.3s ease, box-shadow 0.3s ease;
   }
 
+.register-btn{
+    margin: auto;
+    display: block;
+    padding: 10px;
+    width: 30%;
+    background-color: darkblue;
+    color: white;
+}
+
 @media screen and (max-width: 1440px) {
-    .btn {
+    .register-btn {
         width: 35%;
     }
 
@@ -36,7 +45,7 @@
 
 
 @media screen and (max-width: 768px){
-.btn {
+.register-btn {
     width: 40%;
 }
 
@@ -53,7 +62,7 @@
 
 
 @media screen and (max-width: 425px) {
-    .btn {
+    .register-btn {
         width: 80%;
         padding: 8px;
     }
@@ -69,7 +78,7 @@
 
 
 @media screen and (max-width: 375px) {
-    .btn {
+    .register-btn {
         width: 95%;
     }
 
@@ -83,7 +92,7 @@
     }
 }
 @media screen and (max-width: 320px) {
-    .btn {
+    .register-btn {
         width: 95%;
     }
 

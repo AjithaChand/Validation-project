@@ -93,7 +93,7 @@ const Login = () => {
                         <label className='label text-white'>Password</label>
                         <input type='password' className='form-control-login' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,password:e.target.value})} placeholder='Enter your password' required/>
                     </div>
-                    <button className='btn mt-5'>Login</button>
+                    <button className='btn login-btn mt-5'>Login</button>
                 </form>
             </div>
             <ToastContainer position='top-right' autoClose={3000} />

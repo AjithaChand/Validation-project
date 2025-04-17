@@ -30,11 +30,13 @@
     cursor: pointer;
 }
 
-/* @media only screen and (min-width:319px) and (max-width:400px){
-   
+@media only screen and (min-width:319px) and (max-width:400px){
+    .update-content{
+        width: 80%;
+    }
 }
 
-@media only screen and (min-width:401px) and (max-width:500px){
+/*@media only screen and (min-width:401px) and (max-width:500px){
     .update-content{
         width: 60%;
         height: 67%;

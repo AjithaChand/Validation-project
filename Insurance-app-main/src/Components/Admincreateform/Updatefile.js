@@ -154,7 +154,7 @@ const Updatefile = ({ close,selectid}) => {
             className="mt-3"
           />
         </div>
-          <button className='btn user-btn mt-3' style={{backgroundColor:"#333"}} >Submit</button>
+          <button className='btn update-admin-btn mt-3' style={{backgroundColor:"#333"}} >Submit</button>
             </form>
             <ToastContainer position='top-right' autoClose={3000} />
             </div>

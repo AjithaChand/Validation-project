@@ -8,6 +8,9 @@
 
 .adminregister-btn{
     background-color: #333;
+    display: block;
+    margin: auto;
+    color: white;
 }
 
 .adminregister-btn:hover{
@@ -26,50 +29,35 @@
 
 .permissions-role{
     display: flex;
-    gap: 30px;
+    gap: 10px;
 }
 
-@media only screen and (min-width:319px) and (max-width:400px){
-
-    .adminregister-form{
-        width: 100%;
-    }
-
-    .register-head{
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    .register-label{
-        font-size: 14px;
-    }
-    .adminregister-btn{
-        width: 50%;
-    }
+.permission-table{
+    border: 1px solid #000;
+    border-collapse: separate;
+    overflow: hidden;
+    border-spacing: 0;
+    margin: auto;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
 }
 
-@media only screen and (min-width:401px) and (max-width:500px){
-    .register-head{
-        font-size: 19px;
-        font-weight: bold;
-    }
-    .register-label{
-        font-size: 15px;
-    }
-    .adminregister-btn{
-        padding: 10px;
-    }
+.permission-table th {
+    padding: 10px;
+    border-bottom: 1px solid #ede9e9;
+    background-color: #5d5c5c;
+    color: white;
 }
 
-@media only screen and (min-width:701px) and (max-width:800px){
-    .register-head{
-        font-size: 20px;
-        font-weight: bold;
-    }
-    .register-label{
-        font-size: 15px;
-    }
-    .adminregister-btn{
-        padding: 10px;
-    }
+.permission-table td {
+    font-size: 17px;
+    font-weight: 200;
+    font-family: "Poppins", sans-serif;
+    padding: 10px;
 }
+
+.register-label{
+    font-weight: 500;
+}
+
