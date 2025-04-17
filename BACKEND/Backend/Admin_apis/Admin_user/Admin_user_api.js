@@ -18,54 +18,67 @@ const db = require('../../db');
 
 //Admin registraion from admin page
 
-
 app.post("/admin/register", verifyToken, (req, res) => {
-    const { username, email, password, role, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, permissions , date, joining_date, revised_salary} = req.body;
+    const {
+        username,
+        email,
+        password,
+        role,
+        total_salary,
+        pf_number,
+        esi_amount,
+        esi_number,
+        pf_amount,
+        gross_salary,
+        net_amount,
+        permissions,
+        date,
+        joining_date,
+        revised_salary,
+        bank_details
+    } = req.body;
 
+
+    console.log("For Checking for register:", username, email, password, role);
+    console.log("For Checking for Payslip", "Total salary:", total_salary, "Esi amount:", esi_amount, "pf_amount:", pf_amount, "Revised salary:", revised_salary);
+
+    console.log(typeof permissions,"permission type");
     
+    // Basic email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ error: "Invalid email format" });
+    }
 
-    console.log(`For Checking for  register`, username, email, password, role);
-    console.log("For Checking for Payslip", joining_date);
+    // Validate permissions
+    if (!permissions || typeof permissions !== 'object') {
+        return res.status(400).json({ error: "Permissions are required and must be an object" });
+    }
 
-
-    db.query("SELECT * FROM users WHERE email=?", [email], async (err, result) => {
-
-        if (err)
-            return res.status(500).json({ error: err.message })
+    db.query("SELECT * FROM users WHERE email = ?", [email], async (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
 
         if (result.length > 0) {
-            return res.status(400).json({ error: "Email already exists" })
+            return res.status(400).json({ error: "Email already exists" });
         }
-        // const hashedPassword = await bcrypt.hash(password, 10)
 
-        const sql = "INSERT INTO users (username,email,password,role)VALUES(?,?,?,?)";
-
-        const values = [username, email, password, role]
+        // const hashedPassword = await bcrypt.hash(password, 10); // Use this in production
+        const sql = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
+        const values = [username, email, password, role];
 
         db.query(sql, values, (err, result) => {
+            if (err) return res.status(400).json({ error: "Cannot register user" });
 
-            if (err) {
-                return res.status(400).json({ error: "Can not register" })
-            }
-
-            //  Getting the person_code for permission table 
-            const getCodeQuery = "SELECT person_code FROM users WHERE email =?"
-
+            const getCodeQuery = "SELECT person_code FROM users WHERE email = ?";
             db.query(getCodeQuery, [email], (err, codeResult) => {
-
                 if (err || codeResult.length === 0) {
-
-                    return res.status(500).json({ error: "Failed to fetch the person details" })
-
+                    return res.status(500).json({ error: "Failed to fetch person details" });
                 }
 
                 const person_code = codeResult[0].person_code;
-
-
                 const permissionRows = [];
 
                 for (const [page, perm] of Object.entries(permissions)) {
-
                     permissionRows.push([
                         person_code,
                         page,
@@ -76,62 +89,71 @@ app.post("/admin/register", verifyToken, (req, res) => {
                     ]);
                 }
 
-                const permQuery = "INSERT INTO permissions (person_code, page_name, can_read, can_create, can_update, can_delete) VALUES ? "
-
-                db.query(permQuery, [permissionRows], (err, permResult)=>{
-                 
-                    if(err){
-                        console.log("checking the permission error" , err);
-                        
-                        return res.status(500).json({error:"can't add the values"})
-                    }
-
-                const query = "SELECT * FROM payslip WHERE emp_email = ?";
-
-                db.query(query, [email], (err, info) => {
-
+                const permQuery = "INSERT INTO permissions (person_code, page_name, can_read, can_create, can_update, can_delete) VALUES ?";
+                db.query(permQuery, [permissionRows], (err, permResult) => {
                     if (err) {
-                        console.log("Database Error:", err);
-                        return res.status(500).send({ message: "Database Error" });
+                        console.log("Permission insert error:", err);
+                        return res.status(500).json({ error: "Can't add permissions" });
                     }
 
-                    if (info.length > 0) {
-                        console.log("Already salary uploaded");
-                        return res.status(409).send({ message: "Already salary uploaded" });
-                    }
-
-                    const new_total_salary = Number(parseFloat(total_salary).toFixed(2));
-                    const new_esi_amount = Number(parseFloat(esi_amount).toFixed(2));
-                    const new_pf_amount = Number(parseFloat(pf_amount).toFixed(2));
-                    const new_gross_salary = Number(parseFloat(gross_salary).toFixed(2));
-                    const new_net_amount = Number(parseFloat(net_amount).toFixed(2));
-
-                    const values = [username, email, new_total_salary, pf_number, new_esi_amount, esi_number, new_pf_amount, new_gross_salary, new_net_amount, date, joining_date, revised_salary];
-                      
-                    console.log(values,"for insert payslip");
-                        
-                    const insertQuery = `INSERT INTO payslip (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, dates, joining_date, revised_salary) 
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
-                    db.query(insertQuery, values, (err, result) => {
+                    const query = "SELECT * FROM payslip WHERE emp_email = ?";
+                    db.query(query, [email], (err, info) => {
                         if (err) {
-                            console.log(`payslip insert failed to${email}:`, err);
-                            return res.status(500).send({ message: "Salary Add Failed! Try Again." });
+                            console.log("Database Error:", err);
+                            return res.status(500).send({ message: "Database Error" });
                         }
 
+                        if (info.length > 0) {
+                            console.log("Salary already uploaded");
+                            return res.status(409).send({ message: "Salary already uploaded" });
+                        }
 
-                            
-                        const msg = role === "admin" ? "Admin Registered Successfully" : "User Registered with Permissions";
-                        return res.status(200).json({ message: msg });
+                        const new_total_salary = Number(parseFloat(total_salary).toFixed(2));
+                        const new_esi_amount = Number(parseFloat(esi_amount).toFixed(2));
+                        const new_pf_amount = Number(parseFloat(pf_amount).toFixed(2));
+                        const new_gross_salary = Number(parseFloat(gross_salary).toFixed(2));
+                        const new_net_amount = Number(parseFloat(net_amount).toFixed(2));
+
+                        const values = [
+                            username,
+                            email,
+                            new_total_salary,
+                            pf_number,
+                            new_esi_amount,
+                            esi_number,
+                            new_pf_amount,
+                            new_gross_salary,
+                            new_net_amount,
+                            date,
+                            joining_date,
+                            revised_salary,
+                            bank_details
+                        ];
+
+                        console.log("Payslip insert values:", values);
+
+                        const insertQuery = `
+                            INSERT INTO payslip 
+                            (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, dates, joining_date, revised_salary,bank_details)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        `;
+
+                        db.query(insertQuery, values, (err, result) => {
+                            if (err) {
+                                console.log(`Payslip insert failed for ${email}:`, err);
+                                return res.status(500).send({ message: "Salary Add Failed! Try Again." });
+                            }
+
+                            const msg = role === "admin" ? "Admin Registered Successfully" : "User Registered with Permissions";
+                            return res.status(200).json({ message: msg });
+                        });
                     });
                 });
             });
-        })
+        });
+    });
+});
 
-    })
-})
-
-})
 
 /// Get all users
 

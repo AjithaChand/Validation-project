@@ -1,166 +1,131 @@
-import React, { useContext,useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import '../RegisterForm/Adminregister.css'
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import '../RegisterForm/Adminregister.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { apiurl } from '../../../../url';
 import { UserContext } from '../../../../usecontext';
 
 const Adminregister = ({ close }) => {
+  const { setCreateNewUser } = useContext(UserContext);
 
-    const { setCreateNewUser } = useContext(UserContext);
+  const [leavedays, setLeavedays] = useState(0);
 
-    const [leavedays, setLeavedays] = useState(0);
-    const [netAmount, setNetAmount] = useState(0);
-    const [revisedsalary, setRevisedsalary] = useState(0);
+  const [values, setValues] = useState({
+    username: '',
+    email: '',
+    password: '',
+    bank_details:'',
+    total_salary: 0,
+    role: '',
+    pf_amount: 0,
+    esi_amount: 0,
+    net_amount: 0, 
+    gross_salary: 0,
+    pf_number: '',
+    esi_number: '',
+    date: '',
+    joining_date: '',
+    revised_salary: 0 
+  });
 
-    const [values, setValues] = useState({
-        username: "",
-        email: "",
-        password: "",
-        total_salary: 0,
-        role: "",
-        pf_amount: 0,
-        esi_amount: 0,
-        net_amount: 0,
-        gross_salary: 0,
-        pf_number: "",
-        esi_number: "",
-        date: "",
-        joining_date: "",
-        revised_salary: 0
-    });
+  const [permission, setPermission] = useState({
+    'dashboard': { read: false, create: false, update: false, delete: false },
+    'payslip': { read: false, create: false, update: false, delete: false },
+    'users': { read: false, create: false, update: false, delete: false },
+    'attendance': { read: false, create: false, update: false, delete: false },
+  });
 
-    const [permission, setPermission] = useState({
-        dashboard: { read: false, create: false, update: false, delete: false },
-        payslip: { read: false, create: false, update: false, delete: false },
-        users: { read: false, create: false, update: false, delete: false },
-        attendance: { read: false, create: false, update: false, delete: false },
-    });
+  const handleSalarychange = (e) => {
+    const salary = parseFloat(e.target.value);
+    if (isNaN(salary)) return;
 
-    const calculateRevisedSalary = (leaveDays, net) => {
-        const workingDays = 30;
-        const perDaySalary = net / workingDays;
-        const leaveSalary = leaveDays * perDaySalary;
-        const revised = net - leaveSalary;
-        console.log("Revised salary calculated:", revised);
-        return revised;
-    };
+    const leaveDays = 3;
+    
+    const pf = salary * 0.12;
+    const esi = salary* 0.0075;
+    const netSalary = salary - pf - esi; 
+  
+    console.log(netSalary);
+    
+    const workingDays = 30;
 
-    useEffect(() => {
-        if (!values.username) return;
+    const perDayNetSalary = netSalary / workingDays;
+    console.log(perDayNetSalary,"perdaysalary");
+
+    const workedDays = workingDays - leaveDays;
+    console.log("WorkedDays", workedDays);
     
-        axios.get(`${apiurl}/get_attendance_datas`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
-        })
-            .then(res => {
-                const data = res.data;
-                const employee = data.find(emp => emp.emp_name === values.username);
+    const revisedNet = perDayNetSalary * workedDays; 
+    console.log("Revised Salary", revisedNet);
+
+    setValues(prev => ({
+      ...prev,
+      total_salary: salary,
+      gross_salary: salary,
+      pf_amount: pf,
+      esi_amount: esi,
+      net_amount: netSalary,
+      revised_salary: revisedNet
+    }));
+  };
+
+  const handleClick=()=>{
+    console.log('Demo output Values', values);
+    console.log('Demo output permission', permission);
     
-                if (employee) {
-                    const leave = employee.leave_days;
-                    const amount = parseFloat(values.net_amount); // use latest state
-    
-                    const revised = calculateRevisedSalary(leave, amount);
-                    setLeavedays(leave);
-                    setRevisedsalary(revised);
-    
-                    setValues(prev => ({
-                        ...prev,
-                        revised_salary: revised
-                    }));
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                toast.error("Error fetching attendance data");
-            });
-    }, [values.username, values.net_amount]); // ✅ Add this if needed
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log('Demo output Values', values);
+    console.log('Demo output permission', permission);
     
 
-    const handleSalarychange = (e) => {
-        const salary = parseFloat(e.target.value);
-        if (isNaN(salary)) return;
-    
-        const pf = (salary * 0.12).toFixed(2);
-        const esi = (salary * 0.0075).toFixed(2);
-        const net = (salary - pf - esi).toFixed(2);
-    
-        const revised = calculateRevisedSalary(leavedays, parseFloat(net));
-    
-        setValues(prev => ({
-            ...prev,
-            total_salary: salary,
-            pf_amount: pf,
-            esi_amount: esi,
-            net_amount: net,
-            gross_salary: salary,
-            revised_salary: revised  
-        }));
-    
-        setRevisedsalary(revised);
-        setNetAmount(net);
-    };
-    
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    
-        if (values.role === "select" || values.role === "") {
-            return toast.error("Choose the account type");
+    if (values.role === 'select' || values.role === '') {
+      return toast.error('Choose the account type');
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(values.email)) {
+      return toast.error('Invalid Email');
+    }
+
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*])[A-Za-z\d!@#$%&*]{8,}$/;
+    if (!passwordRegex.test(values.password)) {
+      return toast.warning('Password must be 8 characters, include one number and one special character');
+    }
+
+ 
+    try{
+        await axios.post(`${apiurl}/admin/register`, {
+            ...values, permissions : permission },  {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
         }
-    
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(values.email)) {
-            return toast.error("Invalid Email");
-        }
-    
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*])[A-Za-z\d!@#$%&*]{8,}$/;
-        if (!passwordRegex.test(values.password)) {
-            return toast.warning("Password must be 8 characters, include one number and one special character");
-        }
-    
-        try {
-            const res = await axios.get(`${apiurl}/get_attendance_datas`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                }
-            });
-    
-            const data = res.data;
-            const employee = data.find(emp => emp.emp_name === values.username);
-    
-            let finalRevisedSalary = parseFloat(values.net_amount); // default to net
-            let leaveDays = 0;
-    
-            if (employee) {
-                leaveDays = employee.leave_days;
-                finalRevisedSalary = calculateRevisedSalary(leaveDays, parseFloat(values.net_amount));
-            }
-    
-            const finalData = {
-                ...values,
-                revised_salary: finalRevisedSalary,
-                permissions: permission
-            };
-    
-            await axios.post(`${apiurl}/admin/register`, finalData, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                }
-            });
-    
-            toast.success("User registered successfully");
-            setCreateNewUser(pre => !pre);
-            close();
-    
-        } catch (err) {
-            console.error(err);
-            toast.error(err.response?.data?.error || "Something went wrong");
-        }
-    };
-    
+      });
+
+      try {
+        await axios.post(`${apiurl}/email_for_register`, {
+            email: values.email,
+            username: values.username
+        });
+    } catch (emailErr) {
+        console.warn("User registered but email failed:", emailErr);
+        toast.warning("User registered but email notification failed");
+    }
+
+
+      toast.success('User registered successfully');
+      setCreateNewUser(prev => !prev);
+      close();
+
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.error || 'Something went wrong');
+    }
+  };
+
 
     return (
         <div className='adminregister-container'>
@@ -182,6 +147,10 @@ const Adminregister = ({ close }) => {
                     <div className='mt-3 col-6 form-group'>
                         <label className='register-label'>Password</label>
                         <input type='password' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, password: e.target.value })} placeholder='Enter your password' required />
+                    </div>
+                    <div className='mt-3 col-6 form-group'>
+                        <label className='register-label'>Bank Details</label>
+                        <input type='text' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, bank_details: e.target.value })} placeholder='Enter your Bank Details' required />
                     </div>
                     <div className='mt-3 col-6 form-group'>
                         <label className='register-label'>Salary</label>
@@ -425,7 +394,8 @@ const Adminregister = ({ close }) => {
                     </div>
                    
                     <button className='btn mt-5 adminregister-btn'>Register</button>
-                </form>
+                    <button type="button" className='btn mt-5 adminregister-btn' onClick={handleClick}>Show</button>
+                    </form>
                </div>
             </div>
             <ToastContainer position='top-right' autoClose={3000} />
