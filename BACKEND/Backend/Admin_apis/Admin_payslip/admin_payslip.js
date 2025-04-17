@@ -224,7 +224,9 @@ app.get("/get-all-employee-names", (req, res) => {
     app.get("/get-all-employee-datas", (req, res) => {
     
         const { month, year, monthTo, yearTo } = req.query;
-   
+
+        console.log("From month and year", month, year);
+        
         if ( month && year && monthTo && yearTo){
 
           const startDate = `${year}-${month.padStart(2, '0')}-01`;

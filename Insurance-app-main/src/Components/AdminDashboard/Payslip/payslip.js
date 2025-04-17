@@ -24,18 +24,29 @@ const Payslip = () => {
 
   useEffect(() => {
     if (!dates) return;
-
+  
     const monthNumber = new Date(`${dates}-01`).getMonth() + 1;
     const year = new Date(`${dates}-01`).getFullYear();
+  
+    let url = `${apiurl}/get-all-employee-datas?month=${monthNumber}&year=${year}`;
+  
+    console.log("From url",url);
+    
+    if (datesTo) {
+      const monthNumberTO = new Date(`${datesTo}-01`).getMonth() + 1;
+      const yearTo = new Date(`${datesTo}-01`).getFullYear();
+      url += `&monthTo=${monthNumberTO}&yearTo=${yearTo}`;
+      console.log("TO url", url);
 
-    const monthNumberTO = new Date(`${datesTo}-01`).getMonth() + 1;
-    const yearTo = new Date(`${datesTo}-01`).getFullYear();
-
+    }
+    
     axios
-      .get(`${apiurl}/get-all-employee-datas?month=${monthNumber}&year=${year}&monthTo=${monthNumberTO}&yearTo=${yearTo}`)
+      .get(url)
       .then((res) => {
         if (Array.isArray(res.data.results)) {
           setEmployeedata(res.data.results);
+          console.log(res.data.results);
+          
           setShowBackIcon(true);
           setShowPaySlip(false);
         } else {
@@ -43,8 +54,9 @@ const Payslip = () => {
         }
       })
       .catch(() => toast.error("Error fetching employee data"));
-  }, [dates]);
-
+  
+  }, [dates, datesTo]);
+  
   useEffect(() => {
     if (showPaySlip) {
       payslipRefs.current = []; // Reset refs when showing slips
@@ -52,8 +64,8 @@ const Payslip = () => {
   }, [showPaySlip]);
 
   const generateAllPDFs = async () => {
-    setLoading(true); // Start loader
-    setProgress(0); // Reset progress
+    setLoading(true);
+    setProgress(0); 
     toast.info("Generating ZIP, please wait...");
 
     if (!employeedata.length) {
