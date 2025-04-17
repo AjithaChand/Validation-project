@@ -120,6 +120,8 @@ const Users = () => {
   }, [person_code])
 
 
+  console.log("All datas",value);
+  
 
   const filterValue = value.filter((data) => {
     return data.email?.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -200,6 +202,7 @@ const Users = () => {
                 <th>Email</th>
                 <th>JoingDate</th>
                 <th>Password</th>
+                <th>Bank Details</th>
                 <th>Pf Number</th>
                 <th>Esi Number</th>
                 <th>Salary</th>
@@ -223,6 +226,7 @@ const Users = () => {
                     <td>{data.email}</td>
                     <td>{new Date(data.joining_date).toISOString("").split("T")[0]}</td>
                     <td>{data.password}</td>
+                    <td>{data.bank_details}</td>
                     <td>{data.pf_number}</td>
                     <td>{data.esi_number}</td>
                     <td>{data.total_salary}</td>

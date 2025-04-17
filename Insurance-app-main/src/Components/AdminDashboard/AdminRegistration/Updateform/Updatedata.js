@@ -38,7 +38,8 @@ const Updatedata = ({ selectid, close, selectemail }) => {
         pf_amount: "",
         esi_amount: "",
         net_amount: "",
-        gross_salary: ""
+        gross_salary: "",
+        bank_details:""
       }));
       return;
     }
@@ -95,6 +96,8 @@ const Updatedata = ({ selectid, close, selectemail }) => {
       .then(res => {
         if (res.data) {
           setData(res.data)
+          console.log(res.data,"In UpdateData");
+          
         } else {
           toast.error("User not found!")
         }
@@ -170,6 +173,10 @@ const Updatedata = ({ selectid, close, selectemail }) => {
         <div className='form-group mt-3'>
           <label className='userupdate-label'>PF Number</label>
           <input type='text' className='form-control' value={datas.pf_number} onChange={e => setData({ ...datas, pf_number: e.target.value })} placeholder='Enter ESI Number' />
+        </div>
+        <div className='form-group mt-3'>
+          <label className='userupdate-label'>Bank Detailsr</label>
+          <input type='text' className='form-control' value={datas.bank_details} onChange={e => setData({ ...datas, bank_details: e.target.value })} placeholder='Enter Bank Details' />
         </div>
         <button className='btn userupdate-btn mt-4' style={{ backgroundColor: "#333" }}>Submit</button>
       </form>
