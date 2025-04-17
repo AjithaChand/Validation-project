@@ -217,6 +217,11 @@
     border-radius: 10px;
 }
 
+.user-searchbar-res{
+    display: none;
+    /* text-align: center; */
+}
+
 @media only screen and (min-width:319px) and (max-width:500px) {
     .admin-header-user{
         flex-wrap: wrap;
@@ -365,6 +370,13 @@
         animation: spin 1s linear infinite;
         margin: 50% auto;
     } */
+    .user-searchbar-res{
+        display: block;
+        text-align: center;
+    }
+    .user-searchbar{
+        display: none;
+    }
 }
 
 @media only screen and (min-width:501px) and (max-width:768px) {

@@ -228,9 +228,9 @@ const Adminpage = () => {
     }
   };
 
-  const filterData = deletevalue.filter((value) =>{
+  const filterData = deletevalue.filter((value) => {
     return value.email?.toLowerCase().includes(search.toLowerCase()) ||
-    value.policy?.toLowerCase().includes(search.toLowerCase())
+      value.policy?.toLowerCase().includes(search.toLowerCase())
   });
 
 
@@ -239,31 +239,31 @@ const Adminpage = () => {
       <div className='admin-container' >
         <div className="admin-header-container">
           <div className='admin-head-search'>
-          {user === 'admin' ? (
-            <button className=' admin-btn' onClick={handlePopup}
-          >
-            <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
-          </button>
-          ) : (
-            getPermission.length !==0 && getPermission[0]?.can_create ===1 && (
+            {user === 'admin' ? (
               <button className=' admin-btn' onClick={handlePopup}
-            disabled={getPermission.length === 0 || getPermission[0]?.can_create !== 1}
-          >
-            <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
-          </button>
-            )
-          )}
-          <div className='searchbar'>
+              >
+                <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
+              </button>
+            ) : (
+              getPermission.length !== 0 && getPermission[0]?.can_create === 1 && (
+                <button className=' admin-btn' onClick={handlePopup}
+                  disabled={getPermission.length === 0 || getPermission[0]?.can_create !== 1}
+                >
+                  <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
+                </button>
+              )
+            )}
+            <div className='searchbar'>
               <input
                 type='text'
                 value={search}
                 placeholder='Search here'
-                onChange={(e)=>setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
                 className='search-input'
               />
               {/* <FaSearch className="search-icon" /> */}
             </div>
-            </div>
+          </div>
           <div className="admin-header">
             <button className="upload-button3" onClick={handleDownload}>
               <PiMicrosoftExcelLogoFill />
@@ -284,6 +284,17 @@ const Adminpage = () => {
           </div>
         </div>
 
+        <div className='searchbar-res'>
+              <input
+                type='text'
+                value={search}
+                placeholder='Search here'
+                onChange={(e) => setSearch(e.target.value)}
+                className='search-input'
+              />
+              {/* <FaSearch className="search-icon" /> */}
+            </div>
+
         <div>
           <p className='tablerow-admin'>CUSTOMER DETAILS</p>
         </div>
@@ -297,7 +308,11 @@ const Adminpage = () => {
                 <th>End Date</th>
                 <th>Policy</th>
                 <th>Files</th>
-                <th>Actions</th>
+                {user === 'admin' ? (<th>Action</th>) : (
+                  getPermission.length !== 0 && (getPermission[0]?.can_update === 1 || getPermission[0]?.can_delete === 1) && (
+                    <th>Action</th>
+                  )
+                )}
               </tr>
             </thead>
             <tbody>
@@ -322,43 +337,46 @@ const Adminpage = () => {
                         </button>
                       ) : ("No File")}
                     </td>
-                    <td>
-                     {user==="admin" ? (
-                       <button
-                       className='edit-btn'
-                       onClick={() => handleupdate(data?.id)}
-                     
-                     >
-                       <FaEdit className='edit-icon' />
-                     </button>
-                     ):(
-                      <button
-                      className='edit-btn'
-                      onClick={() => handleupdate(data?.id)}
-                      disabled={getPermission.length === 0 || getPermission[0]?.can_update !== 1}
-                    >
-                     {getPermission.length !==0 && getPermission[0]?.can_update ===1 && (
-                       <FaEdit className='edit-icon' />
-                     )}
-                    </button>
-                     )}
-                     {user ==="admin" ?(
-                       <button className='delete-button'
-                       onClick={() => handleDelete(data.id)}
-                     >
-                       <DeleteIcon className="deleteicon" />
-                     </button>
-                     ):(
-                      <button className='delete-button'
-                      onClick={() => handleDelete(data.id)}
-                      disabled={getPermission.length === 0 || getPermission[0]?.can_delete !== 1}
-                    >
-                     {getPermission.length !==0 && getPermission[0]?.can_delete ===1 &&(
-                       <DeleteIcon className="deleteicon" />
-                     )}
-                    </button>
-                     )}
-                    </td>
+                    {user === 'admin' ? (
+                      <td>
+                        <button
+                          className='edit-btn'
+                          onClick={() => handleupdate(data?.id)}
+                        >
+                          <FaEdit className='edit-icon' />
+                        </button>
+
+                        <button className='delete-button'
+                          onClick={() => handleDelete(data.id)}
+                        >
+                          <DeleteIcon className="deleteicon" />
+                        </button>
+                      </td>
+                    ) : (
+                      getPermission.length !== 0 && (getPermission[0]?.can_update === 1 || getPermission[0]?.can_delete === 1) && (
+                        <td>
+                          <button
+                            className='edit-btn'
+                            onClick={() => handleupdate(data?.id)}
+                            disabled={getPermission.length === 0 || getPermission[0]?.can_update !== 1}
+                          >
+                            {getPermission.length !== 0 && getPermission[0]?.can_update === 1 && (
+                              <FaEdit className='edit-icon' />
+                            )}
+                          </button>
+
+                          <button className='delete-button'
+                            onClick={() => handleDelete(data.id)}
+                            disabled={getPermission.length === 0 || getPermission[0]?.can_delete !== 1}
+                          >
+                            {getPermission.length !== 0 && getPermission[0]?.can_delete === 1 && (
+                              <DeleteIcon className="deleteicon" />
+                            )}
+                          </button>
+                        </td>
+                      )
+                    )}
+
                   </tr>
                 })
               )}

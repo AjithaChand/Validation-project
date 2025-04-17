@@ -219,6 +219,10 @@
     border-radius: 10px;
 }
 
+.searchbar-res{
+    display: none;
+}
+
 @media only screen and (min-width:319px) and (max-width:500px) {
     .admin-header{
         flex-wrap: wrap;
@@ -374,28 +378,14 @@
         animation: spin 1s linear infinite;
         margin: 60% auto;
     } */
-    .search-icon{
-        font-size: 17px;
-        color: #023265;
-    }
-    
-    .admin-head-search{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
     
     .searchbar{
-        display: flex;
-        gap: 10px;
-        align-items: center;
+        display: none;
     }
-    
-    .search-input{
-        padding: 2px 0 2px 0;
-        width: 200px;
-        border: 1px solid rgba(0, 0, 0, 0.7);
-        border-radius: 10px;
+
+    .searchbar-res{
+        display: block;
+        text-align: center;
     }
 }
 
@@ -521,6 +511,14 @@
         height: 40px;
         animation: spin 1s linear infinite;
         margin: 30% auto;
+    }
+    .searchbar{
+        display: none;
+    }
+
+    .searchbar-res{
+        display: block;
+        text-align: center;
     }
 }
 

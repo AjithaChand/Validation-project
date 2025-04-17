@@ -25,21 +25,21 @@ const Users = () => {
   const [refresh, setRefresh] = useState(false);
   const [showupdate, setShowupdate] = useState(false);
   const [selectid, setSelectid] = useState(null);
-  const[selectemail,setSelectemail]=useState(null)
+  const [selectemail, setSelectemail] = useState(null)
   const [value, setValue] = useState([]);
-  const [loading , setLoading] = useState(true)
-//permission state
+  const [loading, setLoading] = useState(true)
+  //permission state
   const [getPermission, setGetPermission] = useState({})
 
- const [searchValue, setSearchValue] = useState("")
-   
+  const [searchValue, setSearchValue] = useState("")
 
-  const {createNewUser} = useContext(UserContext);
-  const {updateOldUser} = useContext(UserContext);
+
+  const { createNewUser } = useContext(UserContext);
+  const { updateOldUser } = useContext(UserContext);
 
   const handleDialog = () => setDialogbox(!dialogbox);
 
-  const handleupdate = (id,email) => {
+  const handleupdate = (id, email) => {
     setSelectid(id);
     setSelectemail(email);
     setShowupdate(!showupdate);
@@ -56,10 +56,10 @@ const Users = () => {
     })
       .then(res => setValue(res.data))
       .catch(err => console.log(err))
-      .finally(()=>{
+      .finally(() => {
         setLoading(false)
       })
-  }, [refresh,createNewUser,updateOldUser]);
+  }, [refresh, createNewUser, updateOldUser]);
 
   const handleLogout = () => setShowconfirm(true);
 
@@ -108,23 +108,23 @@ const Users = () => {
 
   const person_code = localStorage.getItem("person_code")
   console.log("person_code", person_code);
-  
-  useEffect(()=>{
-    if(person_code){
+
+  useEffect(() => {
+    if (person_code) {
       axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
 
-      .then(res=>setGetPermission(res.data.info))
+        .then(res => setGetPermission(res.data.info))
 
-      .catch(err=>console.log(err.message))
+        .catch(err => console.log(err.message))
     }
-  },[person_code])
+  }, [person_code])
 
 
 
-  const filterValue=value.filter((data)=>{
+  const filterValue = value.filter((data) => {
     return data.email?.toLowerCase().includes(searchValue.toLowerCase()) ||
-    data.username?.toLowerCase().includes(searchValue.toLowerCase()) ||
-    data.password?.toLowerCase().includes(searchValue.toLowerCase())
+      data.username?.toLowerCase().includes(searchValue.toLowerCase()) ||
+      data.password?.toLowerCase().includes(searchValue.toLowerCase())
   })
 
   return (
@@ -132,31 +132,31 @@ const Users = () => {
       <div className='users-container'>
         <div className="admin-header-container-user">
           <div className='user-head-search'>
-          {user ==="admin" ? (
-            <button className='users-btn'
-            onClick={handleDialog} >
-              <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
-            </button>
-          ):(
-            getPermission.length !==0 && getPermission[2]?.can_create ===1 &&(
-            <button className='users-btn'
-          disabled={getPermission.length === 0 || getPermission[2]?.can_create !==1 ||getPermission[1]?.can_create !==1 }
+            {user === "admin" ? (
+              <button className='users-btn'
+                onClick={handleDialog} >
+                <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
+              </button>
+            ) : (
+              getPermission.length !== 0 && getPermission[2]?.can_create === 1 && (
+                <button className='users-btn'
+                  disabled={getPermission.length === 0 || getPermission[2]?.can_create !== 1}
 
-          onClick={handleDialog} >
-            <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
-          </button>
-            )
-          )}
-          <div className='user-searchbar'>
-            <input
-              type='text'
-              value={searchValue}
-              placeholder='Search here'
-              onChange={(e)=>setSearchValue(e.target.value)}
-              className='user-search-input'
-            />
-             {/* <FaSearch className="user-search-icon" /> */}
-          </div>
+                  onClick={handleDialog} >
+                  <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
+                </button>
+              )
+            )}
+            <div className='user-searchbar'>
+              <input
+                type='text'
+                value={searchValue}
+                placeholder='Search here'
+                onChange={(e) => setSearchValue(e.target.value)}
+                className='user-search-input'
+              />
+              {/* <FaSearch className="user-search-icon" /> */}
+            </div>
           </div>
           <div className="admin-header-user">
             <button className="upload-button1" onClick={handleDownload}>
@@ -178,6 +178,17 @@ const Users = () => {
           </div>
         </div>
 
+        <div className='user-searchbar-res'>
+              <input
+                type='text'
+                value={searchValue}
+                placeholder='Search here'
+                onChange={(e) => setSearchValue(e.target.value)}
+                className='user-search-input'
+              />
+              {/* <FaSearch className="user-search-icon" /> */}
+          </div>
+
         <div><p className='tablerow-user'>USER DETAILS</p></div>
 
         <div className="table-container">
@@ -192,7 +203,11 @@ const Users = () => {
                 <th>Pf Number</th>
                 <th>Esi Number</th>
                 <th>Salary</th>
-                <th>Actions</th>
+                {user === 'admin' ? (<th>Action</th>) : (
+                  getPermission.length !== 0 && (getPermission[2]?.can_update === 1 || getPermission[2]?.can_delete === 1) && (
+                    <th>Actions</th>
+                  )
+                )}
               </tr>
             </thead>
             <tbody className='tbody-users ajay'>
@@ -211,32 +226,34 @@ const Users = () => {
                     <td>{data.pf_number}</td>
                     <td>{data.esi_number}</td>
                     <td>{data.total_salary}</td>
-                    <td>
-                     {user ==="admin" ?(
-                       <button className='edit-btn'
-                       onClick={() => handleupdate(data.id,data.email)}>
-                         <FaEdit className='useredit-icon' />
-                       </button>
-                     ):(
-                      <button className='edit-btn'
-                      disabled={getPermission.length === 0 || getPermission[2]?.can_update !==1 ||getPermission[1]?.can_update !==1}
-                      onClick={() => handleupdate(data.id,data.email)}>
-                        <FaEdit className='useredit-icon' />
-                      </button>
-                     )}
-                     {user ==="admin" ?(
-                       <button className='delete-btn'
-                       onClick={() => handleDelete(data.id)}>
-                         <RiDeleteBinFill className='userdelete-icon' />
-                       </button>
-                     ):(
-                      <button className='delete-btn'
-                      disabled={getPermission.length === 0 ||getPermission[2]?.can_delete ||getPermission[1]?.can_delete !==1}
-                      onClick={() => handleDelete(data.id)}>
-                        <RiDeleteBinFill className='userdelete-icon' />
-                      </button>
-                     )}
+                    {user === 'admin' ? (
+                      <td>
+                        <button className='edit-btn'
+                          onClick={() => handleupdate(data.id, data.email)}>
+                          <FaEdit className='useredit-icon' />
+                        </button>
+                        <button className='delete-btn'
+                          onClick={() => handleDelete(data.id)}>
+                          <RiDeleteBinFill className='userdelete-icon' />
+                        </button>
                     </td>
+                    ) : (
+                      getPermission.length !== 0 && (getPermission[2]?.can_update === 1 || getPermission[2]?.can_delete === 1) && (
+                        <td>
+                          <button className='edit-btn'
+                            disabled={getPermission.length === 0 || getPermission[2]?.can_update !== 1 }
+                            onClick={() => handleupdate(data.id, data.email)}>
+                            <FaEdit className='useredit-icon' />
+                          </button>
+              
+                          <button className='delete-btn'
+                            disabled={getPermission.length === 0 || getPermission[2]?.can_delete !== 1}
+                            onClick={() => handleDelete(data.id)}>
+                            <RiDeleteBinFill className='userdelete-icon' />
+                          </button>
+                      </td>
+                       )
+                    )}
                   </tr>
                 ))
               )}
@@ -245,7 +262,7 @@ const Users = () => {
         </div>
       </div>
       <Userpage onClose={handleDialog} isVisible={dialogbox} />
-      <UpdateDialog onClose={handleupdate} isVisible={showupdate} userid={selectid}  useremail={selectemail}/>
+      <UpdateDialog onClose={handleupdate} isVisible={showupdate} userid={selectid} useremail={selectemail} />
       <ToastContainer position='top-right' autoClose={3000} />
       <Usersdelete isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
     </div>
