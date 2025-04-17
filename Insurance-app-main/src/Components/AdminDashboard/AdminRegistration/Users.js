@@ -186,7 +186,7 @@ const Users = () => {
                 onChange={(e) => setSearchValue(e.target.value)}
                 className='user-search-input'
               />
-              {/* <FaSearch className="user-search-icon" /> */}
+             
           </div>
 
         <div><p className='tablerow-user'>USER DETAILS</p></div>
@@ -198,16 +198,13 @@ const Users = () => {
                 <th>ID</th>
                 <th>Username</th>
                 <th>Email</th>
-                <th>Date</th>
+                <th>JoingDate</th>
                 <th>Password</th>
+                <th>Bank details</th>
                 <th>Pf Number</th>
                 <th>Esi Number</th>
                 <th>Salary</th>
-                {user === 'admin' ? (<th>Action</th>) : (
-                  getPermission.length !== 0 && (getPermission[2]?.can_update === 1 || getPermission[2]?.can_delete === 1) && (
-                    <th>Actions</th>
-                  )
-                )}
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody className='tbody-users ajay'>
@@ -221,7 +218,7 @@ const Users = () => {
                     <td>{data.id}</td>
                     <td>{data.username}</td>
                     <td>{data.email}</td>
-                    <td></td>
+                    <td>{data.joining_date}</td>
                     <td>{data.password}</td>
                     <td>{data.pf_number}</td>
                     <td>{data.esi_number}</td>

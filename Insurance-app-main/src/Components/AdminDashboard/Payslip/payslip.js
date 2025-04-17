@@ -269,6 +269,47 @@ const Payslip = () => {
             </button>
           </div>
 
+          {showPaySlip && (
+        <div className='payslip-container'>
+        <div className="payslip_data">
+          <table className="payslip-1">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Working Days</th>
+                <th>Week Off</th>
+                <th>Leave Days</th>
+                <th>Bank Details</th>
+                <th>PF Amount</th>
+                <th>ESI Amount</th>
+                <th>Gross Salary</th>
+                <th>Net Salary</th>
+                <th>Revised Salary</th>
+              </tr>
+            </thead>
+            <tbody>
+              {employeedata.map((employee, index) => (
+                <tr key={index}>
+                  <td>{employee.referal_Id}</td>
+                  <td>{employee.emp_name}</td>
+                  <td>30</td>
+                  <td>4</td>
+                  <td>{employee.leave_days}</td>
+                  <td>{employee.bank_details}</td>
+                  <td>{employee.pf_amount}</td>
+                  <td>{employee.esi_amount}</td>
+                  <td>{employee.gross_salary}</td>
+                  <td>{employee.net_amount}</td>
+                  <td>{employee.revised_salary}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+       </div>
+      )}
+
           {employeedata.map((employee, index) => (
             <div className="heading-payslip" key={index}>
               <div
