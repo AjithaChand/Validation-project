@@ -7,26 +7,30 @@ import { apiurl } from '../../../../url';
 import '../Updateform/Updatedata.css';
 import { UserContext } from '../../../../usecontext';
 
-const Updatedata = ( {selectid , close, selectemail} ) => {
+const Updatedata = ({ selectid, close, selectemail }) => {
 
-  const [refresh,setRefresh] = useState(false)
+  const [refresh, setRefresh] = useState(false)
 
-  const {setUpdateOldUser} = useContext(UserContext)
+  const { setUpdateOldUser } = useContext(UserContext)
 
 
-  const [datas,setData] = useState({
-    username:"",
-    email:"",
-    password:"",
-    total_salary:""
+  const [datas, setData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    total_salary: "",
+    esi_number:"",
+    pf_number:""
+
   })
+
 
 
 
 
   const handleSalarychange = (e) => {
     const value = e.target.value;
-  
+
     if (value === "") {
       setData(prev => ({
         ...prev,
@@ -38,77 +42,98 @@ const Updatedata = ( {selectid , close, selectemail} ) => {
       }));
       return;
     }
-  
+
     const salary = parseFloat(value);
     if (isNaN(salary)) return;
-  
+    
     const pf = (salary * 0.12).toFixed(2);
     const esi = (salary * 0.0075).toFixed(2);
     const net = (salary - pf - esi).toFixed(2);
     const gross_salary = salary;
-  
+
+    const workingDays = 30;
+    const leaveDays = 3;
+    
+    const perDayNetSalary = net / workingDays;
+    console.log(perDayNetSalary,"perdaysalary");
+
+    const workedDays = workingDays - leaveDays;
+    console.log("WorkedDays", workedDays);
+    
+    const revisedNet = perDayNetSalary * workedDays; 
+    console.log("Revised Salary", revisedNet);
+
+
+
+
+
     setData(prev => ({
       ...prev,
       total_salary: salary,
       pf_amount: pf,
       esi_amount: esi,
       net_amount: net,
-      gross_salary
+      gross_salary,
+      revised_salary:revisedNet
     }));
   };
+
+  // const handleShow =()=>{
+  //   console.log("last checking",datas);
     
+  // }
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    if(!selectemail) return;
+    if (!selectemail) return;
 
-    axios.get(`${apiurl}/getuser/single?email=${selectemail}`,{
-      headers:{
-        Authorization:`Bearer ${localStorage.getItem("token")}`
+    axios.get(`${apiurl}/getuser/single?email=${selectemail}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
-    .then(res=>{
-      if(res.data){
-        setData(res.data)
-      }else{
-        toast.error("User not found!")
-      }
-    })
-    .catch(err=>console.log(err))
-  },[selectemail,refresh])
+      .then(res => {
+        if (res.data) {
+          setData(res.data)
+        } else {
+          toast.error("User not found!")
+        }
+      })
+      .catch(err => console.log(err))
+  }, [selectemail, refresh])
 
-const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
 
-  console.log("For Update submit",datas);
-  
+    console.log("For Update submit", datas);
+
     e.preventDefault();
-    axios.put(`${apiurl}/edituser/${selectid}`,datas,{
-      headers:{
-         Authorization:`Bearer ${localStorage.getItem("token")}`
+    axios.put(`${apiurl}/edituser/${selectid}`, datas, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
-    .then(res=>{
-      toast.success(res.data.message)
-      setUpdateOldUser(pre=>!pre)
-      close()
-      setRefresh(!refresh)
-    })
-    .catch(err=>toast.error(err.response.data.error))
+      .then(res => {
+        toast.success(res.data.message)
+        setUpdateOldUser(pre => !pre)
+        close()
+        setRefresh(!refresh)
+      })
+      .catch(err => toast.error(err.response.data.error))
 
 
 
-    axios.post(`${apiurl}/password_changed`,{
+    axios.post(`${apiurl}/password_changed`, {
       email: datas.email,
       password: datas.password
     })
-    .then((res)=>{
-      if(res.data.success){
-        toast.success(`Send Email To ${datas.email}`)        
-      }
-    })
-    .catch((err)=>{
-      console.log(err.message);
-    })
+      .then((res) => {
+        if (res.data.success) {
+          toast.success(`Send Email To ${datas.email}`)
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
 
   }
 
@@ -118,29 +143,38 @@ const handleSubmit = (e) =>{
         <h3 className='text-center updatehead mt-2'>Update Data</h3>
         <div className='form-group mt-3'>
           <label className='userupdate-label'>Username</label>
-          <input className='form-control' type='text' value={datas.username} onChange={e=>setData({...datas,username:e.target.value})} placeholder='Enter your username' />
+          <input className='form-control' type='text' value={datas.username} onChange={e => setData({ ...datas, username: e.target.value })} placeholder='Enter your username' />
         </div>
         <div className='form-group mt-3'>
           <label className='userupdate-label'>Email</label>
-          <input type='email' className='form-control' value={datas.email} onChange={e=>setData({...datas,email:e.target.value})} placeholder='Enter your email' readOnly/>
+          <input type='email' className='form-control' value={datas.email} onChange={e => setData({ ...datas, email: e.target.value })} placeholder='Enter your email' readOnly />
         </div>
         <div className='form-group mt-3'>
           <label className='userupdate-label'>Password</label>
-          <input type='password' className='form-control' value={datas.password} onChange={e=>setData({...datas,password:e.target.value})} placeholder='Enter your password' />
+          <input type='password' className='form-control' value={datas.password} onChange={e => setData({ ...datas, password: e.target.value })} placeholder='Enter your password' />
         </div>
         <div className='form-group mt-3'>
           <label className='userupdate-label'>Salary</label>
           <input
-  type='number'
-  className='form-control'
-  value={datas.total_salary}
-  onChange={handleSalarychange}
-  placeholder='Enter your salary'
-/>
-
+            type='number'
+            className='form-control'
+            value={datas.total_salary}
+            onChange={handleSalarychange}
+            placeholder='Enter your salary'
+          />
         </div>
-        <button className='btn userupdate-btn mt-4' style={{backgroundColor:"#333"}}>Submit</button>
+        <div className='form-group mt-3'>
+          <label className='userupdate-label'>ESI Number</label>
+          <input type='text' className='form-control' value={datas.esi_number} onChange={e => setData({ ...datas, esi_number: e.target.value })} placeholder='Enter ESI Number' />
+        </div>
+        <div className='form-group mt-3'>
+          <label className='userupdate-label'>PF Number</label>
+          <input type='text' className='form-control' value={datas.pf_number} onChange={e => setData({ ...datas, pf_number: e.target.value })} placeholder='Enter ESI Number' />
+        </div>
+        <button className='btn userupdate-btn mt-4' style={{ backgroundColor: "#333" }}>Submit</button>
       </form>
+      {/* <button onClick={handleShow}>Show</button> */}
+
       <ToastContainer position='top-right' autoClose={3000} />
     </div>
   )

@@ -159,7 +159,7 @@ app.post("/admin/register", verifyToken, (req, res) => {
 
 
 app.get('/getuser', verifyToken,(req, res) => {
-    const sql = "SELECT u.*, p.total_salary, p.esi_number, p.pf_number, p.joining_date FROM users u LEFT JOIN payslip p ON u.email = p.emp_email";
+    const sql = "SELECT u.*, p.total_salary, p.esi_number, p.pf_number, p.joining_date, p.bank_details FROM users u LEFT JOIN payslip p ON u.email = p.emp_email";
     db.query(sql, (err, result) => {
         if (err)
             return res.status(500).json({ error: err.message })
@@ -179,7 +179,7 @@ app.get('/getuser/single', verifyToken,(req, res) => {
 
     console.log(email, "For Filled in backend");
 
-    const sql = "SELECT u.*, p.total_salary FROM users u LEFT JOIN payslip p ON u.email = p.emp_email WHERE u.email = ?  ";
+    const sql = "SELECT u.*, p.total_salary, p.bank_details, p.pf_number, p.esi_number FROM users u LEFT JOIN payslip p ON u.email = p.emp_email WHERE u.email = ?  ";
 
     db.query(sql, [email], (err, data) => {
 
@@ -201,9 +201,9 @@ app.put('/edituser/:id', verifyToken, async (req, res) => {
 
     const id = req.params.id;
 
-    const { username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount } = req.body;
+    const { username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number } = req.body;
 
-    console.log(username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount, id, "In backend");
+    console.log(username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount,revised_salary, bank_details,esi_number,pf_number, id, "In backend");
 
 
     const sql = "UPDATE users SET username=?,email =?,password=? WHERE id=?"
@@ -214,9 +214,9 @@ app.put('/edituser/:id', verifyToken, async (req, res) => {
 
         if (err) return res.status(500).json({ error: err.message })
 
-        const updateQuery = "UPDATE payslip SET total_salary= ?, esi_amount= ?, pf_amount= ?, gross_salary= ?, net_amount= ? WHERE emp_email = (SELECT email FROM users WHERE id = ?)"
+        const updateQuery = "UPDATE payslip SET total_salary= ?, esi_amount= ?, pf_amount= ?, gross_salary= ?, net_amount= ?, revised_salary= ?, bank_details= ?, esi_number= ?, pf_number= ? WHERE emp_email = (SELECT email FROM users WHERE id = ?)"
 
-        db.query(updateQuery, [total_salary, esi_amount, pf_amount, gross_salary, net_amount, id], (err, result) => {
+        db.query(updateQuery, [total_salary, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number, id], (err, result) => {
 
             console.log(updateQuery);
 
