@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext,useEffect, useState } from 'react'
 import axios from 'axios';
 import '../RegisterForm/Adminregister.css'
 import { ToastContainer, toast } from "react-toastify";
@@ -9,6 +9,10 @@ import { UserContext } from '../../../../usecontext';
 const Adminregister = ({ close }) => {
 
     const { setCreateNewUser } = useContext(UserContext);
+
+    const [leavedays, setLeavedays] = useState(0);
+    const [netAmount, setNetAmount] = useState(0);
+    const [revisedsalary, setRevisedsalary] = useState(0);
 
     const [values, setValues] = useState({
         username: "",
@@ -22,74 +26,141 @@ const Adminregister = ({ close }) => {
         gross_salary: 0,
         pf_number: "",
         esi_number: "",
-        date:""
+        date: "",
+        joining_date: "",
+        revised_salary: 0
     });
 
     const [permission, setPermission] = useState({
-        'dashboard': { read: false, create: false, update: false, delete: false },
+        dashboard: { read: false, create: false, update: false, delete: false },
+        payslip: { read: false, create: false, update: false, delete: false },
+        users: { read: false, create: false, update: false, delete: false },
+        attendance: { read: false, create: false, update: false, delete: false },
+    });
 
-        'payslip': { read: false, create: false, update: false, delete: false },
+    const calculateRevisedSalary = (leaveDays, net) => {
+        const workingDays = 30;
+        const perDaySalary = net / workingDays;
+        const leaveSalary = leaveDays * perDaySalary;
+        const revised = net - leaveSalary;
+        console.log("Revised salary calculated:", revised);
+        return revised;
+    };
 
-        'users': { read: false, create: false, update: false, delete: false },
-
-        'attendance': { read: false, create: false, update: false, delete: false },
-    })
+    useEffect(() => {
+        if (!values.username) return;
+    
+        axios.get(`${apiurl}/get_attendance_datas`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+            .then(res => {
+                const data = res.data;
+                const employee = data.find(emp => emp.emp_name === values.username);
+    
+                if (employee) {
+                    const leave = employee.leave_days;
+                    const amount = parseFloat(values.net_amount); // use latest state
+    
+                    const revised = calculateRevisedSalary(leave, amount);
+                    setLeavedays(leave);
+                    setRevisedsalary(revised);
+    
+                    setValues(prev => ({
+                        ...prev,
+                        revised_salary: revised
+                    }));
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                toast.error("Error fetching attendance data");
+            });
+    }, [values.username, values.net_amount]); // ✅ Add this if needed
+    
 
     const handleSalarychange = (e) => {
         const salary = parseFloat(e.target.value);
         if (isNaN(salary)) return;
-        const total_salary = salary;
+    
         const pf = (salary * 0.12).toFixed(2);
         const esi = (salary * 0.0075).toFixed(2);
         const net = (salary - pf - esi).toFixed(2);
-        const gross_salary = salary;
-       
+    
+        const revised = calculateRevisedSalary(leavedays, parseFloat(net));
+    
         setValues(prev => ({
             ...prev,
             total_salary: salary,
             pf_amount: pf,
             esi_amount: esi,
             net_amount: net,
-            gross_salary,
-           
+            gross_salary: salary,
+            revised_salary: revised  
         }));
-    }
-
-  
-    const handleSubmit = (e) => {
+    
+        setRevisedsalary(revised);
+        setNetAmount(net);
+    };
+    
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        console.log("Values", values);
-        console.log("permissions", permission);
-
-
+    
         if (values.role === "select" || values.role === "") {
             return toast.error("Choose the account type");
         }
-
+    
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(values.email)) {
             return toast.error("Invalid Email");
         }
-
+    
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*])[A-Za-z\d!@#$%&*]{8,}$/;
         if (!passwordRegex.test(values.password)) {
             return toast.warning("Password must be 8 characters, include one number and one special character");
         }
-
-        axios.post(`${apiurl}/admin/register`,
-            { ...values, permissions: permission }, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`
+    
+        try {
+            const res = await axios.get(`${apiurl}/get_attendance_datas`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            });
+    
+            const data = res.data;
+            const employee = data.find(emp => emp.emp_name === values.username);
+    
+            let finalRevisedSalary = parseFloat(values.net_amount); // default to net
+            let leaveDays = 0;
+    
+            if (employee) {
+                leaveDays = employee.leave_days;
+                finalRevisedSalary = calculateRevisedSalary(leaveDays, parseFloat(values.net_amount));
             }
-        })
-            .then(res => {
-                toast.success(res.data.message);
-                setCreateNewUser(pre => !pre)
-                close();
-            })
-            .catch(err => toast.error(err.response?.data?.error || "Something went wrong"));
-    }
+    
+            const finalData = {
+                ...values,
+                revised_salary: finalRevisedSalary,
+                permissions: permission
+            };
+    
+            await axios.post(`${apiurl}/admin/register`, finalData, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            });
+    
+            toast.success("User registered successfully");
+            setCreateNewUser(pre => !pre);
+            close();
+    
+        } catch (err) {
+            console.error(err);
+            toast.error(err.response?.data?.error || "Something went wrong");
+        }
+    };
+    
 
     return (
         <div className='adminregister-container'>
@@ -131,6 +202,10 @@ const Adminregister = ({ close }) => {
                     <div className='mt-3 col-6 form-group'>
                         <label className='register-label'>Date</label>
                         <input type='date' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values,date: e.target.value })} placeholder='select date' required />
+                    </div>
+                    <div className='mt-3 col-6 form-group'>
+                        <label className='register-label'>Joiningdate</label>
+                        <input type='date' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values,joining_date: e.target.value })} placeholder='select date' required />
                     </div>
                     <div className='mt-5 col-6 form-group'>
                         <div className='permissions-role mt-2'>

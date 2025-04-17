@@ -59,63 +59,147 @@ const Payslip = () => {
   
   useEffect(() => {
     if (showPaySlip) {
-      payslipRefs.current = []; // Reset refs when showing slips
+      payslipRefs.current = [];
     }
   }, [showPaySlip]);
 
+  // const generateAllPDFs = async () => {
+  //   setLoading(true);
+  //   setProgress(0);
+  //   toast.info("Generating ZIPs, please wait...");
+  
+  //   if (!employeedata.length) {
+  //     toast.error("No employee data found");
+  //     setLoading(false);
+  //     return;
+  //   }
+  
+  //   const groupedByMonth = {};
+  
+  //   employeedata.forEach((emp, index) => {
+  //     const date = new Date(emp.salary_date || emp.dates || dates); 
+  //     const month = date.getMonth() + 1;
+  //     const year = date.getFullYear();
+  //     const key = `${year}-${month.toString().padStart(2, "0")}`;
+  
+  //     if (!groupedByMonth[key]) {
+  //       groupedByMonth[key] = [];
+  //     }
+  //     groupedByMonth[key].push({ emp, index });
+  //   });
+  
+  //   const keys = Object.keys(groupedByMonth);
+  
+  //   for (let k = 0; k < keys.length; k++) {
+  //     const key = keys[k];
+  //     const zip = new JSZip();
+  //     const employees = groupedByMonth[key];
+  
+  //     for (let i = 0; i < employees.length; i++) {
+  //       const { emp, index } = employees[i];
+  //       const element = payslipRefs.current[index];
+  //       if (!element) continue;
+  
+  //       try {
+  //         const canvas = await html2canvas(element, { scale: 2, useCORS: true });
+  //         const imgData = canvas.toDataURL("image/png");
+  
+  //         const pdf = new jsPDF("p", "mm", "a4");
+  //         const pdfWidth = pdf.internal.pageSize.getWidth();
+  //         const imgProps = pdf.getImageProperties(imgData);
+  //         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+  
+  //         pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+  //         const pdfBlob = pdf.output("blob");
+  
+  //         zip.file(`Payslip_${emp.emp_id}.pdf`, pdfBlob);
+  //         setProgress(Math.round(((k + 1) / keys.length) * 100));
+  //       } catch (err) {
+  //         console.error(`Error generating PDF for ${emp.emp_id}`, err);
+  //       }
+  //     }
+  
+  //     const [year, month] = key.split("-");
+  //     await zip.generateAsync({ type: "blob" }).then((content) => {
+  //       saveAs(content, `payslips_${year}_${month}.zip`);
+  //     });
+  //   }
+  
+  //   toast.success("All monthly ZIPs downloaded!");
+  //   setLoading(false);
+  // };
+  
   const generateAllPDFs = async () => {
     setLoading(true);
-    setProgress(0); 
-    toast.info("Generating ZIP, please wait...");
-
+    setProgress(0);
+    toast.info("Generating ZIPs, please wait...");
+  
     if (!employeedata.length) {
       toast.error("No employee data found");
       setLoading(false);
       return;
     }
-
-    const zip = new JSZip();
-
-    for (let i = 0; i < employeedata.length; i++) {
-      const employee = employeedata[i];
-      const element = payslipRefs.current[i];
-
-      if (!element) continue;
-
-      try {
-        const canvas = await html2canvas(element, { scale: 2, useCORS: true });
-        const imgData = canvas.toDataURL("image/png");
-
-        const pdf = new jsPDF("p", "mm", "a4");
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const imgProps = pdf.getImageProperties(imgData);
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-        const pdfBlob = pdf.output("blob");
-
-        zip.file(`Payslip_${employee.emp_id}.pdf`, pdfBlob);
-
-        setProgress(Math.round(((i + 1) / employeedata.length) * 100));
-      } catch (err) {
-        console.error(`Error generating PDF for ${employee.emp_id}`, err);
+  
+    const groupedByMonth = {};
+  
+    employeedata.forEach((emp, index) => {
+      const date = new Date(emp.salary_date || emp.dates || dates);
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      const key = `${year}-${month.toString().padStart(2, "0")}`;
+  
+      if (!groupedByMonth[key]) {
+        groupedByMonth[key] = [];
       }
-    }
-
-    zip.generateAsync({ type: "blob" })
-      .then((content) => {
-        saveAs(content, "payslips.zip");
-        toast.success("Payslips ZIP downloaded!");
-      })
-      .catch((err) => {
-        console.error("ZIP creation failed", err);
-        toast.error("Failed to create ZIP");
-      })
-      .finally(() => {
-        setLoading(false); 
+      groupedByMonth[key].push({ emp, index });
+    });
+  
+    const keys = Object.keys(groupedByMonth);
+  
+    let currentProgress = 0; // Track the progress manually
+  
+    for (let k = 0; k < keys.length; k++) {
+      const key = keys[k];
+      const zip = new JSZip();
+      const employees = groupedByMonth[key];
+  
+      for (let i = 0; i < employees.length; i++) {
+        const { emp, index } = employees[i];
+        const element = payslipRefs.current[index];
+        if (!element) continue;
+  
+        try {
+          const canvas = await html2canvas(element, { scale: 2, useCORS: true });
+          const imgData = canvas.toDataURL("image/png");
+  
+          const pdf = new jsPDF("p", "mm", "a4");
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const imgProps = pdf.getImageProperties(imgData);
+          const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+  
+          pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+          const pdfBlob = pdf.output("blob");
+  
+          zip.file(`Payslip_${emp.emp_id}.pdf`, pdfBlob);
+  
+          // Update progress after processing each PDF
+          currentProgress = Math.round(((k * employees.length + i + 1) / (keys.length * employees.length)) * 100);
+          setProgress(currentProgress);
+        } catch (err) {
+          console.error(`Error generating PDF for ${emp.emp_id}`, err);
+        }
+      }
+  
+      const [year, month] = key.split("-");
+      await zip.generateAsync({ type: "blob" }).then((content) => {
+        saveAs(content, `payslips_${year}_${month}.zip`);
       });
+    }
+  
+    toast.success("All monthly ZIPs downloaded!");
+    setLoading(false);
   };
-
+  
   return (
     <div className="payslip-design">
       {loading && (
@@ -243,7 +327,7 @@ const Payslip = () => {
                       <li>ESI: <span>{employee.esi_amount || 0}</span></li>
                       <li>Gross Salary: <span>{employee.gross_salary || 0}</span></li>
                       <li>Net Salary: <span>{employee.net_amount || 0}</span></li>
-                      <li>Revised Salary: <span>₹47,000</span></li>
+                      <li>Revised Salary: <span>{employee.revised_salary}</span></li>
                     </ul>
                   </div>
 
