@@ -18,7 +18,7 @@ import Deletebox from '../../AdminDashboard/CustomerDetails/Dialogbox/Deletebox'
 import '../../UserDashboard/User.css';
 import Formpopup from '../../UserDashboard/Dialogbox/Formpopup';
 import Editdialog from '../../UserDashboard/Dialogbox/Editdialog';
-import { FaSearch } from "react-icons/fa";
+// import { FaSearch } from "react-icons/fa";
 
 const Adminpage = () => {
 
@@ -245,13 +245,15 @@ const Adminpage = () => {
             <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
           </button>
           ) : (
-            <button className=' admin-btn' onClick={handlePopup}
+            getPermission.length !==0 && getPermission[0]?.can_create ===1 && (
+              <button className=' admin-btn' onClick={handlePopup}
             disabled={getPermission.length === 0 || getPermission[0]?.can_create !== 1}
           >
             <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
           </button>
+            )
           )}
-          {/* <div className='searchbar'>
+          <div className='searchbar'>
               <input
                 type='text'
                 value={search}
@@ -259,8 +261,8 @@ const Adminpage = () => {
                 onChange={(e)=>setSearch(e.target.value)}
                 className='search-input'
               />
-              <FaSearch className="search-icon" />
-            </div> */}
+              {/* <FaSearch className="search-icon" /> */}
+            </div>
             </div>
           <div className="admin-header">
             <button className="upload-button3" onClick={handleDownload}>
@@ -335,13 +337,14 @@ const Adminpage = () => {
                       onClick={() => handleupdate(data?.id)}
                       disabled={getPermission.length === 0 || getPermission[0]?.can_update !== 1}
                     >
-                      <FaEdit className='edit-icon' />
+                     {getPermission.length !==0 && getPermission[0]?.can_update ===1 && (
+                       <FaEdit className='edit-icon' />
+                     )}
                     </button>
                      )}
                      {user ==="admin" ?(
                        <button className='delete-button'
                        onClick={() => handleDelete(data.id)}
-                      //  disabled={getPermission.length === 0 || getPermission[0]?.can_delete !== 1}
                      >
                        <DeleteIcon className="deleteicon" />
                      </button>
@@ -350,7 +353,9 @@ const Adminpage = () => {
                       onClick={() => handleDelete(data.id)}
                       disabled={getPermission.length === 0 || getPermission[0]?.can_delete !== 1}
                     >
-                      <DeleteIcon className="deleteicon" />
+                     {getPermission.length !==0 && getPermission[0]?.can_delete ===1 &&(
+                       <DeleteIcon className="deleteicon" />
+                     )}
                     </button>
                      )}
                     </td>

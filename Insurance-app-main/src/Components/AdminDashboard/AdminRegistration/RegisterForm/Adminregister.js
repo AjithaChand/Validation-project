@@ -94,39 +94,47 @@ const Adminregister = ({ close }) => {
     return (
         <div className='adminregister-container'>
             <div className='adminregister-form'>
-                <form onSubmit={handleSubmit} className='adminform-data'>
+               <div className='container'>
+               <form onSubmit={handleSubmit} className='adminform-data'>
                     <h3 className='text-center register-head mb-2'>Register Form</h3>
-                    <div className='mt-3 form-group'>
+                    <div className='row'>
+                    <div className='mt-3 col-6 form-group'>
                         <label className='register-label'>Username</label>
                         <input type='text' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, username: e.target.value })} placeholder='Enter your name' required />
                     </div>
-                    <div className='mt-3 form-group'>
+                    <div className='mt-3 col-6 form-group'>
                         <label className='register-label'>Email</label>
                         <input type='email' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, email: e.target.value })} placeholder='Enter your email' required />
                     </div>
-                    <div className='mt-3 form-group'>
+                    </div>
+                    <div className='row'>
+                    <div className='mt-3 col-6 form-group'>
                         <label className='register-label'>Password</label>
                         <input type='password' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, password: e.target.value })} placeholder='Enter your password' required />
                     </div>
-                    <div className='mt-3 form-group'>
+                    <div className='mt-3 col-6 form-group'>
                         <label className='register-label'>Salary</label>
                         <input type='number' className='form-control' onChange={handleSalarychange} style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} placeholder='Enter salary' required />
                     </div>
-                    <div className='mt-3 form-group'>
+                    </div>
+                    <div className='row'>
+                    <div className='mt-3 col-6 form-group'>
                         <label className='register-label'>Pf Number</label>
                         <input type='number' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, pf_number: e.target.value })} placeholder='Enter Pf number' required />
                     </div>
-                    <div className='mt-3 form-group'>
+                    <div className='mt-3 col-6 form-group'>
                         <label className='register-label'>Esi Number</label>
                         <input type='number' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, esi_number: e.target.value })} placeholder='Enter Esi number' required />
                     </div>
-                    <div className='mt-3 form-group'>
+                    </div>
+                    <div className='row'>
+                    <div className='mt-3 col-6 form-group'>
                         <label className='register-label'>Date</label>
                         <input type='date' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values,date: e.target.value })} placeholder='select date' required />
                     </div>
-                    <div className='mt-3 form-group'>
-                        <label className='register-label'>Select Role</label>
+                    <div className='mt-5 col-6 form-group'>
                         <div className='permissions-role mt-2'>
+                        <label className='register-label'>Select Role</label>
                             <label>
                                 <input
                                     type='radio'
@@ -151,8 +159,10 @@ const Adminregister = ({ close }) => {
                             </label>
                         </div>
                     </div>
+                    </div>
                     
-                    <div className='mt-3 form-group'>
+                   <div className='row'>
+                   <div className='mt-3 col-6 form-group'>
                     <label className='register-label'>Dashboard Permissions</label>
                     <div className='permissions mt-2'>
                         <label>
@@ -198,7 +208,7 @@ const Adminregister = ({ close }) => {
                     </div>
                     </div>
 
-                    <div className='mt-3 form-group'>
+                    <div className='mt-3 col-6 form-group'>
                     <label className='register-label'>Payslip Permissions</label>
                     <div className='permissions mt-2'>
                         <label>
@@ -242,9 +252,11 @@ const Adminregister = ({ close }) => {
                             /> Delete
                         </label>
                     </div>
-                    </div>
+                    </div>                     
+                   </div>
 
-                    <div className='mt-3 form-group'>
+                    <div className='row'>
+                    <div className='mt-3 col-6 form-group'>
                     <label className='register-label'>users Permissions</label>
                     <div className='permissions mt-2'>
                         <label>
@@ -290,7 +302,7 @@ const Adminregister = ({ close }) => {
                     </div>
                     </div>
 
-                    <div className='mt-3 form-group'>
+                    <div className='mt-3 col-6 form-group'>
                     <label className='register-label'>Attendance Permissions</label>
                     <div className='permissions mt-2'>
                         <label>
@@ -335,9 +347,11 @@ const Adminregister = ({ close }) => {
                         </label>
                     </div>
                     </div>
+                    </div>
                    
-                    <button className='btn mt-3 adminregister-btn'>Register</button>
+                    <button className='btn mt-5 adminregister-btn'>Register</button>
                 </form>
+               </div>
             </div>
             <ToastContainer position='top-right' autoClose={3000} />
         </div>

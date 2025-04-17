@@ -139,12 +139,15 @@ const Userdata = () => {
               </li>
             )}
 
+            {getPermission[2]?.can_read === 1 && (
             <li className='list-style'>
               <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
                 <FaUser className='dashboardicons' />
                 {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
               </div>
             </li>
+            )}
+
             {getPermission[1]?.can_read === 1 && (
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
@@ -153,12 +156,16 @@ const Userdata = () => {
                 </div>
               </li>
             )}
+
+            {getPermission[3]?.can_read === 1 && (
             <li className='list-style'>
               <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
                 <Fa500Px className='dashboardicons' />
                 {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
               </div>
             </li>
+            )}
+
           </ul>
           )}
         </nav>
