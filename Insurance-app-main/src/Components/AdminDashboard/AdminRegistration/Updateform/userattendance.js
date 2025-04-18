@@ -6,57 +6,58 @@ import axios from 'axios';
 import "./userattendance.css";
 
 const UserAttendance = () => {
-  const email = "mathav@gmail.com"
+  const email = localStorage.getItem("email");
   
 
   const [datas, setData] = useState({
-    username: "",
-    id: "",
-    email: ""
+    emp_name: "",
+    emp_id: "",
   });
 
+  console.log();
+  
   useEffect(() => {
-    if (!email) return;
-
-    axios.get(`http://localhost:7009/get-user-for-attendance?email=${email}`)
-      .then(res => {
-        if (res.data) {
-          setData(res.data);
-          console.log(res.data,"In user_attendance");
+    const fetchData= async()=>{
+      try{
+        
+        const response = await axios.get(`${apiurl}/get-user-for-attendance/${email}`);
+        if(response.data){
+          setData(response.data)
+          console.log(typeof response.data,"Received values");
           
-        } else {
-          toast.error("User not found!");
         }
-      })
-      .catch(err => {
-        console.error(err);
-        toast.error("Failed to fetch user data.");
-      })
-  }, [email]);
+      }
+      catch(err){
+        
+      }
+    }
+    fetchData()
+  },[email])
+
+  // const handleShow =()=>
+  // {
+  //   console.log(datas);
+  // }
+
 
   const getFormattedDateTime = () => {
     const now = new Date();
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = String(now.getMonth() + 1).padStart(2, '0');
     const year = now.getFullYear();
-
-    let hours = now.getHours();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-
-    const time = `${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
-    return `${day}/${month}/${year} ${time}`;
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+  
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
-
+  
   const markAttendance = async (status) => {
     const date = getFormattedDateTime();
-
+  
     try {
       const res = await axios.post(`${apiurl}/mark-attendance`, {
-        email: datas.email,
+        email: email,
         date: date,
         status: status
       }, {
@@ -64,28 +65,32 @@ const UserAttendance = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }
       });
-
-      if (res.data.success) {
-        toast.success(status === 1 ? "Marked as Present" : "Marked as Absent");
-      } else {
-        toast.warning(res.data.message || "Already marked");
-      }
+  
+      toast.success(status === 1 ? "Marked as Present" : "Marked as Absent");
     } catch (err) {
-      console.error(err);
-      toast.error("Error marking attendance");
+      console.error("Error Response:", err.response?.data);
+      
+      const message = err.response?.data?.message || "Error marking attendance";
+      
+      if (err.response?.status === 404 && message === "Already Present Today") {
+        toast.warning("You've already marked attendance today.");
+      } else {
+        toast.error(message);
+      }
     }
   };
-
+  
   return (
     <div className='user-attendance'>
       <div className='attend'>
         
           <>
-            <h2>Employee Id <span>{datas.id}</span></h2>
-            <h2>Employee Name <span>{datas.username}</span></h2>
+            <h2>Employee Id <span>{datas.emp_id}</span></h2>
+            <h2>Employee Name <span>{datas.emp_name}</span></h2>
             <h4>Mark Attendance:</h4>
             <button className='attendance-present' onClick={() => markAttendance(1)}>Present</button>
             <button className='attendance-absent' onClick={() => markAttendance(0)}>Absent</button>
+            {/* <button className='attendance-absent' onClick={handleShow}>Show</button> */}
           </>
       </div>
 

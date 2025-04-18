@@ -1,12 +1,12 @@
-const exprss = require("express");
-const cors = require=require("cors");
+const express = require("express");
+const cors = require("cors");
 const cron = require("node-cron");
 
 const db = require("../db");
 
 const app = express();
 
-app.use(exprss.json());
+app.use(express.json());
 app.use(cors());
 
 cron.schedule("0 0 1 * * ",()=>{
@@ -50,6 +50,8 @@ app.post('/mark-attendance',(req,res)=>{
 
     const { email, date, status }= req.body;
 
+    console.log(email, date, status);
+    
     const today = new Date();
     const monthName =  today.toLocaleString('default', { month : "long"}).toLowerCase();
     const year = today.getFullYear();
@@ -68,8 +70,28 @@ app.post('/mark-attendance',(req,res)=>{
 
             return res.status(404).json({ message: "Employee not found" });
         }
-
+    
         const currentCount = info[0][columnName];
+
+    const selectQuery = "SELECT present_time FROM payslip WHERE emp_email = ?";
+
+    db.query(selectQuery,[email],(err,response)=>{
+         
+        if(err){
+            return res.status(400).send({ message : "Database Error"})
+        }
+
+        const getPresentTime = response[0]?.present_time;
+
+        const storedDateOnly = new Date(getPresentTime).toISOString().split('T')[0];
+        const currentDateOnly = new Date(date).toISOString().split('T')[0];
+
+        console.log("Stored Date:", storedDateOnly, "Current Date:", currentDateOnly);
+        
+        if(currentDateOnly === storedDateOnly){
+            return res.status(404).send({ message: "Already Present Today" });
+        }
+
 
       if(status === 1){
 
@@ -83,15 +105,16 @@ app.post('/mark-attendance',(req,res)=>{
 
                 return res.status(200).send({ message : "Present Added"})
             })
-
         }   
     })
+  })
 })
 
 
-app.get("/get-user-for-attendance",(req,res)=>{
 
-    const { email } = req.query;
+app.get("/get-user-for-attendance/:email",(req,res)=>{
+
+    const { email } = req.params;
 
     console.log("Email for get data", email);
     
@@ -106,3 +129,5 @@ app.get("/get-user-for-attendance",(req,res)=>{
         return res.status(200).send(info)
     })
 })
+
+module.exports = app;

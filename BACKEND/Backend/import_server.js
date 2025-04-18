@@ -13,7 +13,7 @@ const register = require("./Login_Register/register");
 // const userpage = require("./User_Pages/user_dashboard_apis");
 const admin_payslip= require("../Backend/Admin_apis/Admin_payslip/admin_payslip");
 const user_payslip= require("../Backend/User_Pages/user_payslip");
-
+const user_attendance = require("../Backend/User_Pages/user_attendance")
 
 
 const checkApi = require('./Login_Register/checkapi')
@@ -46,7 +46,7 @@ app.use("/",emailReminder);
 app.use("/",admin_payslip)
 app.use("/",user_payslip);
 app.use("/",admin_attendance)
-
+app.use("/", user_attendance)
 
 const image = path.join(__dirname,'uploads')
 console.log(image,"gfgbhjiuygvbhygv bnjuhgv ")
