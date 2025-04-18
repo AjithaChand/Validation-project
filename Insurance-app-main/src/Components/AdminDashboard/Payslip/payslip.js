@@ -22,6 +22,43 @@ const Payslip = () => {
   const [progress, setProgress] = useState(0); 
   const payslipRefs = useRef([]);
 
+  const [formData, setFormData] = useState({
+    companyName: "",
+    phone: "",
+    email: "",
+    address: "",
+    logo: null,
+  });
+
+  // const [existingLogo, setExistingLogo] = useState(null);
+
+  useEffect(() => {
+    const fetchCompanyDetails = async () => {
+      try {
+        const res = await axios.get(`${apiurl}/api/company-details`);
+        const data = res.data;
+        console.log(data);
+        
+
+        setFormData({
+          companyName: data.company_name,
+          phone: data.phone,
+          email: data.email,
+          address: data.address,
+          logo: data.logo_url , 
+        });
+
+        // setExistingLogo(data.logo_url); 
+      } catch (err) {
+        console.error("Error fetching company details:", err);
+        toast.error("Failed to load company data");
+      }
+    };
+
+    fetchCompanyDetails();
+  }, []);
+
+
   useEffect(() => {
     if (!dates) return;
   
@@ -318,18 +355,18 @@ const Payslip = () => {
               >
                 <div className="design"></div>
                 <div className="company-header">
-                  <img className="image-logo" src={companyLogo} alt="Company Logo" />
+                  <img className="image-logo" src={formData.logo} alt="Company Logo" />
                   <div className="company">
                     <h3>Payslip</h3>
                     <p className="contact-line">
-                      <IoMdCall className="icon" /> {phone} &nbsp;
-                      <IoMdMailUnread className="icon" /> {email}
+                      <IoMdCall className="icon" /> {formData.phone} &nbsp;
+                      <IoMdMailUnread className="icon" /> {formData.email}
                     </p>
                   </div>
                   <div className="address">
-                    <h6>{companyName}</h6>
+                    <h6>{formData.companyName}</h6>
                     <p>
-                      {address}
+                      {formData.address}
                     </p>
                     <p>Date: {new Date().toLocaleDateString("en-GB")}</p>
                   </div>
