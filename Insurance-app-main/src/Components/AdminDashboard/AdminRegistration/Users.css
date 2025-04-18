@@ -48,13 +48,13 @@
 }
 
 .users-table td {
-    font-size: 17px;
-    font-weight: 200;
+    font-size: 14px;
+    font-weight: 400;
     font-family: "Poppins", sans-serif;
 }
 
 .users-table tbody td {
-    padding: 10px;
+    padding: 10px 0 10px 0;
 }
 
 .users-table tbody tr:hover {
@@ -86,7 +86,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* margin: auto; */
     padding: 10px;
     margin-top: 60px;
 }
@@ -192,11 +191,6 @@
     100% { transform: rotate(360deg);}
 }
 
-/* .user-search-icon{
-    font-size: 25px;
-    color: #023265;
-} */
-
 .user-head-search{
     display: flex;
     gap: 15px;
@@ -211,8 +205,8 @@
 }
 
 .user-search-input{
-    padding: 5px 0 5px 0;
-    width: 350px;
+    padding: 5px 0 5px 10px;
+    width: 300px;
     border: 1px solid rgba(0, 0, 0, 0.7);
     border-radius: 50px;
 }
@@ -220,6 +214,8 @@
 .user-search-input::placeholder{
     color: black;
     font-size: bold;
+    position: absolute;
+    left: 15px;
 }
 
 .user-searchbar-res{
@@ -323,7 +319,7 @@
     }
     
     .users-table tbody td {
-        padding: 5px;
+        padding: 5px 0 5px 0;
         border-bottom: 1px solid black;
     }
     
@@ -369,15 +365,9 @@
         color: green;
         cursor: pointer;
     }
-    /* .users-spinner{
-        border: 4px solid  #f3f3f3;
-        border-top: 4px solid #065c96;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 50% auto;
-    } */
+    .users-spinner{
+        margin: auto;
+    }
     .user-searchbar-res{
         display: block;
         text-align: center;
@@ -409,7 +399,6 @@
     }
 
     .users-table{
-        /* border: 1px solid black; */
         border-collapse:collapse;
         margin: auto;
         width: 100%;
@@ -456,7 +445,7 @@
     }
     
     .users-table tbody td{
-        padding: 5px;
+        padding: 5px 0 5px 0;
         border-bottom: 1px solid black;
     }
     
@@ -473,7 +462,8 @@
     }
     
     .table-container{
-        height: 70vh;
+        height: fit-content;
+        max-height: 70vh;
         border: 1px solid black;
         width: 90%;
         margin: auto;
@@ -492,13 +482,7 @@
         cursor: pointer;
     }
     .users-spinner{
-        border: 4px solid #f3f3f3;
-        border-top:4px solid #065c96 ;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-        margin: 30% auto;
+        margin: auto;
     }
     .user-searchbar-res{
         display: block;

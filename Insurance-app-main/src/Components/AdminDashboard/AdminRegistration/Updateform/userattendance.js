@@ -6,27 +6,24 @@ import axios from 'axios';
 import "./userattendance.css";
 
 const UserAttendance = () => {
-    const email=localStorage.getItem("email")
+  const email = "mathav@gmail.com"
+  
 
   const [datas, setData] = useState({
     username: "",
     id: "",
     email: ""
   });
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!email) return;
 
-    setLoading(true);
-    axios.get(`${apiurl}/get-user-for-attendance?id=${email}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    })
+    axios.get(`http://localhost:7009/get-user-for-attendance?email=${email}`)
       .then(res => {
         if (res.data) {
           setData(res.data);
+          console.log(res.data,"In user_attendance");
+          
         } else {
           toast.error("User not found!");
         }
@@ -35,16 +32,32 @@ const UserAttendance = () => {
         console.error(err);
         toast.error("Failed to fetch user data.");
       })
-      .finally(() => setLoading(false));
   }, [email]);
 
+  const getFormattedDateTime = () => {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    const time = `${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
+    return `${day}/${month}/${year} ${time}`;
+  };
+
   const markAttendance = async (status) => {
-    const today = new Date().toISOString().split('T')[0];
+    const date = getFormattedDateTime();
 
     try {
       const res = await axios.post(`${apiurl}/mark-attendance`, {
-        user_id: datas.id,
-        date: today,
+        email: datas.email,
+        date: date,
         status: status
       }, {
         headers: {
@@ -66,9 +79,7 @@ const UserAttendance = () => {
   return (
     <div className='user-attendance'>
       <div className='attend'>
-        {loading ? (
-          <p>Loading employee info...</p>
-        ) : (
+        
           <>
             <h2>Employee Id <span>{datas.id}</span></h2>
             <h2>Employee Name <span>{datas.username}</span></h2>
@@ -76,7 +87,6 @@ const UserAttendance = () => {
             <button className='attendance-present' onClick={() => markAttendance(1)}>Present</button>
             <button className='attendance-absent' onClick={() => markAttendance(0)}>Absent</button>
           </>
-        )}
       </div>
 
       <ToastContainer position="top-right" autoClose={3000} />

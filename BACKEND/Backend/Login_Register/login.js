@@ -50,10 +50,8 @@ app.post('/login', (req, res) => {
 
             const person_code = info[0]?.person_code;
 
-            console.log("im from backend PErson_Code", person_code);
             
             if (!person_code) return res.status(400).json({ error: "Person code not found" })
-                console.log(person_code ,"Person_Code in backend")
 
                 
             const permissionQuery = "SELECT * FROM permissions WHERE person_code= ?";
@@ -137,7 +135,6 @@ app.get('/person-code-details', (req, res) => {
 
         if (err) return res.status(400).send({ message: "Database Error" })
 
-        console.log("All information from backend", info);
 
         return res.status(200).send({ info: info })
     })

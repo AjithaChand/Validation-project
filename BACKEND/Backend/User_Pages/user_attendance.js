@@ -48,7 +48,7 @@ cron.schedule("0 0 1 * * ",()=>{
 })
 app.post('/mark-attendance',(req,res)=>{
 
-    const { email, status }= req.body;
+    const { email, date, status }= req.body;
 
     const today = new Date();
     const monthName =  today.toLocaleString('default', { month : "long"}).toLowerCase();
@@ -73,9 +73,9 @@ app.post('/mark-attendance',(req,res)=>{
 
       if(status === 1){
 
-            const updateQuery = `UPDATE payslip SET ${columnName} = ? WHERE emp_email = ?`;
+            const updateQuery = `UPDATE payslip SET ${columnName} = ?, present_time = ? WHERE emp_email = ?`;
 
-            db.query(updateQuery,[currentCount + 1, email],(err, result)=>{
+            db.query(updateQuery,[currentCount + 1, date, email],(err, result)=>{
                 
                 if(err){
                     return res.status(400).send({ message : "Database Error"})
@@ -93,7 +93,9 @@ app.get("/get-user-for-attendance",(req,res)=>{
 
     const { email } = req.query;
 
-    const selectQuery = "SELECT * FROM payslip WHERE emp_email = ?";
+    console.log("Email for get data", email);
+    
+    const selectQuery = "SELECT emp_id, emp_name FROM payslip WHERE emp_email = ?";
 
     db.query(selectQuery,[email],(err,info)=>{
 

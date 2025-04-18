@@ -129,7 +129,6 @@ const Adminregister = ({ close }) => {
         }
     };
 
-
     return (
         <div className='adminregister-container'>
             <div className='adminregister-form'>
@@ -227,7 +226,7 @@ const Adminregister = ({ close }) => {
 
 
                         <div className='mt-3 col-12 form-group'>
-                            <div className='permissions-role mt-2'>
+                            <div className='permissions-role-table mt-2'>
                                 {selectpermission.length !== 0 && (
                                     <table className='permission-table text-center'>
                                     <thead>
