@@ -16,6 +16,7 @@ import Updatefile from './Components/Admincreateform/Updatefile';
 import Payslip from './Components/AdminDashboard/Payslip/payslip';
 import Attendance from './Components/AdminDashboard/Attendance/attendance';
 import UserAttendance from './Components/AdminDashboard/AdminRegistration/Updateform/userattendance';
+import { Settings } from 'lucide-react';
 const App = () => {
 return (
     <UserProvider>
@@ -35,6 +36,7 @@ return (
             <Route path="attendance" element={<Attendance/>}/>
             
             <Route path="userattendance" element={<UserAttendance />} />
+            <Route path="settings" element={<Settings />} />
 
           </Route>
           <Route path='/getuser/:id' element={<Users />} />
