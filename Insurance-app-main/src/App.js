@@ -5,7 +5,7 @@ import Login from './Components/Login/Login';
 import Userdata from './Components/Dashboard/Userdata';
 import Create from './Components/Admincreateform/Create';
 import Register from './Components/Register/Register';
-import User from './Components/UserDashboard/User';
+
 import Adminpage from './Components/AdminDashboard/CustomerDetails/Adminpage';
 import Userpage from './Components/AdminDashboard/AdminRegistration/Dialogbox/Userpage';
 import Adminregister from './Components/AdminDashboard/AdminRegistration/RegisterForm/Adminregister';
@@ -14,8 +14,8 @@ import Updatedata from './Components/AdminDashboard/AdminRegistration/Updateform
 import { UserProvider } from "./usecontext";  
 import Updatefile from './Components/Admincreateform/Updatefile';
 import Payslip from './Components/AdminDashboard/Payslip/payslip';
-
 import Attendance from './Components/AdminDashboard/Attendance/attendance';
+import UserAttendance from './Components/AdminDashboard/AdminRegistration/Updateform/userattendance';
 const App = () => {
 return (
     <UserProvider>
@@ -33,6 +33,9 @@ return (
             <Route path='payslip' element={<Payslip />} />
        
             <Route path="attendance" element={<Attendance/>}/>
+            
+            <Route path="userattendance" element={<UserAttendance />} />
+
           </Route>
           <Route path='/getuser/:id' element={<Users />} />
           <Route path='/edituser/:id' element={<Updatedata />} />
