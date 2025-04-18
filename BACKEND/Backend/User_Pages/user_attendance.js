@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const cron = require("node-cron");
+const nodeMailer = require("nodemailer");
 
 const db = require("../db");
 
@@ -128,6 +129,40 @@ app.get("/get-user-for-attendance/:email",(req,res)=>{
 
         return res.status(200).send(info)
     })
+})
+
+
+// user attendance absent email remainder
+
+app.post("/attendance-absent",(req,res)=>{
+
+    const { email, content, name } = req.body;
+
+    const today = new Date().toISOString().split('T')[0];
+
+    const transPorter = nodeMailer.createTransport({
+        service : "gmail",
+        auth:{
+            user: "shuruthimanoharan8@gmail.com",
+            pass : "okai atbb begm evnz"
+        }
+    })
+
+    const mailOptions = {
+        from : email,
+        to : "shuruthimanoharan8@gmail.com",
+        subject: `Leave of Absence Request – ${name} (${today})`,
+        text: content
+    }
+
+    transPorter.sendMail(mailOptions,(err)=>{
+      
+        if(err){
+                return res.status(400).send({ message : "Database Error"})
+        }
+                return res.status(200).send({ message : "Leave Applied"})
+    })
+
 })
 
 module.exports = app;

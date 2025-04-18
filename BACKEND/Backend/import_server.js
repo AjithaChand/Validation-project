@@ -14,7 +14,7 @@ const register = require("./Login_Register/register");
 const admin_payslip= require("../Backend/Admin_apis/Admin_payslip/admin_payslip");
 const user_payslip= require("../Backend/User_Pages/user_payslip");
 const user_attendance = require("../Backend/User_Pages/user_attendance")
-
+const setting = require("../Backend/Admin_apis/setting")
 
 const checkApi = require('./Login_Register/checkapi')
 
@@ -47,6 +47,7 @@ app.use("/",admin_payslip)
 app.use("/",user_payslip);
 app.use("/",admin_attendance)
 app.use("/", user_attendance)
+app.use("/", setting)
 
 const image = path.join(__dirname,'uploads')
 console.log(image,"gfgbhjiuygvbhygv bnjuhgv ")
