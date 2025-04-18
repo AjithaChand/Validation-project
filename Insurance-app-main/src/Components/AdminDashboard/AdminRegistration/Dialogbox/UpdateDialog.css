@@ -9,11 +9,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 
 .update-content{
     width: fit-content;
-    height: fit-content;
+    height: 80vh;
+    overflow-y: scroll;
     background: white;
     border-radius: 15px;
     position: relative;

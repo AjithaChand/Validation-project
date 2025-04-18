@@ -245,5 +245,121 @@ app.delete('/delete/:id', verifyToken, (req, res) => {
     })
 })
 
+// permission update code
+
+app.get("/get-person_code", (req, res) => {
+
+    const { email } = req.query;
+
+    if (!email) {
+
+        return res.status(400).json({ message: "No user Found" })
+    }
+
+    console.log("Emailll", email)
+
+    const emailSql = "SELECT person_code FROM users WHERE email = ?";
+
+    db.query(emailSql, [email], (err, result) => {
+
+        if (err) {
+            return res.status(500).json({ error: "DB error" })
+        }
+
+        if(result.length > 0){
+
+            const person_code = result[0].person_code;
+
+
+            const getSql = "SELECT * FROM permissions WHERE person_code =?"
+
+            db.query(getSql, [person_code], (err, permissionResult) => {
+                console.log(permissionResult,"permissiontresult")
+                if (err) {
+    
+                    return res.status(500).json({ error: "Database Error" })
+                }
+                else {
+                    return res.json({
+                        person_code,
+                        permissions: permissionResult
+                      });
+                }
+        
+            })
+            
+        }else {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+    })
+})
+
+
+//Updating permissions
+
+app.put("/update-permissions", (req, res) => {
+
+    const { person_code } = req.query;
+
+    const { permissions } = req.body;
+
+    console.log("Permissions received:", permissions);
+    console.log("Person code received:", person_code);
+
+    const permissionsRows = [];
+
+    for (const [page, perm] of Object.entries(permissions)) {
+
+        permissionsRows.push(
+
+            [
+                person_code,
+                page,
+                perm.create ? 1 : 0,
+                perm.read ? 1 : 0,
+                perm.update ? 1 : 0,
+                perm.delete ? 1 : 0,
+            ]
+        )
+
+    }
+
+    const placeholders = permissionsRows.map(()=>`(?, ?, ?, ?, ?, ?)`).join(", ");
+    const flatValues = permissionsRows.flat();
+
+    const deleteqry = `DELETE FROM permissions WHERE person_code=?`;
+
+    db.query(deleteqry,[person_code], (err,result)=>{
+        if(err){
+            return res.status(500).json({ error: "Failed to delete old permissions" });
+        }
+    })
+    
+    const updateSql =
+        `INSERT INTO permissions
+    (person_code, page_name, can_create, can_read, can_update, can_delete)
+    VALUES ${placeholders}
+    ON DUPLICATE KEY UPDATE
+    can_create = VALUES (can_create),
+    can_read = VALUES (can_read),
+    can_update= VALUES (can_update),
+    can_delete =VALUES (can_delete)
+    `;
+
+    
+
+    db.query(updateSql, flatValues, (err, updResult) => {
+
+        if (err) {
+            console.log("sql error ",err)
+            return res.status(500).json({ error: "Database ERROR" })
+        }
+        else {
+            return res.status(200).json({ message: "Permissions Changes Successfully" })
+        }
+    });
+
+});
 
 module.exports = app;

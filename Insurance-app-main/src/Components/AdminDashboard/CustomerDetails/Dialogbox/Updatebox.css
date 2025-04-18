@@ -13,7 +13,8 @@
 
 .form-content{
     width: fit-content;
-    height: fit-content;
+    /* height: fit-content; */
+    height: 50%;
     position: relative;
     padding: 16px;
     background: white;
