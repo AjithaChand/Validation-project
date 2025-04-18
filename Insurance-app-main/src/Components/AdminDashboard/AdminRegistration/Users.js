@@ -120,8 +120,8 @@ const Users = () => {
   }, [person_code])
 
 
-  console.log("All datas",value);
-  
+  console.log("All datas", value);
+
 
   const filterValue = value.filter((data) => {
     return data.email?.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -181,45 +181,43 @@ const Users = () => {
         </div>
 
         <div className='user-searchbar-res mt-3'>
-              <input
-                type='text'
-                value={searchValue}
-                placeholder='Search here'
-                onChange={(e) => setSearchValue(e.target.value)}
-                className='user-search-input'
-              />
-              {/* <FaSearch className="user-search-icon" /> */}
-          </div>
+          <input
+            type='text'
+            value={searchValue}
+            placeholder='Search here'
+            onChange={(e) => setSearchValue(e.target.value)}
+            className='user-search-input'
+          />
+          {/* <FaSearch className="user-search-icon" /> */}
+        </div>
 
         <div><p className='tablerow-user mt-3'>USER DETAILS</p></div>
 
-        <div className="table-container">
-          <table className='users-table text-center'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>JoingDate</th>
-                <th>Password</th>
-                <th>Bank Details</th>
-                <th>Pf Number</th>
-                <th>Esi Number</th>
-                <th>Salary</th>
-                {user === 'admin' ? (<th>Action</th>) : (
-                  getPermission.length !== 0 && (getPermission[2]?.can_update === 1 || getPermission[2]?.can_delete === 1) && (
-                    <th>Actions</th>
-                  )
-                )}
-              </tr>
-            </thead>
-            <tbody className='tbody-users ajay'>
-              {loading ? (
+        {loading ? (
+          <div className='users-spinner'></div>
+        ) : (
+          <div className="table-container">
+            <table className='users-table text-center'>
+              <thead>
                 <tr>
-                  <td colSpan={9}><div className='users-spinner'></div></td>
+                  <th>ID</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>JoingDate</th>
+                  <th>Password</th>
+                  <th>Bank Details</th>
+                  <th>Pf Number</th>
+                  <th>Esi Number</th>
+                  <th>Salary</th>
+                  {user === 'admin' ? (<th>Action</th>) : (
+                    getPermission.length !== 0 && (getPermission[2]?.can_update === 1 || getPermission[2]?.can_delete === 1) && (
+                      <th>Actions</th>
+                    )
+                  )}
                 </tr>
-              ) : (
-                filterValue.map((data, index) => (
+              </thead>
+              <tbody className='tbody-users'>
+                {filterValue.map((data, index) => (
                   <tr key={index}>
                     <td>{data.id}</td>
                     <td>{data.username}</td>
@@ -240,36 +238,39 @@ const Users = () => {
                           onClick={() => handleDelete(data.id)}>
                           <RiDeleteBinFill className='userdelete-icon' />
                         </button>
-                    </td>
+                      </td>
                     ) : (
                       getPermission.length !== 0 && (getPermission[2]?.can_update === 1 || getPermission[2]?.can_delete === 1) && (
                         <td>
                           <button className='edit-btn'
-                            disabled={getPermission.length === 0 || getPermission[2]?.can_update !== 1 }
+                            disabled={getPermission.length === 0 || getPermission[2]?.can_update !== 1}
                             onClick={() => handleupdate(data.id, data.email)}>
-                            <FaEdit className='useredit-icon' />
+                            {getPermission.length !== 0 && getPermission[2]?.can_update === 1 && (
+                              <FaEdit className='useredit-icon' />
+                            )}
                           </button>
-              
+
                           <button className='delete-btn'
                             disabled={getPermission.length === 0 || getPermission[2]?.can_delete !== 1}
                             onClick={() => handleDelete(data.id)}>
-                            <RiDeleteBinFill className='userdelete-icon' />
+                            {getPermission.length !== 0 && getPermission[2]?.can_delete === 1 && (
+                              <RiDeleteBinFill className='userdelete-icon' />
+                            )}
                           </button>
-                      </td>
-                       )
+                        </td>
+                      )
                     )}
                   </tr>
-                ))
-              )}
+                ))}
 
-              {loading === false && filterValue.length === 0 && (
-                <tr>
-                  <td colSpan={9}><div className='users-msg'> No User Found</div></td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+                {loading === false && filterValue.length === 0 && (
+                  <tr>
+                    <td colSpan={10}><div className='users-msg'> No User Found</div></td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>)}
       </div>
       <Userpage onClose={handleDialog} isVisible={dialogbox} />
       <UpdateDialog onClose={handleupdate} isVisible={showupdate} userid={selectid} useremail={selectemail} />

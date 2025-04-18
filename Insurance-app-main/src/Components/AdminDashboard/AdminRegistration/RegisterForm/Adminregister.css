@@ -15,6 +15,7 @@
 
 .adminregister-btn:hover{
     background-color: #5d5c5c;
+    color: white;
 }
 
 .user-checkbox{
@@ -33,7 +34,7 @@
 }
 
 .permission-table{
-    border: 1px solid #000;
+    border: 1px solid #5d5c5c;
     border-collapse: separate;
     overflow: hidden;
     border-spacing: 0;
@@ -61,3 +62,18 @@
     font-weight: 500;
 }
 
+@media only screen and (min-width:319px) and (max-width:500px){
+    .permissions-role-table{
+        border: 1px solid #5d5c5c;
+        width: 100%;
+        margin: auto;
+        overflow-y: auto;
+        border-radius: 5px;
+    }
+    .permission-table{
+        border-collapse: collapse;
+        margin: auto;
+        width: 100%;
+        cursor: pointer;
+    }
+}

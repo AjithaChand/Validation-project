@@ -299,8 +299,11 @@ const Adminpage = () => {
           <p className='tablerow-admin mt-3'>CUSTOMER DETAILS</p>
         </div>
 
-        <div className='admintable-container table-div'>
-          <table className='text-center admin-table '>
+          {adminloading ? (
+                 <div className='spinner'></div>
+              ) : (
+                <div className='admintable-container table-div'>
+                <table className='text-center admin-table '>
             <thead>
               <tr>
                 <th>Email</th>
@@ -316,12 +319,7 @@ const Adminpage = () => {
               </tr>
             </thead>
             <tbody>
-              {adminloading ? (
-                <tr>
-                  <td colSpan={6}><div className='spinner'></div></td>
-                </tr>
-              ) : (
-                filterData.map((data, index) => {
+               { filterData.map((data, index) => {
                   return <tr key={index}>
                     <td>{data.email}</td>
                     <td>{new Date(data.startdate).toLocaleDateString('en-GB')}</td>
@@ -376,10 +374,9 @@ const Adminpage = () => {
                         </td>
                       )
                     )}
-
                   </tr>
-                })
-              )}
+                })}
+              
               { adminloading === false && filterData.length === 0 && (
                 <tr>
                   <td colSpan={6}><div className='user-msg'> No User Found</div></td>
@@ -387,7 +384,8 @@ const Adminpage = () => {
               )}
             </tbody>
           </table>
-        </div>
+          </div>
+         )}
       </div>
 
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
