@@ -14,8 +14,45 @@ import { IoReceipt } from "react-icons/io5";
 import { companyName,companyLogo } from '../settings';
 import axios from 'axios';
 import { apiurl } from '../../url';
+import { toast } from 'react-toastify';
 // import { companyName } from '../settings';
 const Userdata = () => {
+
+  const [formData, setFormData] = useState({
+    companyName: "",
+    phone: "",
+    email: "",
+    address: "",
+    logo: null,
+  });
+
+  // const [existingLogo, setExistingLogo] = useState(null);
+
+  useEffect(() => {
+    const fetchCompanyDetails = async () => {
+      try {
+        const res = await axios.get(`${apiurl}/api/company-details`);
+        const data = res.data;
+        console.log(data);
+        
+
+        setFormData({
+          companyName: data.company_name,
+          phone: data.phone,
+          email: data.email,
+          address: data.address,
+          logo: data.logo_url , 
+        });
+
+        // setExistingLogo(data.logo_url); 
+      } catch (err) {
+        console.error("Error fetching company details:", err);
+        toast.error("Failed to load company data");
+      }
+    };
+
+    fetchCompanyDetails();
+  }, []);
 
   const person_code = localStorage.getItem("person_code")
 
@@ -71,7 +108,7 @@ const Userdata = () => {
   return (
     <div className='user-container' >
       <div className={`${dashboardSidebaropen ? 'user-profile' : 'toggle-profile'}`}>
-        <h3 className='userheader'>{companyName}</h3>
+        <h3 className='userheader'>{formData.companyName}</h3>
         <div className='userlogout-btn'><FaUserCircle className='logo' /></div>
         {user === 'admin' ? (<div className='userlogout-btn username'>{user}</div>) :
           (<div className='userlogout-btn username'>{username}</div>)}
@@ -86,7 +123,7 @@ const Userdata = () => {
       </div>
       <aside className={`${dashboardSidebaropen ? 'admin-slidebar' : 'toggle-slidebar'}`}>
         <div className='user-heading'>
-          {dashboardSidebaropen && <img className="company-logo" src={companyLogo} alt="Company Logo" />}
+          {dashboardSidebaropen && <img className="company-logo" src={formData.logo} alt="Company Logo" />}
           <button className={`${dashboardSidebaropen ? 'dashboard-menu' : 'toggledashboard-menu'}`}>
             <MdOutlineMenuOpen className='dashboard-menu-btn' onClick={() => setDashboardSidebaropen(!dashboardSidebaropen)} />
           </button>
@@ -125,6 +162,12 @@ const Userdata = () => {
               <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
                 <Fa500Px className='dashboardicons' />
                 {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
+              </div>
+            </li>
+            <li className='list-style'>
+              <div className='userdata-btn' onClick={() => navigate('/dashboard/settings')}>
+                <Fa500Px className='dashboardicons' />
+                {dashboardSidebaropen && <span className='dashboard-icon'>settings</span>}
               </div>
             </li>
           </ul>
