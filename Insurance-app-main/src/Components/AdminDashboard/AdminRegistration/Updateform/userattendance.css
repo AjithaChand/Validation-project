@@ -1,23 +1,186 @@
-.attendance-present
-{
-  background-color: green;
-  color: white;
-  width: 100px;
-  border-radius: 10px;
+
+.user-attendance {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    margin-top: 100px;
+    background: linear-gradient(to right, #e0eafc, #cfdef3);
+    background-size: cover;
+    color: #333;
+  }
+  
+  
+  .employee-attendance {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    transition: transform 0.3s ease;
+  }
+  
+  .employee-attendance:hover {
+    transform: scale(1.01);
+  }
+  
+  .employee-attendance h6 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .employee-attendance h6 span {
+    font-weight: 500;
+    color: #666;
+  }
+  
+  .present-time {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  
+  .present-time p {
+    margin: 0;
+    font-size: 15px;
+    color: #444;
+    font-weight: 500;
+  }
+  
+
+  .attend-portel {
+    padding: 40px 30px;
+    max-width: 600px;
+    margin: auto;
+    border-radius: 20px;
+  background-color: white;
+    backdrop-filter: blur(12px);
+  
+    text-align: center;
+    margin-bottom: 500px;
+  }
+  
+  .attend-portel h2 {
+    font-size: 24px;
+    color: #222;
+    margin-bottom: 15px;
+  }
+  
+  .attend-portel h2 span {
+    font-weight: 600;
+    color: #1a73e8;
+  }
+  
+  .attend-portel h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #444;
+  }
+  
+
+  .attendance-present,
+  .attendance-absent {
+    padding: 12px 30px;
+    font-size: 16px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .attendance-present {
+    background: linear-gradient(45deg, #28a745, #4cd964);
+    color: white;
+  }
+  
+  .attendance-present:hover {
+    background: linear-gradient(45deg, #218838, #34c759);
+  }
+  
+  .attendance-absent {
+    background: linear-gradient(45deg, #dc3545, #ff5e62);
+    color: white;
+  }
+  
+  .attendance-absent:hover {
+    background: linear-gradient(45deg, #c82333, #ff3b4d);
+  }
+  
  
-}
-.attendance-absent
-{
-  background-color:rgb(128, 28, 28);
-  color: white;
-  width: 100px;
-  border-radius: 10px;
- 
-}
-.user-attendance
-{
-    height: 100vh;
-   
-    margin-left: 200px;
-    margin-top: 200px;
-}
+  .reason-modal {
+    position: fixed;
+    margin-left: 400px;
+    margin-top: 80px;
+    width: 580px;
+    height:400px;
+    background-color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border-radius: 15px;
+  }
+  
+  .reason-modal-content {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 30px;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 90%;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: center;
+  }
+  
+  .reason-modal-content input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+  
+  .submit-reason,
+  .cancel-reason {
+    padding: 10px 22px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-reason:hover,
+  .cancel-reason:hover {
+    background-color: #0056b3;
+  }
+  
+
+  .employee-attend {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+  }
+  .text-box
+  {
+    height: 70px;
+  }
+  .name
+  {
+    color: teal;
+  }
