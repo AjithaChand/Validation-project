@@ -11,6 +11,7 @@ export const UserProvider = ({ children }) => {
   const [results,setResult]=useState([]);
   const [value,setValue] = useState([])
   
+
   //Admin--> Users-->Resister
   const [createNewUser,setCreateNewUser] = useState(true);
   //Admin--> Users-->Update
@@ -21,9 +22,10 @@ export const UserProvider = ({ children }) => {
 
   const [allPermission,setAllPermission]=useState({})
 
-
+  // for setting page refresh
+  const [refreshSetting,setRefreshSetting]=useState(true)
   return (
-    <UserContext.Provider value={{ userId, setUserId , update, setUpdate, refreshFromUpdate, setRefreshFromUpdate, refreshFromCreate, setRefreshFromCreate, refreshCreateFromAdmin, setRefreshCreateFromAdmin, results, setResult, value , setValue, createNewUser ,setCreateNewUser, updateOldUser ,setUpdateOldUser, allPermission, setAllPermission}}>
+    <UserContext.Provider value={{ userId, setUserId , update, setUpdate, refreshFromUpdate, setRefreshFromUpdate, refreshFromCreate, setRefreshFromCreate, refreshCreateFromAdmin, setRefreshCreateFromAdmin, results, setResult, value , setValue, createNewUser ,setCreateNewUser, updateOldUser ,setUpdateOldUser, allPermission, setAllPermission, refreshSetting, setRefreshSetting}}>
       {children}
     </UserContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import "./payslip.css";
 import { apiurl } from '../../../url';
 import axios from 'axios';
@@ -11,8 +11,12 @@ import { saveAs } from "file-saver";
 import { FaFilePdf, FaBackward } from "react-icons/fa";
 import { IoMdCall, IoMdMailUnread } from "react-icons/io";
 import { companyName, email, phone, address, companyLogo } from '../../settings';
+import { UserContext } from '../../../usecontext';
 
 const Payslip = () => {
+
+    const {refreshSetting} = useContext(UserContext);
+  
   const [employeedata, setEmployeedata] = useState([]);
   const [dates, setDates] = useState("");
   const [datesTo, setDatesTo] = useState("");
@@ -56,7 +60,7 @@ const Payslip = () => {
     };
 
     fetchCompanyDetails();
-  }, []);
+  }, [refreshSetting]);
 
 
   useEffect(() => {

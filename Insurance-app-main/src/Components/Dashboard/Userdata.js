@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import UserDialog from './Dialogbox/UserDialog';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Menu, } from "lucide-react";
 import Sidebar from '../Sidebar/Sidebar';
 import { Fa500Px } from "react-icons/fa";
@@ -11,12 +11,16 @@ import { MdOutlineMenuOpen } from "react-icons/md";
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { IoReceipt } from "react-icons/io5";
+import { IoIosSettings } from "react-icons/io";
 import { companyName,companyLogo } from '../settings';
 import axios from 'axios';
 import { apiurl } from '../../url';
 import { toast } from 'react-toastify';
+import { UserContext } from '../../usecontext';
 // import { companyName } from '../settings';
 const Userdata = () => {
+
+  const {refreshSetting} = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     companyName: "",
@@ -52,7 +56,7 @@ const Userdata = () => {
     };
 
     fetchCompanyDetails();
-  }, []);
+  }, [refreshSetting]);
 
   const person_code = localStorage.getItem("person_code")
 
@@ -166,7 +170,7 @@ const Userdata = () => {
             </li>
             <li className='list-style'>
               <div className='userdata-btn' onClick={() => navigate('/dashboard/settings')}>
-                <Fa500Px className='dashboardicons' />
+              <IoIosSettings className='dashboardicons' />
                 {dashboardSidebaropen && <span className='dashboard-icon'>settings</span>}
               </div>
             </li>

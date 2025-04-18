@@ -1,99 +1,82 @@
-body {
-    margin: 0;
-    padding: 0;
-    background-color:white;
-    background-size: 400% 400%;
+/* Outer wrapper to center the form */
+.company-form-wrapper {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-family: 'Poppins', sans-serif;
-    animation: gradientShift 15s ease infinite;
+    align-items: flex-start; /* start vertically */
+    padding-top: 80px; /* move form a bit down */
+    background-color: #ffffff;
   }
   
-  form {
+  /* Actual form container */
+  .company-details-form-container {
     width: 100%;
     max-width: 600px;
     padding: 30px 35px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    animation: fadeIn 1s ease-in-out;
-    position: relative;
-    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease-in-out;
   }
   
-  h1 {
+  /* Heading */
+  .company-details-form-container h1 {
     text-align: center;
     font-size: 28px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     color: #2d2d2d;
-    font-weight: bold;
+    font-weight: 600;
   }
   
-  input[type="text"],
-  input[type="email"],
-  textarea,
-  input[type="file"] {
+  /* Inputs and textarea */
+  .company-details-form-container input[type="text"],
+  .company-details-form-container input[type="email"],
+  .company-details-form-container textarea,
+  .company-details-form-container input[type="file"] {
     width: 100%;
     padding: 14px 18px;
     margin-bottom: 20px;
     border: 2px solid #ddd;
     border-radius: 12px;
     font-size: 16px;
-    transition: 0.3s ease;
     background-color: #f9f9f9;
+    transition: 0.3s ease;
     box-sizing: border-box;
   }
   
-  input:focus,
-  textarea:focus {
+  .company-details-form-container input:focus,
+  .company-details-form-container textarea:focus {
     border-color: #764ba2;
     background-color: #fff;
-    box-shadow: 0 0 15px rgba(118, 75, 162, 0.4);
+    box-shadow: 0 0 10px rgba(118, 75, 162, 0.3);
     outline: none;
   }
   
-  textarea {
+  .company-details-form-container textarea {
     resize: vertical;
-    min-height: 120px;
-    transition: all 0.3s ease;
+    min-height: 100px;
   }
   
-  button[type="submit"] {
+  /* Submit button */
+  .company-details-form-container button[type="submit"] {
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
-    padding: 16px;
+    padding: 14px;
     border: none;
     border-radius: 12px;
     font-size: 16px;
     cursor: pointer;
     width: 100%;
-    margin-top: 15px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   
-  button[type="submit"]:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(118, 75, 162, 0.5);
+  .company-details-form-container button[type="submit"]:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(118, 75, 162, 0.4);
   }
   
-  img {
-    display: block;
-    margin-top: 20px;
-    max-width: 180px;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  p {
-    text-align: center;
-    color: #666;
-    font-weight: 600;
-    margin-bottom: 15px;
-  }
-  
+  /* Optional fade-in animation */
   @keyframes fadeIn {
     from {
       transform: translateY(20px);
@@ -103,22 +86,5 @@ body {
       transform: translateY(0);
       opacity: 1;
     }
-  }
-  
-  @keyframes gradientShift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-  .form-data
-  {
-    margin-top: 100px;
-    margin-left: 70px;
   }
   

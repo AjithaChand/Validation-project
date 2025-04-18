@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { apiurl } from "../url";
 import './Setting.css';
+import { UserContext } from "../usecontext";
 
 function CompanyDetailsForm() {
+
+    const {setRefreshSetting} = useContext(UserContext);
+
   const [formData, setFormData] = useState({
     companyName: "",
     phone: "",
@@ -13,7 +17,34 @@ function CompanyDetailsForm() {
     logo: null,
   });
 
-
+    // const [existingLogo, setExistingLogo] = useState(null);
+  
+    useEffect(() => {
+      const fetchCompanyDetails = async () => {
+        try {
+          const res = await axios.get(`${apiurl}/api/company-details`);
+          const data = res.data;
+          console.log(data);
+          
+  
+          setFormData({
+            companyName: data.company_name,
+            phone: data.phone,
+            email: data.email,
+            address: data.address,
+            logo: data.logo_url , 
+          });
+  
+          // setExistingLogo(data.logo_url); 
+        } catch (err) {
+          console.error("Error fetching company details:", err);
+          toast.error("Failed to load company data");
+        }
+      };
+  
+      fetchCompanyDetails();
+    }, []);
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -55,13 +86,8 @@ function CompanyDetailsForm() {
   
       if (res.status === 200) {
         toast.success("Company details saved successfully!");
-        setFormData({
-          companyName: "",
-          phone: "",
-          email: "",
-          address: "",
-          logo: null,
-        }); 
+        setRefreshSetting(pre=>!pre)
+       
       }
     } catch (error) {
       console.error("Error submitting form", error);
@@ -70,10 +96,9 @@ function CompanyDetailsForm() {
   };
   
   return (
-    
-    <form className="form-data" onSubmit={handleSubmit} encType="multipart/form-data">
+  <div className="company-form-wrapper">
+    <form className="company-details-form-container" onSubmit={handleSubmit} encType="multipart/form-data">
       <h1>Company Details Form</h1>
-
       <input
         type="text"
         name="companyName"
@@ -105,11 +130,13 @@ function CompanyDetailsForm() {
         onChange={handleChange}
         required
       />
-      <input type="file" accept="image/*" onChange={handleFileChange} required />
-
+      <input type="file" accept="image/*" onChange={handleFileChange} required/>
+      <img src={formData.logo} alt="" style={{ height:"30px", width:"30px"}} />
       <button type="submit">Save Details</button>
     </form>
-  );
+  </div>
+);
+
 }
 
 export default CompanyDetailsForm;
