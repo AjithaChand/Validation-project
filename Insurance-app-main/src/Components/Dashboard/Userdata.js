@@ -166,6 +166,14 @@ const Userdata = () => {
             </li>
             )}
 
+                     <li className='list-style'>
+              <div className='userdata-btn' onClick={() => navigate('/dashboard/userattendance')}>
+                <Fa500Px className='dashboardicons' />
+                {dashboardSidebaropen && <span className='dashboard-icon'>Userattendance</span>}
+              </div>
+            </li>
+          
+
           </ul>
           )}
         </nav>
