@@ -7,38 +7,40 @@ import "./userattendance.css";
 
 const UserAttendance = () => {
   const email = localStorage.getItem("email");
-  
 
-  const [datas, setData] = useState({
-    emp_name: "",
-    emp_id: "",
-  });
 
-  console.log();
-  
+const [datas, setData] = useState([]);
+
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [isAbsent, setIsAbsent] = useState(false);
+  const [reason, setReason] = useState("");
+  const [hasMarked, setHasMarked] = useState(false);
+
   useEffect(() => {
-    const fetchData= async()=>{
-      try{
-        
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formattedTime = currentTime.toLocaleTimeString();
+  const formattedDate = currentTime.toLocaleDateString();
+  const monthName = currentTime.toLocaleString('default', { month: 'long' });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const response = await axios.get(`${apiurl}/get-user-for-attendance/${email}`);
-        if(response.data){
-          setData(response.data)
-          console.log(typeof response.data,"Received values");
-          
+        if (response.data) {
+            console.log(response.data,"resss")
+          setData(response.data);
         }
+      } catch (err) {
+        console.error("Error fetching user data:", err);
       }
-      catch(err){
-        
-      }
-    }
-    fetchData()
-  },[email])
-
-  // const handleShow =()=>
-  // {
-  //   console.log(datas);
-  // }
-
+    };
+    fetchData();
+  }, [email]);
 
   const getFormattedDateTime = () => {
     const now = new Date();
@@ -48,30 +50,33 @@ const UserAttendance = () => {
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
-  
+
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
-  
+
   const markAttendance = async (status) => {
     const date = getFormattedDateTime();
-  
+
     try {
       const res = await axios.post(`${apiurl}/mark-attendance`, {
         email: email,
         date: date,
-        status: status
+        status: status,
+        reason: status === 0 ? reason : "",
       }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }
       });
-  
+
       toast.success(status === 1 ? "Marked as Present" : "Marked as Absent");
+      setHasMarked(true);
+      if (status === 0) {
+        setReason("");
+        setIsAbsent(false);
+      }
     } catch (err) {
-      console.error("Error Response:", err.response?.data);
-      
       const message = err.response?.data?.message || "Error marking attendance";
-      
       if (err.response?.status === 404 && message === "Already Present Today") {
         toast.warning("You've already marked attendance today.");
       } else {
@@ -79,20 +84,70 @@ const UserAttendance = () => {
       }
     }
   };
-  
+
   return (
     <div className='user-attendance'>
-      <div className='attend'>
-        
-          <>
-            <h2>Employee Id <span>{datas.emp_id}</span></h2>
-            <h2>Employee Name <span>{datas.emp_name}</span></h2>
-            <h4>Mark Attendance:</h4>
-            <button className='attendance-present' onClick={() => markAttendance(1)}>Present</button>
-            <button className='attendance-absent' onClick={() => markAttendance(0)}>Absent</button>
-            {/* <button className='attendance-absent' onClick={handleShow}>Show</button> */}
-          </>
+      <div className='employee-attendance'>
+        <h6>Employee Id :<span>{datas[0]?.emp_id}</span></h6>
+      
+        <div className='present-time'>
+          <p>{formattedTime}</p>
+          <p>{formattedDate}</p>
+          <p>{monthName}</p>
+        </div>
+     
       </div>
+
+      <div className='attend-portel'>
+      <h2><span className='name'>{datas[0]?.emp_name.charAt(0).toUpperCase() + datas[0]?.emp_name.slice(1).toLowerCase()}</span></h2>
+
+        <h4>Mark Attendance</h4>
+        <button
+          className='attendance-present'
+          onClick={() => markAttendance(1)}
+          disabled={hasMarked}
+        >
+          Present
+        </button>
+        <button
+          className='attendance-absent'
+          onClick={() => setIsAbsent(true)}
+          disabled={hasMarked}
+        >
+          Absent
+        </button>
+      </div>
+      {isAbsent && (
+  <div className="reason-modal">
+    <div className="reason-modal-content">
+      <h4>Reason for Absence</h4>
+      <input
+      className='text-box'
+        type="text"
+        placeholder="Enter reason"
+        value={reason}
+        onChange={(e) => setReason(e.target.value)}
+      />
+      <div style={{ marginTop: "20px", display: "flex", justifyContent: "space-between" }}>
+        <button
+          className="submit-reason"
+          onClick={() => markAttendance(0)}
+        >
+          Submit
+        </button>
+        <button
+          className="cancel-reason"
+          onClick={() => {
+            setIsAbsent(false);
+            setReason("");
+          }}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
       <ToastContainer position="top-right" autoClose={3000} />
     </div>
