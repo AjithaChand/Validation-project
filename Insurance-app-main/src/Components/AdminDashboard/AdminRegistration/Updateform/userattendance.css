@@ -1,4 +1,15 @@
+.attendance-message {
+  margin: 20px 0;
+  text-align: center;
+}
 
+.already-marked {
+  color: #ff6b6b;
+  font-weight: bold;
+  padding: 10px;
+  background: #ffecec;
+  border-radius: 5px;
+}
 .user-attendance {
     min-height: 100vh;
     display: flex;
