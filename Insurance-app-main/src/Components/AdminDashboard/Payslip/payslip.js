@@ -241,7 +241,7 @@ const Payslip = () => {
   };
   
   return (
-    <div className="payslip-design">
+    <div className="payslip-design-1">
       {loading && (
         <div className="loading-overlay">
           <div className="loading-spinner"></div>
@@ -256,6 +256,9 @@ const Payslip = () => {
         </div>
       )}
 
+
+
+<div style={{display:"flex",flexDirection:'column',alignItems:"center",justifyContent:"center"}}>
       <div className="payslip-file">
         {showBackIcon && (
           <FaBackward
@@ -270,7 +273,8 @@ const Payslip = () => {
         )}
         <h1 className="portal">Payslip Portal</h1>
       </div>
-
+      <div className='field-content' >
+     
       <div className="payslip-field">
         <div className="input-fields">
           <label>From Month</label>
@@ -292,7 +296,7 @@ const Payslip = () => {
           />
         </div>
       </div>
-
+      </div>
       {employeedata.length > 0 && !showPaySlip && (
         <div className="pdf-button-download">
           <button className="pdfbutton" onClick={() => setShowPaySlip(true)}>
@@ -422,6 +426,8 @@ const Payslip = () => {
           ))}
         </>
       )}
+
+</div>
 
       <ToastContainer />
     </div>
