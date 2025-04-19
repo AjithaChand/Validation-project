@@ -18,7 +18,7 @@ import Deletebox from '../../AdminDashboard/CustomerDetails/Dialogbox/Deletebox'
 import '../../UserDashboard/User.css';
 import Formpopup from '../../UserDashboard/Dialogbox/Formpopup';
 import Editdialog from '../../UserDashboard/Dialogbox/Editdialog';
-// import { FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 
 const Adminpage = () => {
 
@@ -76,6 +76,8 @@ const Adminpage = () => {
   const [showform, setShowform] = useState(false);
 
   const [search, setSearch] = useState("")
+
+  const [searchbar, setSearchbar] = useState(false)
 
   const dd = localStorage.getItem("token");
   console.log(dd, "kk")
@@ -253,15 +255,15 @@ const Adminpage = () => {
                 </button>
               )
             )}
-            <div className='searchbar'>
-              <input
-                type='text'
-                value={search}
-                placeholder='Search here'
-                onChange={(e) => setSearch(e.target.value)}
-                className='search-input'
-              />
-              {/* <FaSearch className="search-icon" /> */}
+            <div className="searchbar-container">
+              <FaSearch className="search-icon" onClick={()=>setSearchbar(!searchbar)} />
+                <input
+                  type="text"
+                  value={search}
+                  placeholder="Search customer details"
+                  onChange={(e) => setSearch(e.target.value)}
+                  className={`search-input ${searchbar ? 'expanded' : ''}`}
+                />
             </div>
           </div>
           <div className="admin-header">
@@ -285,41 +287,40 @@ const Adminpage = () => {
         </div>
 
         <div className='searchbar-res mt-3'>
-              <input
-                type='text'
-                value={search}
-                placeholder='Search here'
-                onChange={(e) => setSearch(e.target.value)}
-                className='search-input'
-              />
-              {/* <FaSearch className="search-icon" /> */}
-            </div>
+          <input
+            type='text'
+            value={search}
+            placeholder='Search customer details'
+            onChange={(e) => setSearch(e.target.value)}
+            className='search-input-res'
+          />
+        </div>
 
         <div>
           <p className='tablerow-admin mt-3'>CUSTOMER DETAILS</p>
         </div>
 
-          {adminloading ? (
-                 <div className='spinner'></div>
-              ) : (
-                <div className='admintable-container table-div'>
-                <table className='text-center admin-table '>
-            <thead>
-              <tr>
-                <th>Email</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Policy</th>
-                <th>Files</th>
-                {user === 'admin' ? (<th>Action</th>) : (
-                  getPermission.length !== 0 && (getPermission[0]?.can_update === 1 || getPermission[0]?.can_delete === 1) && (
-                    <th>Action</th>
-                  )
-                )}
-              </tr>
-            </thead>
-            <tbody>
-               { filterData.map((data, index) => {
+        {adminloading ? (
+          <div className='spinner'></div>
+        ) : (
+          <div className='admintable-container table-div'>
+            <table className='text-center admin-table '>
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Policy</th>
+                  <th>Files</th>
+                  {user === 'admin' ? (<th>Action</th>) : (
+                    getPermission.length !== 0 && (getPermission[0]?.can_update === 1 || getPermission[0]?.can_delete === 1) && (
+                      <th>Action</th>
+                    )
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {filterData.map((data, index) => {
                   return <tr key={index}>
                     <td>{data.email}</td>
                     <td>{new Date(data.startdate).toLocaleDateString('en-GB')}</td>
@@ -376,21 +377,21 @@ const Adminpage = () => {
                     )}
                   </tr>
                 })}
-              
-              { adminloading === false && filterData.length === 0 && (
-                <tr>
-                  <td colSpan={6}><div className='user-msg'> No User Found</div></td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+
+                {adminloading === false && filterData.length === 0 && (
+                  <tr>
+                    <td colSpan={6}><div className='user-msg'> No User Found</div></td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
-         )}
+        )}
       </div>
 
       <Detailspopup isVisible={showpopup} onClose={handlePopup} />
       <UpdateBox onClose={() => handleupdate()} isVisible={showupdate} userid={selectid} />
-      <Deletebox isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
+      <Deletebox isVisible={showconfirm} onClose={cancelLogout} cancel={cancelLogout} logout={confirmLogout} />
       <Formpopup isVisible={showform} onClose={toggleForm} />
       <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} />
 

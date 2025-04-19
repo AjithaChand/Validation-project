@@ -17,7 +17,9 @@ import axios from 'axios';
 import { apiurl } from '../../url';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../usecontext';
+import { FaCalendarCheck } from "react-icons/fa";
 // import { companyName } from '../settings';
+
 const Userdata = () => {
 
   const {refreshSetting} = useContext(UserContext);
@@ -93,7 +95,6 @@ const Userdata = () => {
     setShowconfirm(false);
   };
 
-
   useEffect(() => {
     if (person_code) {
 
@@ -146,31 +147,31 @@ const Userdata = () => {
             <ul className='user-list'>
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
-                  <MdSpaceDashboard className='dashboardicons' />
+                  <MdSpaceDashboard className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
                 </div>
               </li>
             <li className='list-style'>
               <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                <FaUser className='dashboardicons' />
+                <FaUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                 {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
               </div>
             </li>
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
-                  <IoReceipt className='dashboardicons' />
+                  <IoReceipt className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
                 </div>
               </li>
             <li className='list-style'>
               <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
-                <Fa500Px className='dashboardicons' />
+                <FaCalendarCheck  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                 {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
               </div>
             </li>
             <li className='list-style'>
               <div className='userdata-btn' onClick={() => navigate('/dashboard/settings')}>
-              <IoIosSettings className='dashboardicons' />
+              <IoIosSettings className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                 {dashboardSidebaropen && <span className='dashboard-icon'>settings</span>}
               </div>
             </li>
@@ -180,7 +181,7 @@ const Userdata = () => {
             {getPermission[0]?.can_read === 1 && (
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
-                  <MdSpaceDashboard className='dashboardicons' />
+                  <MdSpaceDashboard className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
                 </div>
               </li>
@@ -189,7 +190,7 @@ const Userdata = () => {
             {getPermission[2]?.can_read === 1 && (
             <li className='list-style'>
               <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                <FaUser className='dashboardicons' />
+                <FaUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                 {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
               </div>
             </li>
@@ -198,7 +199,7 @@ const Userdata = () => {
             {getPermission[1]?.can_read === 1 && (
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
-                  <IoReceipt className='dashboardicons' />
+                  <IoReceipt className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
                 </div>
               </li>
@@ -207,7 +208,7 @@ const Userdata = () => {
             {getPermission[3]?.can_read === 1 && (
             <li className='list-style'>
               <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
-                <Fa500Px className='dashboardicons' />
+                <Fa500Px className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                 {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
               </div>
             </li>
@@ -215,7 +216,7 @@ const Userdata = () => {
 
                      <li className='list-style'>
               <div className='userdata-btn' onClick={() => navigate('/dashboard/userattendance')}>
-                <Fa500Px className='dashboardicons' />
+                <Fa500Px className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                 {dashboardSidebaropen && <span className='dashboard-icon'>Userattendance</span>}
               </div>
             </li>

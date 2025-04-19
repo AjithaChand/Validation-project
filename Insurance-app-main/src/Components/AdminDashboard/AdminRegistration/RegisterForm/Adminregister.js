@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import '../RegisterForm/Adminregister.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,14 +9,14 @@ import { UserContext } from '../../../../usecontext';
 const Adminregister = ({ close }) => {
     const { setCreateNewUser } = useContext(UserContext);
 
-    const [leavedays, setLeavedays] = useState(0);
-    const [selectpermission, setSelectpermission] = useState("")
+    // const [leavedays, setLeavedays] = useState(0);
+    // const [selectpermission, setSelectpermission] = useState("")
 
-    const handlePermission = (e) => {
+    // const handlePermission = (e) => {
 
-        setSelectpermission(e.target.value)
+    //     setSelectpermission(e.target.value)
 
-    }
+    // }
 
     const [values, setValues] = useState({
         username: '',
@@ -210,7 +210,7 @@ const Adminregister = ({ close }) => {
                                 </div>
                             </div>
 
-                            <div className='mt-3 col-12 form-group'>
+                            {/* <div className='mt-3 col-12 form-group'>
                                 <div className='permissions-role mt-2'>
                                     <label htmlFor='permission' className='register-label'>Permissions:</label>
                                     <select id='permission' className='form-control' value={selectpermission} onChange={handlePermission}>
@@ -221,13 +221,12 @@ const Adminregister = ({ close }) => {
                                         <option value="attendance">Attendance</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
 
                         <div className='mt-3 col-12 form-group'>
                             <div className='permissions-role-table mt-2'>
-                                {selectpermission.length !== 0 && (
                                     <table className='permission-table text-center'>
                                     <thead>
                                         <tr>
@@ -239,9 +238,8 @@ const Adminregister = ({ close }) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {selectpermission === "dashboard" && (
                                             <tr>
-                                                <td>{selectpermission}</td>
+                                                <td>Dashboard</td>
                                                 <td>
                                                     <input
                                                         type="checkbox"
@@ -283,10 +281,9 @@ const Adminregister = ({ close }) => {
                                                     />
                                                 </td>
                                             </tr>
-                                        )}
-                                        {selectpermission === "payslip" && (
+                                     
                                             <tr>
-                                                <td>{selectpermission}</td>
+                                                <td>Payslip</td>
                                                 <td>
                                                     <input
                                                         type="checkbox"
@@ -328,10 +325,9 @@ const Adminregister = ({ close }) => {
                                                     />
                                                 </td>
                                             </tr>
-                                        )}
-                                        {selectpermission === "users" && (
+                                        
                                             <tr>
-                                                <td>{selectpermission}</td>
+                                                <td>Users</td>
                                                 <td>
                                                     <input
                                                         type="checkbox"
@@ -373,10 +369,9 @@ const Adminregister = ({ close }) => {
                                                     />
                                                 </td>
                                             </tr>
-                                        )}
-                                        {selectpermission === "attendance" && (
+                                        
                                             <tr>
-                                                <td>{selectpermission}</td>
+                                                <td>Attendance</td>
                                                 <td>
                                                     <input
                                                         type="checkbox"
@@ -418,10 +413,8 @@ const Adminregister = ({ close }) => {
                                                     />
                                                 </td>
                                             </tr>
-                                        )}
                                     </tbody>
                                 </table>
-                                )}
                             </div>
                         </div>
 

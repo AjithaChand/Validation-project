@@ -5,7 +5,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  box-shadow: 1px 5px 10px  rgba(0, 0, 0, 0.5);
+  /* box-shadow: 1px 5px 10px  rgba(0, 0, 0, 0.5); */
 }
 
 .toggle-slidebar{
@@ -15,7 +15,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  box-shadow: 1px 3px 10px  rgba(0, 0, 0, 0.5);
+  /* box-shadow: 1px 3px 10px  rgba(0, 0, 0, 0.5); */
   transition: width 0.3s ease;
   overflow: hidden;
 }
@@ -50,6 +50,14 @@
   font-size: 25px;
   color: rgba(0, 0, 0, 0.741);
   cursor: pointer;
+}
+
+.toggledashboard-icons {
+  font-size: 25px;
+  color: rgba(0, 0, 0, 0.741);
+  cursor: pointer;
+  position: relative;
+  left: 25%;
 }
 
 .userdata-head{
@@ -307,6 +315,14 @@
     display: none;
   }
 
+  .toggle-slidebar{
+    width: 7%;
+  }
+
+  .toggle-profile {
+    width: 93%;
+  }
+
   .admin-slidebar {
     background: rgb(239, 238, 238);
     height: 100vh;
@@ -324,6 +340,11 @@
     font-size: 1.5rem;
   }
 
+  .toggle-container {
+    margin-left: 7%;
+    height: 100vh;
+  }
+
   .userdata-head{
     font-size: 20px;
   }
@@ -332,6 +353,19 @@
 @media only screen and (min-width:1024px) {
   .userdata-head{
     padding: 5px;
+  }
+
+  .toggle-slidebar{
+    width: 7%;
+  }
+
+  .toggle-profile {
+    width: 93%;
+  }
+
+  .toggle-container {
+    margin-left: 7%;
+    height: 100vh;
   }
 }
 

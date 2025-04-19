@@ -187,21 +187,25 @@ const Updatedata = ({ selectid, close, selectemail }) => {
 
   return (
     <div >
+         <div className='container'>
       <form onSubmit={handleSubmit} className='update-form' >
         <h3 className='text-center updatehead mt-2'>Update Data</h3>
-        <div className='form-group mt-3'>
+      <div className='row'>
+      <div className='col-md-6 col-sm-12  form-group mt-3'>
           <label className='userupdate-label'>Username</label>
           <input className='form-control' type='text' value={datas.username} onChange={e => setData({ ...datas, username: e.target.value })} placeholder='Enter your username' />
         </div>
-        <div className='form-group mt-3'>
+        <div className='col-md-6 col-sm-12 form-group mt-3'>
           <label className='userupdate-label'>Email</label>
           <input type='email' className='form-control' value={datas.email} onChange={e => setData({ ...datas, email: e.target.value })} placeholder='Enter your email' readOnly />
         </div>
-        <div className='form-group mt-3'>
+      </div>
+       <div className='row'>
+       <div className='col-md-6 col-sm-12 form-group mt-3'>
           <label className='userupdate-label'>Password</label>
           <input type='password' className='form-control' value={datas.password} onChange={e => setData({ ...datas, password: e.target.value })} placeholder='Enter your password' />
         </div>
-        <div className='form-group mt-3'>
+        <div className='col-md-6 col-sm-12 form-group mt-3'>
           <label className='userupdate-label'>Salary</label>
           <input
             type='number'
@@ -211,20 +215,26 @@ const Updatedata = ({ selectid, close, selectemail }) => {
             placeholder='Enter your salary'
           />
         </div>
-        <div className='form-group mt-3'>
+
+       </div>
+       
+       <div className='row'>
+       <div className='col-md-6 col-sm-12 form-group mt-3'>
           <label className='userupdate-label'>ESI Number</label>
           <input type='text' className='form-control' value={datas.esi_number} onChange={e => setData({ ...datas, esi_number: e.target.value })} placeholder='Enter ESI Number' />
         </div>
-        <div className='form-group mt-3'>
+        <div className='col-md-6 col-sm-12 form-group mt-3'>
           <label className='userupdate-label'>PF Number</label>
           <input type='text' className='form-control' value={datas.pf_number} onChange={e => setData({ ...datas, pf_number: e.target.value })} placeholder='Enter ESI Number' />
         </div>
-        <div className='form-group mt-3'>
+       </div>
+       
+        <div className='form-group col- mt-3'>
           <label className='userupdate-label'>Bank Details</label>
-          <input type='text' className='form-control' value={datas.bank_details} onChange={e => setData({ ...datas, bank_details: e.target.value })} placeholder='Enter Bank Details' />
+          <textarea className='form-control' value={datas.bank_details} onChange={e => setData({ ...datas, bank_details: e.target.value })} placeholder='Enter Bank Details' />
         </div>
 
-        <div className='mt-3 col-12 form-group'>
+        {/* <div className='mt-3 col-12 form-group'>
           <div className='permissions-role mt-2'>
             <label htmlFor='permission' className='register-label'>Permissions:</label>
             <select id='permission' className='form-control' >
@@ -235,7 +245,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
               <option value="attendance">Attendance</option>
             </select>
           </div>
-        </div>
+        </div> */}
 
         <div className='mt-3 col-12 form-group'>
           <div className='permissions-role-table mt-2'>
@@ -255,7 +265,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.dashboard.create}
+                      checked={permission.dashboard?.create}
                       onChange={e => setPermission(prev => ({
                         ...prev,
                         dashboard: { ...prev.dashboard, create: e.target.checked }
@@ -265,7 +275,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.dashboard.read}
+                      checked={permission.dashboard?.read}
                       onChange={e => setPermission(prev => ({
                         ...prev,
                         dashboard: { ...prev.dashboard, read: e.target.checked }
@@ -275,7 +285,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.dashboard.update}
+                      checked={permission.dashboard?.update}
                       onChange={e => setPermission(permission => ({
                         ...permission,
                         dashboard: { ...permission.dashboard, update: e.target.checked }
@@ -285,7 +295,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.dashboard.delete}
+                      checked={permission.dashboard?.delete}
                       onChange={e => setPermission(permission => ({
                         ...permission,
                         dashboard: { ...permission.dashboard, delete: e.target.checked }
@@ -299,7 +309,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.payslip.create}
+                      checked={permission.payslip?.create}
                       onChange={e => setPermission(prev => ({
                         ...prev,
                         payslip: { ...prev.payslip, create: e.target.checked }
@@ -309,7 +319,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.payslip.read}
+                      checked={permission.payslip?.read}
                       onChange={e => setPermission(prev => ({
                         ...prev,
                         payslip: { ...prev.payslip, read: e.target.checked }
@@ -319,7 +329,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.payslip.update}
+                      checked={permission.payslip?.update}
                       onChange={e => setPermission(permission => ({
                         ...permission,
                         payslip: { ...permission.payslip, update: e.target.checked }
@@ -329,7 +339,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.payslip.delete}
+                      checked={permission.payslip?.delete}
                       onChange={e => setPermission(permission => ({
                         ...permission,
                         payslip: { ...permission.payslip, delete: e.target.checked }
@@ -343,7 +353,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.users.create}
+                      checked={permission.users?.create}
                       onChange={e => setPermission(prev => ({
                         ...prev,
                         users: { ...prev.users, create: e.target.checked }
@@ -353,7 +363,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.users.read}
+                      checked={permission.users?.read}
                       onChange={e => setPermission(prev => ({
                         ...prev,
                         users: { ...prev.users, read: e.target.checked }
@@ -363,7 +373,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.users.update}
+                      checked={permission.users?.update}
                       onChange={e => setPermission(permission => ({
                         ...permission,
                         users: { ...permission.users, update: e.target.checked }
@@ -373,7 +383,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.users.delete}
+                      checked={permission.users?.delete}
                       onChange={e => setPermission(permission => ({
                         ...permission,
                         users: { ...permission.users, delete: e.target.checked }
@@ -387,7 +397,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.attendance.create}
+                      checked={permission.attendance?.create}
                       onChange={e => setPermission(prev => ({
                         ...prev,
                         attendance: { ...prev.attendance, create: e.target.checked }
@@ -397,7 +407,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.attendance.read}
+                      checked={permission.attendance?.read}
                       onChange={e => setPermission(prev => ({
                         ...prev,
                         attendance: { ...prev.attendance, read: e.target.checked }
@@ -407,7 +417,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.attendance.update}
+                      checked={permission.attendance?.update}
                       onChange={e => setPermission(permission => ({
                         ...permission,
                         attendance: { ...permission.attendance, update: e.target.checked }
@@ -417,7 +427,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                   <td>
                     <input
                       type="checkbox"
-                      checked={permission.attendance.delete}
+                      checked={permission.attendance?.delete}
                       onChange={e => setPermission(permission => ({
                         ...permission,
                         attendance: { ...permission.attendance, delete: e.target.checked }
@@ -432,7 +442,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
 
         <button className='btn userupdate-btn mt-4' style={{ backgroundColor: "#333" }}>Submit</button>
       </form>
-
+     </div>
       <ToastContainer position='top-right' autoClose={3000} />
     </div>
   )

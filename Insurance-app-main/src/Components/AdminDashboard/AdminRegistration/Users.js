@@ -13,7 +13,7 @@ import { apiurl } from '../../../url';
 import AddIcon from '@mui/icons-material/Add';
 import Usersdelete from '../AdminRegistration/Dialogbox/Usersdelete';
 import { UserContext } from '../../../usecontext';
-// import { FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 
 const Users = () => {
 
@@ -33,7 +33,9 @@ const Users = () => {
 
   const [searchValue, setSearchValue] = useState("")
 
+  //searchbar state
 
+   const [searchbar, setSearchbar] = useState(false)
   const { createNewUser } = useContext(UserContext);
   const { updateOldUser } = useContext(UserContext);
 
@@ -150,14 +152,15 @@ const Users = () => {
               )
             )}
             <div className='user-searchbar'>
+            <FaSearch className="user-search-icon" onClick={()=>setSearchbar(!searchbar)}/> 
               <input
                 type='text'
                 value={searchValue}
-                placeholder='Search here'
+                placeholder='Search user details'
                 onChange={(e) => setSearchValue(e.target.value)}
-                className='user-search-input'
+                className={`user-search-input ${searchbar ? "expanded-user" : ""}`}
               />
-              {/* <FaSearch className="user-search-icon" /> */}
+             
             </div>
           </div>
           <div className="admin-header-user">
@@ -184,11 +187,10 @@ const Users = () => {
           <input
             type='text'
             value={searchValue}
-            placeholder='Search here'
+            placeholder='Search user details'
             onChange={(e) => setSearchValue(e.target.value)}
-            className='user-search-input'
+            className='user-search-input-res'
           />
-          {/* <FaSearch className="user-search-icon" /> */}
         </div>
 
         <div><p className='tablerow-user mt-3'>USER DETAILS</p></div>
@@ -275,7 +277,7 @@ const Users = () => {
       <Userpage onClose={handleDialog} isVisible={dialogbox} />
       <UpdateDialog onClose={handleupdate} isVisible={showupdate} userid={selectid} useremail={selectemail} />
       <ToastContainer position='top-right' autoClose={3000} />
-      <Usersdelete isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
+      <Usersdelete isVisible={showconfirm} onClose={cancelLogout} cancel={cancelLogout} logout={confirmLogout} />
     </div>
   );
 };

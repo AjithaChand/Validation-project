@@ -1,16 +1,16 @@
-.admin-container{
+.admin-container {
     margin-top: 100px;
 }
 
-.admin-btn{
+.admin-btn {
     background-color: #023265;
-    color:white;
+    color: white;
     border-radius: 50px;
     padding: 15px;
     border: none;
 }
 
-.tablerow-admin{
+.tablerow-admin {
     text-align: center;
     display: flex;
     justify-content: center;
@@ -18,27 +18,27 @@
     font-weight: bold;
 }
 
-.admin-table{
-    border-collapse:collapse;
+.admin-table {
+    border-collapse: collapse;
     margin: auto;
     width: 100%;
     cursor: pointer;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.admin-table thead th{
+.admin-table thead th {
     position: sticky;
     top: 0;
     z-index: 1;
 }
 
-.admin-table td{
+.admin-table td {
     font-size: 17px;
     font-weight: 200;
-    font-family: "Poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
-.admin-table th{
+.admin-table th {
     padding: 12px;
     font-size: 16px;
     text-transform: uppercase;
@@ -48,22 +48,22 @@
     border-bottom: 1px solid gainsboro;
 }
 
-.admin-table tbody td{
+.admin-table tbody td {
     padding: 20px;
 }
 
-.admin-table tbody tr:hover{
-    background:  rgb(221, 220, 220);
+.admin-table tbody tr:hover {
+    background: rgb(221, 220, 220);
 }
 
-.admin-btn:hover{
+.admin-btn:hover {
     background: rgb(1, 1, 99);
 }
 
 .admin-header-container {
     display: flex;
     align-items: center !important;
-    justify-content:space-between;
+    justify-content: space-between;
     /* padding: 50px; */
     margin: auto;
     padding: 10px;
@@ -77,26 +77,26 @@
     gap: 15px;
 }
 
-.adminbutton{
+.adminbutton {
     width: 100%;
     background: none;
     border: none;
 }
 
-.adminbutton:hover{
+.adminbutton:hover {
     transform: scale(1.2)
 }
 
-.delete-button{
-    background: none ;
+.delete-button {
+    background: none;
     border: none;
 }
 
-.delete-button:hover{
+.delete-button:hover {
     transform: scale(1.2)
 }
 
-.admin-header .upload-button3, 
+.admin-header .upload-button3,
 .admin-header .upload-button4 {
     color: white;
     border: none;
@@ -149,38 +149,38 @@
     font-size: 14px;
 }
 
-.admin-header-container .addicon{
+.admin-header-container .addicon {
     font-size: 25px;
     color: white;
     cursor: pointer;
 }
 
-.admin-header-container .addbutton{
+.admin-header-container .addbutton {
     font-size: 17px;
     color: white;
     cursor: pointer;
 }
 
-.adminbutton .editicon{
+.adminbutton .editicon {
     font-size: 25px;
     color: green;
     cursor: pointer;
 }
 
-.delete-button .deleteicon{
+.delete-button .deleteicon {
     font-size: 30px;
     color: darkred;
     cursor: pointer;
 }
 
-.admintable-container{
+.admintable-container {
     height: 70vh;
     overflow-y: auto;
 }
 
-.spinner{
+.spinner {
     border: 4px solid #f3f3f3;
-    border-top:4px solid #065c96 ;
+    border-top: 4px solid #065c96;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -189,74 +189,94 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
-/* .search-icon{
-    font-size: 25px;
-    color: #023265;
-} */
-
-.admin-head-search{
+.admin-head-search {
     display: flex;
     gap: 15px;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.searchbar{
+.search-icon{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.searchbar-container {
     display: flex;
-    gap: 15px;
     align-items: center;
+    position: relative;
+    gap: 10px;
 }
 
-.search-input{
-    padding: 5px 0 5px 10px;
-    width: 300px;
-    border: 1px solid rgba(0, 0, 0, 0.7);
-    border-radius: 50px;
-}
-
-.search-input::placeholder{
+.search-input::placeholder {
     color: black;
     font-size: bold;
     position: absolute;
     left: 15px;
 }
 
-.searchbar-res{
+.search-input {
+    width: 0;
+    opacity: 0;
+    padding: 5px 0 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    transition: width 0.4s ease, opacity 0.4s ease;
+}
+
+.search-input.expanded {
+    width: 300px;
+    opacity: 1;
+}
+
+.search-input-res{
+    width: 250px;
+    padding: 5px 0 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+}
+
+.searchbar-res {
     display: none;
 }
 
-.user-msg{
+.user-msg {
     margin: 20px auto;
 }
 
 @media only screen and (min-width:319px) and (max-width:500px) {
-    .admin-header{
+    .admin-header {
         flex-wrap: wrap;
         display: flex;
-        flex-direction: row; 
-        gap: 2px;     
+        flex-direction: row;
+        gap: 2px;
     }
 
-    .admin-slidebar{
+    .admin-slidebar {
         display: none;
     }
 
     .admin-header-container {
         display: flex;
         align-items: center;
-        justify-content:space-between;
+        justify-content: space-between;
         padding: 10px;
         margin: auto;
         width: 100% !important;
         margin-top: 15px;
     }
 
-    .admin-header .upload-button3, 
+    .admin-header .upload-button3,
     .admin-header .upload-button4 {
         color: white;
         border: none;
@@ -278,11 +298,11 @@
         margin-left: 10px;
     }
 
-    .label-name{
+    .label-name {
         font-size: 12px;
     }
 
-    .tablerow-admin{
+    .tablerow-admin {
         text-align: center;
         display: flex;
         justify-content: center;
@@ -290,8 +310,8 @@
         font-weight: bold;
     }
 
-    .admin-table{
-        border-collapse:collapse;
+    .admin-table {
+        border-collapse: collapse;
         margin: auto;
         cursor: pointer;
         box-shadow: 1px 7px 15px gainsboro;
@@ -300,32 +320,33 @@
     .userdata-container {
         margin-left: 0% !important;
         height: 100vh;
-    }  
+    }
 
-    .admin-header-container .addbutton{
+    .admin-header-container .addbutton {
         font-size: 12px;
         color: white;
         cursor: pointer;
     }
-    .admin-header-container .addicon{
+
+    .admin-header-container .addicon {
         font-size: 18px;
         color: white;
         cursor: pointer;
     }
 
-    .admin-table thead th{
+    .admin-table thead th {
         position: sticky;
         top: 0;
         z-index: 1;
     }
-    
-    .admin-table td{
+
+    .admin-table td {
         font-size: 14px;
         font-weight: 200;
-        font-family: "Poppins",sans-serif;
+        font-family: "Poppins", sans-serif;
     }
-    
-    .admin-table th{
+
+    .admin-table th {
         padding: 8px;
         font-size: 12px;
         text-transform: uppercase;
@@ -334,17 +355,17 @@
         color: white;
         border-bottom: 1px solid gainsboro;
     }
-    
-    .admin-table tbody td{
+
+    .admin-table tbody td {
         padding: 5px 0 5px 0;
         border-bottom: 1px solid black;
     }
-    
-    .admin-table tbody tr:hover{
-        background:  rgb(221, 220, 220);
+
+    .admin-table tbody tr:hover {
+        background: rgb(221, 220, 220);
     }
-    
-    .admintable-container{
+
+    .admintable-container {
         max-height: 70vh;
         height: fit-content;
         width: 90%;
@@ -352,44 +373,48 @@
         margin: auto;
         overflow-y: auto;
     }
-    .adminbutton{
+
+    .adminbutton {
         width: 100%;
         background: none;
         border: none;
     }
-    .adminbutton .editicon{
+
+    .adminbutton .editicon {
         font-size: 20px;
         color: green;
         cursor: pointer;
     }
-    .admin-btn{
+
+    .admin-btn {
         background-color: #023265;
-        color:white;
+        color: white;
         border-radius: 50px;
         padding: 10px;
         border: none;
     }
-    
-    .delete-button .deleteicon{
+
+    .delete-button .deleteicon {
         font-size: 20px;
         color: darkred;
         cursor: pointer;
     }
 
-    .admin-table tbody .edit-btn .edit-icon{
+    .admin-table tbody .edit-btn .edit-icon {
         font-size: 20px;
         color: green;
         cursor: pointer;
     }
-    .spinner{
+
+    .spinner {
         margin: auto;
     }
-    
-    .searchbar{
+
+    .searchbar-container {
         display: none;
     }
 
-    .searchbar-res{
+    .searchbar-res {
         display: block;
         text-align: center;
     }
@@ -402,22 +427,23 @@
         justify-content: flex-end;
         gap: 8px;
     }
-    .admin-slidebar{
+
+    .admin-slidebar {
         display: none;
     }
 
     .admin-header-container {
         display: flex;
         align-items: center;
-        justify-content:space-between;
+        justify-content: space-between;
         padding: 10px;
         margin: auto;
         width: 100% !important;
         margin-top: 15px;
     }
 
-    .admin-table{
-        border-collapse:collapse;
+    .admin-table {
+        border-collapse: collapse;
         margin: auto;
         width: 100%;
         cursor: pointer;
@@ -427,32 +453,33 @@
     .userdata-container {
         margin-left: 0% !important;
         height: 100vh;
-    }  
+    }
 
-    .admin-header-container .addbutton{
+    .admin-header-container .addbutton {
         font-size: 14px;
         color: white;
         cursor: pointer;
     }
-    .admin-header-container .addicon{
+
+    .admin-header-container .addicon {
         font-size: 20px;
         color: white;
         cursor: pointer;
     }
 
-    .admin-table thead th{
+    .admin-table thead th {
         position: sticky;
         top: 0;
         z-index: 1;
     }
-    
-    .admin-table td{
+
+    .admin-table td {
         font-size: 14px;
         font-weight: 200;
-        font-family: "Poppins",sans-serif;
+        font-family: "Poppins", sans-serif;
     }
-    
-    .admin-table th{
+
+    .admin-table th {
         padding: 8px;
         font-size: 12px;
         text-transform: uppercase;
@@ -461,25 +488,25 @@
         color: white;
         border-bottom: 1px solid gainsboro;
     }
-    
-    .admin-table tbody td{
+
+    .admin-table tbody td {
         padding: 5px 0 5px 0;
         border-bottom: 1px solid black;
     }
-    
-    .admin-table tbody tr:hover{
-        background:  rgb(221, 220, 220);
+
+    .admin-table tbody tr:hover {
+        background: rgb(221, 220, 220);
     }
-    
-    .tablerow-admin{
+
+    .tablerow-admin {
         text-align: center;
         display: flex;
         justify-content: center;
         font-size: 17px;
         font-weight: bold;
     }
-    
-    .admintable-container{
+
+    .admintable-container {
         height: fit-content;
         max-height: 70vh;
         border: 1px solid black;
@@ -487,80 +514,87 @@
         margin: auto;
         overflow-y: auto;
     }
-    .adminbutton{
+
+    .adminbutton {
         width: 100%;
         background: none;
         border: none;
     }
-    .adminbutton .editicon{
+
+    .adminbutton .editicon {
         font-size: 20px;
         color: green;
         cursor: pointer;
     }
-    
-    .delete-button .deleteicon{
+
+    .delete-button .deleteicon {
         font-size: 20px;
         color: darkred;
         cursor: pointer;
     }
 
-    .admin-table tbody .edit-btn .edit-icon{
+    .admin-table tbody .edit-btn .edit-icon {
         font-size: 20px;
         color: green;
         cursor: pointer;
     }
-    .spinner{
-        margin:auto;
+
+    .spinner {
+        margin: auto;
     }
-    .searchbar{
+
+    .searchbar {
         display: none;
     }
 
-    .searchbar-res{
+    .searchbar-res {
         display: block;
         text-align: center;
     }
 }
 
 @media only screen and (max-width:768px) {
-    .admin-slidebar{
+    .admin-slidebar {
         display: none;
     }
-    .toggle-slidebar{
+
+    .toggle-slidebar {
         display: none;
     }
 }
 
 @media only screen and (min-width:500.11px) and (max-width:768px) {
-    .admin-header-container{
+    .admin-header-container {
         margin-top: 20px;
     }
 
 }
 
 @media only screen and (min-width:769px) and (max-width:1024px) {
-    .admin-table tbody td{
+    .admin-table tbody td {
         padding: 10px;
     }
-    .searchbar{
+
+    .searchbar {
         display: none;
     }
 
-    .searchbar-res{
+    .searchbar-res {
         display: block;
         text-align: center;
     }
 }
 
-@media only screen and (min-width:769px) and (max-width:1009px){
-    .tablerow-admin{
+@media only screen and (min-width:769px) and (max-width:1009px) {
+    .tablerow-admin {
         text-align: center;
         display: flex;
         justify-content: center;
         font-size: 17px;
         font-weight: bold;
     }
-    .admin-table th{
+
+    .admin-table th {
         padding: 8px;
         font-size: 14px;
         text-transform: uppercase;
@@ -569,36 +603,39 @@
         color: white;
         border-bottom: 1px solid gainsboro;
     }
-    .admin-table tbody td{
+
+    .admin-table tbody td {
         padding: 4px;
     }
-    .adminbutton .editicon{
+
+    .adminbutton .editicon {
         font-size: 20px;
         color: green;
         cursor: pointer;
     }
-    
-    .delete-button .deleteicon{
+
+    .delete-button .deleteicon {
         font-size: 19px;
         color: darkred;
         cursor: pointer;
     }
 
-    .admin-table tbody .edit-btn .edit-icon{
+    .admin-table tbody .edit-btn .edit-icon {
         font-size: 19px;
         color: green;
         cursor: pointer;
     }
-    
+
 }
 
 @media only screen and (min-width:1025px) and (max-width:1113px) {
-    .admin-table td{
+    .admin-table td {
         font-size: 14px;
         font-weight: 200;
-        font-family: "Poppins",sans-serif;
+        font-family: "Poppins", sans-serif;
     }
-    .admin-table tbody td{
+
+    .admin-table tbody td {
         padding: 3px;
     }
 }

@@ -1,4 +1,4 @@
-.update-overlay{
+.update-overlay-user{
     width: 100%;
     height: 100%;
     position: fixed;
@@ -9,11 +9,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 15px;
 }
 
-.update-content{
-    width: fit-content;
+.update-content-user{
+    width: 50%;
     height: 80vh;
     overflow-y: scroll;
     background: white;
@@ -22,7 +22,7 @@
     padding: 20px;
 }
 
-.btn-update{
+.btn-update-user{
     position: absolute;
     top: 10px;
     right: 10px;
@@ -32,29 +32,8 @@
     cursor: pointer;
 }
 
-@media only screen and (min-width:319px) and (max-width:400px){
-    .update-content{
-        width: 80%;
+@media only screen and (min-width:320px) and (max-width:780) {
+    .update-content-user{
+        width: 90%;
     }
 }
-
-/*@media only screen and (min-width:401px) and (max-width:500px){
-    .update-content{
-        width: 60%;
-        height: 67%;
-    }
-}
-
-@media only screen and (min-width:501px) and (max-width:700px){
-    .update-content{
-        width: 55%;
-        height: 67%;
-    }
-}
-
-@media only screen and (min-width:701px) and (max-width:1024px){
-    .update-content{
-        width: 40%;
-        height: 70%;
-    }
-} */

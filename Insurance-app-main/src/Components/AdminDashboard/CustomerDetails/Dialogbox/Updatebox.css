@@ -1,4 +1,4 @@
-.form-overlay{
+.form-overlay-update{
     width: 100%;
     height: 100%;
     background: rgba(0,0, 0, 0.7);
@@ -9,19 +9,20 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    padding: 15px;
 }
 
-.form-content{
+.form-content-update{
     width: fit-content;
-    /* height: fit-content; */
-    height: 50%;
+    height: fit-content;
+    overflow-y: scroll;
     position: relative;
     padding: 16px;
     background: white;
     border-radius: 13px;
 }
 
-.btn-form{
+.btn-form-update{
     background: none;
     border: none;
     font-size: 1.5rem;
@@ -30,30 +31,3 @@
     position: absolute;
     cursor: pointer;
 }
-
-@media only screen and (min-width:319px) and (max-width:400px){
-    .form-content{
-        width: 80%
-    }
-}
-
-/*@media only screen and (min-width:401px) and (max-width:500px){
-    .form-content{
-        width: 60%;
-        height: 75%;
-    }
-}
-
-@media only screen and (min-width:501px) and (max-width:700px){
-    .form-content{
-        width: 55%;
-        height: 75%;
-    }
-}
-
-@media only screen and (min-width:701px) and (max-width:1024px){
-    .form-content{
-        width: 40%;
-        height: 77%;
-    }
-} */

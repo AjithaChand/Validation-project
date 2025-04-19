@@ -3,3 +3,13 @@
   color: white;
   margin: auto;
 }
+
+@media only screen and (min-width:319px) and (max-width:400px){
+  .heading{
+      font-size: 18px;
+      font-weight: bold;
+  }
+  .update-label{
+      font-size: 14px;
+  }
+}

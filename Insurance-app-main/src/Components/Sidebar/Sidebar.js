@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { MdLogout } from "react-icons/md";
 import '../Sidebar/Sidebar.css';
 import { FaReceipt } from "react-icons/fa";
+import { FaCalendarCheck } from "react-icons/fa";
+import { IoIosSettings } from "react-icons/io";
 
 const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
 
@@ -37,6 +39,18 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                             <div className='sidebar-icons' onClick={() => navigate('/dashboard/payslip')}>
                                 <FaReceipt className='' />
                                 <span className=''> payslip</span>
+                            </div>
+                        </li>
+                        <li className='sidebar-list'>
+                            <div className='sidebar-icons' onClick={() => navigate('/dashboard/attendance')}>
+                                <FaCalendarCheck className='' />
+                                <span className=''> Attendance</span>
+                            </div>
+                        </li>
+                        <li className='sidebar-list'>
+                            <div className='sidebar-icons' onClick={() => navigate('/dashboard/settings')}>
+                                <IoIosSettings className=''/>
+                                <span className=''>settings</span>
                             </div>
                         </li>
                         <li className='sidebar-list-logout'>
