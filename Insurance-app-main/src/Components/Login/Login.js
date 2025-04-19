@@ -87,11 +87,11 @@ const Login = () => {
                     </div>
                     <div className='mt-4 form-group'>
                         <label className='label text-white'>Email</label>
-                        <input type='email' className='form-control-login' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,email:e.target.value})} placeholder='Enter your email' required />
+                        <input type='email' className='form-control-login'  onChange={e=>setValues({...values,email:e.target.value})} placeholder='Enter your email' required />
                     </div>
                     <div className='mt-4 form-group'>
                         <label className='label text-white'>Password</label>
-                        <input type='password' className='form-control-login' style={{backgroundColor:"rgba(255, 255, 255, 0.7)"}} onChange={e=>setValues({...values,password:e.target.value})} placeholder='Enter your password' required/>
+                        <input type='password' className='form-control-login'  onChange={e=>setValues({...values,password:e.target.value})} placeholder='Enter your password' required/>
                     </div>
                     <button className='btn login-btn mt-5'>Login</button>
                 </form>

@@ -131,8 +131,8 @@ function CompanyDetailsForm() {
         required
       />
       <input type="file" accept="image/*" onChange={handleFileChange} required/>
-      <img src={formData.logo} alt="" style={{ height:"30px", width:"30px"}} />
-      <button type="submit">Save Details</button>
+      {/* <img src={formData.logo} alt="" style={{ height:"30px", width:"30px"}} /> */}
+      <button className="save" type="submit">Save Details</button>
     </form>
   </div>
 );

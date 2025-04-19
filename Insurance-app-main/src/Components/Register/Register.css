@@ -1,9 +1,24 @@
 .register-container{
-    background-image: url("../../../public/bg-2.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+ position: relative;
     height: 100vh;
-     width: 100vw
+     width: 100vw;
+     overflow: hidden;
+     z-index:1
+}
+.register-container::before
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('../../../public/insurance2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: blur(8px);
+    z-index: -1;
 }
 
 .register-form{
@@ -12,22 +27,31 @@
     justify-content: center;
     align-items: center;
 }
-.form-control-register {
+.form-control-register{
     width: 100%;
-    padding: 8px 11px;
-    font-size: 15px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: rgba(255, 255, 255, 0.9);
-    transition: border 0.3s ease, box-shadow 0.3s ease;
-  }
+    padding: 10px 5px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1.5px solid #ccc;
+    background-color: transparent;
+    color: #fff; 
+    outline: none;
+    transition: border-color 0.3s ease;
+}
 
+.form-control-register::placeholder {
+    color: #ccc; 
+}
+
+.form-control-register:focus {
+    border-bottom: 1.5px solid teal; 
+}
 .register-btn{
     margin: auto;
     display: block;
     padding: 10px;
     width: 30%;
-    background-color: darkblue;
+    background-color: teal;
     color: white;
 }
 

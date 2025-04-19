@@ -1,14 +1,14 @@
-/* Outer wrapper to center the form */
+
 .company-form-wrapper {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* start vertically */
-    padding-top: 80px; /* move form a bit down */
+    align-items: flex-start; 
+    padding-top: 80px; 
     background-color: #ffffff;
   }
   
-  /* Actual form container */
+
   .company-details-form-container {
     width: 100%;
     max-width: 600px;
@@ -19,7 +19,7 @@
     animation: fadeIn 0.8s ease-in-out;
   }
   
-  /* Heading */
+
   .company-details-form-container h1 {
     text-align: center;
     font-size: 28px;
@@ -28,7 +28,7 @@
     font-weight: 600;
   }
   
-  /* Inputs and textarea */
+
   .company-details-form-container input[type="text"],
   .company-details-form-container input[type="email"],
   .company-details-form-container textarea,
@@ -57,9 +57,9 @@
     min-height: 100px;
   }
   
-  /* Submit button */
-  .company-details-form-container button[type="submit"] {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+
+  .company-details-form-container .save {
+    background: linear-gradient(135deg,#2e7e7e,#2caaa9);
     color: white;
     padding: 14px;
     border: none;
@@ -71,9 +71,9 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   
-  .company-details-form-container button[type="submit"]:hover {
+  .company-details-form-container .save:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(118, 75, 162, 0.4);
+    box-shadow: 0 8px 20px #2caaa9(118, 75, 162, 0.4);
   }
   
   /* Optional fade-in animation */
@@ -87,4 +87,90 @@
       opacity: 1;
     }
   }
+  /* Small Phones: 319px to 500px */
+@media only screen and (min-width: 319px) and (max-width: 500px) {
+  .company-form-wrapper {
+    padding-top: 60px;
+  }
+
+  .company-details-form-container {
+    padding: 15px 13px;
+    max-width: 90%;
+  }
+
+  .company-details-form-container h1 {
+    font-size: 22px;
+  }
+
+  .company-details-form-container input,
+  .company-details-form-container textarea {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .company-details-form-container button[type="submit"] {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* Tablets: 501px to 768px */
+@media only screen and (min-width: 501px) and (max-width: 768px) {
+  .company-form-wrapper {
+    padding-top: 70px;
+  }
+
+  .company-details-form-container {
+    padding: 25px 25px;
+    max-width: 90%;
+  }
+
+  .company-details-form-container h1 {
+    font-size: 24px;
+  }
+
+  .company-details-form-container input,
+  .company-details-form-container textarea {
+    font-size: 15px;
+    padding: 13px 16px;
+  }
+
+  .company-details-form-container button[type="submit"] {
+    font-size: 15px;
+    padding: 13px;
+  }
+}
+
+/* Medium Devices: 769px to 1024px */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .company-details-form-container {
+    max-width: 80%;
+    padding: 30px;
+  }
+
+  .company-details-form-container h1 {
+    font-size: 26px;
+  }
+}
+
+/* Slightly Smaller Laptops: 769px to 1009px */
+@media only screen and (min-width: 769px) and (max-width: 1009px) {
+  .company-details-form-container {
+    max-width: 80%;
+    padding: 28px;
+  }
+}
+
+/* Small Laptops: 1025px to 1113px */
+@media only screen and (min-width: 1025px) and (max-width: 1113px) {
+  .company-details-form-container {
+    max-width: 75%;
+    padding: 32px;
+  }
+
+  .company-details-form-container h1 {
+    font-size: 27px;
+  }
+}
+
   

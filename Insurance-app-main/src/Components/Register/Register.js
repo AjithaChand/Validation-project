@@ -55,15 +55,15 @@ const Register = () => {
                     </div>
                     <div className='mt-4 form-group'>
                         <label className='text-white'>Username</label>
-                        <input type='text' className='form-control-register' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, username: e.target.value })} placeholder='Enter your name' required />
+                        <input type='text' className='form-control-register'  onChange={e => setValues({ ...values, username: e.target.value })} placeholder='Enter your name' required />
                     </div>
                     <div className='mt-4 form-group'>
                         <label className='text-white'>Email</label>
-                        <input type='email' className='form-control-register' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, email: e.target.value })} placeholder='Enter your email' required />
+                        <input type='email' className='form-control-register'  onChange={e => setValues({ ...values, email: e.target.value })} placeholder='Enter your email' required />
                     </div>
                     <div className='mt-4 form-group'>
                         <label className='text-white'>Password</label>
-                        <input type='password' className='form-control-register' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, password: e.target.value })} placeholder='Enter your password' required />
+                        <input type='password' className='form-control-register'  onChange={e => setValues({ ...values, password: e.target.value })} placeholder='Enter your password' required />
                     </div>
                     <button className='btn register-btn mt-4'>Register</button>
                 </form>
