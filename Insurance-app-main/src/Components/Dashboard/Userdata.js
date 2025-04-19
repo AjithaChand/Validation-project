@@ -211,14 +211,23 @@ const Userdata = () => {
                 </li>
               )}
 
-              <li className='list-style'>
+              {getPermission[4]?.can_read ===1 && (
+                <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/userattendance')}>
                   <Fa500Px className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'>Userattendance</span>}
                 </div>
               </li>
+              )}
 
-
+              {getPermission[5]?.can_read ===1 && (
+                 <li className='list-style'>
+                 <div className='userdata-btn' onClick={() => navigate('/dashboard/settings')}>
+                   <IoSettingsSharp className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                   {dashboardSidebaropen && <span className='dashboard-icon'> Settings</span>}
+                 </div>
+               </li>
+              )}
             </ul>
           )}
         </nav>

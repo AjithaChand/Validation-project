@@ -30,6 +30,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
     'payslip': { read: false, create: false, update: false, delete: false },
     'users': { read: false, create: false, update: false, delete: false },
     'attendance': { read: false, create: false, update: false, delete: false },
+    'user_attendance' : { read: false, create: false, update: false, delete: false },
     'settings': { read: false, create: false, update: false, delete: false },
   });
 
@@ -432,6 +433,49 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                       onChange={e => setPermission(permission => ({
                         ...permission,
                         attendance: { ...permission.attendance, delete: e.target.checked }
+                      }))}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>User Attendance</td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={permission.user_attendance?.create}
+                      onChange={e => setPermission(prev => ({
+                        ...prev,
+                        user_attendance: { ...prev.user_attendance, create: e.target.checked }
+                      }))}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={permission.user_attendance?.read}
+                      onChange={e => setPermission(prev => ({
+                        ...prev,
+                        user_attendance: { ...prev.user_attendance, read: e.target.checked }
+                      }))}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={permission.user_attendance?.update}
+                      onChange={e => setPermission(permission => ({
+                        ...permission,
+                        user_attendance: { ...permission.user_attendance, update: e.target.checked }
+                      }))}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={permission.user_attendance?.delete}
+                      onChange={e => setPermission(permission => ({
+                        ...permission,
+                        user_attendance: { ...permission.user_attendance, delete: e.target.checked }
                       }))}
                     />
                   </td>

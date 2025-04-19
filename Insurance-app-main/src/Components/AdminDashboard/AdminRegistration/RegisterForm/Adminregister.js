@@ -41,7 +41,8 @@ const Adminregister = ({ close }) => {
         'payslip': { read: false, create: false, update: false, delete: false },
         'users': { read: false, create: false, update: false, delete: false },
         'attendance': { read: false, create: false, update: false, delete: false },
-        // 'settings': { read: false, create: false, update: false, delete: false },
+        'user_attendance' : { read: false, create: false, update: false, delete: false },
+        'settings': { read: false, create: false, update: false, delete: false },
     });
 
     const handleSalarychange = (e) => {
@@ -103,11 +104,13 @@ const Adminregister = ({ close }) => {
         try {
             await axios.post(`${apiurl}/admin/register`, {
                 ...values, permissions: permission
+                
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
+            console.log("Permission updation" , permission)
 
             try {
                 await axios.post(`${apiurl}/email_for_register`, {
@@ -414,8 +417,50 @@ const Adminregister = ({ close }) => {
                                                     />
                                                 </td>
                                             </tr>
-
-                                            {/* <tr>
+                                            <tr>
+                                                <td>User Attendance</td>
+                                                <td>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={permission.user_attendance.create}
+                                                        onChange={e => setPermission(prev => ({
+                                                            ...prev,
+                                                            user_attendance: { ...prev.user_attendance, create: e.target.checked }
+                                                        }))}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={permission.user_attendance.read}
+                                                        onChange={e => setPermission(prev => ({
+                                                            ...prev,
+                                                            user_attendance: { ...prev.user_attendance, read: e.target.checked }
+                                                        }))}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={permission.user_attendance.update}
+                                                        onChange={e => setPermission(permission => ({
+                                                            ...permission,
+                                                            user_attendance: { ...permission.user_attendance, update: e.target.checked }
+                                                        }))}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={permission.user_attendance.delete}
+                                                        onChange={e => setPermission(permission => ({
+                                                            ...permission,
+                                                            user_attendance: { ...permission.user_attendance, delete: e.target.checked }
+                                                        }))}
+                                                    />
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>Settings</td>
                                                 <td>
                                                     <input
@@ -457,7 +502,7 @@ const Adminregister = ({ close }) => {
                                                         }))}
                                                     />
                                                 </td>
-                                            </tr> */}
+                                            </tr>
                                     </tbody>
                                 </table>
                             </div>
