@@ -10,7 +10,6 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { FaFilePdf, FaBackward } from "react-icons/fa";
 import { IoMdCall, IoMdMailUnread } from "react-icons/io";
-import { companyName, email, phone, address, companyLogo } from '../../settings';
 import { UserContext } from '../../../usecontext';
 
 const Payslip = () => {

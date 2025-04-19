@@ -205,7 +205,7 @@ const Users = () => {
                   <th>ID</th>
                   <th>Username</th>
                   <th>Email</th>
-                  <th>JoingDate</th>
+                  <th>JoiningDate</th>
                   <th>Password</th>
                   <th>Bank Details</th>
                   <th>Pf Number</th>

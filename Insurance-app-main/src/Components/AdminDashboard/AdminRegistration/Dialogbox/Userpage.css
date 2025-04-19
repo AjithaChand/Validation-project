@@ -13,7 +13,7 @@
 }
 
 .dialog-content{
-    width: fit-content;
+    width: 50%;
     background: white;
     border-radius: 15px;
     position: relative;
@@ -30,4 +30,16 @@
     font-size: 1.5rem;
     background: none;
     cursor: pointer;
+}
+
+@media only screen and (min-width:319px) and (max-width:1000px){
+    .dialog-content {
+        width: fit-content;
+        height: 80vh;
+        overflow-y: scroll;
+        background: white;
+        border-radius: 15px;
+        position: relative;
+        padding: 20px;
+    }
 }

@@ -11,18 +11,16 @@ import { MdOutlineMenuOpen } from "react-icons/md";
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { IoReceipt } from "react-icons/io5";
-import { IoIosSettings } from "react-icons/io";
-import { companyName,companyLogo } from '../settings';
+import { IoSettingsSharp } from "react-icons/io5";
 import axios from 'axios';
 import { apiurl } from '../../url';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../usecontext';
 import { FaCalendarCheck } from "react-icons/fa";
-// import { companyName } from '../settings';
 
 const Userdata = () => {
 
-  const {refreshSetting} = useContext(UserContext);
+  const { refreshSetting } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     companyName: "",
@@ -40,14 +38,14 @@ const Userdata = () => {
         const res = await axios.get(`${apiurl}/api/company-details`);
         const data = res.data;
         console.log(data);
-        
+
 
         setFormData({
           companyName: data.company_name,
           phone: data.phone,
           email: data.email,
           address: data.address,
-          logo: data.logo_url , 
+          logo: data.logo_url,
         });
 
         // setExistingLogo(data.logo_url); 
@@ -100,11 +98,8 @@ const Userdata = () => {
 
       axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
 
-        .then(res => setGetPermission(res.data.info))
-
+        .then(res =>setGetPermission(res.data.info))
         .catch(err => console.log(err.message))
-
-
     }
 
   }, [person_code])
@@ -113,7 +108,9 @@ const Userdata = () => {
   return (
     <div className='user-container' >
       <div className={`${dashboardSidebaropen ? 'user-profile' : 'toggle-profile'}`}>
+        <img className="company-logo-head" src={formData.logo} alt="Company Logo" />
         <h3 className='userheader'>{formData.companyName}</h3>
+        <h3 className='userheader-res'>Nastaf</h3>
         <div className='userlogout-btn'><FaUserCircle className='logo' /></div>
         {user === 'admin' ? (<div className='userlogout-btn username'>{user}</div>) :
           (<div className='userlogout-btn username'>{username}</div>)}
@@ -151,78 +148,78 @@ const Userdata = () => {
                   {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
                 </div>
               </li>
-            <li className='list-style'>
-              <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                <FaUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
-              </div>
-            </li>
+              <li className='list-style'>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
+                  <FaUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
+                </div>
+              </li>
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
                   <IoReceipt className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
                 </div>
               </li>
-            <li className='list-style'>
-              <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
-                <FaCalendarCheck  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
-              </div>
-            </li>
-            <li className='list-style'>
-              <div className='userdata-btn' onClick={() => navigate('/dashboard/settings')}>
-              <IoIosSettings className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                {dashboardSidebaropen && <span className='dashboard-icon'>settings</span>}
-              </div>
-            </li>
-          </ul>
+              <li className='list-style'>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
+                  <FaCalendarCheck className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
+                </div>
+              </li>
+              <li className='list-style'>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/settings')}>
+                  <IoSettingsSharp className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  {dashboardSidebaropen && <span className='dashboard-icon'> Settings</span>}
+                </div>
+              </li>
+            </ul>
           ) : (
             <ul className='user-list'>
-            {getPermission[0]?.can_read === 1 && (
+              {getPermission[0]?.can_read === 1 && (
+                <li className='list-style'>
+                  <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
+                    <MdSpaceDashboard className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
+                  </div>
+                </li>
+              )}
+
+              {getPermission[2]?.can_read === 1 && (
+                <li className='list-style'>
+                  <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
+                    <FaUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
+                  </div>
+                </li>
+              )}
+
+              {getPermission[1]?.can_read === 1 && (
+                <li className='list-style'>
+                  <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
+                    <IoReceipt className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
+                  </div>
+                </li>
+              )}
+
+              {getPermission[3]?.can_read === 1 && (
+                <li className='list-style'>
+                  <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
+                    <Fa500Px className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
+                  </div>
+                </li>
+              )}
+
               <li className='list-style'>
-                <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
-                  <MdSpaceDashboard className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                  {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/userattendance')}>
+                  <Fa500Px className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  {dashboardSidebaropen && <span className='dashboard-icon'>Userattendance</span>}
                 </div>
               </li>
-            )}
 
-            {getPermission[2]?.can_read === 1 && (
-            <li className='list-style'>
-              <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                <FaUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
-              </div>
-            </li>
-            )}
 
-            {getPermission[1]?.can_read === 1 && (
-              <li className='list-style'>
-                <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
-                  <IoReceipt className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                  {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
-                </div>
-              </li>
-            )}
-
-            {getPermission[3]?.can_read === 1 && (
-            <li className='list-style'>
-              <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
-                <Fa500Px className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
-              </div>
-            </li>
-            )}
-
-                     <li className='list-style'>
-              <div className='userdata-btn' onClick={() => navigate('/dashboard/userattendance')}>
-                <Fa500Px className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                {dashboardSidebaropen && <span className='dashboard-icon'>Userattendance</span>}
-              </div>
-            </li>
-          
-
-          </ul>
+            </ul>
           )}
         </nav>
       </aside>

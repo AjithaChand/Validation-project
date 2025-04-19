@@ -151,6 +151,16 @@
   background-color: rgba(0, 0, 0, 0.19);
 }
 
+.company-logo-head{
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  height: 45px;
+  width: 45px;
+  cursor: pointer;
+  display: none;
+}
+
 .userheader {
   letter-spacing: 1px;
   color: goldenrod;
@@ -182,7 +192,10 @@
   height: 45px;
   width: 45px;
   cursor: pointer;
- 
+}
+
+.userheader-res{
+  display: none;
 }
 
 @media only screen and (min-width:320px) and (max-width:768px) {
@@ -194,11 +207,34 @@
     display: none;
   }
 
-  .user-profile .userheader{
+  /* .user-profile .userheader{
     position: absolute;
     left: 1%;
     font-size: 1rem;
+  } */
+
+  .company-logo-head{
+    display: block;
   }
+  
+  .userheader {
+    /* position: absolute;
+    left: 70px;
+    top: 15px; */
+    display: none;
+  }
+
+  .userheader-res{
+    display: block;
+    letter-spacing: 1px;
+    color: goldenrod;
+    font-variant: small-caps;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 70px;
+    top: 15px;
+  }
+
   .dashboard-menu{
     display: none;
   }
