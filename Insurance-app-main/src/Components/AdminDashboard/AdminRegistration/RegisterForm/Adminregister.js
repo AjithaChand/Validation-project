@@ -68,6 +68,7 @@ const Adminregister = ({ close }) => {
     });
 
     const handleSalarychange = (e) => {
+    
         const salary = parseFloat(e.target.value);
         if (isNaN(salary)) return;
 
@@ -104,8 +105,10 @@ const Adminregister = ({ close }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+
         console.log('Demo output Values', values);
         console.log('Demo output permission', permission);
+        console.log('Demo output Branches', payload.station);
 
 
         if (values.role === 'select' || values.role === '') {
@@ -124,7 +127,7 @@ const Adminregister = ({ close }) => {
 
         try {
             await axios.post(`${apiurl}/admin/register`, {
-                ...values, permissions: permission,payload:payload()
+                ...values, permissions: permission,payload:payload
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`

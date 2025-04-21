@@ -36,18 +36,16 @@ app.post("/admin/register", verifyToken, (req, res) => {
         joining_date,
         revised_salary,
         bank_details,
-        branch_name,
-        station_name,
-        latitude,
-        longitude
+        payload,
     } = req.body;
 
 
-    console.log("For Checking for register:", username, email, password, role);
-    console.log("For Checking for Payslip", "Total salary:", total_salary, "Esi amount:", esi_amount, "pf_amount:", pf_amount, "Revised salary:", revised_salary);
+    // console.log("For Checking for register:", username, email, password, role);
+    // console.log("For Checking for Payslip", "Total salary:", total_salary, "Esi amount:", esi_amount, "pf_amount:", pf_amount, "Revised salary:", revised_salary);
 
-    console.log(typeof permissions,"permission type");
-    
+    // console.log(typeof permissions,"permission type");
+    console.log("For Checking For Attendance", payload);
+    console.log("For Checking For Attendance Alone", payload.branch);
     // Basic email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -116,7 +114,7 @@ app.post("/admin/register", verifyToken, (req, res) => {
 
                         const insertQuery = "INSERT INTO branches (branch_name, station_name, latitude, longitude) VALUES (?, ?, ?, ?)";
 
-                        db.query(insertQuery,[branch_name, station_name, latitude, longitude],(err,data)=>{
+                        db.query(insertQuery,[payload.branch, payload.station, payload.latitude, payload.longitude],(err,data)=>{
         
                             if(err){
                                 return res.status(400).send({ message : "Database Error"})

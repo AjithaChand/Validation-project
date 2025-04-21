@@ -63,11 +63,11 @@
 //       if (response.data) {
 //         const userData = response.data[0];
 //         setData([userData]);
-  
+
 //         const today = new Date().toISOString().slice(0, 10);
 //         const presentMarked = userData.present_time?.slice(0, 10) === today;
 //         const absentMarked = userData.absent_time?.slice(0, 10) === today;
-  
+
 //         if (presentMarked) {
 //           setHasMarked(true);
 //           setAttendanceStatus('present');
@@ -83,11 +83,11 @@
 //       console.error("Error fetching user data:", err);
 //     }
 //   };
-  
+
 //   useEffect(() => {
 //     fetchUserAttendanceStatus();
 //   }, [email]);
-  
+
 
 //   // Present Code
 
@@ -120,7 +120,7 @@
 //   } catch (err) {
 //     setHasMarked(false);
 //     setAttendanceStatus(null);
-    
+
 //     const message = err.response?.data?.message || "Error marking attendance";
 //     if (err.response?.status === 404 && message === "Already Present Today") {
 //       toast.warning("You've already marked attendance as present today.");
@@ -156,13 +156,13 @@
 //     if (response.data?.message === "Leave Applied") {
 //       toast.success("Leave application submitted successfully");
 //     }
-    
+
 //     setReason("");
 //   } catch (err) {
 //     setHasMarked(false);
 //     setAttendanceStatus(null);
 //     setIsAbsent(true); 
-    
+
 //     const message = err.response?.data?.message || "Error sending leave request";
 //     if (err.response?.status === 404 && message === "Already Applied Leave") {
 //       toast.warning("You've already applied for leave today.");
@@ -207,7 +207,7 @@
 //     </span>
 //   </h2>
 //   <h4>Mark Attendance</h4>
-  
+
 //   {hasMarked ? (
 //     <div className="attendance-message">
 //       {attendanceStatus === 'present' ? (
@@ -278,6 +278,7 @@ import "./userattendance.css";
 const UserAttendance = () => {
   const email = localStorage.getItem("email");
   const name = localStorage.getItem("username");
+  const [locationName, setLocationName] = useState("");
 
   const [datas, setData] = useState([]);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -293,11 +294,13 @@ const UserAttendance = () => {
   //   latitude: 13.0312612, 
   //   longitude: 80.2393794
   // };
-    const officeLocation = {
-      latitude : datas.latitude,
-      longitude : datas.longitude,
-    }
-    
+  const officeLocation = {
+    latitude: datas.latitude,
+    longitude: datas.longitude,
+  }
+
+
+  
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -315,13 +318,16 @@ const UserAttendance = () => {
         const response = await axios.get(`${apiurl}/get-user-for-attendance/${email}`);
         if (response.data) {
           setData(response.data);
+          console.log(response.data, "User Data with left join");
+          console.log(response.data[0].branch_name, "User Data with left join");
+          
         }
       } catch (err) {
         console.error("Error fetching user data:", err);
       }
     };
     fetchData();
-    getUserLocation(); // Get user location when component mounts
+    getUserLocation();
   }, [email]);
 
   const getFormattedDateTime = () => {
@@ -329,14 +335,31 @@ const UserAttendance = () => {
     return now.toISOString().slice(0, 19).replace('T', ' ');
   };
 
+  const reverseGeocode = async (lat, lon) => {
+    try {
+      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`);
+      const data = await response.json();
+      if (data && data.display_name) {
+        setLocationName(data.display_name);
+      } else {
+        setLocationName("Unknown location");
+      }
+    } catch (err) {
+      console.error("Reverse geocoding error:", err);
+      setLocationName("Location lookup failed");
+    }
+  };
+
+
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setUserLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          });
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          setUserLocation({ latitude: lat, longitude: lon });
+          reverseGeocode(lat, lon);
         },
         (error) => {
           setLocationError(error.message);
@@ -353,17 +376,17 @@ const UserAttendance = () => {
     const R = 6371;
     const dLat = deg2rad(lat2 - lat1);
     const dLon = deg2rad(lon2 - lon1);
-    const a = 
-      Math.sin(dLat/2) * Math.sin(dLat/2) +
-      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-      Math.sin(dLon/2) * Math.sin(dLon/2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c * 1000;
     return distance;
   }
 
   function deg2rad(deg) {
-    return deg * (Math.PI/180);
+    return deg * (Math.PI / 180);
   }
 
   const checkLocation = () => {
@@ -392,10 +415,9 @@ const UserAttendance = () => {
       const response = await axios.get(`${apiurl}/get-user-is/${email}`);
       if (response.data) {
         const userData = response.data[0];
-        setData([userData]);
+        // setData([userData]);
 
-        console.log("USer Datasssssss",  userData);
-        
+
         const today = new Date().toISOString().slice(0, 10);
         const presentMarked = userData.present_time?.slice(0, 10) === today;
         const absentMarked = userData.absent_time?.slice(0, 10) === today;
@@ -445,7 +467,7 @@ const UserAttendance = () => {
     } catch (err) {
       setHasMarked(false);
       setAttendanceStatus(null);
-      
+
       const message = err.response?.data?.message || "Error marking attendance";
       if (err.response?.status === 404 && message === "Already Present Today") {
         toast.warning("You've already marked present today.");
@@ -484,7 +506,7 @@ const UserAttendance = () => {
       setHasMarked(false);
       setAttendanceStatus(null);
       setIsAbsent(true);
-      
+
       const message = err.response?.data?.message || "Error sending leave request";
       if (err.response?.status === 404 && message === "Already Applied Leave") {
         toast.warning("You've already applied for leave today.");
@@ -493,6 +515,11 @@ const UserAttendance = () => {
       }
     }
   };
+
+  const handleShow = () =>{
+    console.log(datas,"I am show function ");
+    
+  }
 
   return (
     <div className='user-attendance'>
@@ -512,16 +539,20 @@ const UserAttendance = () => {
           </span>
         </h2>
         <h4>Mark Attendance</h4>
-        
+
         {userLocation && (
-          <p className="location-status">
-            Your location: {userLocation.latitude.toFixed(6)}, {userLocation.longitude.toFixed(6)}
-          </p>
+          <>
+            <p className="location-status">
+              Your coordinates: {userLocation.latitude.toFixed(6)}, {userLocation.longitude.toFixed(6)}
+            </p>
+            <p className="location-name">Detected location: {locationName}</p>
+          </>
         )}
+
         {locationError && (
           <p className="location-error">{locationError}</p>
         )}
-        
+
         {hasMarked ? (
           <div className="attendance-message">
             {attendanceStatus === 'present' ? (
@@ -546,6 +577,7 @@ const UserAttendance = () => {
             </button>
           </>
         )}
+                    <button onClick={handleShow}>Show</button>
       </div>
 
       {isAbsent && (
