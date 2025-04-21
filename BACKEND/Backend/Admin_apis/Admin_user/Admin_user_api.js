@@ -218,14 +218,14 @@ app.put('/edituser/:id', verifyToken, async (req, res) => {
 
     const id = req.params.id;
 
-    const { username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number } = req.body;
+    const { username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number, is_active } = req.body;
 
-    console.log(username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount,revised_salary, bank_details,esi_number,pf_number, id, "In backend");
+    console.log(username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount,revised_salary, bank_details,esi_number,pf_number, is_active, id, "In backend");
 
 
-    const sql = "UPDATE users SET username=?,email =?,password=? WHERE id=?"
+    const sql = "UPDATE users SET username=?,email =?,password=? , is_active = ? WHERE id=?"
 
-    const values = [username, email, password, id]
+    const values = [username, email, password, is_active, id]
 
     db.query(sql, values, (err, data) => {
 
@@ -235,16 +235,17 @@ app.put('/edituser/:id', verifyToken, async (req, res) => {
 
         db.query(updateQuery, [total_salary, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number, id], (err, result) => {
 
-            console.log(updateQuery);
 
             if (err) {
                 return res.status(400).send({ message: "Database Error" })
             }
+
+            
+
             console.log(result);
 
             return res.status(200).json({ message: "Changes Submitted successfully" })
         })
-
     })
 })
 

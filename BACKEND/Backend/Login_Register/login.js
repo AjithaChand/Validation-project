@@ -36,6 +36,10 @@ app.post('/login', (req, res) => {
         if (result.length === 0) return res.status(401).json({ error: "User not found" })
 
         const user = result[0];
+                
+        if (user.is_active === 0) {
+            return res.status(403).json({ message: "Account Deactivated By Admin" });
+        }
 
         if (password !== user.password) {
 
@@ -79,6 +83,7 @@ app.post('/login', (req, res) => {
     });
 
 });
+
 
 
 

@@ -522,11 +522,11 @@ const UserAttendance = () => {
     }
   };
 
-  const handleShow = () =>{
-    console.log(datas,"I am show function ");
-    console.log(datas[0]?.latitude,"I am show function but alone");
+  // const handleShow = () =>{
+  //   console.log(datas,"I am show function ");
+  //   console.log(datas[0]?.latitude,"I am show function but alone");
     
-  }
+  // }
 
   return (
     <div className='user-attendance'>
@@ -585,8 +585,8 @@ const UserAttendance = () => {
             </button>
           </>
         )}
-                    <button onClick={handleShow}>Show</button>
-                    <button onClick={checkLocation}>Show Distance</button>
+                    {/* <button onClick={handleShow}>Show</button>
+                    <button onClick={checkLocation}>Show Distance</button> */}
       </div>
 
       {isAbsent && (
