@@ -8,7 +8,7 @@ const fs = require("fs")
 
 // const verifyToken=require('../../Login_Register/auth')
 
-const { verifyToken} = require('../../Login_Register/auth')
+const { verifyToken } = require('../../Login_Register/auth')
 
 const app = express();
 app.use(cors());
@@ -114,60 +114,60 @@ app.post("/admin/register", verifyToken, (req, res) => {
 
                         const insertQuery = "INSERT INTO branches (branch_name, station_name, latitude, longitude) VALUES (?, ?, ?, ?)";
 
-                        db.query(insertQuery,[payload.branch, payload.station, payload.latitude, payload.longitude],(err,data)=>{
-        
-                            if(err){
-                                return res.status(400).send({ message : "Database Error"})
+                        db.query(insertQuery, [payload.branch, payload.station, payload.latitude, payload.longitude], (err, data) => {
+
+                            if (err) {
+                                return res.status(400).send({ message: "Database Error" })
                             }
-        
+
                             const branch_id = data.insertId;
-        
-                        const new_total_salary = Number(parseFloat(total_salary).toFixed(2));
-                        const new_esi_amount = Number(parseFloat(esi_amount).toFixed(2));
-                        const new_pf_amount = Number(parseFloat(pf_amount).toFixed(2));
-                        const new_gross_salary = Number(parseFloat(gross_salary).toFixed(2));
-                        const new_net_amount = Number(parseFloat(net_amount).toFixed(2));
 
-                        const values = [
-                            username,
-                            email,
-                            new_total_salary,
-                            pf_number,
-                            new_esi_amount,
-                            esi_number,
-                            new_pf_amount,
-                            new_gross_salary,
-                            new_net_amount,
-                            date,
-                            joining_date,
-                            revised_salary,
-                            bank_details,
-                            branch_id,
-                        ];
+                            const new_total_salary = Number(parseFloat(total_salary).toFixed(2));
+                            const new_esi_amount = Number(parseFloat(esi_amount).toFixed(2));
+                            const new_pf_amount = Number(parseFloat(pf_amount).toFixed(2));
+                            const new_gross_salary = Number(parseFloat(gross_salary).toFixed(2));
+                            const new_net_amount = Number(parseFloat(net_amount).toFixed(2));
 
-                        console.log("Payslip insert values:", values);
+                            const values = [
+                                username,
+                                email,
+                                new_total_salary,
+                                pf_number,
+                                new_esi_amount,
+                                esi_number,
+                                new_pf_amount,
+                                new_gross_salary,
+                                new_net_amount,
+                                date,
+                                joining_date,
+                                revised_salary,
+                                bank_details,
+                                branch_id,
+                            ];
 
-                        const insertQuery = `
+                            console.log("Payslip insert values:", values);
+
+                            const insertQuery = `
                             INSERT INTO payslip 
                             (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, dates, joining_date, revised_salary,bank_details, branch_id)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         `;
 
-                        db.query(insertQuery, values, (err, result) => {
-                            if (err) {
-                                console.log(`Payslip insert failed for ${email}:`, err);
-                                return res.status(500).send({ message: "Salary Add Failed! Try Again." });
-                            }
+                            db.query(insertQuery, values, (err, result) => {
+                                if (err) {
+                                    console.log(`Payslip insert failed for ${email}:`, err);
+                                    return res.status(500).send({ message: "Salary Add Failed! Try Again." });
+                                }
 
-                            const msg = role === "admin" ? "Admin Registered Successfully" : "User Registered with Permissions";
-                            return res.status(200).json({ message: msg });
+                                const msg = role === "admin" ? "Admin Registered Successfully" : "User Registered with Permissions";
+                                return res.status(200).json({ message: msg });
+                            });
                         });
                     });
                 });
             });
         });
     });
-});
 })
 
 
@@ -175,13 +175,13 @@ app.post("/admin/register", verifyToken, (req, res) => {
 /// Get all users
 
 
-app.get('/getuser', verifyToken,(req, res) => {
+app.get('/getuser', verifyToken, (req, res) => {
     const sql = "SELECT u.*, p.* FROM users u LEFT JOIN payslip p ON u.email = p.emp_email";
     db.query(sql, (err, result) => {
         if (err)
             return res.status(500).json({ error: err.message })
         console.log(result);
-        
+
         return res.json(result)
     })
 })
@@ -190,7 +190,7 @@ app.get('/getuser', verifyToken,(req, res) => {
 
 //Edit data for single user
 
-app.get('/getuser/single', verifyToken,(req, res) => {
+app.get('/getuser/single', verifyToken, (req, res) => {
 
     const { email } = req.query;
 
@@ -220,7 +220,7 @@ app.put('/edituser/:id', verifyToken, async (req, res) => {
 
     const { username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number, is_active } = req.body;
 
-    console.log(username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount,revised_salary, bank_details,esi_number,pf_number, is_active, id, "In backend");
+    console.log(username, email, password, total_salary, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number, is_active, id, "In backend");
 
 
     const sql = "UPDATE users SET username=?,email =?,password=? , is_active = ? WHERE id=?"
@@ -239,8 +239,6 @@ app.put('/edituser/:id', verifyToken, async (req, res) => {
             if (err) {
                 return res.status(400).send({ message: "Database Error" })
             }
-
-            
 
             console.log(result);
 
@@ -284,7 +282,7 @@ app.get("/get-person_code", (req, res) => {
             return res.status(500).json({ error: "DB error" })
         }
 
-        if(result.length > 0){
+        if (result.length > 0) {
 
             const person_code = result[0].person_code;
 
@@ -292,21 +290,21 @@ app.get("/get-person_code", (req, res) => {
             const getSql = "SELECT * FROM permissions WHERE person_code =?"
 
             db.query(getSql, [person_code], (err, permissionResult) => {
-                console.log(permissionResult,"permissiontresult")
+                console.log(permissionResult, "permissiontresult")
                 if (err) {
-    
+
                     return res.status(500).json({ error: "Database Error" })
                 }
                 else {
                     return res.json({
                         person_code,
                         permissions: permissionResult
-                      });
+                    });
                 }
-        
+
             })
-            
-        }else {
+
+        } else {
             return res.status(404).json({ message: "User not found" });
         }
 
@@ -343,17 +341,17 @@ app.put("/update-permissions", (req, res) => {
 
     }
 
-    const placeholders = permissionsRows.map(()=>`(?, ?, ?, ?, ?, ?)`).join(", ");
+    const placeholders = permissionsRows.map(() => `(?, ?, ?, ?, ?, ?)`).join(", ");
     const flatValues = permissionsRows.flat();
 
     const deleteqry = `DELETE FROM permissions WHERE person_code=?`;
 
-    db.query(deleteqry,[person_code], (err,result)=>{
-        if(err){
+    db.query(deleteqry, [person_code], (err, result) => {
+        if (err) {
             return res.status(500).json({ error: "Failed to delete old permissions" });
         }
     })
-    
+
     const updateSql =
         `INSERT INTO permissions
     (person_code, page_name, can_create, can_read, can_update, can_delete)
@@ -365,12 +363,12 @@ app.put("/update-permissions", (req, res) => {
     can_delete =VALUES (can_delete)
     `;
 
-    
+
 
     db.query(updateSql, flatValues, (err, updResult) => {
 
         if (err) {
-            console.log("sql error ",err)
+            console.log("sql error ", err)
             return res.status(500).json({ error: "Database ERROR" })
         }
         else {
