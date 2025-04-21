@@ -215,41 +215,34 @@ app.post("/attendance-absent",(req,res)=>{
 })
 
 
-
-app.get('/get-user-is-present/:email',(req,res)=>{
-
-    const email = req.params.email;
-
-   const selectQuery = "SELECT * FROM payslip WHERE emp_email = ?";
-
-   db.query(selectQuery,[email],(err,info)=>{
-
-    if(err){
-        return res.status(400).send({ message : "Database Error"})
-    }
-        return res.status(200).send(info)
-   })
-})
-
 app.get('/get-user-is/:email', (req, res) => {
-    const email = req.params.email;
+  const email = req.params.email;
+  console.log("Backend received email:", email);
   
-    const query = `SELECT emp_id, emp_name, present_time, absent_time FROM payslip WHERE emp_email = ?`;
-  
-    db.query(query, [email], (err, result) => {
+  const query = `
+      SELECT 
+          emp_id, 
+          emp_name, 
+          DATE_FORMAT(present_time, '%Y-%m-%d') AS present_time,
+          DATE_FORMAT(absent_time, '%Y-%m-%d') AS absent_time
+      FROM payslip 
+      WHERE emp_email = ?
+  `;
+
+  db.query(query, [email], (err, result) => {
       if (err) {
-        console.error("Error fetching user attendance:", err);
-        return res.status(500).json({ message: "Database error" });
+          console.error("Database error:", err);
+          return res.status(500).json({ message: "Database error" });
       }
-  
+
       if (result.length === 0) {
-        return res.status(404).json({ message: "User not found" });
+          return res.status(404).json({ message: "User not found" });
       }
-  
+
+      console.log("Formatted results:", result);
       res.status(200).json(result);
-    });
   });
-  
+});  
 
 app.get("/get-user-for-attendance/:email",(req,res)=>{
 

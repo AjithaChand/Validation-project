@@ -290,8 +290,8 @@ const UserAttendance = () => {
 
   // Office coordinates (replace with your actual office location)
   const officeLocation = {
-    latitude: 13.0243239,
-    longitude: 80.239788
+    latitude: 13.0312612, 
+    longitude: 80.2393794
   };
 
   useEffect(() => {
@@ -390,6 +390,8 @@ const UserAttendance = () => {
         const userData = response.data[0];
         setData([userData]);
 
+        console.log("USer Datasssssss",  userData);
+        
         const today = new Date().toISOString().slice(0, 10);
         const presentMarked = userData.present_time?.slice(0, 10) === today;
         const absentMarked = userData.absent_time?.slice(0, 10) === today;
