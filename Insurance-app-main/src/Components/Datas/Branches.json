@@ -1,0 +1,65 @@
+{
+    "branches": [
+      {
+        "branch": "Chennai",
+        "stations": [
+          { "name": "KK Nagar", "latitude": 13.0381, "longitude": 80.2110 },
+          { "name": "T Nagar", "latitude": 13.0415, "longitude": 80.2337 },
+          { "name": "Guindy", "latitude": 13.0085, "longitude": 80.2206 },
+          { "name": "Velachery", "latitude": 12.9784, "longitude": 80.2181 },
+          { "name": "Anna Nagar", "latitude": 13.0901, "longitude": 80.2131 },
+          { "name": "Saidapet", "latitude": 13.0308, "longitude": 80.2234 },
+          { "name": "Ashok Nagar", "latitude": 13.0396, "longitude": 80.2053 },
+          { "name": "Vadapalani", "latitude": 13.0505, "longitude": 80.2138 },
+          { "name": "Egmore", "latitude": 13.0732, "longitude": 80.2607 },
+          { "name": "Adyar", "latitude": 13.0068, "longitude": 80.2570 }
+        ]
+      },
+      {
+        "branch": "Bangalore",
+        "stations": [
+          { "name": "MG Road", "latitude": 12.9744, "longitude": 77.6190 },
+          { "name": "Whitefield", "latitude": 12.9698, "longitude": 77.7499 },
+          { "name": "Electronic City", "latitude": 12.8390, "longitude": 77.6792 },
+          { "name": "BTM Layout", "latitude": 12.9166, "longitude": 77.6101 },
+          { "name": "HSR Layout", "latitude": 12.9121, "longitude": 77.6446 },
+          { "name": "Jayanagar", "latitude": 12.9250, "longitude": 77.5938 },
+          { "name": "Koramangala", "latitude": 12.9352, "longitude": 77.6245 },
+          { "name": "Indiranagar", "latitude": 12.9719, "longitude": 77.6412 },
+          { "name": "Rajajinagar", "latitude": 12.9916, "longitude": 77.5543 },
+          { "name": "Yelahanka", "latitude": 13.1007, "longitude": 77.5966 }
+        ]
+      },
+      {
+        "branch": "Hyderabad",
+        "stations": [
+          { "name": "Banjara Hills", "latitude": 17.4126, "longitude": 78.4342 },
+          { "name": "Jubilee Hills", "latitude": 17.4239, "longitude": 78.4070 },
+          { "name": "Madhapur", "latitude": 17.4500, "longitude": 78.3911 },
+          { "name": "Gachibowli", "latitude": 17.4422, "longitude": 78.3556 },
+          { "name": "Kukatpally", "latitude": 17.4949, "longitude": 78.3996 },
+          { "name": "Begumpet", "latitude": 17.4445, "longitude": 78.4602 },
+          { "name": "Ameerpet", "latitude": 17.4385, "longitude": 78.4483 },
+          { "name": "Mehdipatnam", "latitude": 17.3860, "longitude": 78.4300 },
+          { "name": "Dilsukhnagar", "latitude": 17.3689, "longitude": 78.5170 },
+          { "name": "Secunderabad", "latitude": 17.4399, "longitude": 78.4983 }
+        ]
+      },
+      {
+        "branch": "Mumbai",
+        "stations": [
+          { "name": "Andheri", "latitude": 19.1197, "longitude": 72.8468 },
+          { "name": "Bandra", "latitude": 19.0606, "longitude": 72.8365 },
+          { "name": "Dadar", "latitude": 19.0184, "longitude": 72.8434 },
+          { "name": "Churchgate", "latitude": 18.9348, "longitude": 72.8258 },
+          { "name": "Powai", "latitude": 19.1180, "longitude": 72.9014 },
+          { "name": "Thane", "latitude": 19.2183, "longitude": 72.9781 },
+          { "name": "Borivali", "latitude": 19.2288, "longitude": 72.8560 },
+          { "name": "Malad", "latitude": 19.1850, "longitude": 72.8486 },
+          { "name": "Vashi", "latitude": 19.0709, "longitude": 72.9986 },
+          { "name": "Colaba", "latitude": 18.9066, "longitude": 72.8147 }
+        ]
+      }
+    ]
+  }
+  
