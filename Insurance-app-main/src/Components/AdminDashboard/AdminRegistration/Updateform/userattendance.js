@@ -295,8 +295,8 @@ const UserAttendance = () => {
   //   longitude: 80.2393794
   // };
   const officeLocation = {
-    latitude: datas.latitude,
-    longitude: datas.longitude,
+    latitude: datas[0]?.latitude,
+    longitude: datas[0]?.longitude,
   }
 
 
@@ -518,9 +518,13 @@ const UserAttendance = () => {
 
   const handleShow = () =>{
     console.log(datas,"I am show function ");
+    console.log(datas[0]?.latitude,"I am show function but alone");
     
   }
-
+const handleShowOffice =()=>{
+  console.log(officeLocation);
+  
+}
   return (
     <div className='user-attendance'>
       <div className='employee-attendance'>
@@ -578,6 +582,7 @@ const UserAttendance = () => {
           </>
         )}
                     <button onClick={handleShow}>Show</button>
+                    <button onClick={handleShowOffice}>Office</button>
       </div>
 
       {isAbsent && (
