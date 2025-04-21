@@ -545,6 +545,7 @@ const UserAttendance = () => {
             {datas[0]?.emp_name.charAt(0).toUpperCase() + datas[0]?.emp_name.slice(1).toLowerCase()}
           </span>
         </h2>
+        <h5>Branch : {datas[0]?.branch_name} & Station : {datas[0]?.station_name}</h5>
         <h4>Mark Attendance</h4>
 
         {userLocation && (
@@ -552,7 +553,7 @@ const UserAttendance = () => {
             <p className="location-status">
               Your coordinates: {userLocation.latitude.toFixed(6)}, {userLocation.longitude.toFixed(6)}
             </p>
-            <p className="location-name">Detected location: {locationName}</p>
+            <p className="location-name"> <b>Current location:</b> {locationName}</p>
           </>
         )}
 
