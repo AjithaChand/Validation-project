@@ -289,11 +289,15 @@ const UserAttendance = () => {
   const [locationError, setLocationError] = useState(null);
 
   // Office coordinates (replace with your actual office location)
-  const officeLocation = {
-    latitude: 13.0312612, 
-    longitude: 80.2393794
-  };
-
+  // const officeLocation = {
+  //   latitude: 13.0312612, 
+  //   longitude: 80.2393794
+  // };
+    const officeLocation = {
+      latitude : datas.latitude,
+      longitude : datas.longitude,
+    }
+    
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());

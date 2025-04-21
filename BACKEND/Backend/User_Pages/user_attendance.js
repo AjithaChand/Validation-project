@@ -248,12 +248,19 @@ app.get("/get-user-for-attendance/:email",(req,res)=>{
 
     const { email } = req.params;
     
-    const selectQuery = "SELECT emp_id, emp_name FROM payslip WHERE emp_email = ?";
+    const selectQuery = `SELECT p.emp_id, p.emp_name, 
+                                b.branch_name, b.station_name, b.latitude, b.longitude 
+                                FROM payslip p LEFT JOIN branches b 
+                                ON p.branch_id = b.id WHERE emp_email = ?`;
 
     db.query(selectQuery,[email],(err,info)=>{
 
         if(err){
             return res.status(400).send({ message : "Database "})
+        }
+
+        if(info.length === 0){
+            return res.status(404).send({ message : "No Data Found"})
         }
 
         return res.status(200).send(info)
