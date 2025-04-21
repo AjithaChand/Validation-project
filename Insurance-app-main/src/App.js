@@ -17,6 +17,7 @@ import Payslip from './Components/AdminDashboard/Payslip/payslip';
 import Attendance from './Components/AdminDashboard/Attendance/attendance';
 import UserAttendance from './Components/AdminDashboard/AdminRegistration/Updateform/userattendance';
 import CompanyDetailsForm from './Components/NewSetting';
+import Dashboard from './Components/AdminDashboard/DashboardAdmin/Dashboard';
 
 const App = () => {
 return (
@@ -28,8 +29,9 @@ return (
           <Route path='/user' element={<Create />} />
           {/* <Route path='/home' element={<User />} /> */}
           <Route path='/dashboard' element={<Userdata />}>
-            <Route index element={<Adminpage />} />
-            <Route path='' element={<Adminpage />} />
+            <Route index element={<Dashboard />} />
+            <Route path='' element={<Dashboard />} />
+            <Route path='register' element={<Adminpage />} />
             <Route path='users' element={<Users />} />
             {/* <Route path='home' element={<User />} /> */}
             <Route path='payslip' element={<Payslip />} />

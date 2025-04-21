@@ -17,6 +17,7 @@ import { apiurl } from '../../url';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../usecontext';
 import { FaCalendarCheck } from "react-icons/fa";
+import { GiArchiveRegister } from "react-icons/gi";
 
 const Userdata = () => {
 
@@ -98,7 +99,7 @@ const Userdata = () => {
 
       axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
 
-        .then(res =>setGetPermission(res.data.info))
+        .then(res => setGetPermission(res.data.info))
         .catch(err => console.log(err.message))
     }
 
@@ -144,8 +145,14 @@ const Userdata = () => {
             <ul className='user-list'>
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
-                  <MdSpaceDashboard className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  <MdSpaceDashboard  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
+                </div>
+              </li>
+              <li className='list-style'>
+                <div className='userdata-btn' onClick={() => navigate('/dashboard/register')}>
+                  <GiArchiveRegister className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  {dashboardSidebaropen && <span className='dashboard-icon'> Register </span>}
                 </div>
               </li>
               <li className='list-style'>
@@ -184,6 +191,15 @@ const Userdata = () => {
                 </li>
               )}
 
+              {getPermission[0]?.can_read === 1 && (
+                <li className='list-style'>
+                  <div className='userdata-btn' onClick={() => navigate('/dashboard/register')}>
+                    <GiArchiveRegister  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    {dashboardSidebaropen && <span className='dashboard-icon'> Register </span>}
+                  </div>
+                </li>
+              )}
+
               {getPermission[2]?.can_read === 1 && (
                 <li className='list-style'>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
@@ -211,22 +227,22 @@ const Userdata = () => {
                 </li>
               )}
 
-              {getPermission[4]?.can_read ===1 && (
+              {getPermission[4]?.can_read === 1 && (
                 <li className='list-style'>
-                <div className='userdata-btn' onClick={() => navigate('/dashboard/userattendance')}>
-                  <Fa500Px className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                  {dashboardSidebaropen && <span className='dashboard-icon'>Userattendance</span>}
-                </div>
-              </li>
+                  <div className='userdata-btn' onClick={() => navigate('/dashboard/userattendance')}>
+                    <Fa500Px className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    {dashboardSidebaropen && <span className='dashboard-icon'>Userattendance</span>}
+                  </div>
+                </li>
               )}
 
-              {getPermission[5]?.can_read ===1 && (
-                 <li className='list-style'>
-                 <div className='userdata-btn' onClick={() => navigate('/dashboard/settings')}>
-                   <IoSettingsSharp className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                   {dashboardSidebaropen && <span className='dashboard-icon'> Settings</span>}
-                 </div>
-               </li>
+              {getPermission[5]?.can_read === 1 && (
+                <li className='list-style'>
+                  <div className='userdata-btn' onClick={() => navigate('/dashboard/settings')}>
+                    <IoSettingsSharp className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    {dashboardSidebaropen && <span className='dashboard-icon'> Settings</span>}
+                  </div>
+                </li>
               )}
             </ul>
           )}
