@@ -294,10 +294,6 @@ const UserAttendance = () => {
   //   latitude: 13.0312612, 
   //   longitude: 80.2393794
   // };
-  const officeLocation = {
-    latitude: datas[0]?.latitude,
-    longitude: datas[0]?.longitude,
-  }
 
 
   
@@ -394,22 +390,32 @@ const UserAttendance = () => {
       toast.error("Please enable location services to mark attendance");
       return false;
     }
-
+  
+    const officeLat = datas[0]?.latitude;
+    const officeLon = datas[0]?.longitude;
+  
+    if (!officeLat || !officeLon) {
+      toast.error("Office location data not available");
+      return false;
+    }
+  
     const distance = calculateDistance(
       userLocation.latitude,
       userLocation.longitude,
-      officeLocation.latitude,
-      officeLocation.longitude
+      officeLat,
+      officeLon
     );
-
+  
+    console.log("Distance to office:", distance);
+  
     if (distance > 100) {
       toast.error("You must be within 100 meters of the office to mark attendance");
       return false;
     }
-
+  
     return true;
   };
-
+  
   const fetchUserAttendanceStatus = async () => {
     try {
       const response = await axios.get(`${apiurl}/get-user-is/${email}`);
@@ -521,10 +527,7 @@ const UserAttendance = () => {
     console.log(datas[0]?.latitude,"I am show function but alone");
     
   }
-const handleShowOffice =()=>{
-  console.log(officeLocation);
-  
-}
+
   return (
     <div className='user-attendance'>
       <div className='employee-attendance'>
@@ -582,7 +585,7 @@ const handleShowOffice =()=>{
           </>
         )}
                     <button onClick={handleShow}>Show</button>
-                    <button onClick={handleShowOffice}>Office</button>
+                    <button onClick={checkLocation}>Show Distance</button>
       </div>
 
       {isAbsent && (
