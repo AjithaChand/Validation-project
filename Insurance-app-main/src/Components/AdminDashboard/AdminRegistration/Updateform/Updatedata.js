@@ -12,6 +12,10 @@ const Updatedata = ({ selectid, close, selectemail }) => {
   const [refresh, setRefresh] = useState(false)
 
   const { setUpdateOldUser } = useContext(UserContext)
+  //Account deactivate functionality
+
+  const [isActive, setIsActive] = useState(true);
+
 
   const [datas, setData] = useState({
     username: "",
@@ -19,10 +23,11 @@ const Updatedata = ({ selectid, close, selectemail }) => {
     password: "",
     total_salary: "",
     esi_number: "",
-    pf_number: ""
-
+    pf_number: "",
+    is_active: 1
   })
-
+  
+console.log(datas.is_active,"checking")
   // permission update code
 
   const [permission, setPermission] = useState({
@@ -125,6 +130,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
       .then(res => {
         if (res.data) {
           setData(res.data)
+          setIsActive(res.data.is_active === 1);
           console.log(res.data, "In UpdateData");
 
         } else {
@@ -150,6 +156,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
       setUpdateOldUser(pre => !pre)
       close()
       setRefresh(!refresh)
+      console.log(datas.is_active,"checking for sending activate")
 
       const passwordChange = await axios.post(`${apiurl}/password_changed`, {
         email: datas.email,
@@ -231,24 +238,21 @@ const Updatedata = ({ selectid, close, selectemail }) => {
         </div>
        </div>
        
-        <div className='form-group col- mt-3'>
+        <div className='form-group  mt-3'>
           <label className='userupdate-label'>Bank Details</label>
           <textarea className='form-control' value={datas.bank_details} onChange={e => setData({ ...datas, bank_details: e.target.value })} placeholder='Enter Bank Details' />
         </div>
-
-        {/* <div className='mt-3 col-12 form-group'>
-          <div className='permissions-role mt-2'>
-            <label htmlFor='permission' className='register-label'>Permissions:</label>
-            <select id='permission' className='form-control' >
-              <option value="">Please Select</option>
-              <option value="dashboard">Dashboard</option>
-              <option value="payslip">Payslip</option>
-              <option value="users">Users</option>
-              <option value="attendance">Attendance</option>
-            </select>
-          </div>
-        </div> */}
-
+        <div className='form-group col-12 mt-3'>
+          <label> Deactivate this account</label>
+          <input type='checkbox' checked={isActive}  onChange={(e)=>{
+             const checked=(e.target.checked);
+             setIsActive(checked);
+             setData(prev=>({
+              ...prev,is_active:checked ? 1:0
+             }))
+          }
+           }/>   
+        </div>
         <div className='mt-3 col-12 form-group'>
           <div className='permissions-role-table mt-2'>
             <table className='permission-table text-center'>
