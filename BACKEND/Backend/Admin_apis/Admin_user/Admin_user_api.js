@@ -35,7 +35,11 @@ app.post("/admin/register", verifyToken, (req, res) => {
         date,
         joining_date,
         revised_salary,
-        bank_details
+        bank_details,
+        branch_name,
+        station_name,
+        latitude,
+        longitude
     } = req.body;
 
 
@@ -76,6 +80,8 @@ app.post("/admin/register", verifyToken, (req, res) => {
                 }
 
                 const person_code = codeResult[0].person_code;
+
+
                 const permissionRows = [];
 
                 for (const [page, perm] of Object.entries(permissions)) {
@@ -108,6 +114,16 @@ app.post("/admin/register", verifyToken, (req, res) => {
                             return res.status(409).send({ message: "Salary already uploaded" });
                         }
 
+                        const insertQuery = "INSERT INTO branches (branch_name, station_name, latitude, longitude) VALUES (?, ?, ?, ?)";
+
+                        db.query(insertQuery,[branch_name, station_name, latitude, longitude],(err,data)=>{
+        
+                            if(err){
+                                return res.status(400).send({ message : "Database Error"})
+                            }
+        
+                            const branch_id = data.insertId;
+        
                         const new_total_salary = Number(parseFloat(total_salary).toFixed(2));
                         const new_esi_amount = Number(parseFloat(esi_amount).toFixed(2));
                         const new_pf_amount = Number(parseFloat(pf_amount).toFixed(2));
@@ -127,15 +143,16 @@ app.post("/admin/register", verifyToken, (req, res) => {
                             date,
                             joining_date,
                             revised_salary,
-                            bank_details
+                            bank_details,
+                            branch_id,
                         ];
 
                         console.log("Payslip insert values:", values);
 
                         const insertQuery = `
                             INSERT INTO payslip 
-                            (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, dates, joining_date, revised_salary,bank_details)
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, dates, joining_date, revised_salary,bank_details, branch_id)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         `;
 
                         db.query(insertQuery, values, (err, result) => {
@@ -153,6 +170,8 @@ app.post("/admin/register", verifyToken, (req, res) => {
         });
     });
 });
+})
+
 
 
 /// Get all users
