@@ -7,7 +7,7 @@ import { UserContext } from "../usecontext";
 
 function CompanyDetailsForm() {
 
-    const {setRefreshSetting} = useContext(UserContext);
+  const {setRefreshSetting} = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     companyName: "",

@@ -240,7 +240,53 @@ const Adminpage = () => {
     <div>
       <div className='admin-container' >
         <div className="admin-header-container">
-          <div className='admin-head-search'>
+          {/* <div className='admin-head-search'>
+            {user === 'admin' ? (
+              <button className=' admin-btn' onClick={handlePopup}
+              >
+                <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
+              </button>
+            ) : (
+              getPermission.length !== 0 && getPermission[0]?.can_create === 1 && (
+                <button className=' admin-btn' onClick={handlePopup}
+                  disabled={getPermission.length === 0 || getPermission[0]?.can_create !== 1}
+                >
+                  <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
+                </button>
+              )
+            )}
+            <div className="searchbar-container">
+              <FaSearch className="search-icon" onClick={()=>setSearchbar(!searchbar)} />
+                <input
+                  type="text"
+                  value={search}
+                  placeholder="Search customer details"
+                  onChange={(e) => setSearch(e.target.value)}
+                  className={`search-input ${searchbar ? 'expanded' : ''}`}
+                />
+            </div>
+          </div> */}
+          <div className="admin-header">
+            <button className="upload-button3" onClick={handleDownload}>
+              <PiMicrosoftExcelLogoFill />
+            </button>
+            <input
+              type="file"
+              id="fileInput"
+              className="file-input"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <label htmlFor="fileInput" className="file-label">
+              <span className="text-white label-name">Choose File</span>
+            </label>
+            {file && <span className="file-name">{file.name}</span>}
+            <button className="upload-button4" onClick={handleUpload}>
+              <IoIosCloudUpload />
+            </button>
+          </div>
+        </div>
+
+        <div className='admin-head-search'>
             {user === 'admin' ? (
               <button className=' admin-btn' onClick={handlePopup}
               >
@@ -266,25 +312,6 @@ const Adminpage = () => {
                 />
             </div>
           </div>
-          <div className="admin-header">
-            <button className="upload-button3" onClick={handleDownload}>
-              <PiMicrosoftExcelLogoFill />
-            </button>
-            <input
-              type="file"
-              id="fileInput"
-              className="file-input"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-            <label htmlFor="fileInput" className="file-label">
-              <span className="text-white label-name">Choose File</span>
-            </label>
-            {file && <span className="file-name">{file.name}</span>}
-            <button className="upload-button4" onClick={handleUpload}>
-              <IoIosCloudUpload />
-            </button>
-          </div>
-        </div>
 
         <div className='searchbar-res mt-3'>
           <input
