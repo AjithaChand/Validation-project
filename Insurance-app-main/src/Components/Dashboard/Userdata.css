@@ -1,10 +1,11 @@
 .admin-slidebar {
+  padding: 10px;
   height: 100vh;
   width: 20%;
   position: fixed;
   left: 0;
   top: 0;
-  border-right: 3px solid #eeeeee;
+  border-right: 1px solid #aaaaaa;
 }
 
 .toggle-slidebar{
@@ -30,7 +31,11 @@
 
 .user-list {
   list-style: none;
-  padding: 4px 3px 4px 3px;
+  padding: 4px 3px 15px 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: 1px solid #aaaaaa;
 }
 
 .list-style{
@@ -41,19 +46,45 @@
 }
 
 .list-style:hover{
-  background-color: rgba(0, 0, 0, 0.19);
+  border: 1px solid purple;
+  background-color: rgba(128,0,128,0.1);
+}
+
+.list-style:hover .dashboardicons,
+.list-style:hover .dashboard-icon{
+  color: purple;
+}
+
+.active{
+  border: 1px solid purple;
+  background-color: rgba(128,0,128,0.1);
+}
+
+.userdata-btn{
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .dashboardicons {
-  font-size: 25px;
+  font-size: 20px;
   color: rgba(0, 0, 0, 0.741);
   cursor: pointer;
+  color: #605f5f;
 }
 
+/* .dashboardicons:hover{
+  color: purple;
+} */
+
 .dashboard-icon{
-  /* font-family: "Poppins", sans-serif; */
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Poppins", sans-serif;
+  color: #605f5f;
 }
+
+/* .dashboard-icon:hover{
+  color: purple;
+} */
 
 .toggledashboard-icons {
   font-size: 25px;
@@ -65,10 +96,12 @@
 
 .userdata-head{
   padding: 15px;
+  color: #707070;
+  font-size: small;
+  /* font-weight: bold; */
 }
 
 .user-profile {
-  /* background-color: rgb(239, 238, 238); */
   top: 0;
   right: 0;
   display: flex;
@@ -80,7 +113,6 @@
 }
 
 .toggle-profile {
-  /* background-color: rgb(239, 238, 238); */
   top: 0;
   right: 0;
   display: flex;
@@ -135,11 +167,11 @@
   transition: transform 0.5s ease-in-out;
 }
 
-.dashboard-menu:hover{
+/* .dashboard-menu:hover{
   transform: scale(1.1);
   background-color: rgba(0, 0, 0, 0.19);
   border-radius: 10px;
-}
+} */
 
 .toggledashboard-menu{
   background: none;
@@ -148,11 +180,11 @@
   transform: rotate(180deg);
 }
 
-.toggledashboard-menu:hover{
+/* .toggledashboard-menu:hover{
   transform: rotate(180deg) scale(1.2);
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.19);
-}
+} */
 
 .company-logo-head{
   position: absolute;
@@ -202,17 +234,27 @@
 .user-heading{
   display: flex;
   justify-content:space-between;
-  padding: 15px;
-  border-radius: 10px;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #aaaaaa;
+  position: relative;
+}
+
+.sidebar-companyname{
+  position: absolute;
+  left: 20%;
+  font-family: "Poppins",sans-serif;
+  font-weight: bold;
 }
 
 .dashboard-menu-btn{
-  font-size: 35px;
+  font-size: 20px;
+  color:#908f8f;
 }
 
 .company-logo{
-  height: 45px;
-  width: 45px;
+  height: 40px;
+  width: 40px;
   cursor: pointer;
 }
 

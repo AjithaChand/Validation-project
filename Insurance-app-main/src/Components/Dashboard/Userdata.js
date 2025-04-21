@@ -1,5 +1,5 @@
 import './Userdata.css'
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import UserDialog from './Dialogbox/UserDialog';
@@ -7,21 +7,23 @@ import { useContext, useEffect, useState } from 'react';
 import { Menu, } from "lucide-react";
 import Sidebar from '../Sidebar/Sidebar';
 import { Fa500Px } from "react-icons/fa";
-import { MdOutlineMenuOpen } from "react-icons/md";
-import { MdSpaceDashboard } from "react-icons/md";
-import { FaUser } from "react-icons/fa";
-import { IoReceipt } from "react-icons/io5";
-import { IoSettingsSharp } from "react-icons/io5";
+import { AiOutlineMenu } from "react-icons/ai";
+import { RxDashboard } from "react-icons/rx";
+import { FaRegUser } from "react-icons/fa";
+import { IoReceiptOutline } from "react-icons/io5";
+import { IoSettingsOutline } from "react-icons/io5";
 import axios from 'axios';
 import { apiurl } from '../../url';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../usecontext';
-import { FaCalendarCheck } from "react-icons/fa";
-import { GiArchiveRegister } from "react-icons/gi";
+import { LuCalendarCheck } from "react-icons/lu"; 
+import { LuNotebookPen } from "react-icons/lu";
 
 const Userdata = () => {
 
   const { refreshSetting } = useContext(UserContext);
+
+  const location = useLocation()
 
   const [formData, setFormData] = useState({
     companyName: "",
@@ -109,8 +111,8 @@ const Userdata = () => {
   return (
     <div className='user-container' >
       <div className={`${dashboardSidebaropen ? 'user-profile' : 'toggle-profile'}`}>
-        <img className="company-logo-head" src={formData.logo} alt="Company Logo" />
-        <h3 className='userheader'>{formData.companyName}</h3>
+      <img className={`${dashboardSidebaropen ? 'company-logo-head' : 'company-logo-header'}`} src={formData.logo} alt="Company Logo" />
+        <h3 className={`${dashboardSidebaropen ? 'userheader' : 'userheader-toggle'}`}>{formData.companyName}</h3>
         <h3 className='userheader-res'>Nastaf</h3>
         <div className='userlogout-btn'><FaUserCircle className='logo' /></div>
         {user === 'admin' ? (<div className='userlogout-btn username'>{user}</div>) :
@@ -124,20 +126,23 @@ const Userdata = () => {
           </button>
         </div>
       </div>
-      <aside className={`${dashboardSidebaropen ? 'admin-slidebar' : 'toggle-slidebar'}`}>
+
+      <div className='slidebar-container'>
+      <div className={`${dashboardSidebaropen ? 'admin-slidebar' : 'toggle-slidebar'}`}>
         <div className='user-heading'>
           {dashboardSidebaropen && <img className="company-logo" src={formData.logo} alt="Company Logo" />}
+          <h4 className='sidebar-companyname'>Nastaf</h4>
           <button className={`${dashboardSidebaropen ? 'dashboard-menu' : 'toggledashboard-menu'}`}>
-            <MdOutlineMenuOpen className='dashboard-menu-btn' onClick={() => setDashboardSidebaropen(!dashboardSidebaropen)} />
+            <AiOutlineMenu  className='dashboard-menu-btn' onClick={() => setDashboardSidebaropen(!dashboardSidebaropen)} />
           </button>
         </div>
         {user === 'admin' ? (
-          <div >
-            {dashboardSidebaropen && <h4 className='userdata-head' >Admin Panel</h4>}
+          <div className='mt-2'>
+            {dashboardSidebaropen && <p className='userdata-head' >ADMIN PANEL</p>}
           </div>
         ) : (
           <div >
-            {dashboardSidebaropen && <h4 className='userdata-head' >User Panel</h4>}
+            {dashboardSidebaropen && <h6 className='userdata-head' >USER PANEL</h6>}
           </div>
         )}
         <nav>
@@ -145,37 +150,37 @@ const Userdata = () => {
             <ul className='user-list'>
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
-                  <MdSpaceDashboard  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  <RxDashboard   className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
                 </div>
               </li>
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/register')}>
-                  <GiArchiveRegister className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  <LuNotebookPen  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Register </span>}
                 </div>
               </li>
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                  <FaUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  <FaRegUser  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
                 </div>
               </li>
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
-                  <IoReceipt className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  <IoReceiptOutline  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
                 </div>
               </li>
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
-                  <FaCalendarCheck className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  <LuCalendarCheck   className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
                 </div>
               </li>
               <li className='list-style'>
                 <div className='userdata-btn' onClick={() => navigate('/dashboard/settings')}>
-                  <IoSettingsSharp className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                  <IoSettingsOutline  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                   {dashboardSidebaropen && <span className='dashboard-icon'> Settings</span>}
                 </div>
               </li>
@@ -185,7 +190,7 @@ const Userdata = () => {
               {getPermission[0]?.can_read === 1 && (
                 <li className='list-style'>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
-                    <MdSpaceDashboard className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    <RxDashboard  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
                   </div>
                 </li>
@@ -194,7 +199,7 @@ const Userdata = () => {
               {getPermission[0]?.can_read === 1 && (
                 <li className='list-style'>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard/register')}>
-                    <GiArchiveRegister  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    <LuNotebookPen   className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'> Register </span>}
                   </div>
                 </li>
@@ -203,7 +208,7 @@ const Userdata = () => {
               {getPermission[2]?.can_read === 1 && (
                 <li className='list-style'>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                    <FaUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    <FaRegUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
                   </div>
                 </li>
@@ -212,7 +217,7 @@ const Userdata = () => {
               {getPermission[1]?.can_read === 1 && (
                 <li className='list-style'>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
-                    <IoReceipt className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    <IoReceiptOutline  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
                   </div>
                 </li>
@@ -221,7 +226,7 @@ const Userdata = () => {
               {getPermission[3]?.can_read === 1 && (
                 <li className='list-style'>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
-                    <Fa500Px className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    <LuCalendarCheck  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
                   </div>
                 </li>
@@ -239,7 +244,7 @@ const Userdata = () => {
               {getPermission[5]?.can_read === 1 && (
                 <li className='list-style'>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard/settings')}>
-                    <IoSettingsSharp className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    <IoSettingsOutline  className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'> Settings</span>}
                   </div>
                 </li>
@@ -247,7 +252,8 @@ const Userdata = () => {
             </ul>
           )}
         </nav>
-      </aside>
+      </div>
+      </div>
 
       <main className={`${dashboardSidebaropen ? 'userdata-container' : 'toggle-container'}`}>
         <Outlet />
