@@ -530,6 +530,7 @@ const UserAttendance = () => {
 
   return (
     <div className='user-attendance'>
+      <div className='employee-attend'>
       <div className='employee-attendance'>
         <h6>Employee Id : <span>{datas[0]?.emp_id}</span></h6>
         <div className='present-time'>
@@ -611,7 +612,7 @@ const UserAttendance = () => {
           </div>
         </div>
       )}
-
+      </div>
       <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
