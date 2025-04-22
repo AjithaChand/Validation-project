@@ -72,7 +72,22 @@ app.get("/download-excel",(req, res) => {
 
 app.get("/download-excel-for-user-data", (req, res) => {
    
-    const query = "SELECT username, email, password FROM users";
+    const query = `SELECT 
+  u.username, 
+  u.email, 
+  u.password, 
+  p.joining_date, 
+  p.bank_details, 
+  p.pf_number, 
+  p.esi_number, 
+  p.total_salary 
+FROM 
+  users u 
+LEFT JOIN 
+  payslip p 
+ON 
+  u.email = p.emp_email;
+    `;
 
     db.query(query,(err, results) => {
 
@@ -86,7 +101,12 @@ app.get("/download-excel-for-user-data", (req, res) => {
               worksheet['!cols'] = [
                 { wpx: 150 }, 
                 { wpx: 150 }, 
-                { wpx: 120 }
+                { wpx: 150 },
+                { wpx: 150 },
+                { wpx: 150 },
+                { wpx: 150 },
+                { wpx: 150 },
+                { wpx: 150 },
             ];
 
         const workbook = xlsx.utils.book_new();
@@ -227,7 +247,7 @@ app.post("/upload-excel", upload.single("file"), (req, res) => {
 
 //Upload the excel sheet in user page
 
-app.post("/upload-excel-for-userdata",upload.single("file"), (req, res) => {
+app.post("/upload-excel-for-userdata", upload.single("file"), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
     }
@@ -237,37 +257,63 @@ app.post("/upload-excel-for-userdata",upload.single("file"), (req, res) => {
     const sheetName = workbook.SheetNames[0];
     const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
-    const values = sheetData.map((row) => [
+    const userValues = sheetData.map((row) => [
         row.username,
-        row.email,                       
-        row.password                       
+        row.email,
+        row.password
     ]);
-    
-    if (values.length === 0) {
-        fs.unlinkSync(filePath);
-        return res.status(400).json({ error: "No valid data in the file" });
-    }
 
-    console.log("Parsed values before DB insert:", values); 
+    const userQuery = `
+        INSERT INTO users (username, email, password)
+        VALUES ? 
+        ON DUPLICATE KEY UPDATE 
+            username = VALUES(username),
+            email = VALUES(email), 
+            password = VALUES(password)
+    `;
 
-    const query = `
-    INSERT INTO users (username, email, password)
-    VALUES ? 
-    ON DUPLICATE KEY UPDATE 
-        username = VALUES(username),
-        email = VALUES(email), 
-        password = VALUES(password)`;
+    db.query(userQuery, [userValues], (userErr, userResult) => {
+        if (userErr) {
+            fs.unlinkSync(filePath);
+            console.error("User Insert Error:", userErr);
+            return res.status(500).json({ error: "User Insert/Update Failed" });
+        }
 
-db.query(query, [values], (err,result) => {
-    fs.unlinkSync(filePath); 
-    if (err) {
-        console.error("Database Insert/Update Error:", err);
-        return res.status(500).json({ error: "Database Operation Failed" });
-    }
-    console.log("Total data of user excel",result.affectedRows);
-    return res.json({ success: true, message: "Data Inserted/Updated Successfully" });
-});
+        const payslipValues = sheetData.map((row) => [
+            row.email,              // emp_email
+            row.joining_date,
+            row.bank_details,
+            row.pf_number,
+            row.esi_number,
+            row.total_salary
+        ]);
 
+        const payslipQuery = `
+            INSERT INTO payslip (
+                emp_email, joining_date, bank_details, pf_number, esi_number, total_salary
+            )
+            VALUES ?
+            ON DUPLICATE KEY UPDATE 
+                joining_date = VALUES(joining_date),
+                bank_details = VALUES(bank_details),
+                pf_number = VALUES(pf_number),
+                esi_number = VALUES(esi_number),
+                total_salary = VALUES(total_salary)
+        `;
+
+        db.query(payslipQuery, [payslipValues], (payErr, payResult) => {
+            fs.unlinkSync(filePath);
+            if (payErr) {
+                console.error("Payslip Insert Error:", payErr);
+                return res.status(500).json({ error: "Payslip Insert/Update Failed" });
+            }
+
+            return res.json({ 
+                success: true, 
+                message: "User and Payslip Data Inserted/Updated Successfully" 
+            });
+        });
+    });
 });
 
 
