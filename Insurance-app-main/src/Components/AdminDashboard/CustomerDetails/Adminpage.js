@@ -397,9 +397,11 @@ const Adminpage = () => {
             //   </table>
             // </div>
             <>
+            
+            <div className='container-fluid'> 
               <div className='row mt-2'>
                 {filterData.map((values, index) => (
-                  <div key={index} className='users-details col-md-3'>
+                  <div key={index} className='users-details col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4' >
                     <div className='card  users-details-container'>
                       <div className='card-body'>
                         <div className='profile-admin'>
@@ -472,6 +474,7 @@ const Adminpage = () => {
                     </div>
                   </div>
                 ))}
+              </div>
               </div>
             </>
           )}
