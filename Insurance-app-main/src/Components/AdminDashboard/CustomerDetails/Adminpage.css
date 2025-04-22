@@ -1,21 +1,18 @@
 .admin-container {
-    margin-top: 70px;
+    margin-top: 50px;
 }
 
 .admin-btn {
     background-color: #023265;
     color: white;
-    border-radius: 50px;
-    padding: 15px;
+    border-radius: 15px;
+    padding: 7px 20px 7px 20px;
     border: none;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.tablerow-admin {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    font-size: 25px;
-    font-weight: bold;
+.admin-btn:hover {
+    transform: scale(1.05);
 }
 
 .admin-table {
@@ -56,22 +53,27 @@
     background: rgb(221, 220, 220);
 }
 
-.admin-btn:hover {
-    background: rgb(1, 1, 99);
-}
-
 .admin-header-container {
     display: flex;
-    /* align-items: center !important; */
-    /* justify-content: space-between; */
-    /* padding: 50px; */
-    justify-content:flex-end ;
+    align-items: center !important;
+    justify-content: space-between;
+    justify-content: flex-end;
     margin: auto;
-    padding: 20px;
-    /* margin-top: 60px; */
-    /* border-top: 1px solid #aaaaaa; */
+    padding: 15px;
     border-bottom: 1px solid #aaaaaa;
-    background-color: rgba(128,128,128,0.1);
+    border-top: 1px solid #aaaaaa;
+    /* background-color: rgba(128,128,128,0.1); */
+    background-color: #edeeee;
+    position: relative;
+}
+
+.tablerow-admin {
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    left: 2%;
+    top: 25%;
+    font-family: "Poppins", sans-serif;
 }
 
 .admin-header {
@@ -102,46 +104,70 @@
 
 .admin-header .upload-button3,
 .admin-header .upload-button4 {
-    color: white;
-    border: none;
-    padding: 8px 12px;
+    /* color: white; */
+    color: #828181;
+    /* border: none; */
+    padding: 3px 7px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .upload-button3 {
-    background-color: #128e46;
+    border: 1px solid #27ae60;
+    transition: transform 0.5s ease, color 0.5s ease;
 }
 
 .upload-button4 {
-    background-color: #e67e22;
+    border: 1px solid #e67e22;
+    transition: transform 0.5s ease, color 0.5s ease;
 }
 
 .upload-button3:hover {
-    background-color: #27ae60;
     transform: scale(1.05);
+    background-color: rgba(0, 128, 0, 0.8);
+}
+
+.upload-button3:hover .excel-icon {
+    color: whitesmoke;
 }
 
 .upload-button4:hover {
-    background-color: #d35400;
     transform: scale(1.05);
+    background-color: rgba(225, 165, 0, 0.9);
 }
 
-.upload-button3 svg,
-.upload-button4 svg {
-    font-size: 22px;
+.upload-button4:hover .upload-icon {
+    color: whitesmoke;
 }
 
-.file-label {
-    background-color: #0056b3;
-    padding: 6px 10px;
+.upload-button3 .excel-icon {
+    color: #27ae60;
+    font-size: 25px;
+}
+
+.upload-button4 .upload-icon {
+    color: #e67e22;
+    font-size: 25px;
+}
+
+.file-label-admin {
+    border: 1px solid rgb(122, 122, 122);
+    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
+    transition: all 0.5s linear;
+    color: #5b5b5b
 }
 
-.label-name {
-    display: block;
+.file-label-admin:hover,
+.file-label-admin:hover .label-name-admin {
+    background-color: rgba(0, 0, 128, 0.8);
+    color: whitesmoke;
+    border-color: navy;
+}
+
+.file-label-admin:hover {
+    transform: scale(1.05);
 }
 
 .admin-header .file-input {
@@ -202,15 +228,24 @@
     }
 }
 
+.users-count {
+    position: absolute;
+    left: 2%;
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+}
+
 .admin-head-search {
     display: flex;
     gap: 15px;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     flex-wrap: wrap;
+    padding: 25px;
+    position: relative;
 }
 
-.search-icon{
+.search-icon {
     font-size: 20px;
     cursor: pointer;
 }
@@ -223,27 +258,26 @@
 }
 
 .search-input::placeholder {
-    color: black;
+    color: #828181;
     font-size: bold;
     position: absolute;
     left: 15px;
 }
 
+.search-input:focus {
+    border-color: #828181;
+    outline: none;
+}
+
 .search-input {
-    width: 0;
-    opacity: 0;
-    padding: 5px 0 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 50px;
+    width: 300px;
+    padding: 6px 0 6px 10px;
+    border: 1px solid #b1b1b1;
+    border-radius: 15px;
     transition: width 0.4s ease, opacity 0.4s ease;
 }
 
-.search-input.expanded {
-    width: 300px;
-    opacity: 1;
-}
-
-.search-input-res{
+.search-input-res {
     width: 250px;
     padding: 5px 0 5px 10px;
     border: 1px solid #ccc;
@@ -256,6 +290,65 @@
 
 .user-msg {
     margin: 20px auto;
+}
+
+.table-container-admin {
+    padding: 10px;
+    overflow-y: auto;
+    height: 70vh;
+}
+
+.users-details {
+    padding: 20px;
+    font-family: "Poppins",sans-serif;
+}
+
+.users-details-container {
+    transition: transform 0.5s ease;
+}
+
+.users-details-container:hover {
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.file-head {
+    position: absolute;
+    left: 0;
+}
+
+.action-icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-admin{
+    display: flex;
+    gap: 15px;
+}
+
+.profile-data{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-email{
+    font-weight: bold;
+}
+
+.profile-date, .profile-policy{
+    color: #5b5b5b;
+    font-size: 15px;
 }
 
 @media only screen and (min-width:319px) and (max-width:500px) {

@@ -6,15 +6,17 @@
   left: 0;
   top: 0;
   border-right: 1px solid #aaaaaa;
+  transition: width 0.5s ease, padding 0.5s ease;
 }
 
 .toggle-slidebar{
+  padding: 0 0 20px 0;
   height: 100vh;
   width: 5%;
   position: fixed;
   left: 0;
   top: 0;
-  transition: width 0.3s ease;
+  transition: width 0.5s ease, padding 0.5s ease;
   border-right: 1px solid #aaaaaa;
   overflow: hidden;
 }
@@ -22,11 +24,13 @@
 .userdata-container {
   margin-left: 17%;
   height: 100vh;
+  transition: margin-left 0.5s ease;
 }
 
 .toggle-container {
   margin-left: 5%;
   height: 100vh;
+  transition: margin-left 0.5s ease;
 }
 
 .user-list {
@@ -51,7 +55,7 @@
   border-radius: 10px;
   padding: 12px;
   cursor: pointer;
-  transition: all 0.5s linear;
+  transition: all 0.3s ease-in-out;
 }
 
 .active .dashboardicons,
@@ -105,10 +109,11 @@
   display: flex;
   justify-content: flex-end;
   width: 83%;
-  padding: 20px;
+  padding: 10px;
   gap: 10px;
   position: fixed;
   border-bottom: 1px solid #aaaaaa;
+  transition: width 0.5s ease;
 }
 
 .toggle-profile {
@@ -117,10 +122,11 @@
   display: flex;
   justify-content: flex-end;
   width: 95%;
-  padding: 20px;
+  padding: 10px;
   gap: 10px;
   position: fixed;
   border-bottom: 1px solid #aaaaaa;
+  transition: width 0.5s ease;
 }
 
 .userlogout-btn {
@@ -150,7 +156,13 @@
   cursor: pointer;
 }
 
-.user-profile .username {
+.username-admin {
+  font-family: "Poppins", sans-serif;
+  color: #605f5f;
+  font-size: 20px;
+}
+
+.username-toggle {
   font-family: "Poppins", sans-serif;
   color: #605f5f;
   font-size: 20px;
@@ -201,9 +213,9 @@
 .company-logo-header{
   position: absolute;
   left: 10px;
-  top: 15px;
-  height: 45px;
-  width: 45px;
+  top: 8px;
+  height: 40px;
+  width: 40px;
   cursor: pointer;
 }
 
@@ -216,22 +228,18 @@
   top: 25px;
   font-weight: 700;
   font-family: "Poppins", sans-serif;
+  display: none;
 }
 
 .userheader-toggle{
   letter-spacing: 1px;
-  color: goldenrod;
+  color: #2c3e50;
+  font-weight: bold;
   font-variant: small-caps;
   font-size: 1.5rem;
   position: absolute;
-  left: 70px;
+  left: 60px;
   top: 15px;
-}
-
-.userheader .caps {
-  font-weight: bold;
-  color: rgb(2, 2, 73);
-  font-size: 2rem;
 }
 
 .user-heading{

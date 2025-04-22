@@ -7,13 +7,12 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
-import { IoIosCloudUpload } from "react-icons/io";
 import { apiurl } from '../../../url';
 import AddIcon from '@mui/icons-material/Add';
 import Usersdelete from '../AdminRegistration/Dialogbox/Usersdelete';
 import { UserContext } from '../../../usecontext';
-import { FaSearch } from "react-icons/fa";
+import { RiFileExcel2Line } from "react-icons/ri";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 const Users = () => {
 
@@ -35,7 +34,7 @@ const Users = () => {
 
   //searchbar state
 
-   const [searchbar, setSearchbar] = useState(false)
+  const [searchbar, setSearchbar] = useState(false)
   const { createNewUser } = useContext(UserContext);
   const { updateOldUser } = useContext(UserContext);
 
@@ -135,37 +134,12 @@ const Users = () => {
     <div>
       <div className='users-container'>
         <div className="admin-header-container-user">
-          <div className='user-head-search'>
-            {user === "admin" ? (
-              <button className='users-btn'
-                onClick={handleDialog} >
-                <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
-              </button>
-            ) : (
-              getPermission.length !== 0 && getPermission[2]?.can_create === 1 && (
-                <button className='users-btn'
-                  disabled={getPermission.length === 0 || getPermission[2]?.can_create !== 1}
 
-                  onClick={handleDialog} >
-                  <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
-                </button>
-              )
-            )}
-            <div className='user-searchbar'>
-            <FaSearch className="user-search-icon" onClick={()=>setSearchbar(!searchbar)}/> 
-              <input
-                type='text'
-                value={searchValue}
-                placeholder='Search user details'
-                onChange={(e) => setSearchValue(e.target.value)}
-                className={`user-search-input ${searchbar ? "expanded-user" : ""}`}
-              />
-             
-            </div>
-          </div>
+        <p className='tablerow-user'>User Details</p>
+
           <div className="admin-header-user">
             <button className="upload-button1" onClick={handleDownload}>
-              <PiMicrosoftExcelLogoFill />
+              <RiFileExcel2Line className='excel-icon-user'/>
             </button>
             <input
               type="file"
@@ -173,14 +147,45 @@ const Users = () => {
               className="file-input"
               onChange={(e) => setFile(e.target.files[0])}
             />
-            <label htmlFor="fileInput" className="file-label">
-              <span className="text-white userslabel-name">Choose File</span>
+            <label htmlFor="fileInput" className="file-label-user">
+              Choose File
             </label>
             {file && <span className="file-name">{file.name}</span>}
             <button className="upload-button2" onClick={handleUpload}>
-              <IoIosCloudUpload />
+              <IoCloudUploadOutline className='upload-icon-user'/>
             </button>
           </div>
+        </div>
+
+        <div className='user-head-search'>
+
+        <p className='users-count'>All Users: {filterValue.length}</p>
+
+          <div className='user-searchbar'>
+            <input
+              type='text'
+              value={searchValue}
+              placeholder='Search user details'
+              onChange={(e) => setSearchValue(e.target.value)}
+              className="user-search-input"
+            />
+          </div>
+
+          {user === "admin" ? (
+            <button className='users-btn'
+              onClick={handleDialog} >
+              <span className='createbutton'><AddIcon className="user-addicon" /> Create Account </span>
+            </button>
+          ) : (
+            getPermission.length !== 0 && getPermission[2]?.can_create === 1 && (
+              <button className='users-btn'
+                disabled={getPermission.length === 0 || getPermission[2]?.can_create !== 1}
+
+                onClick={handleDialog} >
+                <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
+              </button>
+            )
+          )}
         </div>
 
         <div className='user-searchbar-res mt-3'>
@@ -193,7 +198,7 @@ const Users = () => {
           />
         </div>
 
-        <div><p className='tablerow-user mt-3'>USER DETAILS</p></div>
+        {/* <div><p className='tablerow-user mt-3'>USER DETAILS</p></div> */}
 
         {loading ? (
           <div className='users-spinner'></div>

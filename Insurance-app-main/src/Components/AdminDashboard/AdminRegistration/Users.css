@@ -1,25 +1,27 @@
 .users-container {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .users-btn {
     background-color: #023265;
     color: white;
-    border-radius: 50px;
+    border-radius: 15px;
+    padding: 7px 20px 7px 20px;
     border: none;
-    padding: 15px;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .users-btn:hover {
-    background: rgb(1, 1, 99);
+    transform: scale(1.05);
 }
 
 .tablerow-user {
-    text-align: center;
-    display: flex;
-    justify-content: center;
     font-size: 25px;
     font-weight: bold;
+    position: absolute;
+    left: 2%;
+    top: 25%;
+    font-family: "Poppins",sans-serif;
 }
 
 .users-table {
@@ -86,8 +88,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
-    margin-top: 60px;
+    justify-content:flex-end ;
+    margin: auto;
+    padding: 15px;
+    border-bottom: 1px solid #aaaaaa;
+    border-top: 1px solid #aaaaaa;
+    background-color: #edeeee;
+    position: relative;
 }
 
 .admin-header-user {
@@ -97,56 +104,76 @@
     gap: 15px;
 }
 
-.upload-button1,
-.upload-button2 {
-    color: white;
-    border: none;
-    padding: 8px 12px;
+.admin-header-user .upload-button1,
+.admin-header-user .upload-button2 {
+    color: #828181;
+    /* border: none; */
+    padding: 3px 7px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .upload-button1 {
-    background-color: #128e46;
+    border:1px solid #27ae60;
+    transition: transform 0.5s ease,color 0.5s ease;
 }
 
 .upload-button2 {
-    background-color: #e67e22;
+    border:1px solid #e67e22;
+    transition: transform 0.5s ease,color 0.5s ease;
 }
 
 .upload-button1:hover {
-    background-color: #27ae60;
     transform: scale(1.05);
+    background-color: rgba(0,128,0,0.8);
 }
 
 .upload-button2:hover {
-    background-color: #d35400;
     transform: scale(1.05);
+    background-color: rgba(225,165,0,0.9);
 }
 
-.upload-button1 svg,
-.upload-button2 svg {
-    font-size: 22px;
+.upload-button2:hover .upload-icon-user{
+    color: whitesmoke;
+}
+
+.upload-button1:hover .excel-icon-user{
+    color: whitesmoke;
+}
+
+.upload-button1 .excel-icon-user{
+    color: #27ae60;
+    font-size: 25px;
+}
+
+.upload-button2 .upload-icon-user{
+    color: #e67e22;
+    font-size: 25px;
 }
 
 .admin-header-user .file-input {
     display: none;
 }
 
-.file-label {
-    background-color: #0056b3;
-    padding: 6px 10px;
+.file-label-user {
+    border: 1px solid  rgb(122, 122, 122);
+    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
+    transition: all 0.5s linear;
+    color: #5b5b5b
 }
 
-.file-label:hover {
-    background-color: #0056b3;
+.file-label-user:hover,
+.file-label-user:hover .label-name-user
+{
+    background-color: rgba(0,0,128,0.8);
+    color: whitesmoke;
+    border-color: navy;
 }
 
-.userslabel-name {
-    display: block;
+.file-label-user:hover{
+    transform: scale(1.05);
 }
 
 .admin-header-container-user .user-addicon {
@@ -199,8 +226,11 @@
 .user-head-search {
     display: flex;
     gap: 15px;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    flex-wrap: wrap;
+    padding: 25px;
+    position: relative;
 }
 
 .user-search-icon {
@@ -210,18 +240,17 @@
 
 .user-searchbar {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     align-items: center;
     position: relative;
 }
 
 .user-search-input {
-    opacity: 0;
-    padding: 5px 0 5px 10px;
-    width: 0;
-    border: 1px solid #ccc;
-    border-radius: 50px;
-    transition: width 0.5s ease, opacity 0.5s ease;
+    width: 300px;
+    padding: 6px 0 6px 10px;
+    border: 1px solid #b1b1b1;
+    border-radius: 15px;
+    transition: width 0.4s ease, opacity 0.4s ease;
 }
 
 .user-search-input-res {
@@ -231,17 +260,16 @@
     border-radius: 50px;
 }
 
-.expanded-user {
-    width: 300px;
-    opacity: 1;
-
-}
-
 .user-search-input::placeholder {
-    color: black;
+    color: #828181;
     font-size: bold;
     position: absolute;
     left: 15px;
+}
+
+.user-search-input:focus{
+    border-color: #828181;
+    outline: none;
 }
 
 .user-searchbar-res {

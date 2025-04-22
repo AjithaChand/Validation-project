@@ -119,10 +119,10 @@ const Userdata = () => {
     <div className='user-container' >
       <div className={`${dashboardSidebaropen ? 'user-profile' : 'toggle-profile'}`}>
         <img className={`${dashboardSidebaropen ? 'company-logo-head' : 'company-logo-header'}`} src={formData.logo} alt="Company Logo" />
-        {/* <h3 className={`${dashboardSidebaropen ? 'userheader' : 'userheader-toggle'}`}>{formData.companyName}</h3> */}
+        <h3 className={`${dashboardSidebaropen ? 'userheader' : 'userheader-toggle'}`}>{formData.companyName}</h3>
         <h3 className='userheader-res'>Nastaf</h3>
         <div className='userlogout-btn'><FaRegUser className='logo' /></div>
-        {user === 'admin' ? (<div className='userlogout-btn username'>{user}</div>) :
+        {user === 'admin' ? (<div className={`userlogout-btn ${dashboardSidebaropen ? 'username-admin' : 'username-toggle'}`}>{user}</div>) :
           (<div className='userlogout-btn username'>{username}</div>)}
         <button onClick={handleLogout} className='userlogout-btn'>
           <MdLogout className='logoutbutton' />
