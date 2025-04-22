@@ -98,11 +98,25 @@ ON
 
         const worksheet = xlsx.utils.json_to_sheet(results);
 
+        const range = xlsx.utils.decode_range(worksheet["!ref"]);
+        for (let row = range.s.r + 1; row <= range.e.r; row++) {
+            const cellRef = xlsx.utils.encode_cell({ r: row, c: 3 }); 
+            if (worksheet[cellRef] && worksheet[cellRef].v) {
+                const dateVal = new Date(worksheet[cellRef].v);
+                if (!isNaN(dateVal)) {
+                    worksheet[cellRef].v = dateVal;
+                    worksheet[cellRef].t = 'd'; 
+                    worksheet[cellRef].z = "yyyy-mm-dd"; 
+                }
+            }
+        }
+        
+
               worksheet['!cols'] = [
                 { wpx: 150 }, 
                 { wpx: 150 }, 
                 { wpx: 150 },
-                { wpx: 150 },
+                { wpx: 180 },
                 { wpx: 150 },
                 { wpx: 150 },
                 { wpx: 150 },
