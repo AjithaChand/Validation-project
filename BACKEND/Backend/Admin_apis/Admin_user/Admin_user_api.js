@@ -36,6 +36,8 @@ app.post("/admin/register", verifyToken, (req, res) => {
         joining_date,
         revised_salary,
         bank_details,
+        address,
+        phone_number,
         payload,
     } = req.body;
 
@@ -142,15 +144,18 @@ app.post("/admin/register", verifyToken, (req, res) => {
                                 joining_date,
                                 revised_salary,
                                 bank_details,
+                                address,
+                                phone_number,
                                 branch_id,
                             ];
 
                             console.log("Payslip insert values:", values);
+                            console.log("checking adress and phone" ,values.phone_number)
 
                             const insertQuery = `
                             INSERT INTO payslip 
-                            (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, dates, joining_date, revised_salary,bank_details, branch_id)
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, dates, joining_date, revised_salary,bank_details,address, phone_number, branch_id)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         `;
 
                             db.query(insertQuery, values, (err, result) => {

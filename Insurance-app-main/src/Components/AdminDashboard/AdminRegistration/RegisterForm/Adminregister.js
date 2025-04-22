@@ -45,6 +45,8 @@ const Adminregister = ({ close }) => {
         email: '',
         password: '',
         bank_details: '',
+        address:'',
+        phone_number:'',
         total_salary: 0,
         role: '',
         pf_amount: 0,
@@ -107,6 +109,7 @@ const Adminregister = ({ close }) => {
 
 
         console.log('Demo output Values', values);
+        console.log("Checking address and phone_number" ,values.address,values.phone_number)
         console.log('Demo output permission', permission);
         console.log('Demo output Branches', payload.station);
 
@@ -185,6 +188,16 @@ const Adminregister = ({ close }) => {
                         </div>
                         <div className='row'>
                             <div className='mt-3 col-md-6 col-sm-12 form-group'>
+                                <label>Address :</label>
+                                <textarea className='form-control'  style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e=>setValues({...values, address: e.target.value})}></textarea>
+                            </div>
+                            <div className='mt-3 col-md-6 col-sm-12 form-group'>
+                                <label className='register-label'>Phone No:</label>
+                                <input type='number' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, phone_number: e.target.value })} placeholder='Enter Your Phone number' required />
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <div className='mt-3 col-md-6 col-sm-12 form-group'>
                                 <label className='register-label'>Salary</label>
                                 <input type='number' className='form-control' onChange={handleSalarychange} style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} placeholder='Enter salary' required />
                             </div>
@@ -208,6 +221,7 @@ const Adminregister = ({ close }) => {
                                 <label className='register-label'>Joiningdate</label>
                                 <input type='date' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, joining_date: e.target.value })} placeholder='select date' required />
                             </div>
+                           
                         </div>
                         <div className='row'>
                         <div className='mt-3 col-md-6 col-sm-12 form-group'>
