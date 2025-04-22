@@ -4,7 +4,6 @@ import '../Updateform/Updatedata.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from '../../../../url';
-import '../Updateform/Updatedata.css';
 import { UserContext } from '../../../../usecontext';
 
 const Updatedata = ({ selectid, close, selectemail }) => {
@@ -24,6 +23,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
     total_salary: "",
     esi_number: "",
     pf_number: "",
+    bank_details:"",
     is_active: 1,
     address:"",
     phone_number:""
@@ -256,8 +256,9 @@ console.log(datas,"data")
             <label className='userupdate-label'>Bank Details</label>
             <textarea className='form-control' value={datas.bank_details} onChange={e => setData({ ...datas, bank_details: e.target.value })} placeholder='Enter Bank Details' />
           </div>
-          <div className='form-group col-12 mt-3'>
-            <label> Deactivate this account</label>
+          <div className='form-group col-12 mt-3 onOff'>
+            <label className='me-3'> {isActive ? 'Deactivate this Acconut' : 'Activate this Account'}</label>
+            <label className='slider-switch'>
             <input type='checkbox' checked={isActive} onChange={(e) => {
               const checked = (e.target.checked);
               setIsActive(checked);
@@ -266,6 +267,8 @@ console.log(datas,"data")
               }))
             }
             } />
+             <span className='slider'></span>
+            </label>
           </div>
           <div className='mt-3 col-12 form-group'>
             <div className='permissions-role-table mt-2'>
