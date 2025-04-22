@@ -1,101 +1,98 @@
-
 .company-form-wrapper {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; 
-    padding-top: 80px; 
-    background-color: #ffffff;
-  }
-  
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 100px;
+  background: linear-gradient(120deg, #e0f7fa, #ffffff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  .company-details-form-container {
-    width: 100%;
-    max-width: 600px;
-    padding: 30px 35px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.8s ease-in-out;
-  }
-  
+.company-details-form-container {
+  width: 550px;
+  padding: 40px 35px;
+  background: linear-gradient(to right, #a2ecec, #c4f5f5, #e1fafa);
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.8s ease-in-out;
+  margin-top: 20px;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease-in-out;
+}
 
-  .company-details-form-container h1 {
-    text-align: center;
-    font-size: 28px;
-    margin-bottom: 25px;
-    color: #2d2d2d;
-    font-weight: 600;
-  }
-  
+.company-details-form-container h1 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 35px;
+  color: #004d4d;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
 
-  .company-details-form-container input[type="text"],
-  .company-details-form-container input[type="email"],
-  .company-details-form-container textarea,
-  .company-details-form-container input[type="file"] {
-    width: 100%;
-    padding: 14px 18px;
-    margin-bottom: 20px;
-    border: 2px solid #ddd;
-    border-radius: 12px;
-    font-size: 16px;
-    background-color: #f9f9f9;
-    transition: 0.3s ease;
-    box-sizing: border-box;
-  }
-  
-  .company-details-form-container input:focus,
-  .company-details-form-container textarea:focus {
-    border-color: #764ba2;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(118, 75, 162, 0.3);
-    outline: none;
-  }
-  
-  .company-details-form-container textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-  
+.input-text-box {
+  margin-bottom: 24px;
+  width: 100%;
+  padding: 12px 5px;
+  border: none;
+  border-bottom: 2px solid #ffffffcc;
+  background-color: transparent;
+  color: #004d4d;
+  font-size: 16px;
+  font-weight: 600;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .company-details-form-container .save {
-    background: linear-gradient(135deg,#2e7e7e,#2caaa9);
-    color: white;
-    padding: 14px;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.input-text-box:focus {
+  border-bottom: 2px solid teal;
+  background-color: transparent;
+  box-shadow: 0 2px 8px rgba(0, 128, 128, 0.15);
+}
+
+.company-details-form-container textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.save {
+  background: linear-gradient(135deg, #00796b, #26a69a);
+  color: white;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 200px;
+  margin: 20px auto 0 auto; /* centered horizontally */
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.save:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 150, 136, 0.4);
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
   }
-  
-  .company-details-form-container .save:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px #2caaa9(118, 75, 162, 0.4);
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  /* Optional fade-in animation */
-  @keyframes fadeIn {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  /* Small Phones: 319px to 500px */
-@media only screen and (min-width: 319px) and (max-width: 500px) {
+}
+
+
+@media only screen and (min-width: 320px) and (max-width: 424px) {
   .company-form-wrapper {
     padding-top: 60px;
   }
 
   .company-details-form-container {
     padding: 15px 13px;
-    max-width: 90%;
+    width: 93%;
   }
 
   .company-details-form-container h1 {
@@ -108,14 +105,17 @@
     padding: 10px 12px;
   }
 
-  .company-details-form-container button[type="submit"] {
+  .save {
     font-size: 14px;
     padding: 10px;
+    width: 180px;
+    margin: 15px auto 0 auto; /* Fix this */
+    display: block;
   }
 }
 
 /* Tablets: 501px to 768px */
-@media only screen and (min-width: 501px) and (max-width: 768px) {
+@media only screen and (min-width: 425px) and (max-width: 768px) {
   .company-form-wrapper {
     padding-top: 70px;
   }

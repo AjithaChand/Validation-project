@@ -570,7 +570,7 @@ const UserAttendance = () => {
             )}
           </div>
         ) : (
-          <>
+          <div className='attendance-entry'>
             <button
               className='attendance-present'
               onClick={() => markAttendance(1)}
@@ -583,10 +583,9 @@ const UserAttendance = () => {
             >
               Absent
             </button>
-          </>
+          </div>
         )}
-                    {/* <button onClick={handleShow}>Show</button>
-                    <button onClick={checkLocation}>Show Distance</button> */}
+                   
       </div>
 
       {isAbsent && (

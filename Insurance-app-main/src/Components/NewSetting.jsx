@@ -100,6 +100,7 @@ function CompanyDetailsForm() {
     <form className="company-details-form-container" onSubmit={handleSubmit} encType="multipart/form-data">
       <h1>Company Details Form</h1>
       <input
+      className="input-text-box"
         type="text"
         name="companyName"
         placeholder="Company Name"
@@ -109,6 +110,7 @@ function CompanyDetailsForm() {
       />
       <input
         type="text"
+         className="input-text-box"
         name="phone"
         placeholder="Phone"
         value={formData.phone}
@@ -118,6 +120,7 @@ function CompanyDetailsForm() {
       <input
         type="email"
         name="email"
+         className="input-text-box"
         placeholder="Email"
         value={formData.email}
         onChange={handleChange}
@@ -126,6 +129,7 @@ function CompanyDetailsForm() {
       <textarea
         name="address"
         placeholder="Address"
+         className="input-text-box"
         value={formData.address}
         onChange={handleChange}
         required
