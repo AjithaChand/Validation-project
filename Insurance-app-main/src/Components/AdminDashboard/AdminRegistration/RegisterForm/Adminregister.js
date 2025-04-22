@@ -188,8 +188,8 @@ const Adminregister = ({ close }) => {
                         </div>
                         <div className='row'>
                             <div className='mt-3 col-md-6 col-sm-12 form-group'>
-                                <label>Address :</label>
-                                <textarea className='form-control'  style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e=>setValues({...values, address: e.target.value})}></textarea>
+                                <label className='register-label'>Address :</label>
+                                <textarea className='form-control'  style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e=>setValues({...values, address: e.target.value})} placeholder='Enter your Address'></textarea>
                             </div>
                             <div className='mt-3 col-md-6 col-sm-12 form-group'>
                                 <label className='register-label'>Phone No:</label>
