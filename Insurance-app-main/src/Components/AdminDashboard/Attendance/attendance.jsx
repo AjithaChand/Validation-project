@@ -10,13 +10,26 @@ const Attendance = () => {
   const [attendanceData, setAttendanceData] = useState([]);
   const[file,setFile]=useState(null);
    const [refresh, setRefresh] = useState(false);
+
+
+   const getCurrentAbsentColumn = () => {
+    const now = new Date();
+    const month = now.toLocaleString("default", { month: "long" }).toLowerCase(); // e.g., "april"
+    const year = now.getFullYear(); 
+    return `absent_days_${month}_${year}`; 
+  };
+  
   useEffect(() => {
     axios.get(`${apiurl}/get_attendance_datas`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
-    .then(res => setAttendanceData(res.data))
+    .then(res => {
+      setAttendanceData(res.data)
+      console.log("Datas in", res.data);
+      
+    })
     .catch(err => console.error(err));
   }, []);
 
@@ -72,21 +85,27 @@ const Attendance = () => {
               <th>Email</th>
               <th>Working Days</th>
               <th>Week Off</th>
-              <th>Leave Days</th>
+              <th>Absent Days</th>
             </tr>
           </thead>
           <tbody>
-            {attendanceData.map((data, index) => (
-              <tr key={index}>
-                <td>{data.referal_Id}</td>
-                <td>{data.emp_name}</td>
-                <td>{data.emp_email}</td>
-                <td>30</td> 
-                <td>4</td>  
-                <td>{data.leave_days}</td>
-              </tr>
-            ))}
-          </tbody>  
+  {attendanceData.map((data, index) => {
+    const absentColumn = getCurrentAbsentColumn(); 
+    const absentDays = data[absentColumn]; 
+
+    return (
+      <tr key={index}>
+        <td>{data.referal_Id}</td>
+        <td>{data.emp_name}</td>
+        <td>{data.emp_email}</td>
+        <td>30</td>
+        <td>4</td>
+        <td>{absentDays !== undefined ? absentDays : "N/A"}</td>
+      </tr>
+    );
+  })}
+</tbody>
+  
         </table>
       </div>
       <ToastContainer/>
