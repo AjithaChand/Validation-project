@@ -256,19 +256,26 @@ console.log(datas,"data")
             <label className='userupdate-label'>Bank Details</label>
             <textarea className='form-control' value={datas.bank_details} onChange={e => setData({ ...datas, bank_details: e.target.value })} placeholder='Enter Bank Details' />
           </div>
-          <div className='form-group col-12 mt-3 onOff'>
-            <label className='me-3'> {isActive ? 'Deactivate this Acconut' : 'Activate this Account'}</label>
-            <label className='slider-switch'>
-            <input type='checkbox' checked={isActive} onChange={(e) => {
-              const checked = (e.target.checked);
-              setIsActive(checked);
-              setData(prev => ({
-                ...prev, is_active: checked ? 1 : 0
-              }))
-            }
-            } />
-             <span className='slider'></span>
+          <div className='col-md-6 col-sm-12 mt-4 ms-3'>
+            <label>Activate</label>
+            <label className='ms-3'>
+              <input type='radio' value='1'
+               checked={isActive ===true} 
+               onChange={(e)=>{
+                setIsActive(true);
+                setData({...datas, is_active : 1})
+               }}
+              />Yes
             </label>
+            <label className='ms-3'>
+              <input type='radio'
+               value='0'
+               checked ={isActive===false} 
+               onChange={(e)=>{
+                setIsActive(false);
+                setData({...datas, is_active : 0})
+               }} />No
+            </label> 
           </div>
           <div className='mt-3 col-12 form-group'>
             <div className='permissions-role-table mt-2'>
