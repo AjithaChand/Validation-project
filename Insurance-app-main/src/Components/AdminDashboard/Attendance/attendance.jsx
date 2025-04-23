@@ -62,6 +62,8 @@ const Attendance = () => {
     return values.username?.toLowerCase().includes(searchbar.toLowerCase()) ||
       values.email?.toLowerCase().includes(searchbar.toLowerCase())
   })
+  console.log(filterdata,'jhhhhhhhhhhhhg',attendanceData);
+  
 
   return (
     <div className='attendance-container'>
@@ -128,13 +130,13 @@ const Attendance = () => {
             </tr>
           </thead>
           <tbody>
-            {filterdata.map((data, index) => {
+            {attendanceData.map((data, index) => {
               const absentColumn = getCurrentAbsentColumn();
               const absentDays = data[absentColumn];
 
               return (
                 <tr key={index}>
-                  <td>{data.referal_Id}</td>
+                  <td>{data.emp_id}</td>
                   <td>{data.emp_name}</td>
                   <td>{data.emp_email}</td>
                   <td>30</td>

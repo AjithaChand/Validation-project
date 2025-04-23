@@ -196,7 +196,7 @@ const Payslip = () => {
   
     const keys = Object.keys(groupedByMonth);
   
-    let currentProgress = 0; // Track the progress manually
+    let currentProgress = 0; 
   
     for (let k = 0; k < keys.length; k++) {
       const key = keys[k];
