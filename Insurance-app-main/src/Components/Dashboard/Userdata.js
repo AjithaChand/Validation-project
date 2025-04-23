@@ -129,7 +129,7 @@ const Userdata = () => {
         <h3 className='userheader-res'>Nastaf</h3>
         <div className='userlogout-btn'><FaRegUser className='logo' /></div>
         {user === 'admin' ? (<div className={`userlogout-btn ${dashboardSidebaropen ? 'username-admin' : 'username-toggle'}`}>{user}</div>) :
-          (<div className='userlogout-btn username'>{username}</div>)}
+          (<div className={`userlogout-btn ${dashboardSidebaropen ? 'username-admin' : 'username-toggle'}`}>{username}</div>)}
         <button onClick={handleLogout} className='userlogout-btn'>
           <MdLogout className='logoutbutton' />
         </button>
@@ -282,7 +282,7 @@ const Userdata = () => {
                       navigate('/dashboard/attendance');
                     }}>
                       <LuCalendarCheck className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                      {dashboardSidebaropen && <span className='dashboard-icon'> Attendance <KeyboardArrowDownIcon className='settings-icon' /></span>}
+                      {dashboardSidebaropen && <span className='dashboard-icon'> Attendance <KeyboardArrowDownIcon className='attendance-icon' /></span>}
                     </div>
                   </li>
                 )}{settingspayslip && dashboardSidebaropen && (

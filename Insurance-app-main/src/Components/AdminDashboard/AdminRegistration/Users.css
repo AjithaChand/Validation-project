@@ -39,6 +39,7 @@
     width: 100%;
     cursor: pointer;
     box-shadow: 1px 7px 15px gainsboro;
+    overflow-x: auto;
 }
 
 .users-table thead th {

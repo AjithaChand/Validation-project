@@ -8,13 +8,23 @@ import "react-toastify/dist/ReactToastify.css";
 import { RiFileExcel2Line } from "react-icons/ri";
 import Calendar from 'react-calendar';
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import dayjs from 'dayjs';
 
 const Attendance = () => {
   const [attendanceData, setAttendanceData] = useState([]);
   const [file, setFile] = useState(null);
   const [refresh, setRefresh] = useState(false);
-  const [date, setDate] = useState(new Date()); 
+  const [date, setDate] = useState(dayjs());
   const [searchbar, setSearchbar] = useState("");
+
+  const [calendar, setCalender] = useState(false)
+
+  const handleClick = ()=>{
+    setCalender(!calendar)
+  }
 
   const getCurrentAbsentColumn = () => {
     const now = new Date();
@@ -31,11 +41,11 @@ const Attendance = () => {
   };
 
   const fetchAttendanceData = (selectedDate) => {
-    const year = selectedDate.getFullYear();
-    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-    const day = String(selectedDate.getDate()).padStart(2, '0');
+    const year = selectedDate.year();
+    const month = String(selectedDate.month() + 1).padStart(2, '0');
+    const day = String(selectedDate.date()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
-    
+
     axios.get(`${apiurl}/get_attendance_datas?date=${formattedDate}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -53,16 +63,16 @@ const Attendance = () => {
         const errorMsg = err.response?.data?.message || err.message;
         toast.error(errorMsg);
         console.error(err);
-        setAttendanceData([]); 
+        setAttendanceData([]);
       });
   };
 
   useEffect(() => {
     fetchAttendanceData(date);
-  }, [date]); 
+  }, [date]);
 
   const handleDateChange = (newDate) => {
-    setDate(newDate); 
+    setDate(newDate);
   };
 
   const handleDownload = () => {
@@ -86,36 +96,46 @@ const Attendance = () => {
   };
 
   const filterdata = attendanceData.filter((values) => {
-    return values.username?.toLowerCase().includes(searchbar.toLowerCase()) ||
-      values.email?.toLowerCase().includes(searchbar.toLowerCase())
+    return values.emp_name?.toLowerCase().includes(searchbar.toLowerCase()) ||
+      values.emp_email?.toLowerCase().includes(searchbar.toLowerCase())
   });
 
   return (
     <div className='attendance-container'>
-      <div className="admin-header-attendance">
-        <p className='tablerow-attendance'>Attendance</p>
-        <div className='attendance-header'>
-          <button className="upload-button5" onClick={handleDownload}>
-            <RiFileExcel2Line className='excel-icon-attendance' />
-          </button>
-          <input
-            type="file"
-            id="fileInput"
-            className="file-input"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-          <label htmlFor="fileInput" className="file-label-attendance">
-            Choose File
-          </label>
-          {file && <span className="file-name">{file.name}</span>}
-          <button className="upload-button6" onClick={handleUpload}>
-            <IoCloudUploadOutline className='upload-icon-attendance' />
-          </button>
+      <div className='attendance-header-container'>
+        <div className="admin-header-attendance">
+          <p className='tablerow-attendance'>Attendance</p>
+          <div className='attendance-header'>
+            <button className="upload-button5" onClick={handleDownload}>
+              <RiFileExcel2Line className='excel-icon-attendance' />
+            </button>
+            <input
+              type="file"
+              id="fileInput"
+              className="file-input"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <label htmlFor="fileInput" className="file-label-attendance">
+              Choose File
+            </label>
+            {file && <span className="file-name">{file.name}</span>}
+            <button className="upload-button6" onClick={handleUpload}>
+              <IoCloudUploadOutline className='upload-icon-attendance' />
+            </button>
+          </div>
         </div>
       </div>
 
       <div className='admin-head-search-attendance'>
         <p className='users-count-attendance'>All Users: {filterdata.length}</p>
+        <button className='btn btn-primary' onClick={handleClick}>Select Date</button>
+        {calendar && (
+          <div className="calendar" onClick={handleClick}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar value={date} onChange={handleDateChange} />
+          </LocalizationProvider>
+        </div>
+        )}
         <div className="searchbar-container-attendance">
           <input
             type="text"
@@ -136,13 +156,11 @@ const Attendance = () => {
           className='search-input-res-attendance'
         />
       </div>
-      
-      <div className="calendar-container">
-        <Calendar 
-          onChange={handleDateChange} 
-          value={date} 
-        />
-      </div>
+
+      {/* <div className='calendar-container'>
+        
+      </div> */}
+
 
       <div className='attendance'>
         <table className='attend-1'>
@@ -159,13 +177,13 @@ const Attendance = () => {
             </tr>
           </thead>
           <tbody>
-            {attendanceData.map((data, index) => {
+            {filterdata.map((data, index) => {
               const absentColumn = getCurrentAbsentColumn();
               const presentColumn = getCurrentPresentColumn();
 
               const absentDays = data[absentColumn];
               const presentDays = data[presentColumn];
-              
+
               const isPresent = presentDays === 1;
               const isAbsent = absentDays === 0;
               const noRecord = presentDays === null && absentDays === null;
