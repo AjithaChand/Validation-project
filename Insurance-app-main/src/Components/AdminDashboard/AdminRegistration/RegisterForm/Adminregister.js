@@ -48,7 +48,7 @@ const Adminregister = ({ close }) => {
         address:'',
         phone_number:'',
         total_salary: 0,
-        role: '',
+        role: 'user',
         pf_amount: 0,
         esi_amount: 0,
         net_amount: 0,
@@ -249,18 +249,7 @@ const Adminregister = ({ close }) => {
                         <div className='row'>
                             <div className='mt-3 col-12 form-group'>
                                 <div className='permissions-role mt-2'>
-                                    <label className='register-label'>Select Role :</label>
-                                    <label>
-                                        <input
-                                            type='radio'
-                                            name='role'
-                                            value='admin'
-                                            onChange={e => setValues({ ...values, role: e.target.value })}
-                                            checked={values.role === 'admin'}
-                                            required
-                                        />
-                                        Admin
-                                    </label>
+                                    <label className='register-label'>Admin</label>
                                     <label>
                                         <input
                                             type='radio'
@@ -270,7 +259,18 @@ const Adminregister = ({ close }) => {
                                             checked={values.role === 'user'}
                                             required
                                         />
-                                        User
+                                        No
+                                    </label>
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            name='role'
+                                            value='admin'
+                                            onChange={e => setValues({ ...values, role: e.target.value })}
+                                            checked={values.role === 'admin'}
+                                            required
+                                        />
+                                       yes
                                     </label>
                                 </div>
                             </div>

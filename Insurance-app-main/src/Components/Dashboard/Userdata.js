@@ -167,18 +167,25 @@ const Userdata = () => {
                     {dashboardSidebaropen && <span className='dashboard-icon'> Register </span>}
                   </div>
                 </li>
-                <li className={` list-style ${location.pathname === '/dashboard/payslip' && 'active'}`}>
-                  <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
-                    <IoReceiptOutline className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                    {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
-                  </div>
-                </li>
                 <li className={` list-style ${location.pathname === '/dashboard/attendance' && 'active'}`}>
-                  <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
+                  <div className='userdata-btn' onClick={() => {
+                    navigate('/dashboard/attendance');
+                    handleSetting();
+                  }}>
                     <LuCalendarCheck className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
                   </div>
                 </li>
+                {settings && dashboardSidebaropen && (
+                  <ul>
+                    <li className={` list-style ${location.pathname === '/dashboard/payslip' && 'active'}`}>
+                      <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
+                        <IoReceiptOutline className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                        {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
+                      </div>
+                    </li>
+                  </ul>
+                )}
                 <li className={` list-style ${location.pathname === '/dashboard/settings' && 'active'}`}>
                   <div className='userdata-btn' onClick={() => {
                     navigate('/dashboard/settings');
@@ -186,20 +193,20 @@ const Userdata = () => {
                   }}>
                     <IoSettingsOutline className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'>
-                      Settings <KeyboardArrowDownIcon className='settings-icon'/>
+                      Settings <KeyboardArrowDownIcon className='settings-icon' />
                     </span>}
                   </div>
                 </li>
                 {settings && dashboardSidebaropen && (
-                    <ul>
-                      <li className={` list-style ${location.pathname === '/dashboard/users' && 'active'}`}>
-                        <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                          <FaRegUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                          {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
-                        </div>
-                      </li>
-                    </ul>
-                  )}
+                  <ul>
+                    <li className={` list-style ${location.pathname === '/dashboard/users' && 'active'}`}>
+                      <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
+                        <FaRegUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                        {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
+                      </div>
+                    </li>
+                  </ul>
+                )}
               </ul>
 
             ) : (
@@ -231,22 +238,24 @@ const Userdata = () => {
                   </li>
                 )} */}
 
-                {getPermission[1]?.can_read === 1 && (
+                {getPermission[3]?.can_read === 1 && (
+                  <li className={` list-style ${location.pathname === '/dashboard/attendance' && 'active'}`}>
+                    <div className='userdata-btn' onClick={() => {navigate('/dashboard/attendance');
+                      handleSetting()
+                    }}>
+                      <LuCalendarCheck className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                      {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
+                    </div>
+                  </li>
+                )}{settings && dashboardSidebaropen&& (
+                  <ul>
                   <li className={` list-style ${location.pathname === '/dashboard/payslip' && 'active'}`}>
                     <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
                       <IoReceiptOutline className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                       {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
                     </div>
                   </li>
-                )}
-
-                {getPermission[3]?.can_read === 1 && (
-                  <li className={` list-style ${location.pathname === '/dashboard/attendance' && 'active'}`}>
-                    <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
-                      <LuCalendarCheck className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                      {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
-                    </div>
-                  </li>
+                  </ul>
                 )}
 
                 {getPermission[4]?.can_read === 1 && (
@@ -260,27 +269,27 @@ const Userdata = () => {
 
                 {getPermission[5]?.can_read === 1 && (
                   <li className={` list-style ${location.pathname === '/dashboard/settings' && 'active'}`}>
-                  <div className='userdata-btn' onClick={() => {
-                    navigate('/dashboard/settings');
-                    handleSetting()
-                  }}>
-                    <IoSettingsOutline className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                    {dashboardSidebaropen && <span className='dashboard-icon'>
-                      Settings <KeyboardArrowDownIcon className='settings-icon'/>
-                    </span>}
-                  </div>
+                    <div className='userdata-btn' onClick={() => {
+                      navigate('/dashboard/settings');
+                      handleSetting()
+                    }}>
+                      <IoSettingsOutline className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                      {dashboardSidebaropen && <span className='dashboard-icon'>
+                        Settings <KeyboardArrowDownIcon className='settings-icon' />
+                      </span>}
+                    </div>
                   </li>
-                  )}
-                  {settings && dashboardSidebaropen && (
-                    <ul>
-                      <li className={` list-style ${location.pathname === '/dashboard/users' && 'active'}`}>
-                        <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                          <FaRegUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                          {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
-                        </div>
-                      </li>
-                    </ul>
-                  )}
+                )}
+                {settings && dashboardSidebaropen && (
+                  <ul>
+                    <li className={` list-style ${location.pathname === '/dashboard/users' && 'active'}`}>
+                      <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
+                        <FaRegUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                        {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
+                      </div>
+                    </li>
+                  </ul>
+                )}
               </ul>
             )}
           </nav>
