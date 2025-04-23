@@ -5,7 +5,51 @@
 .attendance-header-container{
   padding: 20px;
 }
+/* Attendance Status Icons */
+.present-icon {
+  color: #10B981;
+  font-size: 1.2rem;
+}
 
+.absent-icon {
+  color: #EF4444;
+  font-size: 1.2rem;
+}
+
+.no-record {
+  color: #9CA3AF;
+  font-size: 1.2rem;
+}
+
+/* Table Styles */
+.attend-1 {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.attend-1 th, .attend-1 td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.attend-1 th {
+  background-color: #F3F4F6;
+  font-weight: 600;
+}
+
+/* Calendar Container */
+.calendar-container {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Status Column */
+.attend-1 td:last-child {
+  font-weight: 500;
+  text-transform: capitalize;
+}
 .admin-header-attendance {
   display: flex;
   align-items: center !important;
