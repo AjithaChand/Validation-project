@@ -222,60 +222,54 @@ app.get("/get-all-employee-names", (req, res) => {
     // date wise send all data;
   
     app.get("/get-all-employee-datas", (req, res) => {
+      const { month, year, monthTo, yearTo } = req.query;
     
-        const { month, year, monthTo, yearTo } = req.query;
-
-        console.log("From month and year", month, year);
-        
-        if ( month && year && monthTo && yearTo){
-
-          const startDate = `${year}-${month.padStart(2, '0')}-01`;
-          const endDateObj = new Date(yearTo, monthTo, 0);
-          const endDate = endDateObj.toISOString().split('T')[0];
-
-          // if (!month) {
-          //   return res.status(400).json({ message: "Month query parameter is required" });
-          // }
-        
-          const selectQuery = "SELECT * FROM payslip WHERE dates BETWEEN ? AND ?";
-          
-          db.query(selectQuery, [startDate,endDate], (err, info) => {
-            if (err) {
-              console.log("Database Error:", err);
-              return res.status(500).json({ message: "Database Error" });
-            }
-        
-            if (info.length === 0) {
-              return res.status(404).json({ message: "No employee found with this Month" });
-            }
-        
-            console.log("Fetched Employee Data:",info); 
-            return res.status(200).json({ results: info });
-          });
+      console.log("From month and year", month, year);
+      
+      if (month && year && monthTo && yearTo) {
+        const startDate = `${year}-${month.padStart(2, '0')}-01`;
+        const endDateObj = new Date(yearTo, monthTo, 0);
+        const endDate = endDateObj.toISOString().split('T')[0];
     
-        }  else if( month && year ){
-
-          const selectQuery = "SELECT * FROM payslip WHERE MONTH(dates)= ? AND YEAR(dates) = ?";
-          
-          db.query(selectQuery, [month,year], (err, info) => {
-            if (err) {
-              console.log("Database Error:", err);
-              return res.status(500).json({ message: "Database Error" });
-            }
-        
-            if (info.length === 0) {
-              return res.status(404).json({ message: "No employee found with this Month" });
-            }
-        
-            console.log("Fetched Employee Data:",info); 
-            return res.status(200).json({ results: info });
-          });
-        }
-        
-        else {
-          return res.status(400).json({ message: "Month and Year query parameters are required" });
-        }
-        
-      });
+        // Make sure both start and end date are valid
+        const selectQuery = "SELECT * FROM payslip WHERE dates BETWEEN ? AND ?";
+    
+        db.query(selectQuery, [startDate, endDate], (err, info) => {
+          if (err) {
+            console.log("Database Error:", err);
+            return res.status(500).json({ message: "Database Error" });
+          }
+    
+          if (info.length === 0) {
+            return res.status(404).json({ message: "No employee found for this range" });
+          }
+    
+          console.log("Fetched Employee Data:", info);
+          return res.status(200).json({ results: info });
+        });
+    
+      } else if (month && year) {
+    
+        const selectQuery = "SELECT * FROM payslip WHERE MONTH(dates)= ? AND YEAR(dates) = ?";
+    
+        db.query(selectQuery, [month, year], (err, info) => {
+          if (err) {
+            console.log("Database Error:", err);
+            return res.status(500).json({ message: "Database Error" });
+          }
+    
+          if (info.length === 0) {
+            return res.status(404).json({ message: "No employee found for this month" });
+          }
+    
+          console.log("Fetched Employee Data:", info);
+          return res.status(200).json({ results: info });
+        });
+    
+      } else {
+        return res.status(400).json({ message: "Month and Year query parameters are required" });
+      }
+    });
+    
     
 module.exports=app;
