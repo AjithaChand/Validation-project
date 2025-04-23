@@ -260,7 +260,11 @@ const Payslip = () => {
 
 <div style={{display:"flex",flexDirection:'column',alignItems:"center",justifyContent:"center"}}>
       <div className="payslip-file">
-        {showBackIcon && (
+      
+        <h1 className="portal">Payslip Portal</h1>
+      </div>
+      <div className='field-content' >
+      {showBackIcon && (
           <FaBackward
             className="pageback-icon"
             onClick={() => {
@@ -271,10 +275,6 @@ const Payslip = () => {
             }}
           />
         )}
-        <h1 className="portal">Payslip Portal</h1>
-      </div>
-      <div className='field-content' >
-     
       <div className="payslip-field">
         <div className="input-fields">
           <label>From Month</label>

@@ -1,171 +1,209 @@
-
 .loading-overlay {
   position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.65);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: #fff;
-  z-index: 9999;
-  font-family: 'Segoe UI', sans-serif;
   font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-weight: bold;
 }
 
 .loading-spinner {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #00d9ff;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #00d9ff;
   border-radius: 50%;
-  width: 65px;
-  height: 65px;
+  width: 60px;
+  height: 60px;
   animation: spin 1s linear infinite;
   margin-bottom: 20px;
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 9999;
+}
+
 .progress-bar {
   width: 80%;
-  height: 16px;
-  background-color: #ccc;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: inset 0 0 5px #00000033;
+  height: 20px;
+  background-color: #ddd;
+  margin-top: 20px;
 }
 
 .progress-bar-filled {
   height: 100%;
-  background: linear-gradient(90deg, #00d9ff, #007bff);
-  transition: width 0.3s ease-in-out;
+  background-color: #4caf50;
+  transition: width 0.2s;
 }
 
- .payslip-file
+
+
 .payslip-design {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 40px 20px;
-  background: linear-gradient(to right, #f0f8ff, #e6f7f9);
-  font-family: 'Segoe UI', sans-serif;
-}
+  height:100vh;
+ 
+   display: flex;
+   justify-content:center ;
+   align-items: center;
+   font-family: 'Segoe UI', sans-serif;
+   margin-top: -100px;
+ }
+.payslip-file
+{
+  margin-top: 50px;
+ margin-left: 20px;
+ display: flex;
+ 
 
-.payslip-field {
-  background: #ffffff;
+}
+ .portal {
+ 
+   font-size: 36px;
+   font-weight: 700;
+   color: navy;
+  margin:15px;
+ }
+ 
+
+ .payslip-field {
+  /* display: flex; */
+  /* flex-direction: column; */
+  background-color:rgb(239, 238, 238);
   border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  padding: 30px;
-  max-width: 480px;
+  padding: 20px 24px;
+  /* margin: 20px auto; */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); /* Deeper shadow */
+  /* gap: 12px; */
   width: 100%;
-  border: 1px solid #dedede;
-  transition: all 0.3s ease;
+  max-width: 420px;
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
-.payslip-field:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.2);
-}
-
-.input-fields {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px 0;
-}
-
+ 
 .input-fields label {
-  font-weight: 600;
-  color: #333;
-  flex: 1;
+   font-weight: 600;
+   color: #333;
+   width:150px;
+   padding: 20px;
+}
+.input-fields
+{
+  display: flex;
+  margin:auto;
+}
+ 
+ .payslipinput {
+   padding: 12px;
+   font-size: 15px;
+   border-radius: 6px;
+   border: 1px solid black;
+   outline: none;
+   transition: border-color 0.3s ease;
+   width: 200px;
+   margin: auto;
+   background-color:lightgrey;
+   /* color: white; */
+}
+.payslipinput option {
+  background-color:white;
+  color:black;
 }
 
-.payslipinput {
-  flex: 2;
-  padding: 10px;
-  font-size: 15px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  outline: none;
-  background-color: #f9f9f9;
-  transition: border 0.3s ease;
-}
-
-.payslipinput:focus {
-  border-color: #2caaa9;
-  background-color: #fff;
-}
-
-
-.payslip-button,
-.pdfbutton,
-.pageback-icon,
-.add-payslip {
-  background: #002f6c;
+.payslipinput option:checked {
+  background-color: rgb(44, 170, 170) ;
   color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
+}
+ .payslipinput:focus {
+   border-color: #007bff;
+ }
+ 
+ .payslip-button {
+   align-self: center;
+   background-color: #002f6c;
+   color: white;
+   border: none;
+   padding: 12px 24px;
+   font-size: 16px;
+   border-radius: 6px;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+   margin-top: 10px;
+   margin-left: 30px;
+
+ }
+ 
+ .payslip-button:hover {
+   background-color:rgb(34, 125, 161);
+ }
+ .heading-payslip {
+  width: 80%;
+  margin: 2rem auto;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
 }
 
-.payslip-button:hover,
-.pdfbutton:hover {
-  background: #2caaa9;
+.payslip-style {
+  padding: 20px;
 }
 
-.pageback-icon,
-.add-payslip {
-  font-size: 24px;
-  margin: 15px;
-  background: #fff;
-  color: #002f6c;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.pdfbutton {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* === Company Header === */
-.company-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #ddd;
-}
-
-.company h3 {
-  font-size: 28px;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.contact-line,
-.address {
-  font-size: 14px;
-  color: #2c3e50;
-}
-
+/* Decorative Design Bars */
 .design,
 .bottom-design {
   height: 20px;
-  background: linear-gradient(to right, #2caaa9 30%, gray 70%);
+  width: 100%;
+  position: relative; /* Needed for absolute positioning of cross */
+}
+
+.design {
+  background: linear-gradient(to right, #2caaa9 0%, #888 100%);
+}
+
+.bottom-design {
+  background: linear-gradient(to right, #888 0%, #2caaa9 100%);
+}
+
+
+
+.design,
+.bottom-design {
+  width: 100%;
+  height: 20px;
   position: relative;
+  overflow: hidden;
+}
+
+.design {
+  background: linear-gradient(to right, rgb(44, 170, 170) 30%, gray 70%);
+}
+
+.bottom-design {
+  background: linear-gradient(to right, gray 30%, rgb(44, 170, 170) 70%);
 }
 
 .design::before,
@@ -176,95 +214,224 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.design::before {
   background: linear-gradient(35deg, transparent 25%, white 25%, white 30%, transparent 30%);
 }
 
-/* === Info Sections === */
+.bottom-design::before {
+  background: linear-gradient(35deg, transparent 70%, white 70%, white 75%, transparent 75%);
+}
+
+
+
+
+.company-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.image-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.company {
+  flex: 1;
+  text-align: center;
+}
+
+.company h3 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.contact-line {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: #2c3e50;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.address {
+  max-width: 250px;
+  font-size: 15px;
+  color: #2c3e50;
+  text-align: right;
+}
+
+.address h6 {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+/* Employee & Attendance Sections */
+.gap {
+  margin: 1rem 0;
+  border-bottom: 4px solid #2caaa9;
+}
+
 .info-sections,
 .bottom-section {
   display: flex;
-  gap: 1.5rem;
+  justify-content: space-between;
   flex-wrap: wrap;
-  margin: 1.5rem 0;
+  gap: 1.5rem;
+  margin: 1rem 0;
 }
 
 .info-column {
   flex: 1;
-  min-width: 260px;
+  min-width: 250px;
 }
 
 .info-column h4 {
   font-size: 16px;
   color: #2c3e50;
   border-bottom: 2px solid #2caaa9;
-  padding-bottom: 6px;
-  margin-bottom: 12px;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+}
+
+.info-column ul {
+  list-style: none;
+  padding: 0;
 }
 
 .info-column li {
   display: flex;
   justify-content: space-between;
-  margin: 6px 0;
   font-size: 14px;
+  text-align: left;
+  margin: 5px 0;
 }
 
+.info-column span {
+  font-weight: 600;
+}
+
+/* Signature Section */
 .signature-box {
   text-align: center;
+  flex: 0 0 auto;
 }
 
 .image-sign {
   width: 80px;
-  height: auto;
+  height: 80px;
+  object-fit: contain;
   margin-bottom: 5px;
 }
 
-/* === Table === */
-.payslip_data {
-  max-height: 400px;
-  overflow: auto;
-  margin-top: 20px;
-}
-
-.payslip-1 {
-  min-width: 1000px;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.payslip-1 thead {
-  background-color: #002f6c;
-  color: white;
-}
-
-.payslip-1 th,
-.payslip-1 td {
-  padding: 10px 14px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
-  white-space: nowrap;
-}
-
-.payslip-1 tbody tr:hover {
-  background-color: #f0f8ff;
-}
-
-/* === Heading === */
-.heading-payslip {
-  background-color: white;
-  margin: 2rem auto;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  font-family: 'Segoe UI', sans-serif;
-  width: 80%;
-  text-align: center;
-}
-
-.heading-payslip h1 {
-  font-size: 32px;
+.signature-box p {
+  font-size: 13px;
+  font-style: italic;
   color: #2c3e50;
 }
 
+
+ 
+
+ .pdf-button-download .pdfbutton {
+  display: flex; 
+  align-items: center;
+  background-color: #002f6c;
+  border-radius: 7px;
+  color: white;
+  padding: 10px 16px;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+   margin-top: 20px;
+}
+.pdf-button-download .pdfbutton:hover {
+ background-color: rgb(34, 117, 149)
+}
+.pdf-icon
+{
+  color: red;
+}
+.pageback-icon {
+  position: absolute; /* This lets you position it using top & left */
+  top: 15px;
+  left: 300px;
+  background-color: white;
+  width: 50px;
+  border-radius: 10px;
+  padding: 5px;
+  border: none;
+  font-size: 30px;
+  color: darkblue;
+  z-index: 1000; /* Makes sure it stays above other elements */
+}
+
+.add-payslip
+{
+  background-color:white;
+  width: 50px;
+  border-radius: 10px;
+  padding: 5px;
+  border: none;
+  font-size: 30px;
+  color:darkblue;
+  margin-top: 50px;
+}
+
+
+.option
+{
+  color:  #2c3e50; 
+}
+.payslip-container {
+  padding: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  margin: auto;
+  margin-top: 3%;
+}
+
+.payslip-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.payslip_data {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  height:400px; 
+}
+.payslip-1 {
+  width: 100%;
+  min-width: 1200px; 
+  border-collapse: collapse;
+}
+
+
+.payslip-1 th,
+.payslip-1 td {
+  padding: 8px 12px;
+  text-align: left;
+  white-space: nowrap; 
+}
+
+.payslip-1 thead {
+  background-color: #f0f0f0;
+}
 
 @media screen and (max-width: 768px) {
   .payslip_data {
@@ -439,7 +606,8 @@
   border: none;
   font-size: 30px;
   color:darkblue;
-  margin-top: 30px;
+ margin-bottom: 20px;
+ margin-right: 500px;
 }
 .add-payslip
 {
@@ -1119,3 +1287,4 @@
     display: flex;
     justify-content: center;
   }
+
