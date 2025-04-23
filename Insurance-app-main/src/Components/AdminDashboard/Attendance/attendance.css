@@ -2,6 +2,10 @@
   margin-top: 50px;
 }
 
+.attendance-header-container{
+  padding: 20px;
+}
+
 .admin-header-attendance {
   display: flex;
   align-items: center !important;
@@ -9,10 +13,8 @@
   justify-content: flex-end;
   margin: auto;
   padding: 15px;
-  border-bottom: 1px solid #aaaaaa;
-  border-top: 1px solid #aaaaaa;
-  /* background-color: rgba(128,128,128,0.1); */
-  background-color: #edeeee;
+  border-radius: 5px;
+  box-shadow: 0 1px 6px #d1d1d1;
   position: relative;
 }
 
@@ -34,9 +36,7 @@
 
 .attendance-header .upload-button5,
 .attendance-header .upload-button6 {
-    /* color: white; */
     color: #828181;
-    /* border: none; */
     padding: 3px 7px;
     border-radius: 5px;
     cursor: pointer;
@@ -45,11 +45,13 @@
 .upload-button5 {
     border:1px solid #27ae60;
     transition: transform 0.5s ease,color 0.5s ease;
+    background-color: white;
 }
 
 .upload-button6 {
     border:1px solid #e67e22;
     transition: transform 0.5s ease,color 0.5s ease;
+    background-color: white;
 }
 
 .upload-button5:hover{
@@ -187,4 +189,109 @@
 
 .attend-1 tr:hover {
   background-color: #f1f1f1;
+}
+
+@media only screen and (min-width:319px) and (max-width:500px) {
+  .attendance-header {
+      flex-wrap: wrap;
+      display: flex;
+      flex-direction: row;
+      gap: 2px;
+  }
+
+  .admin-slidebar {
+      display: none;
+  }
+
+  .admin-header-attendance {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 15px;
+      margin: auto;
+      width: 100% !important;
+  }
+
+  .attendance-header-container {
+      padding: 10px;
+  }
+
+  .attendance-header .upload-button5,
+  .attendance-header .upload-button6 {
+      padding: 0 5px;
+      border-radius: 5px;
+      cursor: pointer;
+  }
+
+  .upload-button5 .excel-icon-attendance {
+      color: #27ae60;
+      font-size: 14px;
+  }
+
+  .upload-button6 .upload-icon-attendance {
+      color: #e67e22;
+      font-size: 14px;
+  }
+
+  .file-label-attendance {
+      padding: 3px 7px;
+      font-size: 12px;
+  }
+
+  .tablerow-attendance {
+      font-size: 16px;
+      font-weight: bold;
+  }
+
+  .userdata-container {
+      margin-left: 0% !important;
+      height: 100vh;
+  }
+
+  .admin-head-search-attendance {
+      padding: 15px;
+  }
+
+  .users-count-attendance {
+      font-size: 15px;
+      position: absolute;
+      top: 23px;
+      left: 15px;
+  }
+
+  .searchbar-container-attendance {
+      display: none;
+  }
+
+  .searchbar-res-attendance {
+      display: block;
+      text-align: center;
+  }
+
+  .search-input-res-attendance::placeholder {
+      color: #828181;
+      font-size: bold;
+      position: absolute;
+      left: 15px;
+  }
+
+  .search-input-res-attendance:focus {
+      border-color: #828181;
+      outline: none;
+  }
+
+  .search-input-res-attendance {
+      width: 300px;
+      padding: 6px 0 6px 10px;
+      border: 1px solid #b1b1b1;
+      border-radius: 15px;
+  }
+
+  .attendance {
+      position: relative;
+      top: 15px;
+      padding: 0 5px 0 5px;
+      overflow-y: auto;
+      height: 60vh;
+  }
 }

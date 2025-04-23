@@ -65,8 +65,6 @@
 }
 
 .active{
-  /* border: 1px solid purple; */
-  /* background-color: rgba(128,0,128,0.1); */
   background-color: rgba(0,0,128,0.1);
   border: 1px solid navy;
 }
@@ -180,12 +178,6 @@
   transition: transform 0.5s ease-in-out;
 }
 
-/* .dashboard-menu:hover{
-  transform: scale(1.1);
-  background-color: rgba(0, 0, 0, 0.19);
-  border-radius: 10px;
-} */
-
 .toggledashboard-menu{
   background: none;
   border: none;
@@ -193,12 +185,6 @@
   position: relative;
   left: 20%;
 }
-
-/* .toggledashboard-menu:hover{
-  transform: rotate(180deg) scale(1.2);
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.19);
-} */
 
 .company-logo-head{
   position: absolute;
@@ -220,13 +206,12 @@
 }
 
 .userheader {
-  letter-spacing: 1px;
-  color: #000;
+  color: #2c3e50;
   font-size: 1.5rem;
   position: absolute;
-  left: 10px;
-  top: 25px;
-  font-weight: 700;
+  left: 60px;
+  top: 15px;
+  font-weight: bold;
   font-family: "Poppins", sans-serif;
   display: none;
 }
@@ -282,43 +267,57 @@
   left: 90%;
 }
 
+.attendance-icon{
+  position: relative;
+  left: 50%;
+}
+
+.list-style-users{
+  position: relative;
+  right: 20px;
+  padding: 12px 10px 12px 10px;
+}
+
+.user-list-toggle{
+  padding: 4px 3px 15px 3px;
+  position: relative;
+  left: 18px;
+}
 
 
 @media only screen and (min-width:320px) and (max-width:768px) {
   .sidebarmenu-btn{
     display: block;
+    background: none;
+    transition: width 0.5s ease, padding 0.5s ease;
+  }
+
+  .menu-btn{
+    color: #707070;
   }
 
   .user-profile .userlogout-btn{
     display: none;
   }
 
-  /* .user-profile .userheader{
-    position: absolute;
-    left: 1%;
-    font-size: 1rem;
-  } */
-
   .company-logo-head{
     display: block;
   }
   
   .userheader {
-    /* position: absolute;
-    left: 70px;
-    top: 15px; */
     display: none;
   }
 
   .userheader-res{
-    display: block;
-    letter-spacing: 1px;
-    color: goldenrod;
-    font-variant: small-caps;
-    font-size: 1.5rem;
     position: absolute;
-    left: 70px;
+    left: 60px;
     top: 15px;
+    font-family: "Poppins",sans-serif;
+    letter-spacing: 1px;
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: block;
   }
 
   .dashboard-menu{
@@ -333,15 +332,29 @@
   .toggle-profile .userlogout-btn{
     display: none;
   }
+
+  .userheader-toggle{
+    display: none;
+  }
+
+  .toggle-container{
+    margin-left: 0;
+  }
 }
 
 @media only screen and (min-width:501px) and (max-width:768px){
+
+  .toggle-profile .userlogout-btn{
+    display: block;
+  }
+
   .user-profile .userlogout-btn{
     display: block;
   }
+
   .userlogout-btn .logo {
-    font-size: 22px;
-    color: #023265;
+    font-size: 20px;
+    color: gray;
     cursor: pointer;
   }
   
@@ -350,6 +363,7 @@
     color: darkred;
     cursor: pointer;
   }
+
   .user-profile .username {
     font-size: 20px;
   }
@@ -361,17 +375,17 @@
 }
 
 @media only screen and (min-width:769px) and (max-width:1008px){
+
   .admin-slidebar {
-    background: rgb(239, 238, 238);
     height: 100vh;
-    width: 10%;
+    width: 8%;
     position: fixed;
     left: 0;
     top: 0;
   }
 
   .toggle-slidebar{
-    width: 10%;
+    width: 8%;
   }
 
   .userdata-head{
@@ -387,11 +401,11 @@
   }
 
   .user-profile {
-    width: 90%;
+    width: 92%;
   }
 
   .toggle-profile {
-    width: 90%;
+    width: 92%;
   }
 
   .user-list{
@@ -403,23 +417,35 @@
   }
 
   .userdata-container {
-    margin-left: 10%;
+    margin-left: 8%;
     height: 100vh;
   }
 
   .toggle-container {
-    margin-left: 10%;
+    margin-left: 8%;
     height: 100vh;
   }
 
-  .user-profile .userheader {
-    position: absolute;
-    left: 0;
-    letter-spacing: 2px;
-    color: goldenrod;
-    font-variant: small-caps;
-    font-size: 1.5rem;
+  .company-logo-head{
+    display: block;
   }
+
+  /* .userheader-res{
+    display: block;
+    position: absolute;
+    left: 60px;
+    top: 15px;
+    font-family: "Poppins",sans-serif;
+    letter-spacing: 1px;
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: 600;
+  } */
+
+  .user-profile .userheader{
+      display: block;
+  }
+
   .dashboard-menu{
     display: none;
   }
@@ -428,6 +454,29 @@
     position: absolute;
     top: 10%;
     left: 10%;
+  }
+
+  .list-style-users{
+    position: relative;
+    right: 30px;
+  }
+
+  .user-list{
+    border-bottom: none;
+  }
+
+  .sidebar-companyname-toggle{
+    display: none;
+  }
+
+  .sidebar-companyname{
+    display: none;
+  }
+
+  .user-list-toggle{
+    padding: 4px 3px 15px 3px;
+    position: relative;
+    left: 27px;
   }
 
 }
@@ -446,13 +495,15 @@
   }
 
   .admin-slidebar {
-    background: rgb(239, 238, 238);
+    padding: 5px;
     height: 100vh;
-    width: 15%;
+    width: 17%;
     position: fixed;
     left: 0;
     top: 0;
+    transition: width 0.5s ease, padding 0.5s ease;
   }
+
   .user-profile .userheader {
     position: absolute;
     left: 5px;
@@ -467,27 +518,88 @@
     height: 100vh;
   }
 
-  .userdata-head{
+  .sidebar-companyname{
     font-size: 20px;
+  }
+
+  .company-logo{
+    width: 35px;
+    height: 35px;
+  }
+
+  .settings-icon{
+    position: absolute;
+    left: 65%;
+  }
+
+  .attendance-icon{
+    position: absolute;
+    left: 78%;
+  }
+
+  .user-list-toggle{
+    padding: 4px 3px 15px 3px;
+    position: relative;
+    left: 27px;
+  }
+
+  .list-style-users{
+    position: relative;
+    right: 30px;
+  }
+
+  .user-list {
+    border-bottom: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
   }
 }
 
-@media only screen and (min-width:1024px) {
+@media only screen and (min-width:1024px) and (max-width:1440px) {
   .userdata-head{
     padding: 5px;
   }
 
   .toggle-slidebar{
-    width: 5%;
+    width: 7%;
   }
 
   .toggle-profile {
-    width: 95%;
+    width: 93%;
   }
 
   .toggle-container {
-    margin-left: 5%;
+    margin-left: 7%;
     height: 100vh;
+  }
+
+  .settings-icon{
+    position: absolute;
+    left: 64%;
+  }
+
+  .attendance-icon{
+    position: absolute;
+    left: 79%;
+  }
+
+  .list-style-users{
+    position: relative;
+    right: 30px;
+  }
+
+  .user-list {
+    /* position: absolute;
+    top: 10%;
+    left: 10%; */
+    border-bottom: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    /* right: 30px; */
   }
 }
 

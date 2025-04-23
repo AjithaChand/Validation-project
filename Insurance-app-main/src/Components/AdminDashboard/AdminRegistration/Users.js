@@ -133,33 +133,35 @@ const Users = () => {
   return (
     <div>
       <div className='users-container'>
-        <div className="admin-header-container-user">
+        <div className='header-container-users'>
+          <div className="admin-header-container-user">
 
-        <p className='tablerow-user'>User Details</p>
+            <p className='tablerow-user'>User Details</p>
 
-          <div className="admin-header-user">
-            <button className="upload-button1" onClick={handleDownload}>
-              <RiFileExcel2Line className='excel-icon-user'/>
-            </button>
-            <input
-              type="file"
-              id="fileInput"
-              className="file-input"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-            <label htmlFor="fileInput" className="file-label-user">
-              Choose File
-            </label>
-            {file && <span className="file-name">{file.name}</span>}
-            <button className="upload-button2" onClick={handleUpload}>
-              <IoCloudUploadOutline className='upload-icon-user'/>
-            </button>
+            <div className="admin-header-user">
+              <button className="upload-button1" onClick={handleDownload}>
+                <RiFileExcel2Line className='excel-icon-user' />
+              </button>
+              <input
+                type="file"
+                id="fileInput"
+                className="file-input"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+              <label htmlFor="fileInput" className="file-label-user">
+                Choose File
+              </label>
+              {file && <span className="file-name">{file.name}</span>}
+              <button className="upload-button2" onClick={handleUpload}>
+                <IoCloudUploadOutline className='upload-icon-user' />
+              </button>
+            </div>
           </div>
         </div>
 
         <div className='user-head-search'>
 
-        <p className='users-count'>All Users: {filterValue.length}</p>
+          <p className='users-total'>All Users: {filterValue.length}</p>
 
           <div className='user-searchbar'>
             <input
@@ -200,6 +202,7 @@ const Users = () => {
 
         {/* <div><p className='tablerow-user mt-3'>USER DETAILS</p></div> */}
 
+        <div className='users-table-container'>
         {loading ? (
           <div className='users-spinner'></div>
         ) : (
@@ -278,6 +281,7 @@ const Users = () => {
               </tbody>
             </table>
           </div>)}
+        </div>
       </div>
       <Userpage onClose={handleDialog} isVisible={dialogbox} />
       <UpdateDialog onClose={handleupdate} isVisible={showupdate} userid={selectid} useremail={selectemail} />

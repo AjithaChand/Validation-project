@@ -58,6 +58,7 @@
     right: 10px;
     font-size: 1.5rem;
     cursor: pointer;
+    z-index: 10000;
   }
 
   .sidebar-head{

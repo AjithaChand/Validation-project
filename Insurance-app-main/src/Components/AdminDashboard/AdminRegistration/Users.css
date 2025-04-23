@@ -2,6 +2,10 @@
     margin-top: 50px;
 }
 
+.header-container-users {
+    padding: 20px;
+}
+
 .users-btn {
     background-color: #023265;
     color: white;
@@ -21,7 +25,12 @@
     position: absolute;
     left: 2%;
     top: 25%;
-    font-family: "Poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
+}
+
+.table-container {
+    height: 70vh;
+    overflow-y: auto;
 }
 
 .users-table {
@@ -88,13 +97,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    justify-content:flex-end ;
+    justify-content: flex-end;
     margin: auto;
     padding: 15px;
-    border-bottom: 1px solid #aaaaaa;
-    border-top: 1px solid #aaaaaa;
-    background-color: #edeeee;
+    border-radius: 5px;
     position: relative;
+    box-shadow: 0 1px 6px #d1d1d1;
 }
 
 .admin-header-user {
@@ -107,46 +115,47 @@
 .admin-header-user .upload-button1,
 .admin-header-user .upload-button2 {
     color: #828181;
-    /* border: none; */
     padding: 3px 7px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .upload-button1 {
-    border:1px solid #27ae60;
-    transition: transform 0.5s ease,color 0.5s ease;
+    border: 1px solid #27ae60;
+    transition: transform 0.5s ease, color 0.5s ease;
+    background-color: white;
 }
 
 .upload-button2 {
-    border:1px solid #e67e22;
-    transition: transform 0.5s ease,color 0.5s ease;
+    border: 1px solid #e67e22;
+    transition: transform 0.5s ease, color 0.5s ease;
+    background-color: white;
 }
 
 .upload-button1:hover {
     transform: scale(1.05);
-    background-color: rgba(0,128,0,0.8);
+    background-color: rgba(0, 128, 0, 0.8);
 }
 
 .upload-button2:hover {
     transform: scale(1.05);
-    background-color: rgba(225,165,0,0.9);
+    background-color: rgba(225, 165, 0, 0.9);
 }
 
-.upload-button2:hover .upload-icon-user{
+.upload-button2:hover .upload-icon-user {
     color: whitesmoke;
 }
 
-.upload-button1:hover .excel-icon-user{
+.upload-button1:hover .excel-icon-user {
     color: whitesmoke;
 }
 
-.upload-button1 .excel-icon-user{
+.upload-button1 .excel-icon-user {
     color: #27ae60;
     font-size: 25px;
 }
 
-.upload-button2 .upload-icon-user{
+.upload-button2 .upload-icon-user {
     color: #e67e22;
     font-size: 25px;
 }
@@ -156,7 +165,7 @@
 }
 
 .file-label-user {
-    border: 1px solid  rgb(122, 122, 122);
+    border: 1px solid rgb(122, 122, 122);
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -165,14 +174,13 @@
 }
 
 .file-label-user:hover,
-.file-label-user:hover .label-name-user
-{
-    background-color: rgba(0,0,128,0.8);
+.file-label-user:hover .label-name-user {
+    background-color: rgba(0, 0, 128, 0.8);
     color: whitesmoke;
     border-color: navy;
 }
 
-.file-label-user:hover{
+.file-label-user:hover {
     transform: scale(1.05);
 }
 
@@ -192,11 +200,6 @@
     font-size: 25px;
     color: darkred;
     cursor: pointer;
-}
-
-.table-container {
-    height: 70vh;
-    overflow-y: auto;
 }
 
 ::-webkit-scrollbar {
@@ -267,7 +270,7 @@
     left: 15px;
 }
 
-.user-search-input:focus{
+.user-search-input:focus {
     border-color: #828181;
     outline: none;
 }
@@ -280,12 +283,19 @@
     margin: 20px auto;
 }
 
+.users-total{
+    position: absolute;
+    left: 2%;
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+}
+
 @media only screen and (min-width:319px) and (max-width:500px) {
     .admin-header-user {
         flex-wrap: wrap;
         display: flex;
         flex-direction: row;
-        gap: 5px;
+        gap: 2px;
     }
 
     .admin-slidebar {
@@ -295,45 +305,49 @@
     .admin-header-container-user {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
         padding: 10px;
         margin: auto;
         width: 100% !important;
-        margin-top: 15px;
     }
 
-    .upload-button1,
-    .upload-button2 {
-        color: white;
-        border: none;
-        padding: 2px 6px;
+    .header-container-users {
+        padding: 10px;
+    }
+
+    .admin-header-user .upload-button1,
+    .admin-header-user .upload-button2 {
+        padding: 0px 5px;
         border-radius: 5px;
         cursor: pointer;
     }
 
-    .upload-button1 svg,
-    .upload-button2 svg {
-        font-size: 20px;
+    .upload-button1 .excel-icon-user {
+        color: #27ae60;
+        font-size: 14px;
+    }
+    
+    .upload-button2 .upload-icon-user {
+        color: #e67e22;
+        font-size: 14px;
     }
 
     .userslabel-name {
         font-size: 12px;
     }
 
-    .file-label {
-        background-color: #0056b3;
-        padding: 2px 6px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-left: 10px;
+    .file-label-user {
+        padding: 3px 7px;
+        font-size: 12px;
     }
 
     .tablerow-user {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        font-size: 17px;
+        font-size: 16px;
         font-weight: bold;
+    }
+
+    .user-head-search {
+        padding: 15px;
     }
 
     .users-table {
@@ -349,16 +363,19 @@
         height: 100vh;
     }
 
-    .admin-header-container-user .createbutton {
-        font-size: 12px;
-        color: white;
-        cursor: pointer;
+    .users-total{
+        font-size: 15px;
+        position: absolute;
+        top: 23px;
+        left: 15px;
     }
 
-    .admin-header-container-user .user-addicon {
+    .users-btn .createbutton {
         font-size: 12px;
-        color: white;
-        cursor: pointer;
+    }
+
+    .users-btn .user-addicon {
+        font-size: 17px;
     }
 
     .users-table thead th {
@@ -389,11 +406,8 @@
     }
 
     .users-btn {
-        background-color: #023265;
-        color: white;
-        border-radius: 50px;
-        border: none;
-        padding: 5px;
+        border-radius: 12px;
+        padding: 5px 15px 9px 15px;
     }
 
     .users-table tbody tr:hover {
@@ -433,6 +447,34 @@
     .user-searchbar {
         display: none;
     }
+
+    .user-search-input-res {
+        width: 300px;
+        padding: 6px 0 6px 10px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+        transition: width 0.4s ease, opacity 0.4s ease;
+    }
+    
+    .user-search-input::placeholder {
+        color: #828181;
+        font-size: bold;
+        position: absolute;
+        left: 15px;
+    }
+    
+    .user-search-input:focus {
+        border-color: #828181;
+        outline: none;
+    }
+
+    .users-table-container{
+        position: relative;
+        top: 15px;
+        padding: 0 5px 0 5px;
+        overflow-y: auto;
+        height: 60vh;
+    }
 }
 
 @media only screen and (min-width:501px) and (max-width:768px) {
@@ -450,12 +492,15 @@
     .admin-header-container-user {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding: 10px;
+        justify-content: flex-end;
+        padding: 15px;
         margin: auto;
         width: 100% !important;
-        margin-top: 15px;
     }
+
+    /* .header-container-users {
+        padding: 15px;
+    } */
 
     .users-table {
         border-collapse: collapse;
@@ -470,13 +515,13 @@
         height: 100vh;
     }
 
-    .admin-header-container-user .createbutton {
+    .users-btn .createbutton {
         font-size: 14px;
         color: white;
         cursor: pointer;
     }
 
-    .admin-header-container-user .user-addicon {
+    .users-btn .user-addicon {
         font-size: 20px;
         color: white;
         cursor: pointer;
@@ -514,10 +559,7 @@
     }
 
     .tablerow-user {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        font-size: 17px;
+        font-size: 19px;
         font-weight: bold;
     }
 
@@ -555,10 +597,75 @@
         display: none;
     }
 
+    .users-total {
+        font-size: 17px;
+        position: absolute;
+        top: 25px;
+        left: 20px;
+    }
+
+    .user-search-input-res {
+        width: 300px;
+        padding: 6px 0 6px 10px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+        transition: width 0.4s ease, opacity 0.4s ease;
+    }
+    
+    .user-search-input::placeholder {
+        color: #828181;
+        font-size: bold;
+        position: absolute;
+        left: 15px;
+    }
+    
+    .user-search-input:focus {
+        border-color: #828181;
+        outline: none;
+    }
+
+    .user-head-search{
+        padding: 15px;
+    }
+
+    .admin-header-user .upload-button1,
+    .admin-header-user .upload-button2 {
+        padding: 2px 9px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .upload-button1 .excel-icon-user {
+        color: #27ae60;
+        font-size: 18px;
+    }
+    
+    .upload-button2 .upload-icon-user {
+        color: #e67e22;
+        font-size: 18px;
+    }
+
+    .users-table-container{
+        position: relative;
+        top: 15px;
+        padding: 0 5px 0 5px;
+        overflow-y: auto;
+        height: 55vh;
+    }
+
+    .file-label-user{
+        padding: 3px 7px;
+        font-size: 15px;
+    }
+
 }
 
 @media only screen and (max-width:768px) {
     .admin-slidebar {
+        display: none;
+    }
+
+    .toggle-slidebar {
         display: none;
     }
 }
@@ -576,12 +683,31 @@
     }
 
     .user-searchbar-res {
-        display: block;
-        text-align: center;
+        display: none;
     }
 
-    .user-searchbar {
-        display: none;
+    .user-head-search{
+        padding: 15px;
+    }
+
+    .users-btn {
+        border-radius: 12px;
+        padding: 5px 13px 5px 13px;
+    }
+
+    .users-total {
+        font-size: 15px;
+        position: absolute;
+        top: 23px;
+        left: 20px;
+    }
+
+    .user-search-input-res{
+        width: 300px;
+        padding: 4px 0 4px 8px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+        transition: width 0.4s ease, opacity 0.4s ease;
     }
 }
 

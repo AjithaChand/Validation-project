@@ -2,6 +2,10 @@
     margin-top: 50px;
 }
 
+.header-container {
+    padding: 20px;
+}
+
 .admin-btn {
     background-color: #023265;
     color: white;
@@ -60,10 +64,8 @@
     justify-content: flex-end;
     margin: auto;
     padding: 15px;
-    border-bottom: 1px solid #aaaaaa;
-    border-top: 1px solid #aaaaaa;
-    /* background-color: rgba(128,128,128,0.1); */
-    background-color: #edeeee;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px #d1d1d1;
     position: relative;
 }
 
@@ -104,9 +106,6 @@
 
 .admin-header .upload-button3,
 .admin-header .upload-button4 {
-    /* color: white; */
-    color: #828181;
-    /* border: none; */
     padding: 3px 7px;
     border-radius: 5px;
     cursor: pointer;
@@ -115,11 +114,13 @@
 .upload-button3 {
     border: 1px solid #27ae60;
     transition: transform 0.5s ease, color 0.5s ease;
+    background-color: white;
 }
 
 .upload-button4 {
     border: 1px solid #e67e22;
     transition: transform 0.5s ease, color 0.5s ease;
+    background-color: white;
 }
 
 .upload-button3:hover {
@@ -277,13 +278,6 @@
     transition: width 0.4s ease, opacity 0.4s ease;
 }
 
-.search-input-res {
-    width: 250px;
-    padding: 5px 0 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 50px;
-}
-
 .searchbar-res {
     display: none;
 }
@@ -300,16 +294,16 @@
 
 .users-details {
     padding: 20px;
-    font-family: "Poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .users-details-container {
     transition: transform 0.5s ease;
+    background-color: rgba(223, 221, 221, 0.1);
 }
 
 .users-details-container:hover {
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
-    transform: translateY(-5px);
+    box-shadow: 0 1px 7px #d1d1d1;
 }
 
 .file-head {
@@ -331,22 +325,23 @@
     object-fit: cover;
 }
 
-.profile-admin{
+.profile-admin {
     display: flex;
     gap: 15px;
 }
 
-.profile-data{
+.profile-data {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.profile-email{
+.profile-email {
     font-weight: bold;
 }
 
-.profile-date, .profile-policy{
+.profile-date,
+.profile-policy {
     color: #5b5b5b;
     font-size: 15px;
 }
@@ -366,52 +361,41 @@
     .admin-header-container {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding: 10px;
+        justify-content: flex-end;
+        padding: 15px;
         margin: auto;
         width: 100% !important;
-        margin-top: 15px;
+    }
+
+    .header-container {
+        padding: 10px;
     }
 
     .admin-header .upload-button3,
     .admin-header .upload-button4 {
-        color: white;
-        border: none;
-        padding: 2px 6px;
+        padding: 0 5px;
         border-radius: 5px;
         cursor: pointer;
     }
 
-    .upload-button3 svg,
-    .upload-button4 svg {
-        font-size: 20px;
+    .upload-button3 .excel-icon {
+        color: #27ae60;
+        font-size: 14px;
     }
 
-    .file-label {
-        background-color: #0056b3;
-        padding: 2px 6px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-left: 10px;
+    .upload-button4 .upload-icon {
+        color: #e67e22;
+        font-size: 14px;
     }
 
-    .label-name {
+    .file-label-admin {
+        padding: 3px 7px;
         font-size: 12px;
     }
 
     .tablerow-admin {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        font-size: 17px;
+        font-size: 16px;
         font-weight: bold;
-    }
-
-    .admin-table {
-        border-collapse: collapse;
-        margin: auto;
-        cursor: pointer;
-        box-shadow: 1px 7px 15px gainsboro;
     }
 
     .userdata-container {
@@ -419,56 +403,28 @@
         height: 100vh;
     }
 
-    .admin-header-container .addbutton {
+    .admin-head-search {
+        padding: 15px;
+    }
+
+    .users-count {
+        font-size: 15px;
+        position: absolute;
+        top: 23px;
+        left: 15px;
+    }
+
+    .admin-btn {
+        border-radius: 12px;
+        padding: 5px 15px 9px 15px;
+    }
+
+    .addbutton {
         font-size: 12px;
-        color: white;
-        cursor: pointer;
     }
 
-    .admin-header-container .addicon {
-        font-size: 18px;
-        color: white;
-        cursor: pointer;
-    }
-
-    .admin-table thead th {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
-
-    .admin-table td {
-        font-size: 14px;
-        font-weight: 200;
-        font-family: "Poppins", sans-serif;
-    }
-
-    .admin-table th {
-        padding: 8px;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        background-color: #023265;
-        color: white;
-        border-bottom: 1px solid gainsboro;
-    }
-
-    .admin-table tbody td {
-        padding: 5px 0 5px 0;
-        border-bottom: 1px solid black;
-    }
-
-    .admin-table tbody tr:hover {
-        background: rgb(221, 220, 220);
-    }
-
-    .admintable-container {
-        max-height: 70vh;
-        height: fit-content;
-        width: 90%;
-        border: 1px solid black;
-        margin: auto;
-        overflow-y: auto;
+    .addbutton .addicon {
+        font-size: 17px;
     }
 
     .adminbutton {
@@ -481,14 +437,6 @@
         font-size: 20px;
         color: green;
         cursor: pointer;
-    }
-
-    .admin-btn {
-        background-color: #023265;
-        color: white;
-        border-radius: 50px;
-        padding: 10px;
-        border: none;
     }
 
     .delete-button .deleteicon {
@@ -515,6 +463,33 @@
         display: block;
         text-align: center;
     }
+
+    .search-input-res::placeholder {
+        color: #828181;
+        font-size: bold;
+        position: absolute;
+        left: 15px;
+    }
+
+    .search-input-res:focus {
+        border-color: #828181;
+        outline: none;
+    }
+
+    .search-input-res {
+        width: 300px;
+        padding: 6px 0 6px 10px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+    }
+
+    .table-container-admin {
+        position: relative;
+        top: 15px;
+        padding: 0 5px 0 5px;
+        overflow-y: auto;
+        height: 60vh;
+    }
 }
 
 @media only screen and (min-width:501px) and (max-width:768px) {
@@ -532,19 +507,14 @@
     .admin-header-container {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding: 10px;
+        justify-content: flex-end;
+        padding: 15px;
         margin: auto;
         width: 100% !important;
-        margin-top: 15px;
     }
 
-    .admin-table {
-        border-collapse: collapse;
-        margin: auto;
-        width: 100%;
-        cursor: pointer;
-        box-shadow: 1px 7px 15px gainsboro;
+    .header-container {
+        padding: 15px;
     }
 
     .userdata-container {
@@ -552,64 +522,21 @@
         height: 100vh;
     }
 
-    .admin-header-container .addbutton {
+    .addbutton {
         font-size: 14px;
         color: white;
         cursor: pointer;
     }
 
-    .admin-header-container .addicon {
+    .addbutton .addicon {
         font-size: 20px;
         color: white;
         cursor: pointer;
     }
 
-    .admin-table thead th {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
-
-    .admin-table td {
-        font-size: 14px;
-        font-weight: 200;
-        font-family: "Poppins", sans-serif;
-    }
-
-    .admin-table th {
-        padding: 8px;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        background-color: #023265;
-        color: white;
-        border-bottom: 1px solid gainsboro;
-    }
-
-    .admin-table tbody td {
-        padding: 5px 0 5px 0;
-        border-bottom: 1px solid black;
-    }
-
-    .admin-table tbody tr:hover {
-        background: rgb(221, 220, 220);
-    }
-
     .tablerow-admin {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        font-size: 17px;
+        font-size: 19px;
         font-weight: bold;
-    }
-
-    .admintable-container {
-        height: fit-content;
-        max-height: 70vh;
-        border: 1px solid black;
-        width: 90%;
-        margin: auto;
-        overflow-y: auto;
     }
 
     .adminbutton {
@@ -640,14 +567,102 @@
         margin: auto;
     }
 
-    .searchbar {
+    .searchbar-container {
         display: none;
+    }
+
+    .users-count {
+        font-size: 17px;
+        position: absolute;
+        top: 25px;
+        left: 20px;
     }
 
     .searchbar-res {
         display: block;
         text-align: center;
     }
+
+    .search-input-res::placeholder {
+        color: #828181;
+        font-size: bold;
+        position: absolute;
+        left: 15px;
+    }
+
+    .search-input-res:focus {
+        border-color: #828181;
+        outline: none;
+    }
+
+    .search-input-res {
+        width: 300px;
+        padding: 6px 0 6px 10px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+        transition: width 0.4s ease, opacity 0.4s ease;
+    }
+
+    .admin-head-search {
+        padding: 15px;
+    }
+
+    .admin-header .upload-button3,
+    .admin-header .upload-button4 {
+        padding: 2px 9px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .upload-button3 .excel-icon {
+        color: #27ae60;
+        font-size: 18px;
+    }
+
+    .upload-button4 .upload-icon {
+        color: #e67e22;
+        font-size: 18px;
+    }
+
+    .file-label-admin {
+        padding: 3px 7px;
+        font-size: 15px;
+    }
+
+    .table-container-admin {
+        position: relative;
+        top: 15px;
+        padding: 0 5px 0 5px;
+        overflow-y: auto;
+        height: 55vh;
+    }
+
+}
+
+@media only screen and (min-width:576px) and (max-width:768px) {
+
+    .profile-email {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .profile-date,
+    .profile-policy {
+        color: #5b5b5b;
+        font-size: 13px;
+    }
+
+    .users-details-container{
+        overflow-x: auto;
+    }
+
+    .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
 }
 
 @media only screen and (max-width:768px) {
@@ -668,17 +683,59 @@
 }
 
 @media only screen and (min-width:769px) and (max-width:1024px) {
-    .admin-table tbody td {
-        padding: 10px;
-    }
 
-    .searchbar {
+    .searchbar-res {
         display: none;
     }
 
-    .searchbar-res {
-        display: block;
-        text-align: center;
+    .admin-head-search {
+        padding: 15px;
+    }
+
+    .users-count {
+        font-size: 15px;
+        position: absolute;
+        top: 23px;
+        left: 20px;
+    }
+
+    .admin-btn {
+        border-radius: 12px;
+        padding: 5px 13px 5px 13px;
+    }
+
+    .search-input-res {
+        width: 300px;
+        padding: 4px 0 4px 8px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+        transition: width 0.4s ease, opacity 0.4s ease;
+    }
+
+}
+
+@media only screen and (min-width:769px) and (max-width:992px) {
+
+    .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .profile-date,
+    .profile-policy {
+        color: #5b5b5b;
+        font-size: 13px;
+    }
+
+    .profile-email {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .users-details-container{
+        overflow-x: auto;
     }
 }
 
@@ -689,20 +746,6 @@
         justify-content: center;
         font-size: 17px;
         font-weight: bold;
-    }
-
-    .admin-table th {
-        padding: 8px;
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        background-color: #023265;
-        color: white;
-        border-bottom: 1px solid gainsboro;
-    }
-
-    .admin-table tbody td {
-        padding: 4px;
     }
 
     .adminbutton .editicon {
@@ -725,14 +768,10 @@
 
 }
 
-@media only screen and (min-width:1025px) and (max-width:1113px) {
-    .admin-table td {
-        font-size: 14px;
-        font-weight: 200;
-        font-family: "Poppins", sans-serif;
+@media only screen and (min-width:1009px) and (max-width:1440px) {
+
+    .users-details-container{
+        overflow-x: auto;
     }
 
-    .admin-table tbody td {
-        padding: 3px;
-    }
 }

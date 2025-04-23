@@ -10,6 +10,7 @@ import { IoIosSettings } from "react-icons/io";
 import { IoSettingsSharp } from "react-icons/io5";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { FaRegUser } from "react-icons/fa";
+import { LuNotebookPen } from "react-icons/lu";
 
 const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
 
@@ -23,7 +24,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
         setSettings(!settings)
     }
 
-    const handleClick = (e)=>{
+    const handleClick = (e) => {
         e.stopPropagation()
     }
 
@@ -32,7 +33,11 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
     return (
         <div className='sidebar-overlay' onClick={onCloseClick}>
             <div className="admin-sidebar" onClick={handleClick}>
-                <button className='closebtn' onClick={onCloseClick}>&times;</button>
+                <button className='closebtn' onClick={(e) => {
+                    e.stopPropagation();
+                    onCloseClick()
+                }}>
+                    &times;</button>
                 {user === "admin" ? (
                     <div className='sidebar-head'>
                         <h4>Admin Panel</h4>
@@ -54,12 +59,15 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                     <span className=''> Dashboard </span>
                                 </div>
                             </li>
-                            {/* <li className='sidebar-list'>
-                                <div className='sidebar-icons' onClick={() => navigate('/dashboard/users')}>
-                                    <AccountCircleIcon className='' />
-                                    <span className=''> Users</span>
+                            <li className='sidebar-list'>
+                                <div className='sidebar-icons' onClick={() => {
+                                    navigate('/dashboard/register');
+                                    onCloseClick()
+                                }}>
+                                    <LuNotebookPen className='' />
+                                    <span className=''> Register </span>
                                 </div>
-                            </li> */}
+                            </li>
                             <li className='sidebar-list'>
                                 <div className='sidebar-icons' onClick={() => {
                                     navigate('/dashboard/payslip');
@@ -108,7 +116,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                 </ul>
                             )}
                             <li className='sidebar-list-logout'>
-                                <div onClick={()=>{
+                                <div onClick={() => {
                                     onClose();
                                     onCloseClick()
                                 }} className='sidebar-icons'>
