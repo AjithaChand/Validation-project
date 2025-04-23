@@ -111,7 +111,7 @@ const Adminregister = ({ close }) => {
         console.log('Demo output Values', values);
         console.log("Checking address and phone_number" ,values.address,values.phone_number)
         console.log('Demo output permission', permission);
-        console.log('Demo output Branches', payload.station);
+        console.log('Demo output Branches', payload);
 
 
         if (values.role === 'select' || values.role === '') {

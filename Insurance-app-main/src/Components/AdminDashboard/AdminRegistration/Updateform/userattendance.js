@@ -393,7 +393,9 @@ const UserAttendance = () => {
   
     const officeLat = datas[0]?.latitude;
     const officeLon = datas[0]?.longitude;
-  
+    
+    console.log("Office location", officeLat, officeLon);
+    
     if (!officeLat || !officeLon) {
       toast.error("Office location data not available");
       return false;
@@ -552,7 +554,8 @@ const UserAttendance = () => {
         {userLocation && (
           <>
             <p className="location-status">
-              Your coordinates: {userLocation.latitude.toFixed(6)}, {userLocation.longitude.toFixed(6)}
+              Your coordinates: {userLocation.latitude.toFixed(6)}, {userLocation.longitude.toFixed(6)} 
+              Office coordinates: {datas[0]?.latitude}, {datas[0]?.longitude}
             </p>
             <p className="location-name"> <b>Current location:</b> {locationName}</p>
           </>

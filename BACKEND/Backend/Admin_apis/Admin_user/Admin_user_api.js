@@ -150,8 +150,6 @@ app.post("/admin/register", verifyToken, (req, res) => {
                                 branch_id,
                             ];
 
-                            console.log("Payslip insert values:", values);
-                            console.log("checking adress and phone" ,values.phone_number)
 
                             const insertQuery = `
                             INSERT INTO payslip 
@@ -187,7 +185,6 @@ app.get('/getuser', verifyToken, (req, res) => {
     db.query(sql, (err, result) => {
         if (err)
             return res.status(500).json({ error: err.message })
-        console.log(result);
 
         return res.json(result)
     })

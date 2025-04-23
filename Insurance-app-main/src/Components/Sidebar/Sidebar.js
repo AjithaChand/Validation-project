@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdDashboard } from "react-icons/md";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
@@ -11,12 +11,18 @@ import { IoSettingsSharp } from "react-icons/io5";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { FaRegUser } from "react-icons/fa";
 import { LuNotebookPen } from "react-icons/lu";
+import { apiurl } from '../../url';
+import axios from 'axios';
+import { Fa500Px } from "react-icons/fa";
 
 const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
 
     const navigate = useNavigate()
 
     const user = localStorage.getItem('role')
+    const person_code = localStorage.getItem("person_code")
+
+    const [getPermission, setGetPermission] = useState({})
 
     const [settings, setSettings] = useState(false)
 
@@ -27,6 +33,18 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
     const handleClick = (e) => {
         e.stopPropagation()
     }
+
+    useEffect(() => {
+        if (person_code) {
+    
+          axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
+    
+            .then(res => setGetPermission(res.data.info))
+            .catch(err => console.log(err.message))
+        }
+    
+      }, [person_code])
+      console.log(getPermission, "values");
 
     if (!isVisible) return null;
 
@@ -160,12 +178,20 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                     <span className=''> Attendance</span>
                                 </div>
                             </li>
-                            <li className='sidebar-list'>
+                            {/* <li className='sidebar-list'>
                                 <div className='sidebar-icons' onClick={() => navigate('/dashboard/attendance')}>
                                     <FaCalendarCheck className='' />
                                     <span className=''>User Attendance</span>
                                 </div>
-                            </li>
+                            </li> */}
+                            {getPermission[4]?.can_read === 1 && (
+                                              <li className=" list-style ">
+                                                <div className='userdata-btn' onClick={() => navigate('/dashboard/userattendance')}>
+                                                  <Fa500Px  />
+                                                  <span className='dashboard-icon'>Userattendance</span>
+                                                </div>
+                                              </li>
+                                            )}
                             <li className='sidebar-list'>
                                 <div className='sidebar-icons' onClick={() => navigate('/dashboard/settings')}>
                                     <IoIosSettings className='' />
