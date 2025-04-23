@@ -11,20 +11,20 @@ app.use(express.json());
 
 const db = require('../db');
 
-// dashboard page 
-app.get("/download-excel", (req, res) => {
+app.get("/download-excel", async (req, res) => {
     const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details";
 
-    db.query(query, async (err, results) => {
-        if (err) {
-            console.error("Database Query Error:", err);
-            return res.status(500).json({ error: "Database Query Failed" });
-        }
+    try {
+        const results = await new Promise((resolve, reject) => {
+            db.query(query, (err, results) => {
+                if (err) reject(err);
+                else resolve(results);
+            });
+        });
 
         const workbook = new ExcelJS.Workbook();
         const worksheet = workbook.addWorksheet("Policy");
 
-        // Add headers with styling
         worksheet.columns = [
             { header: 'Email', key: 'email', width: 25 },
             { header: 'Start Date', key: 'startdate', width: 15 },
@@ -34,16 +34,13 @@ app.get("/download-excel", (req, res) => {
             { header: 'Content', key: 'content', width: 40 }
         ];
 
-        // Style for headers
         worksheet.getRow(1).eachCell((cell) => {
             cell.fill = {
                 type: 'pattern',
                 pattern: 'solid',
-                fgColor: { argb: 'FFD3D3D3' } // Light gray background
+                fgColor: { argb: 'FFD3D3D3' } 
             };
-            cell.font = {
-                bold: true
-            };
+            cell.font = { bold: true };
             cell.border = {
                 top: { style: 'thin' },
                 left: { style: 'thin' },
@@ -52,21 +49,29 @@ app.get("/download-excel", (req, res) => {
             };
         });
 
-        // Add data rows
         results.forEach(row => {
             worksheet.addRow(row);
         });
 
-        // Format date columns
+    
         worksheet.eachRow((row, rowNumber) => {
-            if (rowNumber > 1) { // Skip header row
+            if (rowNumber > 1) { 
                 ['startdate', 'enddate'].forEach(col => {
                     const cell = row.getCell(col);
-                    if (cell.value) {
+                    if (cell.value instanceof Date) {
                         cell.numFmt = 'yyyy-mm-dd';
                     }
                 });
             }
+        });
+
+        worksheet.columns.forEach(column => {
+            let maxLength = 0;
+            column.eachCell({ includeEmpty: true }, (cell) => {
+                const cellLength = cell.value ? cell.value.toString().length : 0;
+                if (cellLength > maxLength) maxLength = cellLength;
+            });
+            column.width = Math.max(column.width || 0, maxLength + 2);
         });
 
         const dir = "./downloads";
@@ -74,16 +79,20 @@ app.get("/download-excel", (req, res) => {
             fs.mkdirSync(dir, { recursive: true });
         }
 
-        const filePath = `${dir}/policy.xlsx`;
+        const filePath = path.join(dir, "policy.xlsx");
         await workbook.xlsx.writeFile(filePath);
-        
-        res.download(filePath, "policy.xlsx", (err) => {
-            if (err) console.error("File Download Error:", err);
-            fs.unlinkSync(filePath);
-        });
-    });
-});
 
+        res.download(filePath, "policy.xlsx", (err) => {
+            if (err) console.error("Download Error:", err);
+            try { fs.unlinkSync(filePath); } 
+            catch (err) { console.error("File Deletion Error:", err); }
+        });
+
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).json({ error: "Failed to generate Excel file" });
+    }
+});
 // user page
 app.get("/download-excel-for-user-data", (req, res) => {
     const query = `SELECT 
@@ -116,7 +125,7 @@ app.get("/download-excel-for-user-data", (req, res) => {
             { header: 'Username', key: 'username', width: 20 },
             { header: 'Email', key: 'email', width: 25 },
             { header: 'Password', key: 'password', width: 20 },
-            { header: 'Joining Date', key: 'joining_date', width: 25 },  // Increase width to 25
+            { header: 'Joining Date', key: 'joining_date', width: 25 }, 
             { header: 'Bank Details', key: 'bank_details', width: 20 },
             { header: 'PF Number', key: 'pf_number', width: 15 },
             { header: 'ESI Number', key: 'esi_number', width: 15 },
@@ -146,21 +155,18 @@ app.get("/download-excel-for-user-data", (req, res) => {
             };
         });
 
-        // Add data rows
         results.forEach(row => {
-            // Convert the joining_date to a Date object if it's not already
             if (row.joining_date) {
-                row.joining_date = new Date(row.joining_date).toLocaleDateString('en-GB'); // or 'en-US' based on your preferred format
+                row.joining_date = new Date(row.joining_date).toLocaleDateString('en-GB'); 
             }
             worksheet.addRow(row);
         });
         
-        // Format date column (if required, not needed with toLocaleDateString)
         worksheet.eachRow((row, rowNumber) => {
-            if (rowNumber > 1) { // Skip header row
+            if (rowNumber > 1) { 
                 const dateCell = row.getCell('joining_date');
                 if (dateCell.value) {
-                    dateCell.numFmt = 'yyyy-mm-dd'; // Format as date
+                    dateCell.numFmt = 'yyyy-mm-dd';
                 }
             }
         });
@@ -179,44 +185,41 @@ app.get("/download-excel-for-user-data", (req, res) => {
     });
 });
 
-// attendance page
-app.get("/download-excel-for-attendance-data", (req, res) => {
+app.get("/download-excel-for-attendance-data", async (req, res) => {
     const query = "SELECT emp_name, emp_email, office_name, total_salary, pf_number, esi_number, pf_amount, esi_amount, net_amount, leave_days, revised_salary FROM payslip";
 
-    db.query(query, async (err, results) => {
-        if (err) {
-            console.error("Database Query Error:", err);
-            return res.status(500).json({ error: "Database Query Failed" });
-        }
+    try {
+        const results = await new Promise((resolve, reject) => {
+            db.query(query, (err, results) => {
+                if (err) reject(err);
+                else resolve(results);
+            });
+        });
 
         const workbook = new ExcelJS.Workbook();
         const worksheet = workbook.addWorksheet("Payslip");
 
-        // Add headers with styling
         worksheet.columns = [
             { header: 'Employee Name', key: 'emp_name', width: 20 },
             { header: 'Employee Email', key: 'emp_email', width: 25 },
             { header: 'Office Name', key: 'office_name', width: 20 },
-            { header: 'Total Salary', key: 'total_salary', width: 15 },
+            { header: 'Total Salary', key: 'total_salary', width: 15, style: { numFmt: '#,##0.00' } },
             { header: 'PF Number', key: 'pf_number', width: 15 },
             { header: 'ESI Number', key: 'esi_number', width: 15 },
-            { header: 'PF Amount', key: 'pf_amount', width: 15 },
-            { header: 'ESI Amount', key: 'esi_amount', width: 15 },
-            { header: 'Net Amount', key: 'net_amount', width: 15 },
-            { header: 'Leave Days', key: 'leave_days', width: 15 },
-            { header: 'Revised Salary', key: 'revised_salary', width: 15 }
+            { header: 'PF Amount', key: 'pf_amount', width: 15, style: { numFmt: '#,##0.00' } },
+            { header: 'ESI Amount', key: 'esi_amount', width: 15, style: { numFmt: '#,##0.00' } },
+            { header: 'Net Amount', key: 'net_amount', width: 15, style: { numFmt: '#,##0.00' } },
+            { header: 'Leave Days', key: 'leave_days', width: 15, style: { numFmt: '0' } },
+            { header: 'Revised Salary', key: 'revised_salary', width: 15, style: { numFmt: '#,##0.00' } }
         ];
 
-        // Style for headers
         worksheet.getRow(1).eachCell((cell) => {
             cell.fill = {
                 type: 'pattern',
                 pattern: 'solid',
-                fgColor: { argb: 'FFD3D3D3' } // Light gray background
+                fgColor: { argb: 'FFD3D3D3' } 
             };
-            cell.font = {
-                bold: true
-            };
+            cell.font = { bold: true };
             cell.border = {
                 top: { style: 'thin' },
                 left: { style: 'thin' },
@@ -225,9 +228,24 @@ app.get("/download-excel-for-attendance-data", (req, res) => {
             };
         });
 
-        // Add data rows
         results.forEach(row => {
-            worksheet.addRow(row);
+            const newRow = worksheet.addRow(row);
+            
+            [4, 7, 8, 9, 10, 11].forEach(colNumber => {
+                const cell = newRow.getCell(colNumber);
+                if (cell.value !== null && cell.value !== undefined) {
+                    cell.value = Number(cell.value);
+                }
+            });
+        });
+
+        worksheet.columns.forEach(column => {
+            let maxLength = 0;
+            column.eachCell({ includeEmpty: true }, (cell) => {
+                const cellLength = cell.value ? cell.value.toString().length : 0;
+                if (cellLength > maxLength) maxLength = cellLength;
+            });
+            column.width = Math.max(column.width || 0, maxLength + 2);
         });
 
         const dir = "./downloads";
@@ -240,114 +258,120 @@ app.get("/download-excel-for-attendance-data", (req, res) => {
         
         res.download(filePath, "payslip_data.xlsx", (err) => {
             if (err) console.error("File Download Error:", err);
-            fs.unlinkSync(filePath);
+            try { fs.unlinkSync(filePath); } 
+            catch (err) { console.error("File Deletion Error:", err); }
         });
-    });
+
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).json({ error: "Failed to generate Excel file" });
+    }
 });
-
-// [Keep all your existing POST routes and other code the same as in your original file]
-// ... (rest of your code remains unchanged)
-
-
 
 //Upload the excel sheet in dashboard page
 
 const upload = multer({ dest: "uploads/" });
 
-app.post("/upload-excel", upload.single("file"), (req, res) => {
+app.post("/upload-excel", upload.single("file"), async (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const filePath = req.file.path;
-    const workbook = xlsx.readFile(filePath);
-    const sheetName = workbook.SheetNames[0];
-    const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+    try {
+        const filePath = req.file.path;
+        const workbook = new ExcelJS.Workbook();
+        await workbook.xlsx.readFile(filePath);
+        
+        const worksheet = workbook.worksheets[0];
+        const values = [];
 
-    const parseExcelDate = (excelDate) => {
-        if (!excelDate) return null; 
-        if (typeof excelDate === "number") {
-            return new Date((excelDate - 25569) * 86400000).toISOString().split("T")[0];
+        worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+            if (rowNumber > 1) { // Skip header row
+                values.push([
+                    row.getCell(1).value?.toString() || null,
+                    row.getCell(2).value instanceof Date ? 
+                        row.getCell(2).value.toISOString().split('T')[0] : 
+                        (row.getCell(2).value?.toString() || null), 
+                    row.getCell(3).value instanceof Date ? 
+                        row.getCell(3).value.toISOString().split('T')[0] : 
+                        (row.getCell(3).value?.toString() || null), 
+                    row.getCell(4).value?.toString() || null 
+                ]);
+            }
+        });
+
+        if (values.length === 0) {
+            fs.unlinkSync(filePath);
+            return res.status(400).json({ error: "No valid data in the file" });
         }
-        return new Date(excelDate).toISOString().split("T")[0];
-    };
 
-    const values = sheetData.map((row) => [
-        row.email,                       
-        parseExcelDate(row.startdate),  
-        parseExcelDate(row.enddate),    
-        row.policy                       
-    ]);
-    
-    if (values.length === 0) {
+        const query = `
+            INSERT INTO customer_details (email, startdate, enddate, policy)
+            VALUES ? 
+            ON DUPLICATE KEY UPDATE 
+            startdate = VALUES(startdate), 
+            enddate = VALUES(enddate), 
+            policy = VALUES(policy)`;
+
+        await db.query(query, [values]);
         fs.unlinkSync(filePath);
-        return res.status(400).json({ error: "No valid data in the file" });
-    }
-
-    console.log("Parsed values before DB insert:", values); 
-
-    const query = `
-        INSERT INTO customer_details (email, startdate, enddate, policy)
-        VALUES ? 
-        ON DUPLICATE KEY UPDATE 
-        startdate = VALUES(startdate), 
-        enddate = VALUES(enddate), 
-        policy = VALUES(policy)`;
-
-    db.query(query, [values], (err) => {
-        fs.unlinkSync(filePath); 
-        if (err) {
-            console.error("Database Insert/Update Error:", err);
-            return res.status(500).json({ error: "Database Operation Failed" });
-        }
         res.json({ success: true, message: "Data Inserted/Updated Successfully" });
-    });
-});
-  
+
+    } catch (err) {
+        if (req.file?.path) fs.unlinkSync(req.file.path);
+        console.error("Error:", err);
+        res.status(500).json({ error: "Database Operation Failed" });
+    }
+});  
 
 //Upload the excel sheet in user page
-
-app.post("/upload-excel-for-userdata", upload.single("file"), (req, res) => {
+app.post("/upload-excel-for-userdata", upload.single("file"), async (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const filePath = req.file.path;
-    const workbook = xlsx.readFile(filePath);
-    const sheetName = workbook.SheetNames[0];
-    const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+    try {
+        const filePath = req.file.path;
+        const workbook = new ExcelJS.Workbook();
+        await workbook.xlsx.readFile(filePath);
+        
+        const worksheet = workbook.worksheets[0];
+        const userValues = [];
+        const payslipValues = [];
 
-    const userValues = sheetData.map((row) => [
-        row.username,
-        row.email,
-        row.password
-    ]);
+        worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+            if (rowNumber > 1) {
+                userValues.push([
+                    row.getCell(1).value?.toString() || null, 
+                    row.getCell(2).value?.toString() || null, 
+                    row.getCell(3).value?.toString() || null 
+                ]);
 
-    const userQuery = `
-        INSERT INTO users (username, email, password)
-        VALUES ? 
-        ON DUPLICATE KEY UPDATE 
-            username = VALUES(username),
-            email = VALUES(email), 
-            password = VALUES(password)
-    `;
+                payslipValues.push([
+                    row.getCell(2).value?.toString() || null, 
+                    row.getCell(4).value instanceof Date ? 
+                        row.getCell(4).value.toISOString().split('T')[0] : 
+                        (row.getCell(4).value?.toString() || null), 
+                    row.getCell(5).value?.toString() || null, 
+                    row.getCell(6).value?.toString() || null, 
+                    row.getCell(7).value?.toString() || null, 
+                    row.getCell(8).value ? Number(row.getCell(8).value) : null 
+                ]);
+            }
+        });
 
-    db.query(userQuery, [userValues], (userErr, userResult) => {
-        if (userErr) {
-            fs.unlinkSync(filePath);
-            console.error("User Insert Error:", userErr);
-            return res.status(500).json({ error: "User Insert/Update Failed" });
-        }
+        // Insert user data
+        const userQuery = `
+            INSERT INTO users (username, email, password)
+            VALUES ? 
+            ON DUPLICATE KEY UPDATE 
+                username = VALUES(username),
+                email = VALUES(email), 
+                password = VALUES(password)`;
+        
+        await db.query(userQuery, [userValues]);
 
-        const payslipValues = sheetData.map((row) => [
-            row.email,              // emp_email
-            row.joining_date,
-            row.bank_details,
-            row.pf_number,
-            row.esi_number,
-            row.total_salary
-        ]);
-
+        // Insert payslip data
         const payslipQuery = `
             INSERT INTO payslip (
                 emp_email, joining_date, bank_details, pf_number, esi_number, total_salary
@@ -358,86 +382,91 @@ app.post("/upload-excel-for-userdata", upload.single("file"), (req, res) => {
                 bank_details = VALUES(bank_details),
                 pf_number = VALUES(pf_number),
                 esi_number = VALUES(esi_number),
-                total_salary = VALUES(total_salary)
-        `;
+                total_salary = VALUES(total_salary)`;
+        
+        await db.query(payslipQuery, [payslipValues]);
 
-        db.query(payslipQuery, [payslipValues], (payErr, payResult) => {
-            fs.unlinkSync(filePath);
-            if (payErr) {
-                console.error("Payslip Insert Error:", payErr);
-                return res.status(500).json({ error: "Payslip Insert/Update Failed" });
-            }
-
-            return res.json({ 
-                success: true, 
-                message: "User and Payslip Data Inserted/Updated Successfully" 
-            });
+        fs.unlinkSync(filePath);
+        res.json({ 
+            success: true, 
+            message: "User and Payslip Data Inserted/Updated Successfully" 
         });
-    });
+
+    } catch (err) {
+        if (req.file?.path) fs.unlinkSync(req.file.path);
+        console.error("Error:", err);
+        res.status(500).json({ error: "Database Operation Failed" });
+    }
 });
 
 
 // upload in attendance page 
 
-
-app.post("/upload-excel-for-attendancedata", upload.single("file"), (req, res) => {
+app.post("/upload-excel-for-attendancedata", upload.single("file"), async (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const filePath = req.file.path;
-    const workbook = xlsx.readFile(filePath);
-    const sheetName = workbook.SheetNames[0];
-    const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+    try {
+        const filePath = req.file.path;
+        const workbook = new ExcelJS.Workbook();
+        await workbook.xlsx.readFile(filePath);
+        
+        const worksheet = workbook.worksheets[0];
+        const values = [];
 
-    const values = sheetData.map((row) => [
-        row.emp_name,
-        row.emp_email,
-        row.office_name,
-        row.total_salary,
-        row.pf_number,
-        row.esi_number,
-        row.pf_amount,
-        row.esi_amount,
-        row.net_amount,
-        row.leave_days,
-        row.revised_salary
-    ]);
+        worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+            if (rowNumber > 1) { // Skip header row
+                values.push([
+                    row.getCell(1).value?.toString() || null,
+                    row.getCell(2).value?.toString() || null, 
+                    row.getCell(3).value?.toString() || null, 
+                    row.getCell(4).value ? Number(row.getCell(4).value) : null,
+                    row.getCell(5).value?.toString() || null, 
+                    row.getCell(6).value?.toString() || null, 
+                    row.getCell(7).value ? Number(row.getCell(7).value) : null, 
+                    row.getCell(8).value ? Number(row.getCell(8).value) : null, 
+                    row.getCell(9).value ? Number(row.getCell(9).value) : null, 
+                    row.getCell(10).value ? Number(row.getCell(10).value) : null, 
+                    row.getCell(11).value ? Number(row.getCell(11).value) : null
+                ]);
+            }
+        });
 
-    if (values.length === 0) {
-        fs.unlinkSync(filePath);
-        return res.status(400).json({ error: "No valid data in the file" });
-    }
-
-    const query = `
-        INSERT INTO payslip (
-            emp_name, emp_email, office_name, total_salary, pf_number,
-            esi_number, pf_amount, esi_amount, net_amount, leave_days, revised_salary
-        ) VALUES ?
-        ON DUPLICATE KEY UPDATE 
-            emp_name = VALUES(emp_name),
-            office_name = VALUES(office_name),
-            total_salary = VALUES(total_salary),
-            pf_number = VALUES(pf_number),
-            esi_number = VALUES(esi_number),
-            pf_amount = VALUES(pf_amount),
-            esi_amount = VALUES(esi_amount),
-            net_amount = VALUES(net_amount),
-            leave_days = VALUES(leave_days),
-            revised_salary = VALUES(revised_salary)
-    `;
-
-    db.query(query, [values], (err, result) => {
-        fs.unlinkSync(filePath);
-        if (err) {
-            console.error("Database Insert/Update Error:", err);
-            return res.status(500).json({ error: "Database Operation Failed" });
+        if (values.length === 0) {
+            fs.unlinkSync(filePath);
+            return res.status(400).json({ error: "No valid data in the file" });
         }
-        console.log("Rows affected from Excel:", result.affectedRows);
-        return res.json({ success: true, message: "Data Inserted/Updated Successfully" });
-    });
-});
 
+        const query = `
+            INSERT INTO payslip (
+                emp_name, emp_email, office_name, total_salary, pf_number,
+                esi_number, pf_amount, esi_amount, net_amount, leave_days, revised_salary
+            ) VALUES ?
+            ON DUPLICATE KEY UPDATE 
+                emp_name = VALUES(emp_name),
+                office_name = VALUES(office_name),
+                total_salary = VALUES(total_salary),
+                pf_number = VALUES(pf_number),
+                esi_number = VALUES(esi_number),
+                pf_amount = VALUES(pf_amount),
+                esi_amount = VALUES(esi_amount),
+                net_amount = VALUES(net_amount),
+                leave_days = VALUES(leave_days),
+                revised_salary = VALUES(revised_salary)`;
+
+        const result = await db.query(query, [values]);
+        console.log("Rows affected from Excel:", result.affectedRows);
+        
+        fs.unlinkSync(filePath);
+        res.json({ success: true, message: "Data Inserted/Updated Successfully" });
+
+    } catch (err) {
+        if (req.file?.path) fs.unlinkSync(req.file.path);
+        console.error("Error:", err);
+        res.status(500).json({ error: "Database Operation Failed" });
+    }
+});
  
 
 // app.post("/upload-excel/:id", upload.single("file"), (req, res) => {
