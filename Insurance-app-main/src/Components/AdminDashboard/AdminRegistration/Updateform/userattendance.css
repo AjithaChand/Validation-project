@@ -16,7 +16,7 @@
     flex-direction: column;
     padding: 20px;
     font-family: 'Segoe UI', sans-serif;
-    margin-top: 100px;
+  
     background-size: cover;
     color: #333;
   
@@ -67,12 +67,12 @@
 
   .attend-portel {
     padding: 40px 30px;
-    max-width: 600px;
+    width: 400px;
     margin: auto;
     border-radius: 20px;
     background-color: white;
     backdrop-filter: blur(12px);
-    background-color: rgb(73, 200, 200);
+    /* background-color: rgb(73, 200, 200); */
     text-align: center;
     margin-bottom: 500px;
   }
@@ -130,22 +130,24 @@
     margin-top: 80px;
     width: 580px;
     height:300px;
-    background-color:white;
+   
     display: flex;
      z-index: 10;
     border-radius: 15px;
   }
   
   .reason-modal-content {
-    background: rgba(255, 255, 255, 0.25);
+    
     padding: 30px;
     border-radius: 16px;
-    max-width: 400px;
-    width: 90%;
+    width: 420px;
+    height: 400px;
     backdrop-filter: blur(14px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.18);
     text-align: center;
+    margin-top: 110px;
+    background-color: white;
   }
   
   .reason-modal-content input {
@@ -188,11 +190,12 @@
   }
   .employee-attend
   {
-    border:1px solid teal;
+   
     padding: 10px;
     border-radius: 8px;
-    background-color: rgb(171, 221, 221);
-    margin-top: 100px;
+   
+    margin-top: 50px;
+    height: 100%;
   }
 
   @media only screen and (min-width:320px) and (max-width:426px) 
@@ -211,14 +214,14 @@
    }
   .attendance-present,
   .attendance-absent {
-    padding: 10px 26px;
+    padding: 5px 10px;
     font-size: 15px;
     margin: 4px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    width: 100px;
+    width: 80px;
    
   }
 

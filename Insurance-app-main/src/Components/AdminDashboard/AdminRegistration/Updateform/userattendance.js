@@ -571,7 +571,7 @@ const UserAttendance = () => {
             )}
           </div>
         ) : (
-          <div className='attendance-entry'>
+          <>
             <button
               className='attendance-present'
               onClick={() => markAttendance(1)}
@@ -584,9 +584,9 @@ const UserAttendance = () => {
             >
               Absent
             </button>
-          </div>
+          </>
         )}
-                   
+                   </div>
       </div>
 
       {isAbsent && (
@@ -612,7 +612,7 @@ const UserAttendance = () => {
           </div>
         </div>
       )}
-      </div>
+
       <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
