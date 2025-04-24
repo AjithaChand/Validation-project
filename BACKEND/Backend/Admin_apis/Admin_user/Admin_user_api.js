@@ -42,6 +42,8 @@ app.post("/admin/register", verifyToken, (req, res) => {
         payload,
     } = req.body;
 
+    console.log("Payload received", payload);
+    
     // Basic email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -72,38 +74,20 @@ app.post("/admin/register", verifyToken, (req, res) => {
                 }
 
                 const person_code = codeResult[0].person_code;
+
+
                 const permissionRows = [];
-                const flattenPermissions = (permObj, parentKey = '') => {
-                    for (const [key, value] of Object.entries(permObj)) {
-                        const fullKey = parentKey ? `${parentKey}.${key}` : key;
 
-                        if (
-                            value &&
-                            typeof value === 'object' &&
-                            ['read', 'create', 'update', 'delete'].every(k => typeof value[k] === 'boolean')
-                        ) {
-                            permissionRows.push([
-                                person_code,
-                                fullKey,
-                                value.read ? 1 : 0,
-                                value.create ? 1 : 0,
-                                value.update ? 1 : 0,
-                                value.delete ? 1 : 0
-                            ]);
-                        }
-
-                        for (const subKey in value) {
-                            if (
-                                value[subKey] &&
-                                typeof value[subKey] === 'object'
-                            ) {
-                                flattenPermissions({ [subKey]: value[subKey] }, fullKey);
-                            }
-                        }
-                    }
-                };
-
-                flattenPermissions(permissions);
+                for (const [page, perm] of Object.entries(permissions)) {
+                    permissionRows.push([
+                        person_code,
+                        page,
+                        perm.read ? 1 : 0,
+                        perm.create ? 1 : 0,
+                        perm.update ? 1 : 0,
+                        perm.delete ? 1 : 0
+                    ]);
+                }
 
                 const permQuery = "INSERT INTO permissions (person_code, page_name, can_read, can_create, can_update, can_delete) VALUES ?";
                 db.query(permQuery, [permissionRows], (err, permResult) => {
@@ -111,7 +95,6 @@ app.post("/admin/register", verifyToken, (req, res) => {
                         console.log("Permission insert error:", err);
                         return res.status(500).json({ error: "Can't add permissions" });
                     }
-
 
                     const query = "SELECT * FROM payslip WHERE emp_email = ?";
                     db.query(query, [email], (err, info) => {
@@ -241,24 +224,56 @@ app.put('/edituser/:id', verifyToken, async (req, res) => {
 
     db.query(sql, values, (err, data) => {
 
-        if (err) return res.status(500).json({ error: err.message })
+        if (err){ 
 
+            console.log("Error in update users table", err);
+               
+            return res.status(500).json({ message :"Databse Error" })
+        }
         const updateQuery = "UPDATE payslip SET total_salary= ?, esi_amount= ?, pf_amount= ?, gross_salary= ?, net_amount= ?, revised_salary= ?, bank_details= ?, esi_number= ?, pf_number= ?, address=?, phone_number=? WHERE emp_email = (SELECT email FROM users WHERE id = ?)"
 
         db.query(updateQuery, [total_salary, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number,address, phone_number, id], (err, result) => {
 
 
-            if (err) {
-                return res.status(400).send({ message: "Database Error" })
+            if (err){ 
+
+                console.log("Error in update payslip 1 table", err);
+                   
+                return res.status(500).json({ message :"Databse Error" })
             }
 
-            console.log(result);
+            const selectQuery = "SELECT branch_id FROM payslip WHERE emp_email = (SELECT email FROM users WHERE id = ?)";
 
+            db.query(selectQuery,[id],(err,branch_id)=>{
+
+                if (err){ 
+
+                    console.log("Error in select payslip for get branch ID table", err);
+                       
+                    return res.status(500).json({ message :"Databse Error" })
+                }
+
+                const branchId = branch_id[0]?.branch_id;
+
+                console.log("Get Branch ID", branch_id);
+
+            const updateQuery = "UPDATE branches SET branch_name = ?, station_name = ?, latitude = ?, longitude = ? WHERE id = ?";
+
+            db.query(updateQuery,[branch_name,station_name,latitude,longitude,branchId],(er,info)=>{
+
+                if (err){ 
+
+                    console.log("Error in update branches table", err);
+                       
+                    return res.status(500).json({ message :"Databse Error" })
+                }
+            
             return res.status(200).json({ message: "Changes Submitted successfully" })
         })
     })
 })
-
+})
+})
 
 app.delete('/delete/:id', verifyToken, (req, res) => {
 

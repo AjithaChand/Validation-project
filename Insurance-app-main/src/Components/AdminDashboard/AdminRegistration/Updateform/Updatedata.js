@@ -276,11 +276,11 @@ console.log(datas,"data")
           <div className='row'>
             <div className='col-md-6 col-sm-12 form-group mt-3'>
               <label className='userupdate-label'>Latitude</label>
-              <input type='text' className='form-control' value={datas.latitude} onChange={e => setData({ ...datas, latitude: e.target.value })} placeholder='Enter Latitude' />
+              <input type='float' className='form-control' value={datas.latitude} onChange={e => setData({ ...datas, latitude: e.target.value })} placeholder='Enter Latitude' />
             </div>
             <div className='col-md-6 col-sm-12 form-group mt-3'>
               <label className='userupdate-label'>Longitude</label>
-              <input type='text' className='form-control' value={datas.longitude} onChange={e => setData({ ...datas, longitude: e.target.value })} placeholder='Enter Longitude' />
+              <input type='float' className='form-control' value={datas.longitude} onChange={e => setData({ ...datas, longitude: e.target.value })} placeholder='Enter Longitude' />
             </div>
           </div>
 
