@@ -11,9 +11,10 @@
 .company-details-form-container {
   width: 550px;
   padding: 40px 35px;
-   background-color:gainsboro; 
+   background-color: rgba(223, 221, 221, 0.1); 
   border-radius: 24px;
   box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(69, 62, 62, 0.1);
   animation: fadeIn 0.8s ease-in-out;
   margin-top: 20px;
   backdrop-filter: blur(8px);
@@ -34,11 +35,11 @@
   width: 100%;
   padding: 12px 5px;
   border: none;
-  border-bottom: 2px solid #ffffffcc;
+  border-bottom: 2px solid gray;
   background-color: transparent;
   color: navy;
   font-size: 16px;
-  font-weight: 600;
+ 
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }

@@ -13,7 +13,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background-image: url('../../../public/insurance2.jpg');
+    background-image: url('../../../public/login2.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -26,13 +26,13 @@
     margin: auto;
     display: block;
     padding: 10px;
-    width: 30%;
-    background-color: teal;
+    width: 70%;
+    background-color:navy;
     color: white;
 }
 
 .login-btn:hover{
-    background-color:#2caaa9;
+    background-color:rgb(77, 77, 214);
     color: white;
 }
 
@@ -47,7 +47,7 @@
   
     border-radius: 20px;
     padding: 30px;
-    background-color:rgba(255, 255, 255, 0.3);
+    background-color:rgba(11, 6, 77, 0.3);
 }
 
 .button-container{
@@ -68,7 +68,8 @@
 
 .button-container .button-group.active{
     background: rgb(2,0,36);
-    background: linear-gradient(90deg, teal 35%, rgb(132, 197, 197) 100%);
+    background: linear-gradient(90deg,navy,skyblue
+    100%);
     color: white;
 }
 .form-control-login {
@@ -88,7 +89,7 @@
 }
 
 .form-control-login:focus {
-    border-bottom: 1.5px solid teal;
+    border-bottom: 1.5px solid navy;
 
 }
 
@@ -99,24 +100,13 @@
 
 
 
-@media screen and (max-width: 1440px) {
-    .login-btn {
-        width: 35%;
-    }
-
-    .button-container .button-group {
-        width: 180px;
-    }
-   
-   
-}
 
 
 
 
-@media screen and (max-width: 768px){
+@media only screen and (min-width:769px) and (max-width:1024px){
 .login-btn {
-    width: 40%;
+    width: 70%;
 }
 
 .form-data {
@@ -131,9 +121,9 @@
 
 
 
-@media screen and (max-width: 425px) {
+@media only screen and (min-width:426px) and (max-width:768px) {
     .login-btn {
-        width: 80%;
+        width: 70%;
         padding: 8px;
     }
 
@@ -147,13 +137,15 @@
 }
 
 
-@media screen and (max-width: 375px) {
+@media only screen and (min-width:376px) and (max-width:425px) {
     .login-btn {
-        width: 95%;
+        width: 70%;
     }
 
     .form-data {
-        padding: 10px;
+        border-radius: 20px;
+        padding: 30px;
+       
     }
 
     .button-container .button-group {
@@ -161,13 +153,13 @@
         padding: 8px 16px;
     }
 }
-@media screen and (max-width: 320px) {
+@media only screen and (min-width:320px) and (max-width:375px) {
     .login-btn {
-        width: 95%;
+        width: 90%;
     }
 
     .form-data {
-        padding: 8px;
+        padding: 15px;
     }
 
     .button-container .button-group {
