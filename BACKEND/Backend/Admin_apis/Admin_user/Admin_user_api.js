@@ -187,11 +187,12 @@ app.post("/admin/register", verifyToken, (req, res) => {
 
 
 app.get('/getuser', verifyToken, (req, res) => {
-    const sql = "SELECT u.*, p.* FROM users u LEFT JOIN payslip p ON u.email = p.emp_email";
+    const sql = "SELECT u.*, p.*, b.branch_name, b.station_name, b.latitude, b.longitude FROM users u LEFT JOIN payslip p ON u.email = p.emp_email LEFT JOIN branches b ON p.branch_id = b.id";
+
     db.query(sql, (err, result) => {
         if (err)
             return res.status(500).json({ error: err.message })
-        console.log(result);
+        // console.log("JJJJJJJJJJJJJJJ",result);
 
         return res.json(result)
     })
@@ -207,10 +208,10 @@ app.get('/getuser/single', verifyToken, (req, res) => {
 
     console.log(email, "For Filled in backend");
 
-    const sql = "SELECT u.*, p.total_salary, p.bank_details, p.pf_number, p.esi_number,p.address, p.phone_number FROM users u LEFT JOIN payslip p ON u.email = p.emp_email WHERE u.email = ?  ";
+    const sql = "SELECT u.*, p.total_salary, p.bank_details, p.pf_number, p.esi_number,p.address, p.phone_number, b.branch_name, b.station_name, b.latitude, b.longitude FROM users u LEFT JOIN payslip p ON u.email = p.emp_email LEFT JOIN branches b ON p.branch_id = b.id WHERE u.email = ?  ";
 
     db.query(sql, [email], (err, data) => {
-console.log(err,"datttt")
+
         if (err) return res.status(500).json({ error: err.message });
 
         if (data.length === 0) return res.status(404).json({ error: "User not found" });
@@ -229,9 +230,9 @@ app.put('/edituser/:id', verifyToken, async (req, res) => {
 
     const id = req.params.id;
 
-    const { username, email, password, total_salary,address, phone_number, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number, is_active } = req.body;
+    const { username, email, password, total_salary,address, phone_number, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number, is_active, branch_name, station_name, latitude, longitude } = req.body;
 
-    console.log(username, email, password, total_salary,address,phone_number, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number, is_active, id, "In backend");
+    console.log(username, email, password, total_salary,address,phone_number, esi_amount, pf_amount, gross_salary, net_amount, revised_salary, bank_details, esi_number, pf_number, is_active,branch_name, station_name, latitude, longitude, id, "In backend");
 
 
     const sql = "UPDATE users SET username=?,email =?,password=? , is_active = ? WHERE id=?"

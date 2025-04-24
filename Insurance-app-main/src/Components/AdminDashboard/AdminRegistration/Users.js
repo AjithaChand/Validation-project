@@ -219,6 +219,10 @@ const Users = () => {
                   <th>Pf Number</th>
                   <th>Esi Number</th>
                   <th>Salary</th>
+                  <th>Branch</th>
+                  <th>Station</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
                   {user === 'admin' ? (<th>Action</th>) : (
                     getPermission.length !== 0 && (getPermission[2]?.can_update === 1 || getPermission[2]?.can_delete === 1) && (
                       <th>Actions</th>
@@ -238,6 +242,10 @@ const Users = () => {
                     <td>{data.pf_number}</td>
                     <td>{data.esi_number}</td>
                     <td>{data.total_salary}</td>
+                    <td>{data.branch_name}</td>
+                    <td>{data.station_name}</td>
+                    <td>{data.latitude}</td>
+                    <td>{data.longitude}</td>
                     {user === 'admin' ? (
                       <td>
                         <button className='edit-btn'

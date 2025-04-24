@@ -193,23 +193,23 @@ const Attendance = () => {
                   <td>30</td>
                   <td>4</td>
                   <td>
-                    {isPresent ? (
-                      <FaCheck className="present-icon" />
-                    ) : noRecord ? (
-                      <span className="no-record">_</span>
-                    ) : (
-                      "N/A"
-                    )}
-                  </td>
-                  <td>
-                    {isAbsent ? (
-                      <FaTimes className="absent-icon" />
-                    ) : noRecord ? (
-                      <span className="no-record">_</span>
-                    ) : (
-                      "N/A"
-                    )}
-                  </td>
+                  {isPresent ? (
+    <FaCheck className="present-icon" />
+  ) : isAbsent ? (
+    <span className="no-record">_</span>
+  ) : (
+    <span className="no-record">_</span>
+  )}
+</td>
+<td>
+  {isAbsent ? (
+    <FaTimes className="absent-icon" />
+  ) : isPresent ? (
+    <span className="no-record">_</span>
+  ) : (
+    <span className="no-record">_</span>
+  )}
+</td>
                   <td>
                     {isPresent ? "Present" : isAbsent ? "Absent" : "No Record"}
                   </td>

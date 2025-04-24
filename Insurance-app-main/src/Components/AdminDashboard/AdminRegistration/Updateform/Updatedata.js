@@ -26,10 +26,15 @@ const Updatedata = ({ selectid, close, selectemail }) => {
     bank_details:"",
     is_active: 1,
     address:"",
-    phone_number:""
+    phone_number:"",
+    branch_name:"",
+    station_name:"",
+    latitude:"",
+    longitude:"",
+
   })
 
-  console.log(datas.is_active, "checking")
+
   // permission update code
 
   const [permission, setPermission] = useState({
@@ -256,6 +261,29 @@ console.log(datas,"data")
             <label className='userupdate-label'>Bank Details</label>
             <textarea className='form-control' value={datas.bank_details} onChange={e => setData({ ...datas, bank_details: e.target.value })} placeholder='Enter Bank Details' />
           </div>
+
+          <div className='row'>
+            <div className='col-md-6 col-sm-12 form-group mt-3'>
+              <label className='userupdate-label'>Branch</label>
+              <input type='text' className='form-control' value={datas.branch_name} onChange={e => setData({ ...datas, branch_name: e.target.value })} placeholder='Enter Branch' />
+            </div>
+            <div className='col-md-6 col-sm-12 form-group mt-3'>
+              <label className='userupdate-label'>Station</label>
+              <input type='text' className='form-control' value={datas.station_name} onChange={e => setData({ ...datas, station_name: e.target.value })} placeholder='Enter Station' />
+            </div>
+          </div>
+
+          <div className='row'>
+            <div className='col-md-6 col-sm-12 form-group mt-3'>
+              <label className='userupdate-label'>Latitude</label>
+              <input type='text' className='form-control' value={datas.latitude} onChange={e => setData({ ...datas, latitude: e.target.value })} placeholder='Enter Latitude' />
+            </div>
+            <div className='col-md-6 col-sm-12 form-group mt-3'>
+              <label className='userupdate-label'>Longitude</label>
+              <input type='text' className='form-control' value={datas.longitude} onChange={e => setData({ ...datas, longitude: e.target.value })} placeholder='Enter Longitude' />
+            </div>
+          </div>
+
           <div className='col-md-6 col-sm-12 mt-4 ms-3'>
             <label>Activate</label>
             <label className='ms-3'>
