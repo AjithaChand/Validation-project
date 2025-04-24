@@ -13,6 +13,9 @@ const db = mysql.createPool({
     database:process.env.DB_DATABASENAME,
 
     port: process.env.PORT_NAME,
+    // connectionLimit: 50,  // Increased connection limit to 50
+    // // queueLimit: 0,        // Unlimited request queue
+    // waitForConnections: true
 
     
 })

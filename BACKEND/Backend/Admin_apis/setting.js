@@ -67,7 +67,6 @@
 //     }
 
 //     const company = results[0];
-//     company.logo_url = `http://localhost:5000/uploads/logos/${company.logo_path}`; // Serve full image URL
 
 //     res.json(company);
 //   });
@@ -145,7 +144,7 @@ app.get("/api/company-details", (req, res) => {
     }
 
     const company = results[0];
-    company.logo_url = `http://localhost:7009/uploads/logos/${company.logo_path}`;
+    company.logo_url = `http://54.227.179.97/uploads/logos/${company.logo_path}`;
 
     res.json(company);
   });
