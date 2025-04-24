@@ -43,6 +43,22 @@ app.post("/admin/register", verifyToken, (req, res) => {
     } = req.body;
 
     console.log("Payload received", payload);
+    console.log("User table received",username, email, password, role );
+    console.log("PAyslipppp table received", username,
+        email,
+        total_salary,
+        pf_number,
+        esi_amount,
+        esi_number,
+        pf_amount,
+        gross_salary,
+        net_amount,
+        date,
+        joining_date,
+        revised_salary,
+        bank_details,
+        address,
+        phone_number, );
     
     // Basic email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -65,11 +81,21 @@ app.post("/admin/register", verifyToken, (req, res) => {
         const values = [username, email, password, role];
 
         db.query(sql, values, (err, result) => {
-            if (err) return res.status(400).json({ error: "Cannot register user" });
+
+            if (err) {
+
+                console.log("Error is user insert table", err)
+                return res.status(400).json({ error: "Cannot register user" })
+            };
 
             const getCodeQuery = "SELECT person_code FROM users WHERE email = ?";
+          
             db.query(getCodeQuery, [email], (err, codeResult) => {
+              
                 if (err || codeResult.length === 0) {
+
+                    console.log("Error is user table to get person_code", err)
+
                     return res.status(500).json({ error: "Failed to fetch person details" });
                 }
 
@@ -91,6 +117,7 @@ app.post("/admin/register", verifyToken, (req, res) => {
 
                 const permQuery = "INSERT INTO permissions (person_code, page_name, can_read, can_create, can_update, can_delete) VALUES ?";
                 db.query(permQuery, [permissionRows], (err, permResult) => {
+                  
                     if (err) {
                         console.log("Permission insert error:", err);
                         return res.status(500).json({ error: "Can't add permissions" });
@@ -99,7 +126,7 @@ app.post("/admin/register", verifyToken, (req, res) => {
                     const query = "SELECT * FROM payslip WHERE emp_email = ?";
                     db.query(query, [email], (err, info) => {
                         if (err) {
-                            console.log("Database Error:", err);
+                            console.log("Error is payslip table to get all", err)
                             return res.status(500).send({ message: "Database Error" });
                         }
 
@@ -111,6 +138,8 @@ app.post("/admin/register", verifyToken, (req, res) => {
                         const insertQuery = "INSERT INTO branches (branch_name, station_name, latitude, longitude) VALUES (?, ?, ?, ?)";
                         db.query(insertQuery, [payload.branch, payload.station, payload.latitude, payload.longitude], (err, data) => {
                             if (err) {
+                                console.log("Error is branches table to insert", err)
+
                                 return res.status(400).send({ message: "Database Error" });
                             }
 
@@ -317,7 +346,6 @@ app.get("/get-person_code", (req, res) => {
             const getSql = "SELECT * FROM permissions WHERE person_code =?"
 
             db.query(getSql, [person_code], (err, permissionResult) => {
-                console.log(permissionResult, "permissiontresult")
                 if (err) {
 
                     return res.status(500).json({ error: "Database Error" })

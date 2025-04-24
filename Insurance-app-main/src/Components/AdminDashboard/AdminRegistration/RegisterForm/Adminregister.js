@@ -15,7 +15,10 @@ const Adminregister = ({ close }) => {
         longitude:""
     })
 
-   
+   const handleShow =()=>{
+    console.log("Payload in frontend", payload);
+    
+   }
     const [values, setValues] = useState({
         username: '',
         email: '',
@@ -180,7 +183,7 @@ const Adminregister = ({ close }) => {
 
         try {
             await axios.post(`${apiurl}/admin/register`, {
-                ...values,...payload, permissions: permission
+                ...values,payload:payload, permissions: permission
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -286,11 +289,11 @@ const Adminregister = ({ close }) => {
                         <div className='row'>
                             <div className='mt-3 col-md-6 col-sm-12 form-group'>
                                 <label className='register-label'>Latitude</label>
-                                <input type='number' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setPayload({ ...payload, latitude: e.target.value })} placeholder='Enter latitude number' required />
+                                <input type='float' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setPayload({ ...payload, latitude: e.target.value })} placeholder='Enter latitude number' required />
                             </div>
                             <div className='mt-3 col-md-6 col-sm-12 form-group'>
                                 <label className='register-label'>longitude</label>
-                                <input type='number' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setPayload({ ...payload,longitude: e.target.value })} placeholder='Enter longitude number' required />
+                                <input type='float' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setPayload({ ...payload,longitude: e.target.value })} placeholder='Enter longitude number' required />
                             </div>
                         </div>
                         <div className='row'>
@@ -660,6 +663,7 @@ const Adminregister = ({ close }) => {
                         </div>
 
                         <button className='btn mt-4 adminregister-btn'>Register</button>
+                        <button className='btn mt-4 adminregister-btn' onClick={handleShow}>Show</button>
                     </form>
                 </div>
             </div>
