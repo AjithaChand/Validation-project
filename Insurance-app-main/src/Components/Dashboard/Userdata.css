@@ -261,16 +261,6 @@
   display: none;
 }
 
-.settings-icon{
-  position: relative;
-  left: 85%;
-}
-
-.attendance-icon{
-  position: relative;
-  left: 50%;
-}
-
 .list-style-users{
   position: relative;
   right: 20px;
@@ -429,18 +419,6 @@
     display: block;
   }
 
-  /* .userheader-res{
-    display: block;
-    position: absolute;
-    left: 60px;
-    top: 15px;
-    font-family: "Poppins",sans-serif;
-    letter-spacing: 1px;
-    color: #000;
-    font-size: 1.5rem;
-    font-weight: 600;
-  } */
-
   .user-profile .userheader{
       display: block;
   }
@@ -526,16 +504,6 @@
     height: 35px;
   }
 
-  .settings-icon{
-    position: relative;
-    left: 85%;
-  }
-  
-  .attendance-icon{
-    position: relative;
-    left: 50%;
-  }
-
   .user-list-toggle{
     padding: 4px 3px 15px 3px;
     position: relative;
@@ -559,16 +527,6 @@
   .toggle-container {
     margin-left: 7%;
     height: 100vh;
-  }
-
-  .settings-icon{
-    position: relative;
-    left: 85%;
-  }
-  
-  .attendance-icon{
-    position: relative;
-    left: 50%;
   }
 
 }

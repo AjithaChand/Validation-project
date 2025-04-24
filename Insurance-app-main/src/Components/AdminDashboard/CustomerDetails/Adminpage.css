@@ -9,7 +9,7 @@
 .admin-btn {
     background-color: #023265;
     color: white;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 7px 20px 7px 20px;
     border: none;
     transition: transform 0.3s ease, color 0.3s ease;
@@ -415,7 +415,7 @@
     }
 
     .admin-btn {
-        border-radius: 12px;
+        border-radius: 10px;
         padding: 5px 15px 9px 15px;
     }
 
@@ -575,7 +575,12 @@
         font-size: 17px;
         position: absolute;
         top: 25px;
-        left: 20px;
+        left: 30px;
+    }
+
+    .admin-btn {
+        position: relative;
+        right: 15px;
     }
 
     .searchbar-res {
@@ -652,7 +657,7 @@
         font-size: 13px;
     }
 
-    .users-details-container{
+    .users-details-container {
         overflow-x: auto;
     }
 
@@ -677,7 +682,7 @@
 
 @media only screen and (min-width:500.11px) and (max-width:768px) {
     .admin-header-container {
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
 }
@@ -696,12 +701,13 @@
         font-size: 15px;
         position: absolute;
         top: 23px;
-        left: 20px;
+        left: 25px;
     }
 
     .admin-btn {
-        border-radius: 12px;
-        padding: 5px 13px 5px 13px;
+        border-radius: 10px;
+        position: relative;
+        right: 5px;
     }
 
     .search-input-res {
@@ -734,7 +740,7 @@
         font-size: 14px;
     }
 
-    .users-details-container{
+    .users-details-container {
         overflow-x: auto;
     }
 }
@@ -770,7 +776,7 @@
 
 @media only screen and (min-width:1009px) and (max-width:1440px) {
 
-    .users-details-container{
+    .users-details-container {
         overflow-x: auto;
     }
 

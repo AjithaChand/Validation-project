@@ -30,50 +30,44 @@
 
 .table-container {
     height: 60vh;
+    width: 80vw;
     overflow-y: auto;
-    padding: 20px;
+    margin: auto;
+    border-radius: 5px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    box-shadow: 0 1px 6px #d1d1d1;
 }
 
 .users-table {
-    border-collapse: separate;
-    overflow: auto;
-    border-spacing: 0;
-    border-radius: 5px;
+    border-collapse: collapse;
     margin: auto;
     width: 100%;
     cursor: pointer;
-    box-shadow: 1px 7px 15px gainsboro;
-}
-
-.users-table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 1;
 }
 
 .users-table th {
-    padding: 12px;
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    padding: 10px;
+    font-weight: 600;
     background-color: #023265;
-    color: white;
-    border-bottom: 1px solid gainsboro;
+    color: #fff;
     position: sticky;
+    top: 0;
+    z-index: 1;
+    white-space: nowrap;
 }
 
 .users-table td {
-    font-size: 14px;
-    font-weight: 400;
+    padding: 10px;
     font-family: "Poppins", sans-serif;
+    white-space: nowrap;
 }
 
-.users-table tbody td {
-    padding: 10px 0 10px 0;
+.users-table tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
 .users-table tbody tr:hover {
-    background: rgb(221, 220, 220);
+    background-color: #f1f1f1;
 }
 
 .edit-btn,
@@ -287,7 +281,7 @@
     margin: 20px auto;
 }
 
-.users-total{
+.users-total {
     position: absolute;
     left: 2%;
     font-family: "Poppins", sans-serif;
@@ -330,7 +324,7 @@
         color: #27ae60;
         font-size: 14px;
     }
-    
+
     .upload-button2 .upload-icon-user {
         color: #e67e22;
         font-size: 14px;
@@ -354,20 +348,12 @@
         padding: 15px;
     }
 
-    .users-table {
-        border-collapse: collapse;
-        margin: auto;
-        width: 100%;
-        cursor: pointer;
-        box-shadow: 1px 7px 15px gainsboro;
-    }
-
     .userdata-container {
         margin-left: 0% !important;
         height: 100vh;
     }
 
-    .users-total{
+    .users-total {
         font-size: 15px;
         position: absolute;
         top: 23px;
@@ -382,49 +368,19 @@
         font-size: 17px;
     }
 
-    .users-table thead th {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
+    .table-container {
+        width: 90vw;
+    } 
 
-    .users-table td {
-        font-size: 14px;
-        font-weight: 200;
-        font-family: "Poppins", sans-serif;
-    }
-
-    .users-table tbody td {
-        padding: 5px 0 5px 0;
-        border-bottom: 1px solid black;
-    }
-
-    .users-table th {
-        padding: 8px;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        background-color: #023265;
-        color: white;
-        border-bottom: 1px solid gainsboro;
+    .users-table-container {
+        position: relative;
+        top: 15px;
+        padding: 5px;
     }
 
     .users-btn {
         border-radius: 12px;
         padding: 5px 15px 9px 15px;
-    }
-
-    .users-table tbody tr:hover {
-        background: rgb(221, 220, 220);
-    }
-
-    .table-container {
-        height: fit-content;
-        max-height: 70vh;
-        border: 1px solid black;
-        width: 90%;
-        margin: auto;
-        overflow-y: auto;
     }
 
     .delete-btn .userdelete-icon {
@@ -459,25 +415,17 @@
         border-radius: 15px;
         transition: width 0.4s ease, opacity 0.4s ease;
     }
-    
+
     .user-search-input::placeholder {
         color: #828181;
         font-size: bold;
         position: absolute;
         left: 15px;
     }
-    
+
     .user-search-input:focus {
         border-color: #828181;
         outline: none;
-    }
-
-    .users-table-container{
-        position: relative;
-        top: 15px;
-        padding: 0 5px 0 5px;
-        overflow-y: auto;
-        height: 60vh;
     }
 }
 
@@ -502,16 +450,14 @@
         width: 100% !important;
     }
 
-    /* .header-container-users {
-        padding: 15px;
-    } */
+    .table-container {
+        width: 90vw;
+    } 
 
-    .users-table {
-        border-collapse: collapse;
-        margin: auto;
-        width: 100%;
-        cursor: pointer;
-        box-shadow: 1px 7px 15px gainsboro;
+    .users-table-container {
+        position: relative;
+        top: 15px;
+        padding: 5px;
     }
 
     .userdata-container {
@@ -531,49 +477,9 @@
         cursor: pointer;
     }
 
-    .users-table thead th {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
-
-    .users-table td {
-        font-size: 14px;
-        font-weight: 200;
-        font-family: "Poppins", sans-serif;
-    }
-
-    .users-table th {
-        padding: 8px;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        background-color: #023265;
-        color: white;
-        border-bottom: 1px solid gainsboro;
-    }
-
-    .users-table tbody td {
-        padding: 5px 0 5px 0;
-        border-bottom: 1px solid black;
-    }
-
-    .users-table tbody tr:hover {
-        background: rgb(221, 220, 220);
-    }
-
     .tablerow-user {
         font-size: 19px;
         font-weight: bold;
-    }
-
-    .table-container {
-        height: fit-content;
-        max-height: 70vh;
-        border: 1px solid black;
-        width: 90%;
-        margin: auto;
-        overflow-y: auto;
     }
 
     .delete-btn .userdelete-icon {
@@ -615,20 +521,20 @@
         border-radius: 15px;
         transition: width 0.4s ease, opacity 0.4s ease;
     }
-    
+
     .user-search-input::placeholder {
         color: #828181;
         font-size: bold;
         position: absolute;
         left: 15px;
     }
-    
+
     .user-search-input:focus {
         border-color: #828181;
         outline: none;
     }
 
-    .user-head-search{
+    .user-head-search {
         padding: 15px;
     }
 
@@ -643,21 +549,13 @@
         color: #27ae60;
         font-size: 18px;
     }
-    
+
     .upload-button2 .upload-icon-user {
         color: #e67e22;
         font-size: 18px;
     }
 
-    .users-table-container{
-        position: relative;
-        top: 15px;
-        padding: 0 5px 0 5px;
-        overflow-y: auto;
-        height: 55vh;
-    }
-
-    .file-label-user{
+    .file-label-user {
         padding: 3px 7px;
         font-size: 15px;
     }
@@ -676,21 +574,18 @@
 
 @media only screen and (min-width:500.11px) and (max-width:768px) {
     .admin-header-container-user {
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
 }
 
 @media only screen and (min-width:769px) and (max-width:1024px) {
-    .users-table tbody td {
-        padding: 10px;
-    }
 
     .user-searchbar-res {
         display: none;
     }
 
-    .user-head-search{
+    .user-head-search {
         padding: 15px;
     }
 
@@ -706,36 +601,33 @@
         left: 20px;
     }
 
-    .user-search-input-res{
+    .user-search-input-res {
         width: 300px;
         padding: 4px 0 4px 8px;
         border: 1px solid #b1b1b1;
         border-radius: 15px;
         transition: width 0.4s ease, opacity 0.4s ease;
     }
+
+    .table-container {
+        width: 80vw;
+    } 
+
+    .users-table-container {
+        position: relative;
+        top: 15px;
+        padding: 5px;
+    }
 }
 
 @media only screen and (min-width:769px) and (max-width:1009px) {
+
     .tablerow-user {
         text-align: center;
         display: flex;
         justify-content: center;
         font-size: 17px;
         font-weight: bold;
-    }
-
-    .users-table th {
-        padding: 8px;
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        background-color: #023265;
-        color: white;
-        border-bottom: 1px solid gainsboro;
-    }
-
-    .users-table tbody td {
-        padding: 4px;
     }
 
     .edit-btn .useredit-icon {
@@ -749,17 +641,14 @@
         color: darkred;
         cursor: pointer;
     }
+    .table-container {
+        width: 85vw;
+    } 
 
-}
-
-@media only screen and (min-width:1025px) and (max-width:1113px) {
-    .users-table td {
-        font-size: 14px;
-        font-weight: 200;
-        font-family: "Poppins", sans-serif;
+    .users-table-container {
+        position: relative;
+        top: 15px;
+        padding: 5px;
     }
 
-    .users-table tbody td {
-        padding: 3px;
-    }
 }

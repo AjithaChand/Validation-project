@@ -109,7 +109,7 @@ const Updatefile = ({ close,selectid}) => {
         <div>
             <div className='updatebox'>
             <form onSubmit={handleSubmit}>
-                <h3 className='heading mt-2 text-center'> Admin Update Data</h3>
+                <h5 className='heading mt-2 text-center'> Admin Update Data</h5>
                 <div className='mt-3 form-group'>
                     <label className='update-label'>Email</label>
                     <input 

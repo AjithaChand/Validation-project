@@ -22,7 +22,7 @@ const Attendance = () => {
 
   const [calendar, setCalender] = useState(false)
 
-  const handleClick = ()=>{
+  const handleClick = () => {
     setCalender(!calendar)
   }
 
@@ -104,7 +104,9 @@ const Attendance = () => {
     <div className='attendance-container'>
       <div className='attendance-header-container'>
         <div className="admin-header-attendance">
+
           <p className='tablerow-attendance'>Attendance</p>
+
           <div className='attendance-header'>
             <button className="upload-button5" onClick={handleDownload}>
               <RiFileExcel2Line className='excel-icon-attendance' />
@@ -128,16 +130,6 @@ const Attendance = () => {
 
       <div className='admin-head-search-attendance'>
         <p className='users-count-attendance'>All Users: {filterdata.length}</p>
-        <button className='calender-btn' onClick={handleClick}>Select Date</button>
-        {calendar && (
-          <ClickAwayListener onClickAway={() => setCalender(false)}>
-          <div className="calendar">
-            <LocalizationProvider dateAdapter={AdapterDayjs} >
-              <DateCalendar value={date} onChange={handleDateChange} />
-            </LocalizationProvider>
-          </div>
-          </ClickAwayListener>
-        )}
         <div className="searchbar-container-attendance">
           <input
             type="text"
@@ -147,6 +139,16 @@ const Attendance = () => {
             className='search-input-attendance'
           />
         </div>
+        <button className='calender-btn' onClick={handleClick}>Select Date</button>
+        {calendar && (
+          <ClickAwayListener onClickAway={() => setCalender(false)}>
+            <div className="calendar">
+              <LocalizationProvider dateAdapter={AdapterDayjs} >
+                <DateCalendar value={date} onChange={handleDateChange} />
+              </LocalizationProvider>
+            </div>
+          </ClickAwayListener>
+        )}
       </div>
 
       <div className='searchbar-res-attendance mt-3'>
@@ -159,65 +161,84 @@ const Attendance = () => {
         />
       </div>
 
-      <div className='attendance'>
-        <table className='attend-1'>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Working Days</th>
-              <th>Week Off</th>
-              <th>Present Days</th>
-              <th>Absent Days</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filterdata.map((data, index) => {
-              const absentColumn = getCurrentAbsentColumn();
-              const presentColumn = getCurrentPresentColumn();
+      <div className='attendance-table-container'>
+        <div className='attendance'>
+          <table className='attend-1'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Working Days</th>
+                <th>Week Off</th>
+                <th>Present Days</th>
+                <th>Absent Days</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filterdata.map((data, index) => {
+                const absentColumn = getCurrentAbsentColumn();
+                const presentColumn = getCurrentPresentColumn();
 
-              const absentDays = data[absentColumn];
-              const presentDays = data[presentColumn];
+                const absentDays = data[absentColumn];
+                const presentDays = data[presentColumn];
 
-              const isPresent = presentDays === 1;
-              const isAbsent = absentDays === 0;
-              const noRecord = presentDays === null && absentDays === null;
+                const isPresent = presentDays === 1;
+                const isAbsent = absentDays === 0;
+                const noRecord = presentDays === null && absentDays === null;
 
-              return (
-                <tr key={index}>
-                  <td>{data.emp_id}</td>
-                  <td>{data.emp_name}</td>
-                  <td>{data.emp_email}</td>
-                  <td>30</td>
-                  <td>4</td>
-                  <td>
-                  {isPresent ? (
-    <FaCheck className="present-icon" />
-  ) : isAbsent ? (
-    <span className="no-record">_</span>
-  ) : (
-    <span className="no-record">_</span>
-  )}
-</td>
-<td>
-  {isAbsent ? (
-    <FaTimes className="absent-icon" />
-  ) : isPresent ? (
-    <span className="no-record">_</span>
-  ) : (
-    <span className="no-record">_</span>
-  )}
-</td>
-                  <td>
-                    {isPresent ? "Present" : isAbsent ? "Absent" : "No Record"}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                return (
+                  <tr key={index}>
+                    <td>{data.emp_id}</td>
+                    <td>{data.emp_name}</td>
+                    <td>{data.emp_email}</td>
+                    <td>30</td>
+                    <td>4</td>
+                    <td>
+
+                      {isPresent ? (
+
+                        <FaCheck className="present-icon" />
+
+                      ) : noRecord ? (
+
+                        <span className="no-record">_</span>
+
+                      ) : (
+
+                        "N/A"
+
+                      )}
+
+                    </td>
+
+                    <td>
+
+                      {isAbsent ? (
+
+                        <FaTimes className="absent-icon" />
+
+                      ) : noRecord ? (
+
+                        <span className="no-record">_</span>
+
+                      ) : (
+
+                        "N/A"
+
+                      )}
+
+                    </td>
+                    <td>
+                      {isPresent ? "Present" : isAbsent ? "Absent" : "No Record"}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
       <ToastContainer />
     </div>

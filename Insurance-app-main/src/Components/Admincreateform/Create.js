@@ -71,7 +71,7 @@ const Create = ({ close }) => {
   return (
     <div >
       <form className='create-form' onSubmit={handleSubmit}>
-        <h3 className='text-center create-head'>Admin Create Data</h3>
+        <h5 className='text-center create-head'>Admin Create Data</h5>
         <div className='mt-3 form-gruop'>
           <label className='create-label'>Email</label>
           <input type='email' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, email: e.target.value })} />

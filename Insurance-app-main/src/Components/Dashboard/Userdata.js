@@ -211,8 +211,7 @@ const Userdata = () => {
                     navigate('/dashboard/settings');
                   }}>
                     <IoSettingsOutline className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                    {dashboardSidebaropen && <span className='dashboard-icon'>
-                      Settings <KeyboardArrowDownIcon className='settings-icon' />
+                    {dashboardSidebaropen && <span className='dashboard-icon'>Settings <KeyboardArrowDownIcon className='settings-icon' />
                     </span>}
                   </div>
                 </li>
