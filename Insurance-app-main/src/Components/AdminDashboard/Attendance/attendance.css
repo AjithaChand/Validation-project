@@ -13,9 +13,23 @@
   max-width: 300px; 
   max-height: 320px;
   position: absolute;
-  top: 10px;
+  top: 60px;
   right: 10px;
   z-index: 1000;
+}
+
+.calender-btn{
+  padding: 5px 15px;
+  border-radius: 5px;
+  background-color: rgb(3, 3, 178);
+  color: white;
+  border: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.calender-btn:hover{
+  background-color: rgb(2, 2, 195);
+  transform: scale(1.05);
 }
 
 .attendance-header-container{
@@ -39,7 +53,10 @@
 
 .attend-1 {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-radius: 10px;
+  overflow: hidden;
+  border-spacing: 0;
 }
 
 .attend-1 th, .attend-1 td {
@@ -73,7 +90,6 @@
   padding: 15px;
   border-radius: 5px;
   box-shadow: 0 1px 6px #d1d1d1;
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
   position: relative;
 }
 
@@ -217,9 +233,9 @@
 }
 
 .attendance {
-  height: 70vh;
+  height: 60vh;
   overflow-y: auto;
-  border: 1px solid #ccc;
+  padding: 20px;
 }
 
 .attend-1 {
@@ -239,7 +255,8 @@
   background-color: #333;
   color: #fff;
   position: sticky;
-  top: 0;
+  top: -20px;
+  /* top: 0; */
 }
 
 .attend-1 tr:nth-child(even) {

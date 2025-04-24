@@ -6,12 +6,12 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RiFileExcel2Line } from "react-icons/ri";
-import Calendar from 'react-calendar';
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 const Attendance = () => {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -128,13 +128,15 @@ const Attendance = () => {
 
       <div className='admin-head-search-attendance'>
         <p className='users-count-attendance'>All Users: {filterdata.length}</p>
-        <button className='btn btn-primary' onClick={handleClick}>Select Date</button>
+        <button className='calender-btn' onClick={handleClick}>Select Date</button>
         {calendar && (
-          <div className="calendar" onClick={handleClick}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar value={date} onChange={handleDateChange} />
-          </LocalizationProvider>
-        </div>
+          <ClickAwayListener onClickAway={() => setCalender(false)}>
+          <div className="calendar">
+            <LocalizationProvider dateAdapter={AdapterDayjs} >
+              <DateCalendar value={date} onChange={handleDateChange} />
+            </LocalizationProvider>
+          </div>
+          </ClickAwayListener>
         )}
         <div className="searchbar-container-attendance">
           <input
@@ -156,11 +158,6 @@ const Attendance = () => {
           className='search-input-res-attendance'
         />
       </div>
-
-      {/* <div className='calendar-container'>
-        
-      </div> */}
-
 
       <div className='attendance'>
         <table className='attend-1'>

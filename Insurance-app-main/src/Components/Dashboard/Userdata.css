@@ -60,7 +60,6 @@
 
 .active .dashboardicons,
 .active .dashboard-icon{
-  /* color: purple; */
   color: navy;
 }
 
@@ -190,8 +189,8 @@
   position: absolute;
   left: 10px;
   top: 15px;
-  height: 30px;
-  width: 30px;
+  height: 45px;
+  width: 45px;
   cursor: pointer;
   display: none;
 }
@@ -264,7 +263,7 @@
 
 .settings-icon{
   position: relative;
-  left: 90%;
+  left: 85%;
 }
 
 .attendance-icon{
@@ -528,32 +527,19 @@
   }
 
   .settings-icon{
-    position: absolute;
-    left: 65%;
+    position: relative;
+    left: 85%;
   }
-
+  
   .attendance-icon{
-    position: absolute;
-    left: 78%;
+    position: relative;
+    left: 50%;
   }
 
   .user-list-toggle{
     padding: 4px 3px 15px 3px;
     position: relative;
     left: 27px;
-  }
-
-  .list-style-users{
-    position: relative;
-    right: 30px;
-  }
-
-  .user-list {
-    border-bottom: none;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
   }
 }
 
@@ -576,30 +562,14 @@
   }
 
   .settings-icon{
-    position: absolute;
-    left: 64%;
+    position: relative;
+    left: 85%;
   }
-
+  
   .attendance-icon{
-    position: absolute;
-    left: 79%;
+    position: relative;
+    left: 50%;
   }
 
-  .list-style-users{
-    position: relative;
-    right: 30px;
-  }
-
-  .user-list {
-    /* position: absolute;
-    top: 10%;
-    left: 10%; */
-    border-bottom: none;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
-    /* right: 30px; */
-  }
 }
 
