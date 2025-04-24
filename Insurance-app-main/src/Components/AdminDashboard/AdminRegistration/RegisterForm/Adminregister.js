@@ -39,16 +39,16 @@ const Adminregister = ({ close }) => {
     const [permission, setPermission] = useState({
         'dashboard': { read: false, create: false, update: false, delete: false },
         'user_attendance': { read: false, create: false, update: false, delete: false },
+        'payslip': { read: false, create: false, update: false, delete: false },
+        'users': { read: false, create: false, update: false, delete: false },
         'attendance': {
             read: false, create: false, update: false, delete: false,
-            'payslip': { read: false, create: false, update: false, delete: false },
-
         },
         'settings': {
             read: false, create: false, update: false, delete: false,
-            'users': { read: false, create: false, update: false, delete: false },
         },
     });
+
 
     const [fullPermission, setFullPermission] = useState({
         read: false,
@@ -100,44 +100,22 @@ const Adminregister = ({ close }) => {
             }
         }));
     };
-    const toggleParentPermission = (moduleName, childKeys = []) => {
-        const isAllChecked = ['create', 'read', 'update', 'delete'].every(action => {
-            const parentChecked = permission[moduleName][action];
-            const childrenChecked = childKeys.every(
-                child => permission[moduleName][child][action]
-            );
-            return parentChecked && childrenChecked;
-        });
+    const toggleParentPermission = (parentKey, childKeys) => {
+        const allChecked = ['create', 'read', 'update', 'delete'].every(action =>
+            permission[parentKey][action] && childKeys.every(child => permission[child][action])
+        );
 
-        const newValue = !isAllChecked;
+        const updatedPermissions = { ...permission };
 
-        setPermission(prev => {
-            const updated = {
-                ...prev[moduleName],
-                create: newValue,
-                read: newValue,
-                update: newValue,
-                delete: newValue
-            };
-
-
+        ['create', 'read', 'update', 'delete'].forEach(action => {
+            updatedPermissions[parentKey][action] = !allChecked;
             childKeys.forEach(child => {
-                updated[child] = {
-                    ...prev[moduleName][child],
-                    create: newValue,
-                    read: newValue,
-                    update: newValue,
-                    delete: newValue
-                };
+                updatedPermissions[child][action] = !allChecked;
             });
-
-            return {
-                ...prev,
-                [moduleName]: updated
-            };
         });
-    };
 
+        setPermission(updatedPermissions);
+    };
 
 
     const handleSalarychange = (e) => {
@@ -419,108 +397,20 @@ const Adminregister = ({ close }) => {
                                             </td>
                                         </tr>
 
-                                        {/* <tr>
-                                            <td>Payslip</td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.payslip.create}
-                                                    onChange={e => setPermission(prev => ({
-                                                        ...prev,
-                                                        payslip: { ...prev.payslip, create: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.payslip.read}
-                                                    onChange={e => setPermission(prev => ({
-                                                        ...prev,
-                                                        payslip: { ...prev.payslip, read: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.payslip.update}
-                                                    onChange={e => setPermission(permission => ({
-                                                        ...permission,
-                                                        payslip: { ...permission.payslip, update: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.payslip.delete}
-                                                    onChange={e => setPermission(permission => ({
-                                                        ...permission,
-                                                        payslip: { ...permission.payslip, delete: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                        </tr> */}
-
-                                        {/* <tr>
-                                            <td>Users</td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.users.create}
-                                                    onChange={e => setPermission(prev => ({
-                                                        ...prev,
-                                                        users: { ...prev.users, create: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.users.read}
-                                                    onChange={e => setPermission(prev => ({
-                                                        ...prev,
-                                                        users: { ...prev.users, read: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.users.update}
-                                                    onChange={e => setPermission(permission => ({
-                                                        ...permission,
-                                                        users: { ...permission.users, update: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.users.delete}
-                                                    onChange={e => setPermission(permission => ({
-                                                        ...permission,
-                                                        users: { ...permission.users, delete: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                        </tr> */}
                                         <tr>
                                             <td>
                                                 Attendance
                                                 <input
                                                     type="checkbox"
-                                                    style={{ marginLeft: '10px' }}
                                                     checked={
                                                         ['create', 'read', 'update', 'delete'].every(
                                                             action =>
-                                                                permission.attendance[action] &&
-                                                                permission.attendance.payslip[action]
+                                                                permission.attendance[action] && permission.payslip[action]
                                                         )
                                                     }
                                                     onChange={() => toggleParentPermission('attendance', ['payslip'])}
                                                 />
+
                                                 <span style={{ marginLeft: '5px' }}>All</span>
                                             </td>
                                         </tr>
@@ -574,52 +464,41 @@ const Adminregister = ({ close }) => {
                                             <td>
                                                 <input
                                                     type="checkbox"
-                                                    checked={permission.attendance.payslip.create}
+                                                    checked={permission.payslip.create}
                                                     onChange={e => setPermission(prev => ({
                                                         ...prev,
-                                                        attendance: {
-                                                            ...prev.attendance,
-                                                            payslip: { ...prev.attendance.payslip, create: e.target.checked }
-                                                        }
+                                                        payslip: { ...prev.payslip, create: e.target.checked }
+                                                    }))}
+
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={permission.payslip.read}
+                                                    onChange={e => setPermission(prev => ({
+                                                        ...prev,
+                                                        payslip: { ...prev.payslip, read: e.target.checked }
                                                     }))}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="checkbox"
-                                                    checked={permission.attendance.payslip.read}
+                                                    checked={permission.payslip.update}
                                                     onChange={e => setPermission(prev => ({
                                                         ...prev,
-                                                        attendance: {
-                                                            ...prev.attendance,
-                                                            payslip: { ...prev.attendance.payslip, read: e.target.checked }
-                                                        }
+                                                        payslip: { ...prev.payslip, update: e.target.checked }
                                                     }))}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="checkbox"
-                                                    checked={permission.attendance.payslip.update}
+                                                    checked={permission.payslip.delete}
                                                     onChange={e => setPermission(prev => ({
                                                         ...prev,
-                                                        attendance: {
-                                                            ...prev.attendance,
-                                                            payslip: { ...prev.attendance.payslip, update: e.target.checked }
-                                                        }
-                                                    }))}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.attendance.payslip.delete}
-                                                    onChange={e => setPermission(prev => ({
-                                                        ...prev,
-                                                        attendance: {
-                                                            ...prev.attendance,
-                                                            payslip: { ...prev.attendance.payslip, delete: e.target.checked }
-                                                        }
+                                                        payslip: { ...prev.payslip, delete: e.target.checked }
                                                     }))}
                                                 />
                                             </td>
@@ -673,61 +552,18 @@ const Adminregister = ({ close }) => {
                                                 />
                                             </td>
                                         </tr>
-                                        {/* <tr>
-                                            <td>Settings</td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.settings.create}
-                                                    onChange={e => setPermission(prev => ({
-                                                        ...prev,
-                                                        settings: { ...prev.settings, create: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.settings.read}
-                                                    onChange={e => setPermission(prev => ({
-                                                        ...prev,
-                                                        settings: { ...prev.settings, read: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.settings.update}
-                                                    onChange={e => setPermission(permission => ({
-                                                        ...permission,
-                                                        settings: { ...permission.settings, update: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.settings.delete}
-                                                    onChange={e => setPermission(permission => ({
-                                                        ...permission,
-                                                        settings: { ...permission.settings, delete: e.target.checked }
-                                                    }))}
-                                                />
-                                            </td>
-                                        </tr> */}
                                         <tr>
                                             <td>Settings
-                                              <input type='checkbox' 
-                                              style={{marginLeft: "10px" }}
-                                              checked={
-                                                ['create','read','update','delete'].every(action=>
-                                                    permission.settings [action] && 
-                                                    permission.settings.users [action]
-                                                )
-                                              }
-                                              onChange={()=>toggleParentPermission('settings' , ['users'])}
-                                               />
+                                            <input
+                                                    type="checkbox"
+                                                    checked={
+                                                        ['create', 'read', 'update', 'delete'].every(
+                                                            action =>
+                                                                permission.settings[action] && permission.users[action]
+                                                        )
+                                                    }
+                                                    onChange={() => toggleParentPermission('settings', ['users'])}
+                                                />
                                             </td>
                                         </tr>
                                         <tr>
@@ -778,56 +614,46 @@ const Adminregister = ({ close }) => {
                                             <td>
                                                 <input
                                                     type="checkbox"
-                                                    checked={permission.settings.users.create}
+                                                    checked={permission.users.create}
                                                     onChange={e => setPermission(prev => ({
                                                         ...prev,
-                                                        settings: {
-                                                            ...prev.settings,
-                                                            users: { ...prev.settings.users, create: e.target.checked }
-                                                        }
+                                                        users: { ...prev.users, create: e.target.checked }
                                                     }))}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="checkbox"
-                                                    checked={permission.settings.users.read}
+                                                    checked={permission.users.read}
                                                     onChange={e => setPermission(prev => ({
                                                         ...prev,
-                                                        settings: {
-                                                            ...prev.settings,
-                                                            users: { ...prev.settings.users, read: e.target.checked }
-                                                        }
+                                                        users: { ...prev.users, read: e.target.checked }
+                                                    }))}
+
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={permission.users.update}
+                                                    onChange={e => setPermission(prev => ({
+                                                        ...prev,
+                                                        users: { ...prev.users, update: e.target.checked }
                                                     }))}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="checkbox"
-                                                    checked={permission.settings.users.update}
+                                                    checked={permission.users.delete}
                                                     onChange={e => setPermission(prev => ({
                                                         ...prev,
-                                                        settings: {
-                                                            ...prev.settings,
-                                                            users: { ...prev.settings.users, update: e.target.checked }
-                                                        }
-                                                    }))}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={permission.settings.users.delete}
-                                                    onChange={e => setPermission(prev => ({
-                                                        ...prev,
-                                                        settings: {
-                                                            ...prev.settings,
-                                                            users: { ...prev.settings.users, delete: e.target.checked }
-                                                        }
+                                                        users: { ...prev.users, update: e.target.checked }
                                                     }))}
                                                 />
                                             </td>
                                         </tr>
+
                                     </tbody>
                                 </table>
                             </div>
