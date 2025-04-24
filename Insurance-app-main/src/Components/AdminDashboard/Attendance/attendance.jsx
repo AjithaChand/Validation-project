@@ -14,17 +14,35 @@ import dayjs from 'dayjs';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 const Attendance = () => {
+
   const [attendanceData, setAttendanceData] = useState([]);
   const [file, setFile] = useState(null);
   const [refresh, setRefresh] = useState(false);
   const [date, setDate] = useState(dayjs());
   const [searchbar, setSearchbar] = useState("");
 
+  const [getPermission, setGetPermission] = useState({})
+
+  const [attendanceloading, setAttendanceloading] = useState(true)
+
   const [calendar, setCalender] = useState(false)
 
   const handleClick = () => {
     setCalender(!calendar)
   }
+
+  const person_code = localStorage.getItem("person_code")
+
+  useEffect(() => {
+    if (person_code) {
+      axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
+
+        .then(res => setGetPermission(res.data.info))
+
+        .catch(err => console.log(err.message))
+    }
+  }, [person_code])
+
 
   const getCurrentAbsentColumn = () => {
     const now = new Date();
@@ -46,6 +64,8 @@ const Attendance = () => {
     const day = String(selectedDate.date()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
 
+    setAttendanceloading(true)
+
     axios.get(`${apiurl}/get_attendance_datas?date=${formattedDate}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -64,7 +84,10 @@ const Attendance = () => {
         toast.error(errorMsg);
         console.error(err);
         setAttendanceData([]);
-      });
+      })
+      .finally(() => {
+        setAttendanceloading(false)
+      })
   };
 
   useEffect(() => {
@@ -162,83 +185,93 @@ const Attendance = () => {
       </div>
 
       <div className='attendance-table-container'>
-        <div className='attendance'>
-          <table className='attend-1'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Working Days</th>
-                <th>Week Off</th>
-                <th>Present Days</th>
-                <th>Absent Days</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filterdata.map((data, index) => {
-                const absentColumn = getCurrentAbsentColumn();
-                const presentColumn = getCurrentPresentColumn();
+        {attendanceloading ? (
+          <div className='spinner'></div>
+        ) : (
+          <div className='attendance'>
+            <table className='attend-1'>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Working Days</th>
+                  <th>Week Off</th>
+                  <th>Present Days</th>
+                  <th>Absent Days</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filterdata.map((data, index) => {
+                  const absentColumn = getCurrentAbsentColumn();
+                  const presentColumn = getCurrentPresentColumn();
 
-                const absentDays = data[absentColumn];
-                const presentDays = data[presentColumn];
+                  const absentDays = data[absentColumn];
+                  const presentDays = data[presentColumn];
 
-                const isPresent = presentDays === 1;
-                const isAbsent = absentDays === 0;
-                const noRecord = presentDays === null && absentDays === null;
+                  const isPresent = presentDays === 1;
+                  const isAbsent = absentDays === 0;
+                  const noRecord = presentDays === null && absentDays === null;
 
-                return (
-                  <tr key={index}>
-                    <td>{data.emp_id}</td>
-                    <td>{data.emp_name}</td>
-                    <td>{data.emp_email}</td>
-                    <td>30</td>
-                    <td>4</td>
-                    <td>
+                  return (
+                    <tr key={index}>
+                      <td>{data.emp_id}</td>
+                      <td>{data.emp_name}</td>
+                      <td>{data.emp_email}</td>
+                      <td>30</td>
+                      <td>4</td>
+                      <td>
 
-                      {isPresent ? (
+                        {isPresent ? (
 
-                        <FaCheck className="present-icon" />
+                          <FaCheck className="present-icon" />
 
-                      ) : noRecord ? (
+                        ) : noRecord ? (
 
-                        <span className="no-record">_</span>
+                          <span className="no-record">_</span>
 
-                      ) : (
+                        ) : (
 
-                        "N/A"
+                          "N/A"
 
-                      )}
+                        )}
 
-                    </td>
+                      </td>
 
-                    <td>
+                      <td>
 
-                      {isAbsent ? (
+                        {isAbsent ? (
 
-                        <FaTimes className="absent-icon" />
+                          <FaTimes className="absent-icon" />
 
-                      ) : noRecord ? (
+                        ) : noRecord ? (
 
-                        <span className="no-record">_</span>
+                          <span className="no-record">_</span>
 
-                      ) : (
+                        ) : (
 
-                        "N/A"
+                          "N/A"
 
-                      )}
+                        )}
 
-                    </td>
-                    <td>
-                      {isPresent ? "Present" : isAbsent ? "Absent" : "No Record"}
-                    </td>
+                      </td>
+                      <td>
+                        {isPresent ? "Present" : isAbsent ? "Absent" : "No Record"}
+                      </td>
+                    </tr>
+                  );
+                })}
+
+                {attendanceloading === false && filterdata.length === 0 && (
+                  <tr>
+                    <td colSpan={8}><h6 className='attendance-msg'> No User Found</h6></td>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
       <ToastContainer />
     </div>

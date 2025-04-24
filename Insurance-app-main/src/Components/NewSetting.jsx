@@ -9,6 +9,8 @@ function CompanyDetailsForm() {
 
   const {setRefreshSetting} = useContext(UserContext);
 
+  const [getPermission, setGetPermission] = useState({})
+
   const [formData, setFormData] = useState({
     companyName: "",
     phone: "",
@@ -18,6 +20,20 @@ function CompanyDetailsForm() {
   });
 
     // const [existingLogo, setExistingLogo] = useState(null);
+
+    const person_code = localStorage.getItem("person_code")
+    console.log("person_code", person_code);
+  
+    useEffect(() => {
+      if (person_code) {
+        axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
+  
+          .then(res => setGetPermission(res.data.info))
+  
+          .catch(err => console.log(err.message))
+      }
+    }, [person_code])
+  
   
     useEffect(() => {
       const fetchCompanyDetails = async () => {
@@ -136,7 +152,9 @@ function CompanyDetailsForm() {
       />
       <input type="file" accept="image/*" onChange={handleFileChange} required/>
       {/* <img src={formData.logo} alt="" style={{ height:"30px", width:"30px"}} /> */}
-      <button className="save" type="submit">Save Details</button>
+      {getPermission.length !== 0 && getPermission[6]?.can_update === 1 && (
+        <button className="save" type="submit">Save Details</button>
+      )}
     </form>
   </div>
 );

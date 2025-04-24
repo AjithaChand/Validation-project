@@ -286,9 +286,9 @@ const Adminpage = () => {
               <span className='addbutton'><AddIcon className="addicon" /> Add Details</span>
             </button>
           ) : (
-            getPermission.length !== 0 && getPermission[0]?.can_create === 1 && (
+            getPermission.length !== 0 && getPermission[1]?.can_create === 1 && (
               <button className=' admin-btn' onClick={handlePopup}
-                disabled={getPermission.length === 0 || getPermission[0]?.can_create !== 1}
+                disabled={getPermission.length === 0 || getPermission[1]?.can_create !== 1}
               >
                 <span className='addbutton'>Add Details <AddIcon className="addicon" /> </span>
               </button>
@@ -358,23 +358,23 @@ const Adminpage = () => {
                                   </button>
                                 </>
                               ) : (
-                                getPermission.length !== 0 && (getPermission[0]?.can_update === 1 || getPermission[0]?.can_delete === 1) && (
+                                getPermission.length !== 0 && (getPermission[1]?.can_update === 1 || getPermission[1]?.can_delete === 1) && (
                                   <>
                                     <button
                                       className='edit-btn'
                                       onClick={() => handleupdate(values?.id)}
-                                      disabled={getPermission.length === 0 || getPermission[0]?.can_update !== 1}
+                                      disabled={getPermission.length === 0 || getPermission[1]?.can_update !== 1}
                                     >
-                                      {getPermission.length !== 0 && getPermission[0]?.can_update === 1 && (
+                                      {getPermission.length !== 0 && getPermission[1]?.can_update === 1 && (
                                         <FaEdit className='edit-icon' />
                                       )}
                                     </button>
 
                                     <button className='delete-button'
                                       onClick={() => handleDelete(values.id)}
-                                      disabled={getPermission.length === 0 || getPermission[0]?.can_delete !== 1}
+                                      disabled={getPermission.length === 0 || getPermission[1]?.can_delete !== 1}
                                     >
-                                      {getPermission.length !== 0 && getPermission[0]?.can_delete === 1 && (
+                                      {getPermission.length !== 0 && getPermission[1]?.can_delete === 1 && (
                                         <DeleteIcon className="deleteicon" />
                                       )}
                                     </button>
@@ -391,6 +391,11 @@ const Adminpage = () => {
               </div>
             </>
           )}
+
+          {adminloading === false && filterData.length === 0 && (
+            <h6 className='user-msg'> No User Found</h6>
+          )}
+
         </div>
 
       </div>

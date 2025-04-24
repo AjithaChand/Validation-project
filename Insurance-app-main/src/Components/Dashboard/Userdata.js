@@ -1,6 +1,5 @@
 import './Userdata.css'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { FaUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import UserDialog from './Dialogbox/UserDialog';
 import { useContext, useEffect, useState } from 'react';
@@ -161,30 +160,21 @@ const Userdata = () => {
           <nav>
             {user === "admin" ? (
               <ul className='user-list'>
+
                 <li className={` list-style ${location.pathname === '/dashboard' && 'active'}`}>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
                     <RxDashboard className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'> Dashboard </span>}
                   </div>
                 </li>
+
                 <li className={` list-style ${location.pathname === '/dashboard/register' && 'active'}`}>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard/register')}>
                     <LuNotebookPen className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'> Register </span>}
                   </div>
                 </li>
-                {/* <li className={` list-style ${location.pathname === '/dashboard/payslip' && 'active'}`}>
-                  <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
-                    <IoReceiptOutline className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                    {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
-                  </div>
-                </li> */}
-                {/* <li className={` list-style ${location.pathname === '/dashboard/attendance' && 'active'}`}>
-                  <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
-                    <LuCalendarCheck className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                    {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
-                  </div>
-                </li> */}
+                
                 <li className={` list-style ${location.pathname === '/dashboard/attendance' && 'active'}`}>
                   <div className='userdata-btn' onClick={() => {
                     handleSettingpayslip();
@@ -205,6 +195,7 @@ const Userdata = () => {
                     </li>
                   </ul>
                 )}
+
                 <li className={` list-style ${location.pathname === '/dashboard/settings' && 'active'}`}>
                   <div className='userdata-btn' onClick={() => {
                     handleSetting()
@@ -225,10 +216,12 @@ const Userdata = () => {
                     </li>
                   </ul>
                 )}
+
               </ul>
 
             ) : (
               <ul className='user-list'>
+
                 {getPermission[0]?.can_read === 1 && (
                   <li className={` list-style ${location.pathname === '/dashboard' && 'active'}`}>
                     <div className='userdata-btn' onClick={() => navigate('/dashboard')}>
@@ -238,7 +231,7 @@ const Userdata = () => {
                   </li>
                 )}
 
-                {getPermission[0]?.can_read === 1 && (
+                {getPermission[1]?.can_read === 1 && (
                   <li className={` list-style ${location.pathname === '/dashboard/register' && 'active'}`}>
                     <div className='userdata-btn' onClick={() => navigate('/dashboard/register')}>
                       <LuNotebookPen className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
@@ -247,34 +240,7 @@ const Userdata = () => {
                   </li>
                 )}
 
-                {/* {getPermission[2]?.can_read === 1 && (
-                  <li className={` list-style ${location.pathname === '/dashboard/users' && 'active'}`}>
-                    <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
-                      <FaRegUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                      {dashboardSidebaropen && <span className='dashboard-icon'> Users</span>}
-                    </div>
-                  </li>
-                )} */}
-
-                {/* {getPermission[1]?.can_read === 1 && (
-                  <li className={` list-style ${location.pathname === '/dashboard/payslip' && 'active'}`}>
-                    <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
-                      <IoReceiptOutline className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                      {dashboardSidebaropen && <span className='dashboard-icon'> Payslip</span>}
-                    </div>
-                  </li>
-                )} */}
-
-                {/* {getPermission[3]?.can_read === 1 && (
-                  <li className={` list-style ${location.pathname === '/dashboard/attendance' && 'active'}`}>
-                    <div className='userdata-btn' onClick={() => navigate('/dashboard/attendance')}>
-                      <LuCalendarCheck className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                      {dashboardSidebaropen && <span className='dashboard-icon'> Attendance</span>}
-                    </div>
-                  </li>
-                )} */}
-
-                {getPermission[3]?.can_read === 1 && (
+                {getPermission[5]?.can_read === 1 && (
                   <li className={` list-style ${location.pathname === '/dashboard/attendance' && 'active'}`}>
                     <div className='userdata-btn' onClick={() => {
                       handleSettingpayslip()
@@ -284,7 +250,7 @@ const Userdata = () => {
                       {dashboardSidebaropen && <span className='dashboard-icon'> Attendance <KeyboardArrowDownIcon className='attendance-icon' /></span>}
                     </div>
                   </li>
-                )}{settingspayslip && dashboardSidebaropen && (
+                )}{getPermission[3]?.can_read === 1 && settingspayslip && dashboardSidebaropen && (
                   <ul>
                     <li className={` list-style ${location.pathname === '/dashboard/payslip' && 'active'}`}>
                       <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
@@ -295,7 +261,7 @@ const Userdata = () => {
                   </ul>
                 )}
 
-                {getPermission[4]?.can_read === 1 && (
+                {getPermission[2]?.can_read === 1 && (
                   <li className={` list-style ${location.pathname === '/dashboard/userattendance' && 'active'}`}>
                     <div className='userdata-btn' onClick={() => navigate('/dashboard/userattendance')}>
                       <Fa500Px className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
@@ -304,7 +270,7 @@ const Userdata = () => {
                   </li>
                 )}
 
-                {getPermission[5]?.can_read === 1 && (
+                {getPermission[6]?.can_read === 1 && (
                   <li className={` list-style ${location.pathname === '/dashboard/settings' && 'active'}`}>
                     <div className='userdata-btn' onClick={() => {
                       handleSetting()
@@ -317,7 +283,7 @@ const Userdata = () => {
                     </div>
                   </li>
                 )}
-                {settings && dashboardSidebaropen && (
+                {getPermission[4]?.can_read === 1 &&  settings && dashboardSidebaropen && (
                   <ul>
                     <li className={` list-style ${location.pathname === '/dashboard/users' && 'active'}`}>
                       <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>

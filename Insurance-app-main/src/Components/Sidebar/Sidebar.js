@@ -179,7 +179,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                 </li>
                             )}
 
-                            {getPermission[0]?.can_read === 1 && (
+                            {getPermission[1]?.can_read === 1 && (
                                 <li className='sidebar-list'>
                                     <div className='sidebar-icons' onClick={() => {
                                         navigate('/dashboard/register');
@@ -191,7 +191,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                 </li>
                             )}
 
-                            {getPermission[3]?.can_read === 1 && (
+                            {getPermission[5]?.can_read === 1 && (
                                 <li className='sidebar-list'>
                                     <div className='sidebar-icons' onClick={() => handleAttendance()}>
                                         <FaCalendarCheck />
@@ -201,29 +201,35 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                             )}
                             {attendance && (
                                 <ul className='sidebar-ul-list'>
-                                    <li className='sidebar-list'>
-                                        <div className='sidebar-icons' onClick={() => {
-                                            navigate('/dashboard/attendance');
-                                            onCloseClick()
-                                        }}>
-                                            <FaCalendarCheck />
-                                            <span> Attendance</span>
-                                        </div>
-                                    </li>
+                                    {getPermission[5]?.can_read === 1 && (
+                                        <li className='sidebar-list'>
+                                            <div className='sidebar-icons' onClick={() => {
+                                                navigate('/dashboard/attendance');
+                                                onCloseClick()
+                                            }}>
+                                                <FaCalendarCheck />
+                                                <span> Attendance</span>
+                                            </div>
+                                        </li>
+                                    )
+                                    }
 
-                                    <li className='sidebar-list'>
-                                        <div className='sidebar-icons' onClick={() => {
-                                            navigate('/dashboard/payslip');
-                                            onCloseClick()
-                                        }}>
-                                            <FaReceipt />
-                                            <span> Payslip</span>
-                                        </div>
-                                    </li>
+                                    {getPermission[3]?.can_read === 1 && (
+                                        <li className='sidebar-list'>
+                                            <div className='sidebar-icons' onClick={() => {
+                                                navigate('/dashboard/payslip');
+                                                onCloseClick()
+                                            }}>
+                                                <FaReceipt />
+                                                <span> Payslip</span>
+                                            </div>
+                                        </li>
+                                    )}
+
                                 </ul>
                             )}
 
-                            {getPermission[4]?.can_read === 1 && (
+                            {getPermission[2]?.can_read === 1 && (
                                 <li className=" sidebar-list ">
                                     <div className='sidebar-icons' onClick={() => {
                                         navigate('/dashboard/userattendance');
@@ -235,7 +241,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                 </li>
                             )}
 
-                            {getPermission[5]?.can_read === 1 && (
+                            {getPermission[6]?.can_read === 1 && (
                                 <li className='sidebar-list'>
                                     <div className='sidebar-icons' onClick={() => handleSetting()}>
                                         <IoSettingsSharp />
@@ -245,17 +251,21 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                             )}
                             {settings && (
                                 <ul className='sidebar-ul-list'>
-                                    <li className='sidebar-list'>
-                                        <div className='sidebar-icons' onClick={() => {
-                                            navigate('/dashboard/users');
-                                            onCloseClick()
-                                        }}>
-                                            <FaUser />
-                                            <span> Users</span>
-                                        </div>
-                                    </li>
 
-                                    <li className='sidebar-list'>
+                                    {getPermission[4]?.can_read === 1 && (
+                                        <li className='sidebar-list'>
+                                            <div className='sidebar-icons' onClick={() => {
+                                                navigate('/dashboard/users');
+                                                onCloseClick()
+                                            }}>
+                                                <FaUser />
+                                                <span> Users</span>
+                                            </div>
+                                        </li>
+                                    )}
+
+                                    {getPermission[6]?.can_read === 1 && (
+                                        <li className='sidebar-list'>
                                         <div className='sidebar-icons' onClick={() => {
                                             navigate('/dashboard/settings');
                                             onCloseClick()
@@ -264,6 +274,8 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                             <span> Settings</span>
                                         </div>
                                     </li>
+                                    )}
+
                                 </ul>
                             )}
 

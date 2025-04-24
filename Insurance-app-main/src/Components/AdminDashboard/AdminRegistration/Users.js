@@ -179,9 +179,9 @@ const Users = () => {
               <span className='createbutton'><AddIcon className="user-addicon" /> Create Account </span>
             </button>
           ) : (
-            getPermission.length !== 0 && getPermission[2]?.can_create === 1 && (
+            getPermission.length !== 0 && getPermission[4]?.can_create === 1 && (
               <button className='users-btn'
-                disabled={getPermission.length === 0 || getPermission[2]?.can_create !== 1}
+                disabled={getPermission.length === 0 || getPermission[4]?.can_create !== 1}
 
                 onClick={handleDialog} >
                 <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
@@ -199,8 +199,6 @@ const Users = () => {
             className='user-search-input-res'
           />
         </div>
-
-        {/* <div><p className='tablerow-user mt-3'>USER DETAILS</p></div> */}
 
         <div className='users-table-container'>
         {loading ? (
@@ -224,7 +222,7 @@ const Users = () => {
                   <th>Latitude</th>
                   <th>Longitude</th>
                   {user === 'admin' ? (<th>Action</th>) : (
-                    getPermission.length !== 0 && (getPermission[2]?.can_update === 1 || getPermission[2]?.can_delete === 1) && (
+                    getPermission.length !== 0 && (getPermission[4]?.can_update === 1 || getPermission[4]?.can_delete === 1) && (
                       <th>Actions</th>
                     )
                   )}
@@ -258,20 +256,20 @@ const Users = () => {
                         </button>
                       </td>
                     ) : (
-                      getPermission.length !== 0 && (getPermission[2]?.can_update === 1 || getPermission[2]?.can_delete === 1) && (
+                      getPermission.length !== 0 && (getPermission[4]?.can_update === 1 || getPermission[4]?.can_delete === 1) && (
                         <td>
                           <button className='edit-btn'
-                            disabled={getPermission.length === 0 || getPermission[2]?.can_update !== 1}
+                            disabled={getPermission.length === 0 || getPermission[4]?.can_update !== 1}
                             onClick={() => handleupdate(data.id, data.email)}>
-                            {getPermission.length !== 0 && getPermission[2]?.can_update === 1 && (
+                            {getPermission.length !== 0 && getPermission[4]?.can_update === 1 && (
                               <FaEdit className='useredit-icon' />
                             )}
                           </button>
 
                           <button className='delete-btn'
-                            disabled={getPermission.length === 0 || getPermission[2]?.can_delete !== 1}
+                            disabled={getPermission.length === 0 || getPermission[4]?.can_delete !== 1}
                             onClick={() => handleDelete(data.id)}>
-                            {getPermission.length !== 0 && getPermission[2]?.can_delete === 1 && (
+                            {getPermission.length !== 0 && getPermission[4]?.can_delete === 1 && (
                               <RiDeleteBinFill className='userdelete-icon' />
                             )}
                           </button>
@@ -283,7 +281,7 @@ const Users = () => {
 
                 {loading === false && filterValue.length === 0 && (
                   <tr>
-                    <td colSpan={10}><div className='users-msg'> No User Found</div></td>
+                    <td colSpan={14}><div className='users-msg'> No User Found</div></td>
                   </tr>
                 )}
               </tbody>

@@ -32,6 +32,11 @@
   transform: scale(1.05);
 }
 
+.attendance-msg{
+  text-align: center;
+  padding: 20px;
+}
+
 .attendance-header-container {
   padding: 20px;
 }

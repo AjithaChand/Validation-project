@@ -283,7 +283,10 @@
 }
 
 .user-msg {
-    margin: 20px auto;
+    text-align: center;
+    color: #5b5b5b;
+    font-size: 18px;
+    padding: 20px;
 }
 
 .table-container-admin {
@@ -396,6 +399,10 @@
     .tablerow-admin {
         font-size: 16px;
         font-weight: bold;
+    }
+
+    .user-msg {
+        font-size: 16px;
     }
 
     .userdata-container {
@@ -537,6 +544,10 @@
     .tablerow-admin {
         font-size: 19px;
         font-weight: bold;
+    }
+
+    .user-msg {
+        font-size: 16px;
     }
 
     .adminbutton {
@@ -718,6 +729,10 @@
         transition: width 0.4s ease, opacity 0.4s ease;
     }
 
+    .user-msg {
+        font-size: 17px;
+    }
+
 }
 
 @media only screen and (min-width:769px) and (max-width:992px) {
@@ -772,12 +787,20 @@
         cursor: pointer;
     }
 
+    .user-msg {
+        font-size: 17px;
+    }
+
 }
 
 @media only screen and (min-width:1009px) and (max-width:1440px) {
 
     .users-details-container {
         overflow-x: auto;
+    }
+
+    .user-msg {
+        font-size: 17px;
     }
 
 }
