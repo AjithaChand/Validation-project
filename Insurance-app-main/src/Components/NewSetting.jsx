@@ -8,6 +8,7 @@ import { UserContext } from "../usecontext";
 function CompanyDetailsForm() {
 
   const {setRefreshSetting} = useContext(UserContext);
+  const user = localStorage.getItem("role");
 
   const [getPermission, setGetPermission] = useState({})
 
@@ -152,9 +153,14 @@ function CompanyDetailsForm() {
       />
       <input type="file" accept="image/*" onChange={handleFileChange} required/>
       {/* <img src={formData.logo} alt="" style={{ height:"30px", width:"30px"}} /> */}
-      {getPermission.length !== 0 && getPermission[6]?.can_update === 1 && (
-        <button className="save" type="submit">Save Details</button>
+      {user === 'admin' ? (
+          <button className="save" type="submit">Save Details</button>
+      ) : (
+        getPermission.length !== 0 && getPermission[6]?.can_update === 1 && (
+          <button className="save" type="submit">Save Details</button>
+        )
       )}
+     
     </form>
   </div>
 );

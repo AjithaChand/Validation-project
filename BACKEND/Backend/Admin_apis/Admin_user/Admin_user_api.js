@@ -368,11 +368,8 @@ app.get("/get-person_code", (req, res) => {
 
 
 //Updating permissions
-
 app.put("/update-permissions", (req, res) => {
-
     const { person_code } = req.query;
-
     const { permissions } = req.body;
 
     console.log("Permissions received:", permissions);
@@ -381,19 +378,14 @@ app.put("/update-permissions", (req, res) => {
     const permissionsRows = [];
 
     for (const [page, perm] of Object.entries(permissions)) {
-
-        permissionsRows.push(
-
-            [
-                person_code,
-                page,
-                perm.create ? 1 : 0,
-                perm.read ? 1 : 0,
-                perm.update ? 1 : 0,
-                perm.delete ? 1 : 0,
-            ]
-        )
-
+        permissionsRows.push([
+            person_code,
+            page,
+            perm.create ? 1 : 0,
+            perm.read ? 1 : 0,
+            perm.update ? 1 : 0,
+            perm.delete ? 1 : 0,
+        ]);
     }
 
     const placeholders = permissionsRows.map(() => `(?, ?, ?, ?, ?, ?)`).join(", ");
@@ -405,32 +397,29 @@ app.put("/update-permissions", (req, res) => {
         if (err) {
             return res.status(500).json({ error: "Failed to delete old permissions" });
         }
-    })
 
-    const updateSql =
-        `INSERT INTO permissions
-    (person_code, page_name, can_create, can_read, can_update, can_delete)
-    VALUES ${placeholders}
-    ON DUPLICATE KEY UPDATE
-    can_create = VALUES (can_create),
-    can_read = VALUES (can_read),
-    can_update= VALUES (can_update),
-    can_delete =VALUES (can_delete)
-    `;
+        
+        const updateSql = `
+            INSERT INTO permissions
+            (person_code, page_name, can_create, can_read, can_update, can_delete)
+            VALUES ${placeholders}
+            ON DUPLICATE KEY UPDATE
+            can_create = VALUES(can_create),
+            can_read = VALUES(can_read),
+            can_update = VALUES(can_update),
+            can_delete = VALUES(can_delete)
+        `;
 
-
-
-    db.query(updateSql, flatValues, (err, updResult) => {
-
-        if (err) {
-            console.log("sql error ", err)
-            return res.status(500).json({ error: "Database ERROR" })
-        }
-        else {
-            return res.status(200).json({ message: "Permissions Changes Successfully" })
-        }
+        db.query(updateSql, flatValues, (err, updResult) => {
+            if (err) {
+                console.log("sql error ", err);
+                return res.status(500).json({ error: "Database ERROR" });
+            } else {
+                return res.status(200).json({ message: "Permissions Updated Successfully" });
+            }
+        });
     });
-
 });
+
 
 module.exports = app;
