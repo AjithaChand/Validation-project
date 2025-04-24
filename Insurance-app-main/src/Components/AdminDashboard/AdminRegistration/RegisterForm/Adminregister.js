@@ -41,15 +41,12 @@ const Adminregister = ({ close }) => {
 
     const [permission, setPermission] = useState({
         'dashboard': { read: false, create: false, update: false, delete: false },
+        'register' : { read: false, create: false, update: false, delete: false },
         'user_attendance': { read: false, create: false, update: false, delete: false },
         'payslip': { read: false, create: false, update: false, delete: false },
         'users': { read: false, create: false, update: false, delete: false },
-        'attendance': {
-            read: false, create: false, update: false, delete: false,
-        },
-        'settings': {
-            read: false, create: false, update: false, delete: false,
-        },
+        'attendance': { read: false, create: false, update: false, delete: false },
+        'settings': { read: false, create: false, update: false, delete: false },
     });
 
 
@@ -349,6 +346,7 @@ const Adminregister = ({ close }) => {
                                                 </td>
                                             ))}
                                         </tr>
+
                                         <tr>
                                             <td>Dashboard
                                                 <input
@@ -395,6 +393,56 @@ const Adminregister = ({ close }) => {
                                                     onChange={e => setPermission(permission => ({
                                                         ...permission,
                                                         dashboard: { ...permission.dashboard, delete: e.target.checked }
+                                                    }))}
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Register
+                                                <input
+                                                    type="checkbox"
+                                                    checked={Object.values(permission.register).every(val => val === true)}
+                                                    onChange={() => toggleFullAccess('register')}
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={permission.register.create}
+                                                    onChange={e => setPermission(prev => ({
+                                                        ...prev,
+                                                        register: { ...prev.register, create: e.target.checked }
+                                                    }))}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={permission.register.read}
+                                                    onChange={e => setPermission(prev => ({
+                                                        ...prev,
+                                                        register: { ...prev.register, read: e.target.checked }
+                                                    }))}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={permission.register.update}
+                                                    onChange={e => setPermission(permission => ({
+                                                        ...permission,
+                                                        register: { ...permission.register, update: e.target.checked }
+                                                    }))}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={permission.register.delete}
+                                                    onChange={e => setPermission(permission => ({
+                                                        ...permission,
+                                                        register: { ...permission.register, delete: e.target.checked }
                                                     }))}
                                                 />
                                             </td>
