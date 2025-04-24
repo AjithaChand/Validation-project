@@ -19,7 +19,7 @@ const db = require('../../db');
 //Admin registraion from admin page
 
 app.post("/admin/register", verifyToken, (req, res) => {
-    console.log(req.body,"checking")
+    console.log(req.body, "checking");
     const {
         username,
         email,
@@ -42,20 +42,12 @@ app.post("/admin/register", verifyToken, (req, res) => {
         payload,
     } = req.body;
 
-
-    // console.log("For Checking for register:", username, email, password, role);
-    // console.log("For Checking for Payslip", "Total salary:", total_salary, "Esi amount:", esi_amount, "pf_amount:", pf_amount, "Revised salary:", revised_salary);
-
-    // console.log(typeof permissions,"permission type");
-    console.log("For Checking For Attendance", payload);
-    console.log("For Checking For Attendance Alone", payload.branch);
     // Basic email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         return res.status(400).json({ error: "Invalid email format" });
     }
 
-    // Validate permissions
     if (!permissions || typeof permissions !== 'object') {
         return res.status(400).json({ error: "Permissions are required and must be an object" });
     }
@@ -67,7 +59,6 @@ app.post("/admin/register", verifyToken, (req, res) => {
             return res.status(400).json({ error: "Email already exists" });
         }
 
-        // const hashedPassword = await bcrypt.hash(password, 10); // Use this in production
         const sql = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
         const values = [username, email, password, role];
 
@@ -81,20 +72,38 @@ app.post("/admin/register", verifyToken, (req, res) => {
                 }
 
                 const person_code = codeResult[0].person_code;
-
-
                 const permissionRows = [];
+                const flattenPermissions = (permObj, parentKey = '') => {
+                    for (const [key, value] of Object.entries(permObj)) {
+                        const fullKey = parentKey ? `${parentKey}.${key}` : key;
 
-                for (const [page, perm] of Object.entries(permissions)) {
-                    permissionRows.push([
-                        person_code,
-                        page,
-                        perm.read ? 1 : 0,
-                        perm.create ? 1 : 0,
-                        perm.update ? 1 : 0,
-                        perm.delete ? 1 : 0
-                    ]);
-                }
+                        if (
+                            value &&
+                            typeof value === 'object' &&
+                            ['read', 'create', 'update', 'delete'].every(k => typeof value[k] === 'boolean')
+                        ) {
+                            permissionRows.push([
+                                person_code,
+                                fullKey,
+                                value.read ? 1 : 0,
+                                value.create ? 1 : 0,
+                                value.update ? 1 : 0,
+                                value.delete ? 1 : 0
+                            ]);
+                        }
+
+                        for (const subKey in value) {
+                            if (
+                                value[subKey] &&
+                                typeof value[subKey] === 'object'
+                            ) {
+                                flattenPermissions({ [subKey]: value[subKey] }, fullKey);
+                            }
+                        }
+                    }
+                };
+
+                flattenPermissions(permissions);
 
                 const permQuery = "INSERT INTO permissions (person_code, page_name, can_read, can_create, can_update, can_delete) VALUES ?";
                 db.query(permQuery, [permissionRows], (err, permResult) => {
@@ -102,6 +111,7 @@ app.post("/admin/register", verifyToken, (req, res) => {
                         console.log("Permission insert error:", err);
                         return res.status(500).json({ error: "Can't add permissions" });
                     }
+
 
                     const query = "SELECT * FROM payslip WHERE emp_email = ?";
                     db.query(query, [email], (err, info) => {
@@ -116,11 +126,9 @@ app.post("/admin/register", verifyToken, (req, res) => {
                         }
 
                         const insertQuery = "INSERT INTO branches (branch_name, station_name, latitude, longitude) VALUES (?, ?, ?, ?)";
-
                         db.query(insertQuery, [payload.branch, payload.station, payload.latitude, payload.longitude], (err, data) => {
-
                             if (err) {
-                                return res.status(400).send({ message: "Database Error" })
+                                return res.status(400).send({ message: "Database Error" });
                             }
 
                             const branch_id = data.insertId;
@@ -150,15 +158,13 @@ app.post("/admin/register", verifyToken, (req, res) => {
                                 branch_id,
                             ];
 
-
-                            const insertQuery = `
-                            INSERT INTO payslip 
-                            (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, dates, joining_date, revised_salary, bank_details, address, phone_number, branch_id)
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            const insertPayslip = `
+                                INSERT INTO payslip 
+                                (emp_name, emp_email, total_salary, pf_number, esi_amount, esi_number, pf_amount, gross_salary, net_amount, dates, joining_date, revised_salary, bank_details, address, phone_number, branch_id)
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                             `;
-                            
 
-                            db.query(insertQuery, values, (err, result) => {
+                            db.query(insertPayslip, values, (err, result) => {
                                 if (err) {
                                     console.log(`Payslip insert failed for ${email}:`, err);
                                     return res.status(500).send({ message: "Salary Add Failed! Try Again." });
@@ -173,7 +179,7 @@ app.post("/admin/register", verifyToken, (req, res) => {
             });
         });
     });
-})
+});
 
 
 
@@ -185,6 +191,7 @@ app.get('/getuser', verifyToken, (req, res) => {
     db.query(sql, (err, result) => {
         if (err)
             return res.status(500).json({ error: err.message })
+        console.log(result);
 
         return res.json(result)
     })
