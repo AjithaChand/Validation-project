@@ -6,40 +6,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { apiurl } from '../../../../url';
 import { UserContext } from '../../../../usecontext';
 
-//Branches 
-
-import branchData from '../../../Datas/Branches.json'
-
 const Adminregister = ({ close }) => {
     const { setCreateNewUser } = useContext(UserContext);
+    const[payload,setPayload]=useState({
+        branch:"",
+        station:"",
+        latitude:"",
+        longitude:""
+    })
 
-    // const [leavedays, setLeavedays] = useState(0);
-
-    // Code for choosing Branches and station
-    const [selectBranch, setSelectBranch] = useState(null);
-
-    const [selectStation, setSelectStation] = useState(null);
-
-    const handleBranchChange = (e) => {
-
-        const branch = branchData.branches.find(b => b.branch === e.target.value)
-        setSelectBranch(branch)
-        setSelectStation(null)
-    }
-
-    const handleStationChange = (e) => {
-        const station = selectBranch.stations.find(s => s.name === e.target.value)
-        setSelectStation(station)
-    }
-
-    //branch and station code 
-    const payload = {
-        branch: selectBranch?.branch,
-        station: selectStation?.name,
-        latitude: selectStation?.latitude,
-        longitude: selectStation?.longitude
-    }
-
+   
     const [values, setValues] = useState({
         username: '',
         email: '',
@@ -226,7 +202,7 @@ const Adminregister = ({ close }) => {
 
         try {
             await axios.post(`${apiurl}/admin/register`, {
-                ...values, permissions: permission, payload: payload
+                ...values,...payload, permissions: permission
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -321,26 +297,23 @@ const Adminregister = ({ close }) => {
                         </div>
                         <div className='row'>
                             <div className='mt-3 col-md-6 col-sm-12 form-group'>
-                                <select className='form-select mb-4' onChange={handleBranchChange} defaultValue="">
-                                    <option value="" disabled>Select Branch</option>
-                                    {branchData.branches.map((branch, index) => (
-                                        <option key={index} value={branch.branch}>{branch.branch}</option>
-                                    ))}
-                                </select>
+                                <label className='register-label'>Branch</label>
+                                <input type='text' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setPayload({ ...payload, branch: e.target.value })} placeholder='Enter your branch' required />
                             </div>
                             <div className='mt-3 col-md-6 col-sm-12 form-group'>
-                                {selectBranch && (
-                                    <select className="form-select mb-3" onChange={handleStationChange} defaultValue="">
-                                        <option value="" disabled>Select Station</option>
-                                        {selectBranch.stations.map((station, index) => (
-                                            <option key={index} value={station.name}>
-                                                {station.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                )}
+                                <label className='register-label'>station</label>
+                                <input type='text' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setPayload({ ...payload, station: e.target.value })} placeholder='Enter your station' required />
                             </div>
-
+                        </div>
+                        <div className='row'>
+                            <div className='mt-3 col-md-6 col-sm-12 form-group'>
+                                <label className='register-label'>Latitude</label>
+                                <input type='number' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setPayload({ ...payload, latitude: e.target.value })} placeholder='Enter latitude number' required />
+                            </div>
+                            <div className='mt-3 col-md-6 col-sm-12 form-group'>
+                                <label className='register-label'>longitude</label>
+                                <input type='number' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setPayload({ ...payload,longitude: e.target.value })} placeholder='Enter longitude number' required />
+                            </div>
                         </div>
                         <div className='row'>
                             <div className='mt-3 col-12 form-group'>

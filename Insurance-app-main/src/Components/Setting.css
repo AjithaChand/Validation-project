@@ -13,7 +13,7 @@
   padding: 40px 35px;
    background-color: rgba(223, 221, 221, 0.1); 
   border-radius: 24px;
-  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(69, 62, 62, 0.1);
   animation: fadeIn 0.8s ease-in-out;
   margin-top: 20px;
@@ -71,7 +71,7 @@
 }
 .save:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 150, 136, 0.4);
+  box-shadow: 0 10px 10px rgb(111, 111, 203);
 }
 
 @keyframes fadeIn {

@@ -533,6 +533,7 @@ const UserAttendance = () => {
   return (
     <div className='user-attendance'>
       <div className='employee-attend'>
+     
       <div className='employee-attendance'>
         <h6>Employee Id : <span>{datas[0]?.emp_id}</span></h6>
         <div className='present-time'>
@@ -541,7 +542,7 @@ const UserAttendance = () => {
           <p>{monthName}</p>
         </div>
       </div>
-
+    
       <div className='attend-portel'>
         <h2>
           <span className='name'>
@@ -574,7 +575,7 @@ const UserAttendance = () => {
             )}
           </div>
         ) : (
-          <>
+          <div className='button-gap'>
             <button
               className='attendance-present'
               onClick={() => markAttendance(1)}
@@ -587,7 +588,7 @@ const UserAttendance = () => {
             >
               Absent
             </button>
-          </>
+          </div>
         )}
                    </div>
       </div>
