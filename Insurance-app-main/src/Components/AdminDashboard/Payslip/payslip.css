@@ -6,6 +6,12 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 9999;
+  
+ 
+}
+.loading-overlay1 {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,7 +24,7 @@
 
 .loading-spinner {
   border: 5px solid #f3f3f3;
-  border-top: 5px solid greenyellow;
+  border-top: 5px solid rgb(52, 146, 208);
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -60,8 +66,19 @@
 
 .progress-bar-filled {
   height: 100%;
-  background-color:rgb(52, 146, 208);
+  background-color:greenyellow;
   transition: width 0.2s;
+}
+.cancel-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: red;
+  font-size: 30px;
+  top:15%;
+  margin-left: 1300px;
+  margin-top: 80px;
+
 }
 
 
@@ -162,14 +179,27 @@
  .payslip-button:hover {
    background-color:rgb(34, 125, 161);
  }
- .heading-payslip {
+ .employee-payslip
+ {
   width: 80%;
+  padding: 40px;
+  height: 100%;
+ }
+ .heading-payslip {
+  width: 70%;
   margin: 2rem auto;
-  border-radius: 10px;
+
   background-color: #ffffff;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden;
+   width: 794px;
+    height: 1123px;
+    margin: auto;
+    padding: 40px;
+   
+    position: relative;
+
 }
 
 .payslip-style {
@@ -328,8 +358,10 @@
 
 /* Signature Section */
 .signature-box {
-  text-align: center;
-  flex: 0 0 auto;
+ 
+ margin-left: 550px;
+ flex:0 0 auto;
+ width:420px;
 }
 
 .image-sign {
@@ -461,6 +493,10 @@
   background-color: #eaf3ff;
   transition: background-color 0.2s ease;
 }
+.loading-text
+{
+  color: white;
+}
 
  @media screen and (min-width:319px) and (max-width:430px){
    .payslip-design {
@@ -513,11 +549,33 @@
       left: 0;
      
     }
+    .progress-bar {
+      width: 80%;
+     margin-left: 20px;
+     
+    }
+    
    
-  
-
-   
-   }
+    .loading-spinner {
+      margin-left: 20px;
+    }
+    .loading-text
+    {
+      margin-left: 20px;
+      font-size: 10px;
+    }
+    .cancel-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: red;
+      font-size: 30px;
+      top:15%;
+      margin-left: 300px;
+      margin-top: 50px;
+    
+    }
+    }
    @media screen and (min-width:430.1px) and (max-width:768px){
     .payslip-design {
       height: 100vh;
@@ -569,8 +627,110 @@
        left: 0;
       
      }
+     .progress-bar {
+      width: 90%;
+     
+      margin-left: 20px;
+     
+    }
     
    
- 
+    .loading-spinner {
+     
+      margin-left: 20px;
+    
     
     }
+    .cancel-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: red;
+      font-size: 30px;
+      top:15%;
+      margin-left:600px;
+      margin-top: 50px;
+    
+    }
+    }
+
+    @media screen and (min-width:768.1px) and (max-width:1024px){
+      .payslip-design {
+        height: 100vh;
+        padding:60px 20px;
+         width: 900px;
+        font-family: 'Segoe UI', sans-serif;
+        margin-right: 50px;
+       }
+      
+        .payslip-field {
+         border-radius: 12px;
+         padding: 9px;
+         width: fit-content;
+    
+         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      
+        }
+     
+     .input-fields label {
+         font-weight: 600;
+         margin-bottom: 6px;
+         color: #333;
+         padding: 13px !important;
+       }
+       .input-fields{
+         display: flex;
+         flex-wrap: wrap;
+       }
+       .field-content{
+         display: flex;
+         justify-content: center;
+         padding: 10px;
+       }
+       
+       .payslipinput {
+         padding: 12px;
+         font-size: 15px;
+         border-radius: 6px;
+         border: 1px solid #ccc;
+         outline: none;
+         transition: border-color 0.3s ease;
+       }
+       .portal
+       {
+         font-size: 25px;
+       }
+       .pageback-icon {
+       
+         left:200px;
+        
+       }
+       .progress-bar {
+        width: 70%;
+       margin-left:200px;
+       
+      }
+      
+     
+      .loading-spinner {
+       
+        margin-left: 20px;
+      
+      
+      }
+      .cancel-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: red;
+        font-size: 30px;
+        top:15%;
+        margin-left:900px;
+        margin-top: 70px;
+      
+      }
+      
+     
+   
+      
+      }

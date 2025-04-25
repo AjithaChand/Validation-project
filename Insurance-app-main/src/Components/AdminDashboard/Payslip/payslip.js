@@ -8,7 +8,7 @@ import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import { FaFilePdf, FaBackward } from "react-icons/fa";
+import { FaFilePdf, FaBackward, FaTimes } from "react-icons/fa";
 import { IoMdCall, IoMdMailUnread } from "react-icons/io";
 import { UserContext } from '../../../usecontext';
 
@@ -211,12 +211,21 @@ const Payslip = () => {
     }
   };
 
+  const handlecancel=()=>
+  {
+    setLoading(false);
+    setProgress(0);
+    toast.error("download failed");
+  }
+
   return (
     <div className="payslip-design-1">
       {loading && (
         <div className="loading-overlay">
+            <button className='cancel-button' onClick={handlecancel}><FaTimes/></button>
+          <div className='loading-overlay1'>
           <div className="loading-spinner"></div>
-          <p style={{ color: "white" }}>Generating payslips ZIP... Please wait</p>
+          <p className='loading-text'>Generating payslips ZIP... Please wait</p>
           <div className="progress-bar">
             <div
               className="progress-bar-filled"
@@ -224,6 +233,7 @@ const Payslip = () => {
             ></div>
           </div>
           <p style={{ color: "white" }}>{progress}%</p>
+         </div>  
         </div>
       )}
 
@@ -324,6 +334,7 @@ const Payslip = () => {
             </div>
 
             {employeedata.map((employee, index) => (
+              <div className='employee-payslip'>
               <div className="heading-payslip" key={index}>
                 <div
                   className="payslip-style"
@@ -389,6 +400,7 @@ const Payslip = () => {
 
                   <div className="bottom-design"></div>
                 </div>
+              </div>
               </div>
             ))}
           </>
