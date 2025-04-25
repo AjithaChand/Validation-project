@@ -33,7 +33,7 @@ const db1 = mysql2.createPool({
 
 db1.getConnection((err, connection) => {
     if (err) {
-        console.log("DB connection failed", err.message);
+        console.log("DB connection failed234567", err.message);
         return;
     }
 
