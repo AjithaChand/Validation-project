@@ -321,11 +321,20 @@
     display: flex;
     align-items: center;
   }
-  .checkbox
-  {
-    font-size: 30px;
-    border: 1px solid navy;
+  .checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #007BFF; /* blue accent */
+    transition: transform 0.2s ease;
+    margin: 0 auto; /* center in td */
+    display: block;
   }
+  
+  .checkbox:hover {
+    transform: scale(1.1);
+  }
+  
 
 @media only screen and (min-width:319px) and (max-width:500px) {
     .admin-header-user {
