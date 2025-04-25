@@ -37,21 +37,22 @@ const Updatedata = ({ selectid, close, selectemail }) => {
 
   // permission update code
 
-  const [permission, setPermission] = useState({
-          'dashboard': { read: false, create: false, update: false, delete: false },
-          'register' : { read: false, create: false, update: false, delete: false },
-          'user_attendance': { read: false, create: false, update: false, delete: false },
-          'payslip': { read: false, create: false, update: false, delete: false },
-          'users': { read: false, create: false, update: false, delete: false },
-          'attendance': { read: false, create: false, update: false, delete: false },
-          'settings': { read: false, create: false, update: false, delete: false },
-      });
-  
+ const [permission, setPermission] = useState({
+         'dashboard': { read: false, create: false, update: false, delete: false },
+         'register' : { read: false, create: false, update: false, delete: false },
+         'user_attendance': { read: false, create: false, update: false, delete: false },
+         'payslip': { read: false, create: false, update: false, delete: false },
+         'users': { read: false, create: false, update: false, delete: false },
+         'attendance': { read: false, create: false, update: false, delete: false },
+         'settings': { read: false, create: false, update: false, delete: false },
+     });
+ 
 
 
   const [person_code, setPerson_code] = useState(null)
 
   console.log("person_code from backend update", person_code)
+  console.log ("permissions",permission)
 
   useEffect(() => {
     if (datas.email) {

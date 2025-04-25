@@ -86,6 +86,7 @@ const Userdata = () => {
   const [showconfirm, setShowconfirm] = useState(false);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  console.log(getPermission, "wretyuio")
 
   // Dashboard sidebar
   const [dashboardSidebaropen, setDashboardSidebaropen] = useState(true)

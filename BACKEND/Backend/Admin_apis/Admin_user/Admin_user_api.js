@@ -330,7 +330,7 @@ app.get("/get-person_code", (req, res) => {
 
     console.log("Emailll", email)
 
-    const emailSql = "SELECT person_code FROM users WHERE email = ?";
+    const emailSql = "SELECT person_code FROM users WHERE email = ? ";
 
     db.query(emailSql, [email], (err, result) => {
 
@@ -391,39 +391,30 @@ app.put("/update-permissions", async (req, res) => {
     const placeholders = permissionsRows.map(() => `(?, ?, ?, ?, ?, ?)`).join(", ");
     const flatValues = permissionsRows.flat();
 
-    try{
-        const deleteqry = `DELETE FROM permissions WHERE person_code=?`;
-
-     db.query(deleteqry, [person_code], async (err, result) => {
-        if (err) {
-            return res.status(500).json({ error: "Failed to delete old permissions" });
-        }
-
-        
+    try {   
         const updateSql = `
             INSERT INTO permissions
             (person_code, page_name, can_create, can_read, can_update, can_delete)
             VALUES ${placeholders}
             ON DUPLICATE KEY UPDATE
-            can_create = VALUES(can_create),
-            can_read = VALUES(can_read),
-            can_update = VALUES(can_update),
-            can_delete = VALUES(can_delete)
+                can_create = VALUES(can_create),
+                can_read = VALUES(can_read),
+                can_update = VALUES(can_update),
+                can_delete = VALUES(can_delete)
         `;
 
         db.query(updateSql, flatValues, (err, updResult) => {
             if (err) {
-                console.log("sql error ", err);
+                console.log("SQL error:", err);
                 return res.status(500).json({ error: "Database ERROR" });
-            } else {
-                return res.status(200).json({ message: "Permissions Updated Successfully" });
             }
+            return res.status(200).json({ message: "Permissions Updated Successfully" });
         });
-    });
-}
-catch(err){
-    console.log("error")
-}
+
+    } catch (err) {
+        console.error("Unexpected error in update-permissions:", err);
+        return res.status(500).json({ error: "Unexpected Server Error" });
+    }
 });
 
 

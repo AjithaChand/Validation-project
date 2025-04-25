@@ -126,7 +126,7 @@ app.post('/login', (req, res) => {
 //     });
 // })
 // });
-
+console.log("xciugfcvbjjhvbnm")
 
 app.get('/person-code-details', (req, res) => {
 
@@ -134,12 +134,12 @@ app.get('/person-code-details', (req, res) => {
 
     console.log(person_code, "I am from backend");
 
-    const selectQuery = "SELECT * FROM permissions WHERE person_code = ? ";
+    const selectQuery = "SELECT * FROM permissions WHERE person_code = ?  ORDER BY id";
 
     db.query(selectQuery, [person_code], (err, info) => {
 
         if (err) return res.status(400).send({ message: "Database Error" })
-
+       console.log(info,"kk")
 
         return res.status(200).send({ info: info })
     })
