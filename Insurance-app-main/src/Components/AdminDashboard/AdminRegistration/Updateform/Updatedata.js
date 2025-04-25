@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from '../../../../url';
 import { UserContext } from '../../../../usecontext';
 import { Switch, FormControlLabel } from "@mui/material";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Updatedata = ({ selectid, close, selectemail }) => {
 
@@ -16,6 +17,11 @@ const Updatedata = ({ selectid, close, selectemail }) => {
 
   const [isActive, setIsActive] = useState(true);
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleVisibility = () => {
+    setShowPassword(prev => !prev);
+  }
 
   const [datas, setData] = useState({
     username: "",
@@ -239,9 +245,18 @@ const Updatedata = ({ selectid, close, selectemail }) => {
             </div>
           </div>
           <div className='row'>
-            <div className='col-md-6 col-sm-12 form-group mt-3'>
+            <div className='col-md-6 col-sm-12 form-group mt-3 password-wrapper-update'>
               <label className='userupdate-label'>Password</label>
-              <input type='password' className='form-control' value={datas.password} onChange={e => setData({ ...datas, password: e.target.value })} placeholder='Enter your password' />
+              <input
+                type={showPassword ? 'text' : 'password'}
+                className='form-control '
+                value={datas.password}
+                onChange={e => setData({ ...datas, password: e.target.value })}
+                placeholder='Enter your password'
+              />
+              <span className="eye-icon-update" onClick={toggleVisibility}>
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </span>
             </div>
             <div className='col-md-6 col-sm-12 form-group mt-3'>
               <label className='userupdate-label'>Salary</label>
@@ -511,7 +526,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
                       <input
                         type="checkbox"
                         checked={permission.payslip.read}
-                        onChange={e => setPermission(permission=> ({
+                        onChange={e => setPermission(permission => ({
                           ...permission,
                           payslip: { ...permission.payslip, read: e.target.checked }
                         }))}

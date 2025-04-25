@@ -50,3 +50,21 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(22px);
 } 
+
+.eye-icon-update{
+  position: absolute;
+    cursor: pointer;
+    color: #555;
+    z-index: 10;
+    right: 20px;
+    bottom: 7px;
+}
+
+input[type="password"]::-ms-reveal, 
+input[type="password"]::-webkit-contacts-auto-fill-button {
+   display: none !important;
+}
+
+.password-wrapper-update{
+  position: relative;
+}

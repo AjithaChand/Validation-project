@@ -349,6 +349,32 @@
     font-size: 15px;
 }
 
+.custom-modal .modal-dialog {
+    max-height: 80%;
+    margin: auto;
+  }
+  
+  .custom-modal .modal-content {
+    height: 100%; 
+  }
+  
+  .custom-modal .modal-body {
+    overflow-y: auto; 
+    max-height: 70vh; 
+  }
+
+  .model-details {
+    background-color: #f5f5f5;
+    padding: 15px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+  }
+
 @media only screen and (min-width:319px) and (max-width:500px) {
     .admin-header {
         flex-wrap: wrap;

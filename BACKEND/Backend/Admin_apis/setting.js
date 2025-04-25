@@ -146,7 +146,7 @@ app.get("/api/company-details", (req, res) => {
     console.log("Company details in backend", results[0]);
     
     const company = results[0];
-    company.logo_url = `http://localhost:7009/uploads/logos/${company.logo_path}`;
+    company.logo_url = `http://192.168.0.102:7009/uploads/logos/${company.logo_path}`;
     console.log("Company logo url", company.logo_url);
     
     res.json(company);

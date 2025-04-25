@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { MdDashboard } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { MdLogout } from "react-icons/md";
 import '../Sidebar/Sidebar.css';
 import { FaReceipt } from "react-icons/fa";
@@ -16,6 +16,8 @@ import { Fa500Px } from "react-icons/fa";
 const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
 
     const navigate = useNavigate()
+
+    const location = useLocation()
 
     const user = localStorage.getItem('role')
     const person_code = localStorage.getItem("person_code")
@@ -73,7 +75,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                     {user === "admin" ? (
                         <ul className='sidebar-ul'>
 
-                            <li className='sidebar-list'>
+                            <li className={`sidebar-list ${location.pathname === '/dashboard' && 'sidebar-active'}`}>
                                 <div className='sidebar-icons' onClick={() => {
                                     navigate('/dashboard');
                                     onCloseClick()
@@ -83,7 +85,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                 </div>
                             </li>
 
-                            <li className='sidebar-list'>
+                            <li className={`sidebar-list ${location.pathname === '/dashboard/register' && 'sidebar-active'}`}>
                                 <div className='sidebar-icons' onClick={() => {
                                     navigate('/dashboard/register');
                                     onCloseClick()
@@ -101,7 +103,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                             </li>
                             {attendance && (
                                 <ul className='sidebar-ul-list'>
-                                    <li className='sidebar-list'>
+                                    <li className={`sidebar-list ${location.pathname === '/dashboard/attendance' && 'sidebar-active'}`}>
                                         <div className='sidebar-icons' onClick={() => {
                                             navigate('/dashboard/attendance');
                                             onCloseClick()
@@ -111,7 +113,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                         </div>
                                     </li>
 
-                                    <li className='sidebar-list'>
+                                    <li className={`sidebar-list ${location.pathname === '/dashboard/payslip' && 'sidebar-active'}`}>
                                         <div className='sidebar-icons' onClick={() => {
                                             navigate('/dashboard/payslip');
                                             onCloseClick()
@@ -131,7 +133,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                             </li>
                             {settings && (
                                 <ul className='sidebar-ul-list'>
-                                    <li className='sidebar-list'>
+                                    <li className={`sidebar-list ${location.pathname === '/dashboard/users' && 'sidebar-active'}`}>
                                         <div className='sidebar-icons' onClick={() => {
                                             navigate('/dashboard/users');
                                             onCloseClick()
@@ -141,7 +143,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                         </div>
                                     </li>
 
-                                    <li className='sidebar-list'>
+                                    <li className={`sidebar-list ${location.pathname === '/dashboard/settings' && 'sidebar-active'}`}>
                                         <div className='sidebar-icons' onClick={() => {
                                             navigate('/dashboard/settings');
                                             onCloseClick()
@@ -168,7 +170,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                         <ul className='sidebar-ul'>
 
                             {getPermission[0]?.can_read === 1 && (
-                                <li className='sidebar-list'>
+                                <li className={`sidebar-list ${location.pathname === '/dashboard' && 'sidebar-active'}`}>
                                     <div className='sidebar-icons' onClick={() => {
                                         navigate('/dashboard');
                                         onCloseClick()
@@ -180,7 +182,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                             )}
 
                             {getPermission[1]?.can_read === 1 && (
-                                <li className='sidebar-list'>
+                                <li className={`sidebar-list ${location.pathname === '/dashboard/register' && 'sidebar-active'}`}>
                                     <div className='sidebar-icons' onClick={() => {
                                         navigate('/dashboard/register');
                                         onCloseClick()
@@ -202,7 +204,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                             {attendance && (
                                 <ul className='sidebar-ul-list'>
                                     {getPermission[5]?.can_read === 1 && (
-                                        <li className='sidebar-list'>
+                                        <li className={`sidebar-list ${location.pathname === '/dashboard/attendance' && 'sidebar-active'}`}>
                                             <div className='sidebar-icons' onClick={() => {
                                                 navigate('/dashboard/attendance');
                                                 onCloseClick()
@@ -215,7 +217,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                     }
 
                                     {getPermission[3]?.can_read === 1 && (
-                                        <li className='sidebar-list'>
+                                        <li className={`sidebar-list ${location.pathname === '/dashboard/payslip' && 'sidebar-active'}`}>
                                             <div className='sidebar-icons' onClick={() => {
                                                 navigate('/dashboard/payslip');
                                                 onCloseClick()
@@ -230,7 +232,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                             )}
 
                             {getPermission[2]?.can_read === 1 && (
-                                <li className=" sidebar-list ">
+                                <li className={`sidebar-list ${location.pathname === '/dashboard/userattendance' && 'sidebar-active'}`}>
                                     <div className='sidebar-icons' onClick={() => {
                                         navigate('/dashboard/userattendance');
                                         onCloseClick()
@@ -253,7 +255,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                 <ul className='sidebar-ul-list'>
 
                                     {getPermission[4]?.can_read === 1 && (
-                                        <li className='sidebar-list'>
+                                        <li className={`sidebar-list ${location.pathname === '/dashboard/users' && 'sidebar-active'}`}>
                                             <div className='sidebar-icons' onClick={() => {
                                                 navigate('/dashboard/users');
                                                 onCloseClick()
@@ -265,7 +267,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                     )}
 
                                     {getPermission[6]?.can_read === 1 && (
-                                        <li className='sidebar-list'>
+                                        <li className={`sidebar-list ${location.pathname === '/dashboard/settings' && 'sidebar-active'}`}>
                                         <div className='sidebar-icons' onClick={() => {
                                             navigate('/dashboard/settings');
                                             onCloseClick()

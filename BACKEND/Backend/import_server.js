@@ -52,6 +52,7 @@ app.use("/", setting)
 const image = path.join(__dirname,'uploads')
 console.log(image,"gfgbhjiuygvbhygv bnjuhgv ")
 app.use('/imageuser',express.static(image))
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const port = process.env.PORT || 7009;
 

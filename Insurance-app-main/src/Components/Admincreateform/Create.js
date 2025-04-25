@@ -95,6 +95,15 @@ const Create = ({ close }) => {
           <label className='create-label'>Policy</label>
           <input type='text' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, policy: e.target.value })} />
         </div>
+        <div className="mt-3 form-gruop">
+          <label className="update-label">Profile Photo</label>
+          <input
+            type="file"
+            accept="image/*"
+            // onChange={handleImageChange}
+            className="mt-3 form-control"
+          />
+        </div>
         <div className='mt-3'>
           <input type='file' accept='*/*' onChange={handleFileChange} className='mt-3' />
         </div>

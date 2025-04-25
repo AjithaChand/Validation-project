@@ -212,6 +212,8 @@ const Adminpage = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState("");
 
+  console.log("selected file ", selectedFile)
+
   //Set File URL
   const handleViewFile = (fileUrl) => {
     console.log("FileUrl", fileUrl);
@@ -406,27 +408,47 @@ const Adminpage = () => {
       <Formpopup isVisible={showform} onClose={toggleForm} />
       <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} />
 
-      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
+      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg"  className="custom-modal">
         <Modal.Header closeButton>
           <Modal.Title>File Preview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedFile ? (
             selectedFile.endsWith('.pdf') ? (
-              <embed src={selectedFile} type="application/pdf" width="100%" height="600px" />
+              <embed src={selectedFile} type="application/pdf" width="100%" height="500px" />
             ) : (
               <img src={selectedFile} alt="file preview" style={{ width: '100%', height: 'auto' }} />
             )
           ) : (
             <p>No file selected</p>
           )}
+
+          {selectedFile && filterData.length > 0 && (
+            <>
+              {filterData.map((datas, index) => {
+
+                const filepath = `${apiurl}${datas.file_path}`
+                  console.log("File Path in Data:",`${apiurl}${datas.file_path}`);
+                if(filepath === selectedFile){
+                  return <div key={index} className='model-details'>
+                  <h6>Email : {datas.email}</h6>
+                  <h6>Date : {new Date(datas.startdate).toLocaleDateString('en-GB')}-{new Date(datas.enddate).toLocaleDateString('en-GB')}</h6>
+                  <h6>Policy : {datas.policy}</h6>
+                </div>
+                }
+                return null;
+              })}
+            </>
+          )}
+
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
+          <Button variant="primary" style={{ display: "block", margin: 'auto' }} onClick={() => setShowModal(false)}>
             Close
           </Button>
         </Modal.Footer>
       </Modal>
+
       <ToastContainer position='top-right' autoClose={3000} />
     </div>
   )
