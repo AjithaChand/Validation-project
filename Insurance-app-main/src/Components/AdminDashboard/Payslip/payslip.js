@@ -20,7 +20,7 @@ const Payslip = () => {
   const [showBackIcon, setShowBackIcon] = useState(false);
   const [showPaySlip, setShowPaySlip] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(0); 
+  const [progress, setProgress] = useState(0);
   const payslipRefs = useRef([]);
 
   const [formData, setFormData] = useState({
@@ -100,8 +100,8 @@ const Payslip = () => {
     const selectedDate = new Date(`${date}-01`);
     return (
       selectedDate.getFullYear() < today.getFullYear() ||
-      (selectedDate.getFullYear() === today.getFullYear() && 
-       selectedDate.getMonth() < today.getMonth())
+      (selectedDate.getFullYear() === today.getFullYear() &&
+        selectedDate.getMonth() < today.getMonth())
     );
   };
 
@@ -194,7 +194,7 @@ const Payslip = () => {
     <div className="payslip-design-1">
       {loading && (
         <div className="loading-overlay">
-          <button className='cancel-button' onClick={handlecancel}><FaTimes/></button>
+          <button className='cancel-button' onClick={handlecancel}><FaTimes /></button>
           <div className='loading-overlay1'>
             <div className="loading-spinner"></div>
             <p className='loading-text'>Generating payslips ZIP... Please wait</p>
@@ -284,8 +284,13 @@ const Payslip = () => {
                         <td>{employee.gross_salary}</td>
                         <td>{employee.net_amount}</td>
                         <td>{employee.revised_salary}</td>
-                        <td>{parseInt(employee.net_amount) - parseInt(employee.revised_salary)}</td>
-                      </tr>
+                        <td>
+                          {isNaN(parseInt(employee.net_amount) - parseInt(employee.revised_salary))
+                          
+                          ? 0 :
+                          parseInt(employee.net_amount) - parseInt(employee.revised_salary)}
+                          </td>                
+                        </tr>
                     ))}
                   </tbody>
                 </table>
@@ -293,7 +298,7 @@ const Payslip = () => {
             </div>
 
             {employeedata.map((employee, index) => (
-              <div className='employee-payslip' style={{display:"none"}} key={index}>
+              <div className='employee-payslip' style={{ display: "none" }} key={index}>
                 <div className="heading-payslip">
                   <div className="payslip-style" ref={(el) => (payslipRefs.current[index] = el)}>
                     <div className="design"></div>
