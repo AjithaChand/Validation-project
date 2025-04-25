@@ -305,18 +305,120 @@ app.put('/edituser/:id', verifyToken, async (req, res) => {
 })
 
 app.delete('/delete/:id', verifyToken, (req, res) => {
+    const userId = req.params.id;
+  
+    const getEmailQuery = "SELECT email FROM users WHERE id = ?";
+    db.query(getEmailQuery, [userId], (err, result) => {
+      if (err) {
+        console.error("Error fetching user email:", err);
+        return res.status(500).json({ message: "Database error" });
+      }
+  
+      if (result.length === 0) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      const userEmail = result[0].email;
+  
+      const selectQuery = "SELECT branch_id FROM payslip WHERE emp_email = ?";
+      db.query(selectQuery, [userEmail], (err, info) => {
+        if (err) {
+          return res.status(500).send({ message: "Error fetching branch ID" });
+        }
+  
+        const branchId = info[0]?.branch_id;
+  
+        const deletePayslip = "DELETE FROM payslip WHERE emp_email = ?";
+        db.query(deletePayslip, [userEmail], (err) => {
+          if (err) {
+            console.error("Error deleting payslip:", err);
+            return res.status(500).json({ message: "Error deleting payslip" });
+          }
+  
+          const deleteUser = "DELETE FROM users WHERE id = ?";
+          db.query(deleteUser, [userId], (err) => {
+            if (err) {
+              console.error("Error deleting user:", err);
+              return res.status(500).json({ message: "Error deleting user" });
+            }
+  
+            const deleteBranch = "DELETE FROM branches WHERE id = ?";
+            db.query(deleteBranch, [branchId], (err) => {
+              if (err) {
+                return res.status(500).send({ message: "Error deleting branch" });
+              }
+  
+              res.json({ message: "User, payslip, and branch deleted successfully" });
+            });
+          });
+        });
+      });
+    });
+  });
 
-    const id = req.params.id;
-
-    const sql = "DELETE FROM users WHERE id=?"
-
-    db.query(sql, [id], (err, data) => {
-        if (err)
-            return res.status(500).json({ error: err.message })
-        return res.status(200).json({ message: "Deleted" })
-    })
-})
-
+  
+  app.delete('/delete-multiple', verifyToken, (req, res) => {
+    const userIds = req.body.userIds;
+  
+    if (!Array.isArray(userIds) || userIds.length === 0) {
+      return res.status(400).json({ message: "No user IDs provided" });
+    }
+  
+    const getEmailsQuery = "SELECT id, email FROM users WHERE id IN (?)";
+    db.query(getEmailsQuery, [userIds], (err, userResults) => {
+      if (err) {
+        console.error("Error fetching emails:", err);
+        return res.status(500).json({ message: "Error fetching user emails" });
+      }
+  
+      const emails = userResults.map(user => user.email);
+  
+      if (emails.length === 0) {
+        return res.status(404).json({ message: "No matching users found" });
+      }
+  
+      const getBranchIdsQuery = "SELECT DISTINCT branch_id FROM payslip WHERE emp_email IN (?)";
+      db.query(getBranchIdsQuery, [emails], (err, branchResults) => {
+        if (err) {
+          console.error("Error fetching branch IDs:", err);
+          return res.status(500).json({ message: "Error fetching branch IDs" });
+        }
+  
+        const branchIds = branchResults.map(row => row.branch_id);
+  
+        const deletePayslipsQuery = "DELETE FROM payslip WHERE emp_email IN (?)";
+        db.query(deletePayslipsQuery, [emails], (err) => {
+          if (err) {
+            console.error("Error deleting payslips:", err);
+            return res.status(500).json({ message: "Error deleting payslips" });
+          }
+  
+          const deleteUsersQuery = "DELETE FROM users WHERE id IN (?)";
+          db.query(deleteUsersQuery, [userIds], (err) => {
+            if (err) {
+              console.error("Error deleting users:", err);
+              return res.status(500).json({ message: "Error deleting users" });
+            }
+  
+            if (branchIds.length > 0) {
+              const deleteBranchesQuery = "DELETE FROM branches WHERE id IN (?)";
+              db.query(deleteBranchesQuery, [branchIds], (err) => {
+                if (err) {
+                  return res.status(500).json({ message: "Error deleting branches" });
+                }
+  
+                return res.json({ message: "Users, payslips, and branches deleted successfully" });
+              });
+            } else {
+              return res.json({ message: "Users and payslips deleted successfully" });
+            }
+          });
+        });
+      });
+    });
+  });
+  
+  
 // permission update code
 
 app.get("/get-person_code", (req, res) => {
