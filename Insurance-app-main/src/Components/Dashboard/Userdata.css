@@ -291,6 +291,11 @@
 
   .company-logo-head{
     display: block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 35px;
+    height: 35px;
   }
   
   .userheader {
@@ -417,6 +422,11 @@
 
   .company-logo-head{
     display: block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 35px;
+    height: 35px;
   }
 
   .user-profile .userheader{
@@ -500,8 +510,10 @@
   }
 
   .company-logo{
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    right: 5px;
   }
 
   .user-list-toggle{
