@@ -358,7 +358,7 @@
         font-size: 15px;
         position: absolute;
         top: 23px;
-        left: 15px;
+        left: 10px;
     }
 
     .users-btn .createbutton {
@@ -381,7 +381,7 @@
 
     .users-btn {
         border-radius: 12px;
-        padding: 5px 15px 9px 15px;
+        padding: 5px 10px 9px 10px;
     }
 
     .delete-btn .userdelete-icon {

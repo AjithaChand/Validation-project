@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from '../../../../url';
 import { UserContext } from '../../../../usecontext';
+import { Switch, FormControlLabel } from "@mui/material";
 
 const Updatedata = ({ selectid, close, selectemail }) => {
 
@@ -23,36 +24,36 @@ const Updatedata = ({ selectid, close, selectemail }) => {
     total_salary: "",
     esi_number: "",
     pf_number: "",
-    bank_details:"",
+    bank_details: "",
     is_active: 1,
-    address:"",
-    phone_number:"",
-    branch_name:"",
-    station_name:"",
-    latitude:"",
-    longitude:"",
+    address: "",
+    phone_number: "",
+    branch_name: "",
+    station_name: "",
+    latitude: "",
+    longitude: "",
 
   })
 
 
   // permission update code
 
- const [permission, setPermission] = useState({
-         'dashboard': { read: false, create: false, update: false, delete: false },
-         'register' : { read: false, create: false, update: false, delete: false },
-         'user_attendance': { read: false, create: false, update: false, delete: false },
-         'payslip': { read: false, create: false, update: false, delete: false },
-         'users': { read: false, create: false, update: false, delete: false },
-         'attendance': { read: false, create: false, update: false, delete: false },
-         'settings': { read: false, create: false, update: false, delete: false },
-     });
- 
+  const [permission, setPermission] = useState({
+    'dashboard': { read: false, create: false, update: false, delete: false },
+    'register': { read: false, create: false, update: false, delete: false },
+    'user_attendance': { read: false, create: false, update: false, delete: false },
+    'payslip': { read: false, create: false, update: false, delete: false },
+    'users': { read: false, create: false, update: false, delete: false },
+    'attendance': { read: false, create: false, update: false, delete: false },
+    'settings': { read: false, create: false, update: false, delete: false },
+  });
+
 
 
   const [person_code, setPerson_code] = useState(null)
 
   console.log("person_code from backend update", person_code)
-  console.log ("permissions",permission)
+  console.log("permissions", permission)
 
   useEffect(() => {
     if (datas.email) {
@@ -80,6 +81,22 @@ const Updatedata = ({ selectid, close, selectemail }) => {
         .catch(err => console.log(err))
     }
   }, [datas.email])
+  const toggleParentPermission = (parentKey, childKeys) => {
+    const allChecked = ['create', 'read', 'update', 'delete'].every(action =>
+      permission[parentKey][action] && childKeys.every(child => permission[child][action])
+    );
+
+    const updatedPermissions = { ...permission };
+
+    ['create', 'read', 'update', 'delete'].forEach(action => {
+      updatedPermissions[parentKey][action] = !allChecked;
+      childKeys.forEach(child => {
+        updatedPermissions[child][action] = !allChecked;
+      });
+    });
+
+    setPermission(updatedPermissions);
+  };
 
   const handleSalarychange = (e) => {
     const value = e.target.value;
@@ -139,7 +156,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
     })
       .then(res => {
         if (res.data) {
-          console.log(res.data,"checking")
+          console.log(res.data, "checking")
           setData(res.data)
           setIsActive(res.data.is_active === 1);
           console.log(res.data, "In UpdateData");
@@ -168,7 +185,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
       close()
       setRefresh(!refresh)
       console.log(datas.is_active, "checking for sending activate")
-      console.log(datas.address,datas.phone_number, "Checking phone number and adress")
+      console.log(datas.address, datas.phone_number, "Checking phone number and adress")
 
       const passwordChange = await axios.post(`${apiurl}/password_changed`, {
         email: datas.email,
@@ -205,7 +222,7 @@ const Updatedata = ({ selectid, close, selectemail }) => {
     }
 
   }
-console.log(datas,"data")
+  console.log(datas, "data")
   return (
     <div >
       <div className='container'>
@@ -245,7 +262,7 @@ console.log(datas,"data")
             </div>
             <div className='mt-3 col-md-6 col-sm-12 form-group'>
               <label className='register-label'>Phone No:</label>
-              <input type='number' className='form-control'value={datas.phone_number} onChange={e => setData({ ...datas, phone_number: e.target.value })} placeholder='Enter Your Phone number' required />
+              <input type='number' className='form-control' value={datas.phone_number} onChange={e => setData({ ...datas, phone_number: e.target.value })} placeholder='Enter Your Phone number' required />
             </div>
 
           </div>
@@ -291,22 +308,22 @@ console.log(datas,"data")
             <label>Activate</label>
             <label className='ms-3'>
               <input type='radio' value='1'
-               checked={isActive ===true} 
-               onChange={(e)=>{
-                setIsActive(true);
-                setData({...datas, is_active : 1})
-               }}
+                checked={isActive === true}
+                onChange={(e) => {
+                  setIsActive(true);
+                  setData({ ...datas, is_active: 1 })
+                }}
               />Yes
             </label>
             <label className='ms-3'>
               <input type='radio'
-               value='0'
-               checked ={isActive===false} 
-               onChange={(e)=>{
-                setIsActive(false);
-                setData({...datas, is_active : 0})
-               }} />No
-            </label> 
+                value='0'
+                checked={isActive === false}
+                onChange={(e) => {
+                  setIsActive(false);
+                  setData({ ...datas, is_active: 0 })
+                }} />No
+            </label>
           </div>
           <div className='mt-3 col-12 form-group'>
             <div className='permissions-role-table mt-2'>
@@ -314,6 +331,7 @@ console.log(datas,"data")
                 <thead>
                   <tr>
                     <th>Permissions</th>
+                    <th></th>
                     <th>Create</th>
                     <th>Read</th>
                     <th>Update</th>
@@ -323,6 +341,7 @@ console.log(datas,"data")
                 <tbody>
                   <tr>
                     <td>Dashboard</td>
+                    <td></td>
                     <td>
                       <input
                         type="checkbox"
@@ -367,6 +386,7 @@ console.log(datas,"data")
 
                   <tr>
                     <td>Register</td>
+                    <td></td>
                     <td>
                       <input
                         type="checkbox"
@@ -408,121 +428,54 @@ console.log(datas,"data")
                       />
                     </td>
                   </tr>
-
-                  <tr>
-                    <td>Payslip</td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={permission.payslip?.create}
-                        onChange={e => setPermission(prev => ({
-                          ...prev,
-                          payslip: { ...prev.payslip, create: e.target.checked }
-                        }))}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={permission.payslip?.read}
-                        onChange={e => setPermission(prev => ({
-                          ...prev,
-                          payslip: { ...prev.payslip, read: e.target.checked }
-                        }))}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={permission.payslip?.update}
-                        onChange={e => setPermission(permission => ({
-                          ...permission,
-                          payslip: { ...permission.payslip, update: e.target.checked }
-                        }))}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={permission.payslip?.delete}
-                        onChange={e => setPermission(permission => ({
-                          ...permission,
-                          payslip: { ...permission.payslip, delete: e.target.checked }
-                        }))}
-                      />
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>Users</td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={permission.users?.create}
-                        onChange={e => setPermission(prev => ({
-                          ...prev,
-                          users: { ...prev.users, create: e.target.checked }
-                        }))}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={permission.users?.read}
-                        onChange={e => setPermission(prev => ({
-                          ...prev,
-                          users: { ...prev.users, read: e.target.checked }
-                        }))}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={permission.users?.update}
-                        onChange={e => setPermission(permission => ({
-                          ...permission,
-                          users: { ...permission.users, update: e.target.checked }
-                        }))}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={permission.users?.delete}
-                        onChange={e => setPermission(permission => ({
-                          ...permission,
-                          users: { ...permission.users, delete: e.target.checked }
-                        }))}
-                      />
-                    </td>
-                  </tr>
-
                   <tr>
                     <td>Attendance</td>
                     <td>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            type="checkbox"
+                            checked={
+                              ['create', 'read', 'update', 'delete'].every(
+                                action =>
+                                  permission.attendance[action] && permission.payslip[action]
+                              )
+                            }
+                            onChange={() => toggleParentPermission('attendance', ['payslip'])}
+                          />
+                        }
+                      />
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td>Attendance</td>
+                    <td></td>
+                    <td>
                       <input
                         type="checkbox"
-                        checked={permission.attendance?.create}
-                        onChange={e => setPermission(prev => ({
-                          ...prev,
-                          attendance: { ...prev.attendance, create: e.target.checked }
+                        checked={permission.attendance.create}
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          attendance: { ...permission.attendance, create: e.target.checked }
                         }))}
                       />
                     </td>
                     <td>
                       <input
                         type="checkbox"
-                        checked={permission.attendance?.read}
-                        onChange={e => setPermission(prev => ({
-                          ...prev,
-                          attendance: { ...prev.attendance, read: e.target.checked }
+                        checked={permission.attendance.read}
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          attendance: { ...permission.attendance, read: e.target.checked }
                         }))}
                       />
                     </td>
                     <td>
                       <input
                         type="checkbox"
-                        checked={permission.attendance?.update}
+                        checked={permission.attendance.update}
                         onChange={e => setPermission(permission => ({
                           ...permission,
                           attendance: { ...permission.attendance, update: e.target.checked }
@@ -532,7 +485,7 @@ console.log(datas,"data")
                     <td>
                       <input
                         type="checkbox"
-                        checked={permission.attendance?.delete}
+                        checked={permission.attendance.delete}
                         onChange={e => setPermission(permission => ({
                           ...permission,
                           attendance: { ...permission.attendance, delete: e.target.checked }
@@ -541,7 +494,54 @@ console.log(datas,"data")
                     </td>
                   </tr>
                   <tr>
+                    <td>Payslip</td>
+                    <td></td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.payslip.create}
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          payslip: { ...permission.payslip, create: e.target.checked }
+                        }))}
+
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.payslip.read}
+                        onChange={e => setPermission(permission=> ({
+                          ...permission,
+                          payslip: { ...permission.payslip, read: e.target.checked }
+                        }))}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.payslip.update}
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          payslip: { ...permission.payslip, update: e.target.checked }
+                        }))}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.payslip.delete}
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          payslip: { ...permission.payslip, delete: e.target.checked }
+                        }))}
+                      />
+                    </td>
+                  </tr>
+
+                  <tr>
                     <td>User Attendance</td>
+                    <td></td>
                     <td>
                       <input
                         type="checkbox"
@@ -583,16 +583,36 @@ console.log(datas,"data")
                       />
                     </td>
                   </tr>
+                  <tr>
+                    <td>Settings  </td>
 
+                    <td>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            type="checkbox"
+                            checked={
+                              ['create', 'read', 'update', 'delete'].every(
+                                action =>
+                                  permission.settings[action] && permission.users[action]
+                              )
+                            }
+                            onChange={() => toggleParentPermission('settings', ['users'])}
+                          />
+                        }
+                      />
+                    </td>
+                  </tr>
                   <tr>
                     <td>Settings</td>
+                    <td></td>
                     <td>
                       <input
                         type="checkbox"
                         checked={permission.settings?.create}
-                        onChange={e => setPermission(prev => ({
-                          ...prev,
-                          settings: { ...prev.settings, create: e.target.checked }
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          settings: { ...permission.settings, create: e.target.checked }
                         }))}
                       />
                     </td>
@@ -600,16 +620,16 @@ console.log(datas,"data")
                       <input
                         type="checkbox"
                         checked={permission.settings?.read}
-                        onChange={e => setPermission(prev => ({
-                          ...prev,
-                          settings: { ...prev.settings, read: e.target.checked }
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          settings: { ...permission.settings, read: e.target.checked }
                         }))}
                       />
                     </td>
                     <td>
                       <input
                         type="checkbox"
-                        checked={permission.settings?.update}
+                        checked={permission.settings.update}
                         onChange={e => setPermission(permission => ({
                           ...permission,
                           settings: { ...permission.settings, update: e.target.checked }
@@ -619,10 +639,55 @@ console.log(datas,"data")
                     <td>
                       <input
                         type="checkbox"
-                        checked={permission.settings?.delete}
+                        checked={permission.settings.delete}
                         onChange={e => setPermission(permission => ({
                           ...permission,
                           settings: { ...permission.settings, delete: e.target.checked }
+                        }))}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Users</td>
+                    <td></td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.users.create}
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          users: { ...permission.users, create: e.target.checked }
+                        }))}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.users.read}
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          users: { ...permission.users, read: e.target.checked }
+                        }))}
+
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.users.update}
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          users: { ...permission.users, update: e.target.checked }
+                        }))}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.users.delete}
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          users: { ...permission.users, delete: e.target.checked }
                         }))}
                       />
                     </td>

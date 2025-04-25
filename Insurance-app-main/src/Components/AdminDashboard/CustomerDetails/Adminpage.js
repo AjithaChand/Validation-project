@@ -269,7 +269,7 @@ const Adminpage = () => {
 
         <div className='admin-head-search'>
 
-          <p className='users-count'>All Users: {filterData.length}</p>
+          <p className='users-count'>Customers Agreements : {filterData.length}</p>
 
           <div className="searchbar-container">
             <input

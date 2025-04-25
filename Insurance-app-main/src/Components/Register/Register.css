@@ -48,6 +48,10 @@
     color:#fff; 
 }
 
+.form-control-register .MuiInputBase-input{
+    color: #fff;
+}
+
 /* .form-control-register{
     width: 100%;
     padding: 10px 5px;

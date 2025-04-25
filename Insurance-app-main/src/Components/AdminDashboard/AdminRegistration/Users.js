@@ -161,7 +161,7 @@ const Users = () => {
 
         <div className='user-head-search'>
 
-          <p className='users-total'>All Users: {filterValue.length}</p>
+          <p className='users-total'>Users Agreements : {filterValue.length}</p>
 
           <div className='user-searchbar'>
             <input
@@ -208,6 +208,9 @@ const Users = () => {
               <table className='users-table text-center'>
                 <thead>
                   <tr>
+                    <th>
+                      <input type='checkbox'/>
+                    </th>
                     <th>ID</th>
                     <th>Username</th>
                     <th>Email</th>
@@ -231,6 +234,7 @@ const Users = () => {
                 <tbody className='tbody-users'>
                   {filterValue.map((data, index) => (
                     <tr key={index}>
+                      <td><input type='checkbox'/></td>
                       <td>{data.id}</td>
                       <td>{data.username}</td>
                       <td>{data.email}</td>

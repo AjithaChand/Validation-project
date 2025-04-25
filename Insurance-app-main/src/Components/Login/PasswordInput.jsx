@@ -19,13 +19,14 @@ const PasswordInput = ({ value, onChange }) => {
                 label="Password"
                 value={value}
                 onChange={onChange}
+                // variant="standard"
                 fullWidth
                 required
                 margin="normal"
                 InputProps={{
                     endAdornment: (
                         <InputAdornment position="end">
-                            <IconButton onClick={toggleVisibility} edge="end">
+                            <IconButton onClick={toggleVisibility} edge="end" className='eye-icon-password'>
                                 {showPassword ? <VisibilityOff /> : <Visibility />}
                             </IconButton>
                         </InputAdornment>
