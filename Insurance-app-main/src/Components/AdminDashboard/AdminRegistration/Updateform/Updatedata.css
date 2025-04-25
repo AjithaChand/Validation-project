@@ -2,6 +2,12 @@
   display: block;
   margin: auto;
   color: white;
+  background-color: #333;
+}
+
+.userupdate-btn:hover {
+  color: white;
+  background-color: #494949;
 }
 
 .slider-switch {

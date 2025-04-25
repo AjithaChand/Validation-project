@@ -368,7 +368,7 @@ app.get("/get-person_code", (req, res) => {
 
 
 //Updating permissions
-app.put("/update-permissions", (req, res) => {
+app.put("/update-permissions", async (req, res) => {
     const { person_code } = req.query;
     const { permissions } = req.body;
 
@@ -391,9 +391,10 @@ app.put("/update-permissions", (req, res) => {
     const placeholders = permissionsRows.map(() => `(?, ?, ?, ?, ?, ?)`).join(", ");
     const flatValues = permissionsRows.flat();
 
-    const deleteqry = `DELETE FROM permissions WHERE person_code=?`;
+    try{
+        const deleteqry = `DELETE FROM permissions WHERE person_code=?`;
 
-    db.query(deleteqry, [person_code], (err, result) => {
+     db.query(deleteqry, [person_code], async (err, result) => {
         if (err) {
             return res.status(500).json({ error: "Failed to delete old permissions" });
         }
@@ -419,6 +420,10 @@ app.put("/update-permissions", (req, res) => {
             }
         });
     });
+}
+catch(err){
+    console.log("error")
+}
 });
 
 

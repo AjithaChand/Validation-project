@@ -365,6 +365,50 @@ console.log(datas,"data")
                   </tr>
 
                   <tr>
+                    <td>Register</td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.register?.create}
+                        onChange={e => setPermission(prev => ({
+                          ...prev,
+                          register: { ...prev.register, create: e.target.checked }
+                        }))}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.register?.read}
+                        onChange={e => setPermission(prev => ({
+                          ...prev,
+                          register: { ...prev.register, read: e.target.checked }
+                        }))}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.register?.update}
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          register: { ...permission.register, update: e.target.checked }
+                        }))}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={permission.register?.delete}
+                        onChange={e => setPermission(permission => ({
+                          ...permission,
+                          register: { ...permission.register, delete: e.target.checked }
+                        }))}
+                      />
+                    </td>
+                  </tr>
+
+                  <tr>
                     <td>Payslip</td>
                     <td>
                       <input
@@ -587,7 +631,7 @@ console.log(datas,"data")
             </div>
           </div>
 
-          <button className='btn userupdate-btn mt-4' style={{ backgroundColor: "#333" }}>Submit</button>
+          <button className='btn userupdate-btn mt-4'>Submit</button>
         </form>
       </div>
       <ToastContainer position='top-right' autoClose={3000} />

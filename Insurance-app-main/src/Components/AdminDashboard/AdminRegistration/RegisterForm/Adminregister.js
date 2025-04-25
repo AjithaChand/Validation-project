@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { apiurl } from '../../../../url';
 import { UserContext } from '../../../../usecontext';
+import { Switch, FormControlLabel } from "@mui/material";
 
 const Adminregister = ({ close }) => {
     const { setCreateNewUser } = useContext(UserContext);
@@ -329,6 +330,7 @@ const Adminregister = ({ close }) => {
                                     <thead>
                                         <tr>
                                             <th>Permissions</th>
+                                            <th></th>
                                             <th>Create</th>
                                             <th>Read</th>
                                             <th>Update</th>
@@ -338,21 +340,32 @@ const Adminregister = ({ close }) => {
                                     <tbody>
                                         <tr>
                                             <td>Full permission</td>
+                                            <td></td>
                                             {['create', 'read', 'update', 'delete'].map(action => (
                                                 <td key={action}>
-                                                    <input type='checkbox'
+                                                    <FormControlLabel
+                                                    control={
+                                                        <Switch type='checkbox'
                                                         checked={fullPermission[action]}
                                                         onChange={() => handleFullPermissionToggle(action)} />
+                                                    }
+                                                    />
                                                 </td>
                                             ))}
                                         </tr>
 
                                         <tr>
-                                            <td>Dashboard
-                                                <input
+                                            <td>Dashboard </td>
+
+                                            <td>
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch
                                                     type="checkbox"
                                                     checked={Object.values(permission.dashboard).every(val => val === true)}
                                                     onChange={() => toggleFullAccess('dashboard')}
+                                                />
+                                                }
                                                 />
                                             </td>
 
@@ -398,11 +411,19 @@ const Adminregister = ({ close }) => {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Register
-                                                <input
+                                            <td>Register {" "}
+                                                
+                                            </td>
+
+                                            <td>
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch
                                                     type="checkbox"
                                                     checked={Object.values(permission.register).every(val => val === true)}
                                                     onChange={() => toggleFullAccess('register')}
+                                                />
+                                                }
                                                 />
                                             </td>
 
@@ -450,8 +471,14 @@ const Adminregister = ({ close }) => {
 
                                         <tr>
                                             <td>
-                                                Attendance
-                                                <input
+                                                Attendance {" "}
+                                                
+                                            </td>
+
+                                            <td>
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch
                                                     type="checkbox"
                                                     checked={
                                                         ['create', 'read', 'update', 'delete'].every(
@@ -461,14 +488,15 @@ const Adminregister = ({ close }) => {
                                                     }
                                                     onChange={() => toggleParentPermission('attendance', ['payslip'])}
                                                 />
-
-                                                <span style={{ marginLeft: '5px' }}>All</span>
+                                                }
+                                                />
                                             </td>
                                         </tr>
 
 
                                         <tr>
                                             <td>Attendance</td>
+                                            <td></td>
                                             <td>
                                                 <input
                                                     type="checkbox"
@@ -512,6 +540,7 @@ const Adminregister = ({ close }) => {
                                         </tr>
                                         <tr>
                                             <td>Payslip</td>
+                                            <td></td>
                                             <td>
                                                 <input
                                                     type="checkbox"
@@ -555,11 +584,19 @@ const Adminregister = ({ close }) => {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>User Attendance
-                                                <input
+                                            <td>User Attendance {" "}
+                                                
+                                            </td>
+
+                                            <td>
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch
                                                     type="checkbox"
                                                     checked={Object.values(permission.user_attendance).every(val => val === true)}
                                                     onChange={() => toggleFullAccess('user_attendance')}
+                                                />
+                                                }
                                                 />
                                             </td>
                                             <td>
@@ -604,8 +641,14 @@ const Adminregister = ({ close }) => {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Settings
-                                            <input
+                                            <td>Settings {" "}
+                                                
+                                            </td>
+
+                                            <td>
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch
                                                     type="checkbox"
                                                     checked={
                                                         ['create', 'read', 'update', 'delete'].every(
@@ -615,10 +658,13 @@ const Adminregister = ({ close }) => {
                                                     }
                                                     onChange={() => toggleParentPermission('settings', ['users'])}
                                                 />
+                                                }
+                                                />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Settings</td>
+                                            <td></td>
                                             <td>
                                                 <input
                                                     type="checkbox"
@@ -662,6 +708,7 @@ const Adminregister = ({ close }) => {
                                         </tr>
                                         <tr>
                                             <td>Users</td>
+                                            <td></td>
                                             <td>
                                                 <input
                                                     type="checkbox"
