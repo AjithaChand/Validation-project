@@ -282,7 +282,7 @@ cron.schedule("0 0 28-31 * *", () => {
 
   const columnName = `absent_days_${monthName}_${year}`;
 
-  const selectQuery = `SELECT emp_id, total_salary, ${columnName} FROM payslip`;
+  const selectQuery = `SELECT emp_id, net_amount, ${columnName} FROM payslip`;
 
   db.query(selectQuery, (err, results) => {
 
@@ -300,11 +300,11 @@ cron.schedule("0 0 28-31 * *", () => {
     results.forEach(row => {
 
       const id = row.emp_id;
-      const totalSalary = row.total_salary;
+      const netSalary = row.net_amount;
       const leaveDays = row[columnName];
       
-      const perDay = totalSalary / 30;
-      const revisedSalary = totalSalary - (leaveDays * perDay);
+      const perDay = netSalary / 30;
+      const revisedSalary = netSalary - (leaveDays * perDay);
 
       const updateQuery = "UPDATE payslip SET revised_salary = ? WHERE emp_id = ?";
 

@@ -218,6 +218,12 @@ const Payslip = () => {
     toast.error("download failed");
   }
 
+  const today = new Date();
+  const monthName = today.toLocaleString('default', { month: "long" }).toLowerCase();
+  const year = today.getFullYear();
+
+  const columnName = `absent_days_${monthName}_${year}`;
+
   return (
     <div className="payslip-design-1">
       {loading && (
@@ -310,6 +316,7 @@ const Payslip = () => {
                       <th>Gross Salary</th>
                       <th>Net Salary</th>
                       <th>Revised Salary</th>
+                      <th>Deducted Salary</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -319,13 +326,14 @@ const Payslip = () => {
                         <td>{employee.emp_name}</td>
                         <td>30</td>
                         <td>4</td>
-                        <td>{employee.leave_days}</td>
+                        <td>{employee[columnName]}</td>
                         <td>{employee.bank_details}</td>
                         <td>{employee.pf_amount}</td>
                         <td>{employee.esi_amount}</td>
                         <td>{employee.gross_salary}</td>
                         <td>{employee.net_amount}</td>
                         <td>{employee.revised_salary}</td>
+                        <td>{parseInt(employee.net_amount) - parseInt(employee.revised_salary)}</td>
                       </tr>
                     ))}
                   </tbody>

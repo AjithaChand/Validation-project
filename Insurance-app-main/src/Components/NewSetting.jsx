@@ -41,7 +41,7 @@ function CompanyDetailsForm() {
         try {
           const res = await axios.get(`${apiurl}/api/company-details`);
           const data = res.data;
-          console.log(data);
+          console.log("company details",data);
           
   
           setFormData({
@@ -51,7 +51,6 @@ function CompanyDetailsForm() {
             address: data.address,
             logo: data.logo_url , 
           });
-  
           // setExistingLogo(data.logo_url); 
         } catch (err) {
           console.error("Error fetching company details:", err);

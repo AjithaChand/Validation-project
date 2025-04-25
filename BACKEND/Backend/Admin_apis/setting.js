@@ -91,6 +91,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("../db");
 
 const logoUploadPath = path.join(__dirname, "..", "uploads", "logos");
+console.log("File path", logoUploadPath);
 
 if (!fs.existsSync(logoUploadPath)) {
   fs.mkdirSync(logoUploadPath, { recursive: true });
@@ -142,10 +143,12 @@ app.get("/api/company-details", (req, res) => {
     if (results.length === 0) {
       return res.status(404).json({ message: "No company details found" });
     }
-
+    console.log("Company details in backend", results[0]);
+    
     const company = results[0];
-    company.logo_url = `http://54.227.179.97/uploads/logos/${company.logo_path}`;
-
+    company.logo_url = `http://localhost:7009/uploads/logos/${company.logo_path}`;
+    console.log("Company logo url", company.logo_url);
+    
     res.json(company);
   });
 });
