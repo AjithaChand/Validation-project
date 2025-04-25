@@ -278,7 +278,8 @@
 }
 
 .users-msg {
-    margin: 20px auto;
+    text-align: center;
+    padding: 20px;
 }
 
 .users-total {

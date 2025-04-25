@@ -6,20 +6,28 @@ import 'react-toastify/dist/ReactToastify.css';
 import { apiurl } from '../../../../url';
 import { UserContext } from '../../../../usecontext';
 import { Switch, FormControlLabel } from "@mui/material";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Adminregister = ({ close }) => {
     const { setCreateNewUser } = useContext(UserContext);
-    const[payload,setPayload]=useState({
-        branch:"",
-        station:"",
-        latitude:"",
-        longitude:""
+    const [payload, setPayload] = useState({
+        branch: "",
+        station: "",
+        latitude: "",
+        longitude: ""
     })
 
-   const handleShow =()=>{
-    console.log("Payload in frontend", payload);
-    
-   }
+    const handleShow = () => {
+        console.log("Payload in frontend", payload);
+
+    }
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const toggleVisibility = () => {
+        setShowPassword(prev => !prev);
+    }
+
     const [values, setValues] = useState({
         username: '',
         email: '',
@@ -42,7 +50,7 @@ const Adminregister = ({ close }) => {
 
     const [permission, setPermission] = useState({
         'dashboard': { read: false, create: false, update: false, delete: false },
-        'register' : { read: false, create: false, update: false, delete: false },
+        'register': { read: false, create: false, update: false, delete: false },
         'user_attendance': { read: false, create: false, update: false, delete: false },
         'payslip': { read: false, create: false, update: false, delete: false },
         'users': { read: false, create: false, update: false, delete: false },
@@ -174,14 +182,14 @@ const Adminregister = ({ close }) => {
             return toast.error('Invalid Email');
         }
 
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*])[A-Za-z\d!@#$%&*]{8,}$/;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*])[A-Za-z\d!@#$%&*]{3,}$/;
         if (!passwordRegex.test(values.password)) {
             return toast.warning('Password must be 8 characters, include one number and one special character');
         }
 
         try {
             await axios.post(`${apiurl}/admin/register`, {
-                ...values,payload:payload, permissions: permission
+                ...values, payload: payload, permissions: permission
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -228,9 +236,18 @@ const Adminregister = ({ close }) => {
                             </div>
                         </div>
                         <div className='row'>
-                            <div className='mt-3 col-md-6 col-sm-12 form-group'>
+                            <div className='mt-3 col-md-6 col-sm-12 form-group password-wrapper'>
                                 <label className='register-label'>Password</label>
-                                <input type='password' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, password: e.target.value })} placeholder='Enter your password' required />
+                                <input
+                                 type={showPassword ? 'text' : 'password'}
+                                    className='form-control password-field'
+                                    style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+                                    onChange={e => setValues({ ...values, password: e.target.value })}
+                                    placeholder='Enter your password'
+                                    required />
+                                <span className="eye-icon" onClick={toggleVisibility}>
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </span>
                             </div>
                             <div className='mt-3 col-md-6 col-sm-12 form-group'>
                                 <label className='register-label'>Bank Details</label>
@@ -291,7 +308,7 @@ const Adminregister = ({ close }) => {
                             </div>
                             <div className='mt-3 col-md-6 col-sm-12 form-group'>
                                 <label className='register-label'>longitude</label>
-                                <input type='float' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setPayload({ ...payload,longitude: e.target.value })} placeholder='Enter longitude number' required />
+                                <input type='float' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setPayload({ ...payload, longitude: e.target.value })} placeholder='Enter longitude number' required />
                             </div>
                         </div>
                         <div className='row'>
@@ -344,11 +361,11 @@ const Adminregister = ({ close }) => {
                                             {['create', 'read', 'update', 'delete'].map(action => (
                                                 <td key={action}>
                                                     <FormControlLabel
-                                                    control={
-                                                        <Switch type='checkbox'
-                                                        checked={fullPermission[action]}
-                                                        onChange={() => handleFullPermissionToggle(action)} />
-                                                    }
+                                                        control={
+                                                            <Switch type='checkbox'
+                                                                checked={fullPermission[action]}
+                                                                onChange={() => handleFullPermissionToggle(action)} />
+                                                        }
                                                     />
                                                 </td>
                                             ))}
@@ -358,14 +375,14 @@ const Adminregister = ({ close }) => {
                                             <td>Dashboard </td>
 
                                             <td>
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                    type="checkbox"
-                                                    checked={Object.values(permission.dashboard).every(val => val === true)}
-                                                    onChange={() => toggleFullAccess('dashboard')}
-                                                />
-                                                }
+                                                <FormControlLabel
+                                                    control={
+                                                        <Switch
+                                                            type="checkbox"
+                                                            checked={Object.values(permission.dashboard).every(val => val === true)}
+                                                            onChange={() => toggleFullAccess('dashboard')}
+                                                        />
+                                                    }
                                                 />
                                             </td>
 
@@ -412,18 +429,18 @@ const Adminregister = ({ close }) => {
                                         </tr>
                                         <tr>
                                             <td>Register {" "}
-                                                
+
                                             </td>
 
                                             <td>
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                    type="checkbox"
-                                                    checked={Object.values(permission.register).every(val => val === true)}
-                                                    onChange={() => toggleFullAccess('register')}
-                                                />
-                                                }
+                                                <FormControlLabel
+                                                    control={
+                                                        <Switch
+                                                            type="checkbox"
+                                                            checked={Object.values(permission.register).every(val => val === true)}
+                                                            onChange={() => toggleFullAccess('register')}
+                                                        />
+                                                    }
                                                 />
                                             </td>
 
@@ -472,23 +489,23 @@ const Adminregister = ({ close }) => {
                                         <tr>
                                             <td>
                                                 Attendance {" "}
-                                                
+
                                             </td>
 
                                             <td>
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                    type="checkbox"
-                                                    checked={
-                                                        ['create', 'read', 'update', 'delete'].every(
-                                                            action =>
-                                                                permission.attendance[action] && permission.payslip[action]
-                                                        )
+                                                <FormControlLabel
+                                                    control={
+                                                        <Switch
+                                                            type="checkbox"
+                                                            checked={
+                                                                ['create', 'read', 'update', 'delete'].every(
+                                                                    action =>
+                                                                        permission.attendance[action] && permission.payslip[action]
+                                                                )
+                                                            }
+                                                            onChange={() => toggleParentPermission('attendance', ['payslip'])}
+                                                        />
                                                     }
-                                                    onChange={() => toggleParentPermission('attendance', ['payslip'])}
-                                                />
-                                                }
                                                 />
                                             </td>
                                         </tr>
@@ -585,18 +602,18 @@ const Adminregister = ({ close }) => {
                                         </tr>
                                         <tr>
                                             <td>User Attendance {" "}
-                                                
+
                                             </td>
 
                                             <td>
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                    type="checkbox"
-                                                    checked={Object.values(permission.user_attendance).every(val => val === true)}
-                                                    onChange={() => toggleFullAccess('user_attendance')}
-                                                />
-                                                }
+                                                <FormControlLabel
+                                                    control={
+                                                        <Switch
+                                                            type="checkbox"
+                                                            checked={Object.values(permission.user_attendance).every(val => val === true)}
+                                                            onChange={() => toggleFullAccess('user_attendance')}
+                                                        />
+                                                    }
                                                 />
                                             </td>
                                             <td>
@@ -642,23 +659,23 @@ const Adminregister = ({ close }) => {
                                         </tr>
                                         <tr>
                                             <td>Settings {" "}
-                                                
+
                                             </td>
 
                                             <td>
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch
-                                                    type="checkbox"
-                                                    checked={
-                                                        ['create', 'read', 'update', 'delete'].every(
-                                                            action =>
-                                                                permission.settings[action] && permission.users[action]
-                                                        )
+                                                <FormControlLabel
+                                                    control={
+                                                        <Switch
+                                                            type="checkbox"
+                                                            checked={
+                                                                ['create', 'read', 'update', 'delete'].every(
+                                                                    action =>
+                                                                        permission.settings[action] && permission.users[action]
+                                                                )
+                                                            }
+                                                            onChange={() => toggleParentPermission('settings', ['users'])}
+                                                        />
                                                     }
-                                                    onChange={() => toggleParentPermission('settings', ['users'])}
-                                                />
-                                                }
                                                 />
                                             </td>
                                         </tr>

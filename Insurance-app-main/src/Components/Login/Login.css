@@ -72,7 +72,7 @@
     100%);
     color: white;
 }
-.form-control-login {
+/* .form-control-login {
     all: unset;
     width: 100%;
     padding: 10px 5px;
@@ -96,8 +96,25 @@
 
 .form-control-login:not(:placeholder-shown) {
     border-bottom: none;
+} */
+
+.form-control-login .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.5) !important;  
 }
 
+.form-control-login .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.5) !important; 
+    outline: none !important;  
+    background-color: transparent !important; 
+}
+
+.form-control-login .MuiFormLabel-root {
+    color: #fff;
+}
+
+.form-control-login .MuiInputLabel-root.Mui-focused {
+    color:#fff; 
+}
 
 
 

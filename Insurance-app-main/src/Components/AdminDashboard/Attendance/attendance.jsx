@@ -263,13 +263,11 @@ const Attendance = () => {
                   );
                 })}
 
-                {attendanceloading === false && filterdata.length === 0 && (
-                  <tr>
-                    <td colSpan={8}><h6 className='attendance-msg'> No User Found</h6></td>
-                  </tr>
-                )}
               </tbody>
             </table>
+            {attendanceloading === false && filterdata.length === 0 && (
+              <h6 className='attendance-msg'> No User Found</h6>
+            )}
           </div>
         )}
       </div>

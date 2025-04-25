@@ -6,6 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { apiurl } from '../../url';
+import { TextField } from '@mui/material';
+import PasswordInput from '../Login/PasswordInput';
 const Register = () => {
     const [active, setActive] = useState("signup");
     const navigate = useNavigate()
@@ -23,22 +25,22 @@ const Register = () => {
             return toast.error("Invalid Email")
         }
 
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*])[A-Za-z\d!@#$%&*]{8,}$/;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*])[A-Za-z\d!@#$%&*]{3,}$/;
         if (!passwordRegex.test(values.password)) {
             return toast.error("Password must be 8 characters includes one number one special character")
         }
-        
+
         try {
             const res = await axios.post(`${apiurl}/register`, values)
             toast.success(res.data.message)
             navigate("/")
 
-            
+
             await axios.post(`${apiurl}/email_for_register`, {
                 email: values.email,
                 username: values.username
             })
-         
+
         } catch (err) {
             toast.error(err.response.data.error)
         }
@@ -54,16 +56,38 @@ const Register = () => {
                         <button className={`btn button-group ${active === "signup" ? "active" : ""}`} onClick={() => setActive("signup")}>Signup</button>
                     </div>
                     <div className='mt-4 form-group'>
-                        <label className='text-white'>Username</label>
-                        <input type='text' className='form-control-register'  onChange={e => setValues({ ...values, username: e.target.value })} placeholder='Enter your name' required />
+                        <TextField
+                            fullWidth
+                            margin='normal'
+                            type='text'
+                            className='form-control-register'
+                            onChange={e => setValues({ ...values, username: e.target.value })}
+                            label='Enter your name'
+                            required
+                            InputLabelProps={{
+                                required: false
+                            }}
+                        />
                     </div>
                     <div className='mt-4 form-group'>
-                        <label className='text-white'>Email</label>
-                        <input type='email' className='form-control-register'  onChange={e => setValues({ ...values, email: e.target.value })} placeholder='Enter your email' required />
+                        <TextField
+                            fullWidth
+                            margin='normal'
+                            type='email'
+                            className='form-control-register'
+                            onChange={e => setValues({ ...values, email: e.target.value })}
+                            label='Enter your email'
+                            required
+                            InputLabelProps={{
+                                required: false
+                            }}
+                        />
                     </div>
                     <div className='mt-4 form-group'>
-                        <label className='text-white'>Password</label>
-                        <input type='password' className='form-control-register'  onChange={e => setValues({ ...values, password: e.target.value })} placeholder='Enter your password' required />
+                        <PasswordInput
+                            value={values.password}
+                            onChange={e => setValues({ ...values, password: e.target.value })}
+                        />
                     </div>
                     <button className='btn register-btn mt-4'>Register</button>
                 </form>

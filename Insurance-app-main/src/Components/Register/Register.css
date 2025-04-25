@@ -29,7 +29,26 @@
   
 
 }
-.form-control-register{
+
+.form-control-register .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.5) !important;  
+}
+
+.form-control-register .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.5) !important; 
+    outline: none ;  
+    background-color: transparent ; 
+}
+
+.form-control-register .MuiFormLabel-root {
+    color: #fff;
+}
+
+.form-control-register .MuiInputLabel-root.Mui-focused {
+    color:#fff; 
+}
+
+/* .form-control-register{
     width: 100%;
     padding: 10px 5px;
     font-size: 16px;
@@ -39,20 +58,20 @@
     color: #fff; 
     outline: none;
     transition: border-color 0.3s ease;
-}
+} */
 
-.form-control-register::placeholder {
+/* .form-control-register::placeholder {
     color: #ccc; 
 }
 
 .form-control-register:focus {
     border-bottom: 1.5px solid navy; 
-}
+} */
 .register-btn{
     margin: auto;
     display: block;
     padding: 10px;
-    width: ;
+    width:70% ;
     background-color:navy;
     color: white;
 }

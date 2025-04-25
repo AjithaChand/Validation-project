@@ -201,92 +201,91 @@ const Users = () => {
         </div>
 
         <div className='users-table-container'>
-        {loading ? (
-          <div className='users-spinner'></div>
-        ) : (
-          <div className="table-container">
-            <table className='users-table text-center'>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>JoiningDate</th>
-                  <th>Password</th>
-                  <th>Bank Details</th>
-                  <th>Pf Number</th>
-                  <th>Esi Number</th>
-                  <th>Salary</th>
-                  <th>Branch</th>
-                  <th>Station</th>
-                  <th>Latitude</th>
-                  <th>Longitude</th>
-                  {user === 'admin' ? (<th>Action</th>) : (
-                    getPermission.length !== 0 && (getPermission[4]?.can_update === 1 || getPermission[4]?.can_delete === 1) && (
-                      <th>Actions</th>
-                    )
-                  )}
-                </tr>
-              </thead>
-              <tbody className='tbody-users'>
-                {filterValue.map((data, index) => (
-                  <tr key={index}>
-                    <td>{data.id}</td>
-                    <td>{data.username}</td>
-                    <td>{data.email}</td>
-                    <td>{new Date(data.joining_date).toISOString("").split("T")[0]}</td>
-                    <td>{data.password}</td>
-                    <td>{data.bank_details}</td>
-                    <td>{data.pf_number}</td>
-                    <td>{data.esi_number}</td>
-                    <td>{data.total_salary}</td>
-                    <td>{data.branch_name}</td>
-                    <td>{data.station_name}</td>
-                    <td>{data.latitude}</td>
-                    <td>{data.longitude}</td>
-                    {user === 'admin' ? (
-                      <td>
-                        <button className='edit-btn'
-                          onClick={() => handleupdate(data.id, data.email)}>
-                          <FaEdit className='useredit-icon' />
-                        </button>
-                        <button className='delete-btn'
-                          onClick={() => handleDelete(data.id)}>
-                          <RiDeleteBinFill className='userdelete-icon' />
-                        </button>
-                      </td>
-                    ) : (
+          {loading ? (
+            <div className='users-spinner'></div>
+          ) : (
+            <div className="table-container">
+              <table className='users-table text-center'>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>JoiningDate</th>
+                    <th>Password</th>
+                    <th>Bank Details</th>
+                    <th>Pf Number</th>
+                    <th>Esi Number</th>
+                    <th>Salary</th>
+                    <th>Branch</th>
+                    <th>Station</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    {user === 'admin' ? (<th>Action</th>) : (
                       getPermission.length !== 0 && (getPermission[4]?.can_update === 1 || getPermission[4]?.can_delete === 1) && (
-                        <td>
-                          <button className='edit-btn'
-                            disabled={getPermission.length === 0 || getPermission[4]?.can_update !== 1}
-                            onClick={() => handleupdate(data.id, data.email)}>
-                            {getPermission.length !== 0 && getPermission[4]?.can_update === 1 && (
-                              <FaEdit className='useredit-icon' />
-                            )}
-                          </button>
-
-                          <button className='delete-btn'
-                            disabled={getPermission.length === 0 || getPermission[4]?.can_delete !== 1}
-                            onClick={() => handleDelete(data.id)}>
-                            {getPermission.length !== 0 && getPermission[4]?.can_delete === 1 && (
-                              <RiDeleteBinFill className='userdelete-icon' />
-                            )}
-                          </button>
-                        </td>
+                        <th>Actions</th>
                       )
                     )}
                   </tr>
-                ))}
+                </thead>
+                <tbody className='tbody-users'>
+                  {filterValue.map((data, index) => (
+                    <tr key={index}>
+                      <td>{data.id}</td>
+                      <td>{data.username}</td>
+                      <td>{data.email}</td>
+                      <td>{new Date(data.joining_date).toISOString("").split("T")[0]}</td>
+                      <td>{data.password}</td>
+                      <td>{data.bank_details}</td>
+                      <td>{data.pf_number}</td>
+                      <td>{data.esi_number}</td>
+                      <td>{data.total_salary}</td>
+                      <td>{data.branch_name}</td>
+                      <td>{data.station_name}</td>
+                      <td>{data.latitude}</td>
+                      <td>{data.longitude}</td>
+                      {user === 'admin' ? (
+                        <td>
+                          <button className='edit-btn'
+                            onClick={() => handleupdate(data.id, data.email)}>
+                            <FaEdit className='useredit-icon' />
+                          </button>
+                          <button className='delete-btn'
+                            onClick={() => handleDelete(data.id)}>
+                            <RiDeleteBinFill className='userdelete-icon' />
+                          </button>
+                        </td>
+                      ) : (
+                        getPermission.length !== 0 && (getPermission[4]?.can_update === 1 || getPermission[4]?.can_delete === 1) && (
+                          <td>
+                            <button className='edit-btn'
+                              disabled={getPermission.length === 0 || getPermission[4]?.can_update !== 1}
+                              onClick={() => handleupdate(data.id, data.email)}>
+                              {getPermission.length !== 0 && getPermission[4]?.can_update === 1 && (
+                                <FaEdit className='useredit-icon' />
+                              )}
+                            </button>
 
-                {loading === false && filterValue.length === 0 && (
-                  <tr>
-                    <td colSpan={14}><div className='users-msg'> No User Found</div></td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>)}
+                            <button className='delete-btn'
+                              disabled={getPermission.length === 0 || getPermission[4]?.can_delete !== 1}
+                              onClick={() => handleDelete(data.id)}>
+                              {getPermission.length !== 0 && getPermission[4]?.can_delete === 1 && (
+                                <RiDeleteBinFill className='userdelete-icon' />
+                              )}
+                            </button>
+                          </td>
+                        )
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              {loading === false && filterValue.length === 0 && (
+                 <h6 className='users-msg'> No User Found</h6>
+              )}
+
+            </div>)}
         </div>
       </div>
       <Userpage onClose={handleDialog} isVisible={dialogbox} />
