@@ -73,19 +73,16 @@ const Payslip = () => {
 
     axios.get(url)
       .then((res) => {
-        console.log('API Response:', res.data); // Debug log
         if (Array.isArray(res.data.results)) {
           setEmployeedata(res.data.results);
           setShowBackIcon(true);
           setShowPaySlip(false);
         } else {
           toast.error("Invalid response structure");
-          console.error('Invalid data structure:', res.data);
         }
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error("Error fetching employee data");
-        console.error('API Error:', err);
       });
   }, [dates, datesTo]);
 
@@ -109,14 +106,6 @@ const Payslip = () => {
   };
 
   const generateAllPDFs = async () => {
-    console.log('Starting PDF generation...'); // Debug log
-    console.log('Date validation:', {
-      dates,
-      datesTo,
-      isFromValid: isBeforeCurrentMonth(dates),
-      isToValid: isBeforeCurrentMonth(datesTo)
-    });
-
     if (!isBeforeCurrentMonth(dates) || (datesTo && !isBeforeCurrentMonth(datesTo))) {
       toast.error("Cannot generate payslips for the current or future months.");
       return;
@@ -139,14 +128,11 @@ const Payslip = () => {
         const year = date.getFullYear();
         const key = `${year}-${month.toString().padStart(2, "0")}`;
 
-        if (!groupedByMonth[key]) {
-          groupedByMonth[key] = [];
-        }
+        if (!groupedByMonth[key]) groupedByMonth[key] = [];
         groupedByMonth[key].push({ emp, index });
       });
 
       const keys = Object.keys(groupedByMonth);
-      console.log('Grouped data:', groupedByMonth); // Debug log
 
       for (let k = 0; k < keys.length; k++) {
         const key = keys[k];
@@ -154,37 +140,24 @@ const Payslip = () => {
         const employees = groupedByMonth[key];
         const [year, month] = key.split("-");
 
-        console.log(`Processing month ${year}-${month} with ${employees.length} employees`);
-
         for (let i = 0; i < employees.length; i++) {
           const { emp, index } = employees[i];
           const element = payslipRefs.current[index];
-          
-          if (!element) {
-            console.warn(`No element found for employee ${emp.emp_id}`);
-            continue;
-          }
+          if (!element) continue;
 
           try {
-            console.log(`Generating PDF for ${emp.emp_id}`);
-            const canvas = await html2canvas(element, { 
-              scale: 2, 
-              useCORS: true,
-              logging: true // Enable canvas logging
-            });
-            
+            const canvas = await html2canvas(element, { scale: window.devicePixelRatio || 2, useCORS: true });
             const imgData = canvas.toDataURL("image/png");
             const pdf = new jsPDF("p", "mm", "a4");
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const imgProps = pdf.getImageProperties(imgData);
             const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
             pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
             const pdfBlob = pdf.output("blob");
+            zip.file(`Payslip_${emp.emp_id}_${key}.pdf`, pdfBlob);
 
-            zip.file(`Payslip_${emp.emp_id}.pdf`, pdfBlob);
-
-            const currentProgress = Math.round(((k * employees.length + i + 1) / (keys.length * employees.length)) * 100);
+            const total = keys.reduce((sum, key) => sum + groupedByMonth[key].length, 0);
+            const currentProgress = Math.round(((k * employees.length + i + 1) / total) * 100);
             setProgress(currentProgress);
           } catch (err) {
             console.error(`Error generating PDF for ${emp.emp_id}`, err);
@@ -192,54 +165,44 @@ const Payslip = () => {
         }
 
         try {
-          console.log(`Generating ZIP for ${year}-${month}`);
           const content = await zip.generateAsync({ type: "blob" });
           saveAs(content, `payslips_${year}_${month}.zip`);
-          console.log(`Successfully generated ZIP for ${year}-${month}`);
         } catch (err) {
-          console.error(`Error generating ZIP for ${year}-${month}`, err);
           toast.error(`Failed to generate ZIP for ${year}-${month}`);
         }
       }
 
       toast.success("All monthly ZIPs downloaded!");
     } catch (err) {
-      console.error('Error in generateAllPDFs:', err);
       toast.error("Failed to generate payslips");
     } finally {
       setLoading(false);
     }
   };
 
-  const handlecancel=()=>
-  {
+  const handlecancel = () => {
     setLoading(false);
     setProgress(0);
-    toast.error("download failed");
-  }
+  };
 
   const today = new Date();
   const monthName = today.toLocaleString('default', { month: "long" }).toLowerCase();
   const year = today.getFullYear();
-
   const columnName = `absent_days_${monthName}_${year}`;
 
   return (
     <div className="payslip-design-1">
       {loading && (
         <div className="loading-overlay">
-            <button className='cancel-button' onClick={handlecancel}><FaTimes/></button>
+          <button className='cancel-button' onClick={handlecancel}><FaTimes/></button>
           <div className='loading-overlay1'>
-          <div className="loading-spinner"></div>
-          <p className='loading-text'>Generating payslips ZIP... Please wait</p>
-          <div className="progress-bar">
-            <div
-              className="progress-bar-filled"
-              style={{ width: `${progress}%` }}
-            ></div>
+            <div className="loading-spinner"></div>
+            <p className='loading-text'>Generating payslips ZIP... Please wait</p>
+            <div className="progress-bar">
+              <div className="progress-bar-filled" style={{ width: `${progress}%` }}></div>
+            </div>
+            <p style={{ color: "white" }}>{progress}%</p>
           </div>
-          <p style={{ color: "white" }}>{progress}%</p>
-         </div>  
         </div>
       )}
 
@@ -262,24 +225,12 @@ const Payslip = () => {
           <div className="payslip-field">
             <div className="input-fields">
               <label>From Month</label>
-              <input
-                type="month"
-                className="payslipinput"
-                value={dates}
-                onChange={(e) => setDates(e.target.value)}
-                max={disableCurrentMonth()}
-              />
+              <input type="month" className="payslipinput" value={dates} onChange={(e) => setDates(e.target.value)} max={disableCurrentMonth()} />
             </div>
 
             <div className="input-fields">
               <label>To Month</label>
-              <input
-                type="month"
-                className="payslipinput"
-                value={datesTo}
-                onChange={(e) => setDatesTo(e.target.value)}
-                max={disableCurrentMonth()}
-              />
+              <input type="month" className="payslipinput" value={datesTo} onChange={(e) => setDatesTo(e.target.value)} max={disableCurrentMonth()} />
             </div>
           </div>
         </div>
@@ -342,73 +293,70 @@ const Payslip = () => {
             </div>
 
             {employeedata.map((employee, index) => (
-              <div className='employee-payslip'>
-              <div className="heading-payslip" key={index}>
-                <div
-                  className="payslip-style"
-                  ref={(el) => (payslipRefs.current[index] = el)}
-                >
-                  <div className="design"></div>
-                  <div className="company-header">
-                    <img className="image-logo" src={formData.logo} alt="Company Logo" />
-                    <div className="company">
-                      <h3>Payslip</h3>
-                      <p className="contact-line">
-                        <IoMdCall className="icon" /> {formData.phone} &nbsp;
-                        <IoMdMailUnread className="icon" /> {formData.email}
-                      </p>
+              <div className='employee-payslip' style={{display:"none"}} key={index}>
+                <div className="heading-payslip">
+                  <div className="payslip-style" ref={(el) => (payslipRefs.current[index] = el)}>
+                    <div className="design"></div>
+                    <div className="company-header">
+                      <img className="image-logo" src={formData.logo} alt="Company Logo" />
+                      <div className="company">
+                        <h3>Payslip</h3>
+                        <p className="contact-line">
+                          <IoMdCall className="icon" /> {formData.phone} &nbsp;
+                          <IoMdMailUnread className="icon" /> {formData.email}
+                        </p>
+                      </div>
+                      <div className="address">
+                        <h6>{formData.companyName}</h6>
+                        <p>{formData.address}</p>
+                        <p>Date: {new Date().toLocaleDateString("en-GB")}</p>
+                      </div>
                     </div>
-                    <div className="address">
-                      <h6>{formData.companyName}</h6>
-                      <p>{formData.address}</p>
-                      <p>Date: {new Date().toLocaleDateString("en-GB")}</p>
+
+                    <div className="gap"></div>
+
+                    <div className="info-sections">
+                      <div className="info-column">
+                        <h4>Employee Details</h4>
+                        <ul>
+                          <li>Employee ID: <span>{employee.emp_id}</span></li>
+                          <li>Name: <span>{employee.emp_name || "N/A"}</span></li>
+                          <li>Bank Details: <span>{employee.bank_details}</span></li>
+                          <li>Date of Joining: <span>{new Date(employee.joining_date).toISOString().split("T")[0]}</span></li>
+                        </ul>
+                      </div>
+
+                      <div className="info-column">
+                        <h4>Attendance Info</h4>
+                        <ul>
+                          <li>Attendance: <span>26 Days</span></li>
+                          <li>Week Off: <span>4 Days</span></li>
+                          <li>Leave Days: <span>{employee.leave_days || 0}</span></li>
+                        </ul>
+                      </div>
                     </div>
+
+                    <div className="bottom-section">
+                      <div className="info-column">
+                        <h4>Deductions</h4>
+                        <ul>
+                          <li>PF: <span>{employee.pf_amount || 0}</span></li>
+                          <li>ESI: <span>{employee.esi_amount || 0}</span></li>
+                          <li>Gross Salary: <span>{employee.gross_salary || 0}</span></li>
+                          <li>Net Salary: <span>{employee.net_amount || 0}</span></li>
+                          <li>Revised Salary: <span>{employee.revised_salary}</span></li>
+                        </ul>
+                      </div>
+
+                      <div className="signature-box">
+                        <img className="image-sign" src={image} alt="Sign" />
+                        <p>Authorized signature</p>
+                      </div>
+                    </div>
+
+                    <div className="bottom-design"></div>
                   </div>
-
-                  <div className="gap"></div>
-
-                  <div className="info-sections">
-                    <div className="info-column">
-                      <h4>Employee Details</h4>
-                      <ul>
-                        <li>Employee ID: <span>{employee.emp_id}</span></li>
-                        <li>Name: <span>{employee.emp_name || "N/A"}</span></li>
-                        <li>Bank Details: <span>{employee.bank_details}</span></li>
-                        <li>Date of Joining: <span>{new Date(employee.joining_date).toISOString().split("T")[0]}</span></li>
-                      </ul>
-                    </div>
-
-                    <div className="info-column">
-                      <h4>Attendance Info</h4>
-                      <ul>
-                        <li>Attendance: <span>26 Days</span></li>
-                        <li>Week Off: <span>4 Days</span></li>
-                        <li>Leave Days: <span>{employee.leave_days || 0}</span></li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="bottom-section">
-                    <div className="info-column">
-                      <h4>Deductions</h4>
-                      <ul>
-                        <li>PF: <span>{employee.pf_amount || 0}</span></li>
-                        <li>ESI: <span>{employee.esi_amount || 0}</span></li>
-                        <li>Gross Salary: <span>{employee.gross_salary || 0}</span></li>
-                        <li>Net Salary: <span>{employee.net_amount || 0}</span></li>
-                        <li>Revised Salary: <span>{employee.revised_salary}</span></li>
-                      </ul>
-                    </div>
-
-                    <div className="signature-box">
-                      <img className="image-sign" src={image} alt="Sign" />
-                      <p>Authorized signature</p>
-                    </div>
-                  </div>
-
-                  <div className="bottom-design"></div>
                 </div>
-              </div>
               </div>
             ))}
           </>

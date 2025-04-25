@@ -131,7 +131,7 @@ const UserAttendance = () => {
   
     console.log("Distance to office:", distance);
   
-    if (distance > 100) {
+    if (distance > 1000) {
       toast.error("You must be within 100 meters of the office to mark attendance");
       return false;
     }

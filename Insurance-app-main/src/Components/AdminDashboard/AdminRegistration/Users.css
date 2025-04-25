@@ -289,6 +289,44 @@
     font-size: 17px;
 }
 
+.bulk-delete-btn {
+    background-color: rgb(232, 30, 30);
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0 10px 20px;
+    height: 50px;
+    width: auto;
+    border: none;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* spacing between icon and text */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .bulk-delete-btn:hover {
+    background-color: rgb(200, 20, 20);
+  }
+  
+  .trash {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+  
+  }
+  
+  .delete-text {
+    display: flex;
+    align-items: center;
+  }
+  .checkbox
+  {
+    font-size: 30px;
+    border: 1px solid navy;
+  }
+
 @media only screen and (min-width:319px) and (max-width:500px) {
     .admin-header-user {
         flex-wrap: wrap;

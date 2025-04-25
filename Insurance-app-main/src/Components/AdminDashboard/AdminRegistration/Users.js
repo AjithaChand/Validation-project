@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Userpage from '../AdminRegistration/Dialogbox/Userpage';
-import '../AdminRegistration/Users.css'
+import '../AdminRegistration/Users.css';
 import UpdateDialog from '../AdminRegistration/Dialogbox/UpdateDialog';
-import { RiDeleteBinFill } from "react-icons/ri";
+import { RiDeleteBinFill, RiFileExcel2Line } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,12 +11,11 @@ import { apiurl } from '../../../url';
 import AddIcon from '@mui/icons-material/Add';
 import Usersdelete from '../AdminRegistration/Dialogbox/Usersdelete';
 import { UserContext } from '../../../usecontext';
-import { RiFileExcel2Line } from "react-icons/ri";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import { IoTrash } from "react-icons/io5";
 
 const Users = () => {
-
-  const user = localStorage.getItem("role")
+  const user = localStorage.getItem("role");
   const [showconfirm, setShowconfirm] = useState(false);
   const [deleteid, setDeleteid] = useState(null);
   const [dialogbox, setDialogbox] = useState(false);
@@ -24,17 +23,13 @@ const Users = () => {
   const [refresh, setRefresh] = useState(false);
   const [showupdate, setShowupdate] = useState(false);
   const [selectid, setSelectid] = useState(null);
-  const [selectemail, setSelectemail] = useState(null)
+  const [selectemail, setSelectemail] = useState(null);
   const [value, setValue] = useState([]);
-  const [loading, setLoading] = useState(true)
-  //permission state
-  const [getPermission, setGetPermission] = useState({})
+  const [loading, setLoading] = useState(true);
+  const [getPermission, setGetPermission] = useState({});
+  const [searchValue, setSearchValue] = useState("");
+  const [selectedids, setSelectedids] = useState([]);
 
-  const [searchValue, setSearchValue] = useState("")
-
-  //searchbar state
-
-  const [searchbar, setSearchbar] = useState(false)
   const { createNewUser } = useContext(UserContext);
   const { updateOldUser } = useContext(UserContext);
 
@@ -47,19 +42,15 @@ const Users = () => {
   };
 
   useEffect(() => {
-
-    setLoading(true)
-
+    setLoading(true);
     axios.get(`${apiurl}/getuser`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
-      .then(res => setValue(res.data))
-      .catch(err => console.log(err))
-      .finally(() => {
-        setLoading(false)
-      })
+    .then(res => setValue(res.data))
+    .catch(err => console.log(err))
+    .finally(() => setLoading(false));
   }, [refresh, createNewUser, updateOldUser]);
 
   const handleLogout = () => setShowconfirm(true);
@@ -70,12 +61,12 @@ const Users = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
-      .then(res => {
-        cancelLogout();
-        toast.success("User deleted successfully");
-        setValue(prev => prev.filter(data => data.id !== deleteid));
-      })
-      .catch(err => toast.error(err.response.data.error));
+    .then(() => {
+      cancelLogout();
+      toast.success("User deleted successfully");
+      setValue(prev => prev.filter(data => data.id !== deleteid));
+    })
+    .catch(err => toast.error(err.response.data.error));
   };
 
   const cancelLogout = () => setShowconfirm(false);
@@ -105,39 +96,58 @@ const Users = () => {
     }
   };
 
-  //permission code 
-
-  const person_code = localStorage.getItem("person_code")
-  console.log("person_code", person_code);
+  const person_code = localStorage.getItem("person_code");
 
   useEffect(() => {
     if (person_code) {
       axios.get(`${apiurl}/person-code-details?person_code=${person_code}`)
-
         .then(res => setGetPermission(res.data.info))
-
-        .catch(err => console.log(err.message))
+        .catch(err => console.log(err.message));
     }
-  }, [person_code])
+  }, [person_code]);
 
+  const filterValue = value.filter((data) =>
+    data.email?.toLowerCase().includes(searchValue.toLowerCase()) ||
+    data.username?.toLowerCase().includes(searchValue.toLowerCase()) ||
+    data.password?.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
-  console.log("All datas", value);
+  const handleCheckboxchange = (id) => {
+    setSelectedids(prev =>
+      prev.includes(id) ? prev.filter(itemId => itemId !== id) : [...prev, id]
+    );
+  };
 
+  const handleDeleterecords = async () => {
+    if (selectedids.length === 0) {
+      toast.error("No users selected for deletion.");
+      return;
+    }
 
-  const filterValue = value.filter((data) => {
-    return data.email?.toLowerCase().includes(searchValue.toLowerCase()) ||
-      data.username?.toLowerCase().includes(searchValue.toLowerCase()) ||
-      data.password?.toLowerCase().includes(searchValue.toLowerCase())
-  })
+    try {
+      await axios.delete(`${apiurl}/delete-multiple`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        data: { userIds: selectedids }
+      });
+
+      setValue(prev => prev.filter(user => !selectedids.includes(user.id)));
+      setSelectedids([]);
+      toast.success("Selected users deleted successfully.");
+    } catch (err) {
+      console.error('Bulk deletion failed:', err);
+      toast.error("Failed to delete selected users.");
+    }
+  };
 
   return (
     <div>
       <div className='users-container'>
         <div className='header-container-users'>
           <div className="admin-header-container-user">
-
-            <p className='tablerow-user'>User Details</p>
-
+            <p className='tablerow-user'>User Agreements</p>
             <div className="admin-header-user">
               <button className="upload-button1" onClick={handleDownload}>
                 <RiFileExcel2Line className='excel-icon-user' />
@@ -160,8 +170,7 @@ const Users = () => {
         </div>
 
         <div className='user-head-search'>
-
-          <p className='users-total'>Users Agreements : {filterValue.length}</p>
+          <p className='users-total'>All Users: {filterValue.length}</p>
 
           <div className='user-searchbar'>
             <input
@@ -173,20 +182,10 @@ const Users = () => {
             />
           </div>
 
-          {user === "admin" ? (
-            <button className='users-btn'
-              onClick={handleDialog} >
+          {(user === "admin" || (getPermission.length !== 0 && getPermission[4]?.can_create === 1)) && (
+            <button className='users-btn' onClick={handleDialog}>
               <span className='createbutton'><AddIcon className="user-addicon" /> Create Account </span>
             </button>
-          ) : (
-            getPermission.length !== 0 && getPermission[4]?.can_create === 1 && (
-              <button className='users-btn'
-                disabled={getPermission.length === 0 || getPermission[4]?.can_create !== 1}
-
-                onClick={handleDialog} >
-                <span className='createbutton'>Create Account <AddIcon className="user-addicon" /> </span>
-              </button>
-            )
           )}
         </div>
 
@@ -199,18 +198,21 @@ const Users = () => {
             className='user-search-input-res'
           />
         </div>
+        <button className="bulk-delete-btn" onClick={handleDeleterecords}>
+  <span className='trash'><IoTrash /></span>
+  <span className="delete-text">Delete Records</span>
+</button>
+
 
         <div className='users-table-container'>
           {loading ? (
-            <div className='users-spinner'></div>
+            <div className='users-spinner'>Loading users...</div>
           ) : (
             <div className="table-container">
               <table className='users-table text-center'>
                 <thead>
                   <tr>
-                    <th>
-                      <input type='checkbox'/>
-                    </th>
+                    <th>Select</th>
                     <th>ID</th>
                     <th>Username</th>
                     <th>Email</th>
@@ -224,21 +226,24 @@ const Users = () => {
                     <th>Station</th>
                     <th>Latitude</th>
                     <th>Longitude</th>
-                    {user === 'admin' ? (<th>Action</th>) : (
-                      getPermission.length !== 0 && (getPermission[4]?.can_update === 1 || getPermission[4]?.can_delete === 1) && (
-                        <th>Actions</th>
-                      )
-                    )}
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody className='tbody-users'>
                   {filterValue.map((data, index) => (
                     <tr key={index}>
-                      <td><input type='checkbox'/></td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          className='checkbox'
+                          checked={selectedids.includes(data.id)}
+                          onChange={() => handleCheckboxchange(data.id)}
+                        />
+                      </td>
                       <td>{data.id}</td>
                       <td>{data.username}</td>
                       <td>{data.email}</td>
-                      <td>{new Date(data.joining_date).toISOString("").split("T")[0]}</td>
+                      <td>{new Date(data.joining_date).toISOString().split("T")[0]}</td>
                       <td>{data.password}</td>
                       <td>{data.bank_details}</td>
                       <td>{data.pf_number}</td>
@@ -248,50 +253,30 @@ const Users = () => {
                       <td>{data.station_name}</td>
                       <td>{data.latitude}</td>
                       <td>{data.longitude}</td>
-                      {user === 'admin' ? (
-                        <td>
-                          <button className='edit-btn'
-                            onClick={() => handleupdate(data.id, data.email)}>
+                      <td>
+                        {(user === 'admin' || getPermission[4]?.can_update === 1) && (
+                          <button className='edit-btn' onClick={() => handleupdate(data.id, data.email)}>
                             <FaEdit className='useredit-icon' />
                           </button>
-                          <button className='delete-btn'
-                            onClick={() => handleDelete(data.id)}>
+                        )}
+                        {(user === 'admin' || getPermission[4]?.can_delete === 1) && (
+                          <button className='delete-btn' onClick={() => handleDelete(data.id)}>
                             <RiDeleteBinFill className='userdelete-icon' />
                           </button>
-                        </td>
-                      ) : (
-                        getPermission.length !== 0 && (getPermission[4]?.can_update === 1 || getPermission[4]?.can_delete === 1) && (
-                          <td>
-                            <button className='edit-btn'
-                              disabled={getPermission.length === 0 || getPermission[4]?.can_update !== 1}
-                              onClick={() => handleupdate(data.id, data.email)}>
-                              {getPermission.length !== 0 && getPermission[4]?.can_update === 1 && (
-                                <FaEdit className='useredit-icon' />
-                              )}
-                            </button>
-
-                            <button className='delete-btn'
-                              disabled={getPermission.length === 0 || getPermission[4]?.can_delete !== 1}
-                              onClick={() => handleDelete(data.id)}>
-                              {getPermission.length !== 0 && getPermission[4]?.can_delete === 1 && (
-                                <RiDeleteBinFill className='userdelete-icon' />
-                              )}
-                            </button>
-                          </td>
-                        )
-                      )}
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-
-              {loading === false && filterValue.length === 0 && (
-                 <h6 className='users-msg'> No User Found</h6>
+              {filterValue.length === 0 && !loading && (
+                <h6 className='users-msg'>No User Found</h6>
               )}
-
-            </div>)}
+            </div>
+          )}
         </div>
       </div>
+
       <Userpage onClose={handleDialog} isVisible={dialogbox} />
       <UpdateDialog onClose={handleupdate} isVisible={showupdate} userid={selectid} useremail={selectemail} />
       <ToastContainer position='top-right' autoClose={3000} />
