@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from '../../url';
 // import { UserContext } from "./usecontext"; 
 import { UserContext } from "../../usecontext";
+import { FaCamera } from 'react-icons/fa';
 import "./updatefile.css";
 
 const Updatefile = ({ close, selectid }) => {
@@ -21,13 +22,25 @@ const Updatefile = ({ close, selectid }) => {
         enddate: "",
         policy: "",
         file: null,
-        filePath: ""
+        filePath: "",
+        profile: null,
+        profilePath: ""
     });
     console.log(selectid, "fghjkl")
 
     const handleFileChange = (e) => {
         setValues({ ...values, file: e.target.files[0] });
     };
+
+    const handleProfileChange = (e) => {
+        const file = e.target.files[0];
+        if (file && !profileImage(file.name)) {
+            toast.error("Invalid profile image type. Please upload a valid image.");
+            return;
+        }
+        setValues({ ...values, profile: file });
+    };
+
 
     useEffect(() => {
         if (!selectid) return;
@@ -43,6 +56,7 @@ const Updatefile = ({ close, selectid }) => {
                 if (res.data && res.data.result) {
                     const userData = res.data.result[0];
                     console.log(res.data.result[0]?.file_path, "File")
+                    console.log(res.data.result[0]?.profile_path, "profle")
 
                     const formatDate = (dateString) => {
                         if (!dateString) return "";
@@ -57,6 +71,7 @@ const Updatefile = ({ close, selectid }) => {
                         startdate: formatDate(userData.startdate),
                         enddate: formatDate(userData.enddate),
                         filePath: userData.file_path || "",
+                        profilePath: userData.profile_path || ""
                     });
                     console.log("Set values:", userData);
                     // reFresh()
@@ -86,6 +101,7 @@ const Updatefile = ({ close, selectid }) => {
         formData.append('enddate', values.enddate);
         formData.append('policy', values.policy);
         formData.append('file', values.file);
+        formData.append('profile', values.profile);
 
 
         axios.put(`${apiurl}/update-data-in-admin/${selectid}`, formData, {
@@ -115,6 +131,13 @@ const Updatefile = ({ close, selectid }) => {
         const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
         return imageExtensions.some(ext => filePath.toLowerCase().endsWith(ext));
     };
+
+    const profileImage = (profilePath) => {
+
+        const profileExtension = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
+
+        return profileExtension.some(ext => profilePath.toLowerCase().endsWith(ext));
+    }
 
 
     return (
@@ -158,6 +181,18 @@ const Updatefile = ({ close, selectid }) => {
                             onChange={e => setValues({ ...values, policy: e.target.value })}
                         />
                     </div>
+                    {values.profilePath && (
+                        <div className='mt-3'>
+                            <label>Existing Profile :</label>
+                            {profileImage(values.profilePath) ? (
+                                <img
+                                    src={`${apiurl}${values.profilePath.startsWith('/uploads/profile') ? values.profilePath : '/uploads/profile' + values.profilePath}`}
+                                    alt="Uploaded profile"
+                                    style={{ maxWidth: '50%', maxHeight: '100px' }}
+                                />
+                            ) : (<></>)}
+                        </div>
+                    )}
                     {values.filePath && (
                         <div className="mt-3">
                             <label>Existing File : </label>
@@ -169,20 +204,41 @@ const Updatefile = ({ close, selectid }) => {
                                 />
                             ) : (
                                 <a href={`${apiurl}${values.filePath.startsWith('/uploads/') ? values.filePath : '/uploads/' + values.filePath}`} target="_blank" rel="noopener noreferrer"
-                                className='file-view'>
-                                     View File
+                                    className='file-view'>
+                                    View File
                                 </a>
                             )}
                         </div>
                     )}
+                    <div className='row'>
 
-                    <div className="mt-3">
-                        <input
-                            type="file"
-                            accept="/"
-                            onChange={handleFileChange}
-                            className="mt-3"
-                        />
+                        <div className="mt-3 col-12 col-md-6">
+
+                            <input
+                                type="file"
+                                id="profile-upload"
+                                accept="image/*"
+                                onChange={handleProfileChange}
+                                style={{ display: 'none' }}
+                            />
+                            <label htmlFor="profile-upload" className="profile-upload-label">
+                                <FaCamera className="camera-icon" /> Change Profile
+                            </label>
+                        </div>
+
+
+                        <div className="mt-3 col-12 col-md-6">
+                            <input
+                                type="file"
+                                id="file-upload"
+                                accept="*/*"
+                                onChange={handleFileChange}
+                                style={{ display: 'none' }}
+                            />
+                            <label htmlFor="file-upload" className="file-upload-label">
+                                Change File
+                            </label>
+                        </div>
                     </div>
 
                     <button className='btn update-admin-btn mt-3' style={{ backgroundColor: "#333" }} >Submit</button>

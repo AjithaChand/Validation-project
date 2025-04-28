@@ -105,13 +105,18 @@ const Create = ({ close }) => {
           <label className="update-label">Profile Photo</label>
           <input
             type="file"
+            name="profile" 
             accept=".jpg,.png,.jpeg*"
             onChange={handleProfileChange}
             className="mt-3 form-control"
           />
         </div>
         <div className='mt-3'>
-          <input type='file' accept='*/*' onChange={handleFileChange} className='mt-3' />
+          <input type='file'
+          name='file'
+           accept='*/*' 
+           onChange={handleFileChange}
+            className='mt-3' />
         </div>
         <button className='btn create-button mt-3' style={{ backgroundColor: "#333" }}>Submit</button>
       </form>

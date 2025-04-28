@@ -159,73 +159,41 @@ const Adminpage = () => {
     setShowpopup(!showpopup)
   }
 
-  // Fetch files from backend
-  // useEffect(() => {
+  //profile pic 
+  const formatProfileUrl = (profile) => {
+    if (!profile) return "/insurance2.jpg";
 
-  //   setAdminloading(true)
+    if (profile.startsWith('http')) {
+      return profile;
+    }
 
-  //   axios.get(`${apiurl}/read`, {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("token")}`
-  //     }
-  //   })
-  //     // .then(res => setDeletevalue(res.data))
-  //     .then(res => {
-  //       const updatedData = res.data.map(item => {
-  //         let profileUrl = '/insurance2.jpg'; 
+    
+    if (profile.startsWith('/')) {
+      return `${apiurl}${profile}`;
+    } else {
+      return `${apiurl}/${profile}`;
+    }
+  };
 
-  //         if (item.profile) {
-  //           if (item.profile.startsWith('http') || item.profile.startsWith('https')) {
-  //             profileUrl = item.profile; // Already a full URL
-  //           } else {
-  //             profileUrl = `${apiurl}/${item.profile.startsWith('/') ? item.profile.slice(1) : item.profile}`;
-  //           }
-  //         }
 
-  //         return {
-  //           ...item,
-  //           profile: profileUrl
-  //         };
-  //       });
-  //       setDeletevalue(updatedData);
-  //     })
-  //     .catch(err => console.log(err))
-  //     .finally(() => {
-  //       setAdminloading(false)
-  //     })
-  // }, [refersh, refreshFromUpdate, refreshCreateFromAdmin])
+
+
   useEffect(() => {
     setAdminloading(true);
 
-    axios.get(`${apiurl}/read`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    })
+    axios.get(`${apiurl}/read`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })
       .then(res => {
-        const updatedData = res.data.map(item => {
-          let profileUrl = "/default-profile.png";  // <-- set default here first
-        
-          if (item.profile) {
-            if (item.profile.startsWith('http') || item.profile.startsWith('https')) {
-              profileUrl = item.profile;
-            } else {
-              profileUrl = `${apiurl}/${item.profile.startsWith('/') ? item.profile.slice(1) : item.profile}`;
-            }
-          }
-        
-          return {
-            ...item,
-            profile: profileUrl
-          };
-        });
-      setDeletevalue(updatedData)        
+        const normalized = res.data.map(item => ({
+          ...item,
+          profile: item.profile_path   
+        }));
+        setDeletevalue(normalized);
       })
-      .catch(err => console.log(err))
-      .finally(() => {
-        setAdminloading(false);
-      });
+      .catch(console.log)
+      .finally(() => setAdminloading(false));
   }, [refersh, refreshFromUpdate, refreshCreateFromAdmin]);
+  
+  
 
 
   const handleLogout = () => {
@@ -373,10 +341,12 @@ const Adminpage = () => {
                         <div className='card-body'>
                           <div className='profile-admin'>
                             <img
-                              src={values?.profile ? values.profile : "/default-profile.png"}
+                              src={formatProfileUrl(values?.profile_path)}
+                             
                               alt="Profile"
                               className="profile-img"
                             />
+
                             <div className='profile-data'>
                               <div className='profile-email'>{values.email}</div>
                               <div className='profile-date'>{new Date(values.startdate).toLocaleDateString('en-GB')}-{new Date(values.enddate).toLocaleDateString('en-GB')}</div>

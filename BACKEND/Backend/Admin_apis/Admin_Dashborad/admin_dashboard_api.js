@@ -188,29 +188,49 @@ app.put('/update-data-in-admin/:id', verifyToken, upload.fields([{name: 'file', 
 
     const { id } = req.params;
 
-    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
+    const filePath = req.files['file'] ? 
+    
+    `/uploads/${req.files['file'][0].filename }` 
+    : null ;
+
+    const profilePath = req.files['profile'] ?
+    
+    `/uploads/profile/${req.files['profile'][0].filename}` 
+    
+    : null ;
 
     console.log(filePath, "file url")
 
-    // Fetch the existing file path to retain it if no new file is uploaded
+    console.log(profilePath, "profileUrl")
 
-    const fetchSql = "SELECT file_path FROM customer_details WHERE id = ?";
+   
+
+    const fetchSql = "SELECT file_path, profile_path FROM customer_details WHERE id = ?";
 
     db.query(fetchSql, [id], (err, results) => {
+
         if (err) return res.status(500).json({ error: err.message });
 
+
         const existingFilePath = results.length > 0 ? results[0].file_path : null;
+
+        const existingProfilePath = results.length > 0 ? results[0].profile_path : null;
+
         const finalFilePath = filePath || existingFilePath;
+
+        const finalProfilePath = profilePath || existingProfilePath;
 
         if (!email || !startdate || !enddate || !policy) {
             return res.json({ message: "All fields are required" });
         }
 
-        const sql = "UPDATE customer_details SET email=?, startdate=?, enddate=?, policy=?, file_path=? WHERE id = ?";
-        const values = [email, startdate, enddate, policy, finalFilePath, id];
+        const sql = "UPDATE customer_details SET email=?, startdate=?, enddate=?, policy=?, file_path=?, profile_path=? WHERE id = ?";
+        const values = [email, startdate, enddate, policy, finalFilePath, finalProfilePath, id];
 
         db.query(sql, values, (err, result) => {
+
             if (err) return res.status(500).json({ error: err.message });
+
             return res.status(200).json({ message: "Your details have been updated successfully" });
         });
     });
