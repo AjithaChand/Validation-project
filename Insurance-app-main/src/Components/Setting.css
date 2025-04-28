@@ -73,6 +73,25 @@
   transform: translateY(-4px);
   box-shadow: 0 10px 10px rgb(111, 111, 203);
 }
+.type-file {
+  display: none;
+}
+
+.upload-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: navy;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  width: 150px;
+}
+
+.upload-button:hover {
+  background-color: navy;
+}
+
 
 @keyframes fadeIn {
   from {
@@ -83,6 +102,7 @@
     transform: translateY(0);
     opacity: 1;
   }
+
 }
 
 

@@ -150,8 +150,14 @@ function CompanyDetailsForm() {
         onChange={handleChange}
         required
       />
-      <input type="file" accept="image/*" onChange={handleFileChange} required/>
-      {/* <img src={formData.logo} alt="" style={{ height:"30px", width:"30px"}} /> */}
+    
+    <label className="upload-button">
+  <input className="type-file" type="file" accept="image/*" onChange={handleFileChange} />
+  Upload
+</label>
+
+
+    
       {user === 'admin' ? (
           <button className="save" type="submit">Save Details</button>
       ) : (

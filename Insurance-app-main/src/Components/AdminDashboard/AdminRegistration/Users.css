@@ -475,6 +475,20 @@
         border-color: #828181;
         outline: none;
     }
+    .delete-text
+    {
+        display: none;
+    }
+    .bulk-delete-btn {
+      
+        padding: 10px 20px;
+        margin: 10px 0 10px 10px;
+        height: 40px;
+        width: auto;
+        font-size: 10px;
+        margin-bottom: 3px;
+       
+      }
 }
 
 @media only screen and (min-width:501px) and (max-width:768px) {
@@ -607,6 +621,20 @@
         padding: 3px 7px;
         font-size: 15px;
     }
+    .delete-text
+    {
+        display: none;
+    }
+    .bulk-delete-btn {
+      
+        padding: 10px 20px;
+        margin: 10px 0 10px 10px;
+        height: 40px;
+        width: auto;
+        font-size: 10px;
+        margin-bottom: 3px;
+       
+      }
 
 }
 

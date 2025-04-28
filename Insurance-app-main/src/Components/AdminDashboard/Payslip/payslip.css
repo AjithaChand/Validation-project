@@ -6,8 +6,6 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 9999;
-  
- 
 }
 .loading-overlay1 {
   width: 100%;
@@ -19,8 +17,7 @@
   color: #fff;
   font-size: 1.2rem;
   font-weight: bold;
- 
-}
+ }
 
 .loading-spinner {
   border: 5px solid #f3f3f3;
@@ -80,13 +77,9 @@
   margin-top: 80px;
 
 }
-
-
-
 .payslip-design {
   height:100vh;
- 
-   display: flex;
+  display: flex;
    justify-content:center ;
    align-items: center;
    font-family: 'Segoe UI', sans-serif;
@@ -97,33 +90,23 @@
   margin-top: 50px;
  margin-left: 20px;
  display: flex;
- 
-
 }
  .portal {
- 
-   font-size: 36px;
-   font-weight: 700;
+ font-size: 36px;
+  font-weight: 700;
    color: navy;
    margin:15px;
  }
- 
-
  .payslip-field {
-  
-  background-color:rgb(239, 238, 238);
+   background-color:rgb(239, 238, 238);
   border-radius: 16px;
   padding: 20px 24px;
- 
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
- 
   width: 100%;
   max-width: 420px;
   border: 1px solid #e0e0e0;
   transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
-
- 
 .input-fields label {
    font-weight: 600;
    color: #333;
@@ -135,7 +118,6 @@
   display: flex;
   margin:auto;
 }
- 
  .payslipinput {
    padding: 12px;
    font-size: 15px;
@@ -146,7 +128,6 @@
    width: 200px;
    margin: auto;
    background-color:lightgrey;
-   /* color: white; */
 }
 .payslipinput option {
   background-color:white;
@@ -184,12 +165,15 @@
   width: 80%;
   padding: 40px;
   height: 100%;
- }
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  visibility: hidden; 
+}
  .heading-payslip {
   width: 70%;
   margin: 2rem auto;
-
-  background-color: #ffffff;
+background-color: #ffffff;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden;
@@ -197,16 +181,11 @@
     height: 1123px;
     margin: auto;
     padding: 40px;
-   
     position: relative;
-
-}
-
+  }
 .payslip-style {
   padding: 20px;
 }
-
-/* Decorative Design Bars */
 .design,
 .bottom-design {
   height: 20px;
@@ -221,9 +200,6 @@
 .bottom-design {
   background: linear-gradient(to right, #888 0%, #2caaa9 100%);
 }
-
-
-
 .design,
 .bottom-design {
   width: 100%;
@@ -257,10 +233,6 @@
 .bottom-design::before {
   background: linear-gradient(35deg, transparent 70%, white 70%, white 75%, transparent 75%);
 }
-
-
-
-
 .company-header {
   display: flex;
   justify-content: space-between;
@@ -376,11 +348,7 @@
   font-style: italic;
   color: #2c3e50;
 }
-
-
- 
-
- .pdf-button-download .pdfbutton {
+.pdf-button-download .pdfbutton {
   display: flex; 
   align-items: center;
   background-color: #002f6c;
@@ -435,13 +403,8 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   width: 98%;
   margin: 40px auto;
- 
-  border-radius: 5px;
-
+ border-radius: 5px;
 }
-
-
-
 .payslip-container h1 {
   text-align: center;
   margin-bottom: 24px;
@@ -449,15 +412,12 @@
   font-size: 32px;
   font-weight: 700;
 }
-
 .payslip_data {
   width: 100%;
   overflow-x: auto;
   max-height: 450px;
   border-radius: 10px;
-
 }
-
 .payslip-1 {
   width: 100%;
   min-width: 960px;
@@ -465,9 +425,6 @@
   font-size: 16px;
   color: #2e3b4e;
 }
-
-
-
 .payslip-1 th,
 .payslip-1 td {
   padding: 14px 20px;
@@ -652,6 +609,7 @@
       margin-top: 50px;
     
     }
+    
     }
 
     @media screen and (min-width:768.1px) and (max-width:1024px){

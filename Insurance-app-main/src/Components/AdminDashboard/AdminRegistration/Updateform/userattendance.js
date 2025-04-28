@@ -4,6 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from "../../../../url";
 import axios from 'axios';
 import "./userattendance.css";
+import { RiBaseStationLine } from "react-icons/ri";
+import { PiCityFill } from "react-icons/pi";
 
 const UserAttendance = () => {
   const email = localStorage.getItem("email");
@@ -11,7 +13,7 @@ const UserAttendance = () => {
   const [locationName, setLocationName] = useState("");
 
   const [datas, setData] = useState([]);
-  const [currentTime, setCurrentTime] = useState(new Date());
+
   const [isAbsent, setIsAbsent] = useState(false);
   const [reason, setReason] = useState("");
   const [hasMarked, setHasMarked] = useState(false);
@@ -19,17 +21,6 @@ const UserAttendance = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [locationError, setLocationError] = useState(null);
  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const formattedTime = currentTime.toLocaleTimeString();
-  const formattedDate = currentTime.toLocaleDateString();
-  const monthName = currentTime.toLocaleString('default', { month: 'long' });
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${apiurl}/get-user-for-attendance/${email}`);
@@ -255,22 +246,27 @@ const UserAttendance = () => {
     <div className='user-attendance'>
       <div className='employee-attend'>
      
-      <div className='employee-attendance'>
-        <h6>Employee Id : <span>{datas[0]?.emp_id}</span></h6>
-        <div className='present-time'>
-          <p>{formattedTime}</p>
-          <p>{formattedDate}</p>
-          <p>{monthName}</p>
-        </div>
-      </div>
+     
     
       <div className='attend-portel'>
+    
         <h2>
           <span className='name'>
             {datas[0]?.emp_name.charAt(0).toUpperCase() + datas[0]?.emp_name.slice(1).toLowerCase()}
           </span>
         </h2>
-        <h5>Branch : {datas[0]?.branch_name} & Station : {datas[0]?.station_name}</h5>
+       
+            <div className="info-container">
+  <div className="info-item">
+    <PiCityFill className="info-icon" />
+    <span className="info-label">Branch:</span> {datas[0]?.branch_name.charAt(0).toUpperCase() + datas[0]?.branch_name.slice(1).toLowerCase()} 
+  </div>
+  <div className="info-item">
+    <RiBaseStationLine className="info-icon" />
+    <span className="info-label">Station:</span> {datas[0]?.station_name.charAt(0).toUpperCase() + datas[0]?.station_name.slice(1).toLowerCase()}
+  </div>
+</div>
+
         <h4>Mark Attendance</h4>
 
         {userLocation && (

@@ -24,45 +24,19 @@
   
   
   .employee-attendance {
-    display: flex;
-    justify-content: space-between;
+   
     align-items: center;
     padding: 20px 25px;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
     transition: transform 0.3s ease;
+    margin-left: 500px;
   }
   
   .employee-attendance:hover {
     transform: scale(1.01);
   }
   
-  .employee-attendance h6 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #333;
-  }
-  
-  .employee-attendance h6 span {
-    font-weight: 500;
-    color: #666;
-  }
-  
-  .present-time {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-  }
-  
-  .present-time p {
-    margin: 0;
-    font-size: 15px;
-    color: #444;
-    font-weight: 500;
-  }
+ 
   
 
   .attend-portel {
@@ -183,17 +157,40 @@
   {
     height: 70px;
   }
-  .name
-  {
-    color:navy;
+  
+  .name {
+    color: navy;
     font-weight: 600;
   }
+  .info-container {
+    display: flex;
+    gap: 2px;
+    margin: 10px 0;
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    font-size:15px;
+    color: #333;
+    font-weight: 500;
+    color: #1c63b5; 
+  }
+  
+  .info-icon {
+    margin-right: 8px;
+    color: #4a90e2; 
+    font-size: 1.5rem;
+  }
+  
+  .info-label {
+    margin-right: 4px;
+  }
+  
   .employee-attend
   {
-   
     padding: 10px;
     border-radius: 8px;
-   
     margin-top: 50px;
     height: 100%;
   }
@@ -209,105 +206,81 @@
  {
   gap:3px
  }
-  @media only screen and (min-width:320px) and (max-width:375px) 
-  {
-    .employee-attendance {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      margin:65px;
-     }
-     
+ 
+ @media (max-width: 415px) {
+  .user-attendance {
+    padding: 10px;
+  }
+
+  .employee-attendance {
+    margin-left: 0; /* Remove fixed margin */
+    padding: 15px 20px;
+    text-align: center;
+  }
+
+  .attend-portel {
+    width: 100%; /* Make it flexible */
+    padding: 20px 15px;
+    margin: 20px auto; /* Center properly */
+    margin-bottom: 50px; /* Adjusted to avoid large space */
+  }
+
   .reason-modal {
     position: fixed;
-    margin-left:3px;
-    margin-top: 120px;
-    width: 320px;
-    height:300px;
-   }
+    margin-left: 0;
+    margin-top: 50px;
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .reason-modal-content {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+    margin-top: 50px;
+  }
+
   .attendance-present,
   .attendance-absent {
-    padding: 5px 10px;
-    font-size: 15px;
-    margin: 4px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 14px;
+    margin: 8px 5px;
+  }
+
+  .submit-reason,
+  .cancel-reason {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+
+  .name,  .spanid {
+    color: navy;
     font-weight: 600;
-    width: 80px;
-   
   }
-
-
-  }
-  @media only screen and (min-width:375.1px) and (max-width:425px) 
+  .id
   {
-    .employee-attendance {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      margin:30px;
-     }
-    }
-  @media only screen and (min-width:425.1px) and (max-width:768px) 
-  {
-    .employee-attendance {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      margin:20px;
-    
-    }
-     
-  .reason-modal {
-    position: fixed;
-    margin-left:3px;
-    margin-top: 120px;
-    width: 320px;
-    height:300px;
-   }
-  .attendance-present,
-  .attendance-absent {
-    padding: 5px 10px;
-    font-size: 15px;
-    margin: 4px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+    color: navy;
     font-weight: 600;
-    width: 80px;
-   
+    font-size: 25px;
   }
 
-  }
-  @media only screen and (min-width:768.1px) and (max-width:1024px) 
-  {
-    .employee-attendance {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 25px;
-    
-    }
-     
-  .reason-modal {
-    position: fixed;
-    margin-left:3px;
-    margin-top: 120px;
-    width: 320px;
-    height:300px;
-   }
-  .attendance-present,
-  .attendance-absent {
-    padding: 5px 10px;
-    font-size: 15px;
-    margin: 4px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    width: 80px;
-   
+  .text-box {
+    height: 50px;
   }
 
+  .employee-attend {
+    margin-top: 30px;
   }
+  .info-item {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #333;
+    font-weight: 500;
+ 
+    color: #1c63b5; 
+  }
+  
+}

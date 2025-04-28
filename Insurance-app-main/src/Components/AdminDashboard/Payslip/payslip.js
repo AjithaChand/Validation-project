@@ -298,7 +298,7 @@ const Payslip = () => {
             </div>
 
             {employeedata.map((employee, index) => (
-              <div className='employee-payslip' style={{ display: "none" }} key={index}>
+              <div className='employee-payslip'  key={index}>
                 <div className="heading-payslip">
                   <div className="payslip-style" ref={(el) => (payslipRefs.current[index] = el)}>
                     <div className="design"></div>

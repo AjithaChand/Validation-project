@@ -72,31 +72,7 @@
     100%);
     color: white;
 }
-/* .form-control-login {
-    all: unset;
-    width: 100%;
-    padding: 10px 5px;
-    font-size: 16px;
-    background-color: transparent;
-    color: #fff;
-    border: none;
-    border-bottom: 1.5px solid white;
-    outline: none;
-}
 
-.form-control-login::placeholder {
-    color: #ccc;
-}
-
-.form-control-login:focus {
-    border-bottom: 1.5px solid navy;
-
-}
-
-
-.form-control-login:not(:placeholder-shown) {
-    border-bottom: none;
-} */
 
 .form-control-login .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
     border-color: rgba(255, 255, 255, 0.5) !important;  
@@ -123,67 +99,96 @@
 
 
 
-@media only screen and (min-width:769px) and (max-width:1024px){
-.login-btn {
-    width: 70%;
-}
-
-.form-data {
-    padding: 25px;
-}
-
-.button-container .button-group {
-    width: 160px;
-}
-}
-
-
-
-
-@media only screen and (min-width:426px) and (max-width:768px) {
+@media only screen and (min-width:768.1px) and (max-width:1024px){
     .login-btn {
-        width: 70%;
+        width: 50%;
         padding: 8px;
-    }
-
-    .form-data {
-        padding: 15px;
-    }
-
-    .button-container .button-group {
-        font-size: 14px;
-    }
-}
-
-
-@media only screen and (min-width:376px) and (max-width:425px) {
-    .login-btn {
-        width: 70%;
-    }
-
-    .form-data {
-        border-radius: 20px;
-        padding: 30px;
-       
-    }
-
-    .button-container .button-group {
-        font-size: 13px;
-        padding: 8px 16px;
-    }
-}
-@media only screen and (min-width:320px) and (max-width:375px) {
-    .login-btn {
-        width: 90%;
-    }
-
-    .form-data {
-        padding: 15px;
-    }
-
-    .button-container .button-group {
-        font-size: 12px;
+      }
+    
+      .form-data {
+        padding: 20px;
+        width: 40%;
+      }
+    
+     
+    
+      .button-container .button-group {
         width: 100%;
+        font-size: 14px;
+      }
     }
-}
+    @media (min-width: 550.1px) and (max-width: 550px) {
+        .login-btn {
+          width: 50%;
+          padding: 8px;
+        }
+      
+        .form-data {
+          padding: 20px;
+          width: 50%;
+        }
+      
+        
+      
+        .button-container .button-group {
+          width: 100%;
+          font-size: 14px;
+        }
+      }
 
+
+
+/* Tablets (426px to 768px) */
+@media (min-width: 425.1px) and (max-width: 550px) {
+    .login-btn {
+      width: 50%;
+      padding: 8px;
+    }
+  
+    .form-data {
+      padding: 20px;
+      width: 80%;
+    }
+  
+    
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+  
+  /* Phones (375px to 425px) */
+  @media (min-width: 375.1px) and (max-width: 425px) {
+    .login-btn {
+      width: 50%;
+    }
+  
+    .form-data {
+      padding: 15px;
+      width: 90%;
+    }
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+  
+  /* Small phones (320px to 374px) */
+  @media (min-width: 320px) and (max-width: 375px) {
+    .login-btn {
+      width: 50%;
+    }
+  
+    .form-data {
+      padding: 15px;
+      width: 90%;
+    }
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+  

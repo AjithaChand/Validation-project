@@ -52,25 +52,7 @@
     color: #fff;
 }
 
-/* .form-control-register{
-    width: 100%;
-    padding: 10px 5px;
-    font-size: 16px;
-    border: none;
-    border-bottom: 1.5px solid #ccc;
-    background-color: transparent;
-    color: #fff; 
-    outline: none;
-    transition: border-color 0.3s ease;
-} */
 
-/* .form-control-register::placeholder {
-    color: #ccc; 
-}
-
-.form-control-register:focus {
-    border-bottom: 1.5px solid navy; 
-} */
 .register-btn{
     margin: auto;
     display: block;
@@ -80,78 +62,100 @@
     color: white;
 }
 
-@media screen and (max-width: 1440px) {
+@media only screen and (min-width:768.1px) and (max-width:1024px){
     .register-btn {
-        width: 35%;
-    }
-
-    .button-container .button-group {
-        width: 180px;
-    }
-}
-
-
-
-
-@media screen and (max-width: 768px){
-.register-btn {
-    width: 40%;
-}
-
-.form-data {
-    padding: 25px;
-}
-
-.button-container .button-group {
-    width: 160px;
-}
-}
-
-
-
-
-@media screen and (max-width: 425px) {
-    .register-btn {
-        width: 80%;
+        width: 50%;
         padding: 8px;
-    }
-
-    .form-data {
-        padding: 15px;
-    }
-
-    .button-container .button-group {
-        font-size: 14px;
-    }
-}
-
-
-@media screen and (max-width: 375px) {
-    .register-btn {
-        width: 95%;
-    }
-
-    .form-data {
-        padding: 10px;
-    }
-
-    .button-container .button-group {
-        font-size: 13px;
-        padding: 8px 16px;
-    }
-}
-@media screen and (max-width: 320px) {
-    .register-btn {
-        width: 70%;
-    }
-
-    .form-data {
-        padding: 15px;
-    }
-
-    .button-container .button-group {
-        font-size: 12px;
+      }
+    
+      .form-data {
+        padding: 20px;
+        width: 40%;
+      }
+    
+     
+    
+      .button-container .button-group {
         width: 100%;
+        font-size: 14px;
+      }
     }
-}
+    @media (min-width: 550.1px) and (max-width: 550px) {
+        .register-btn {
+          width: 50%;
+          padding: 8px;
+        }
+      
+        .form-data {
+          padding: 20px;
+          width: 50%;
+        }
+      
+        
+      
+        .button-container .button-group {
+          width: 100%;
+          font-size: 14px;
+        }
+      }
+
+
+
+/* Tablets (426px to 768px) */
+@media (min-width: 425.1px) and (max-width: 550px) {
+    .register-btn {
+      width: 50%;
+      padding: 8px;
+    }
+  
+    .form-data {
+      padding: 20px;
+      width: 80%;
+    }
+  
+    
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+  
+  /* Phones (375px to 425px) */
+  @media (min-width: 375.1px) and (max-width: 425px) {
+    .register-btn {
+      width: 50%;
+    }
+  
+    .form-data {
+      padding: 15px;
+      width: 90%;
+    }
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+  
+  /* Small phones (320px to 374px) */
+  @media (min-width: 320px) and (max-width: 375px) {
+    .register-btn {
+      width: 50%;
+    }
+  
+    .form-data {
+      padding: 10px;
+      width: 85%;
+    }
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+  
+
+
+
 
