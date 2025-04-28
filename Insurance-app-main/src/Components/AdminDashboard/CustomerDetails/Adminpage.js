@@ -132,6 +132,7 @@ const Adminpage = () => {
   const handleDownload = () => {
     window.location.href = `${apiurl}/download-excel`;
   }
+
   const handleUpload = async () => {
 
     if (!file) return toast.error("Select a file first!");
@@ -159,21 +160,72 @@ const Adminpage = () => {
   }
 
   // Fetch files from backend
-  useEffect(() => {
+  // useEffect(() => {
 
-    setAdminloading(true)
+  //   setAdminloading(true)
+
+  //   axios.get(`${apiurl}/read`, {
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`
+  //     }
+  //   })
+  //     // .then(res => setDeletevalue(res.data))
+  //     .then(res => {
+  //       const updatedData = res.data.map(item => {
+  //         let profileUrl = '/insurance2.jpg'; 
+
+  //         if (item.profile) {
+  //           if (item.profile.startsWith('http') || item.profile.startsWith('https')) {
+  //             profileUrl = item.profile; // Already a full URL
+  //           } else {
+  //             profileUrl = `${apiurl}/${item.profile.startsWith('/') ? item.profile.slice(1) : item.profile}`;
+  //           }
+  //         }
+
+  //         return {
+  //           ...item,
+  //           profile: profileUrl
+  //         };
+  //       });
+  //       setDeletevalue(updatedData);
+  //     })
+  //     .catch(err => console.log(err))
+  //     .finally(() => {
+  //       setAdminloading(false)
+  //     })
+  // }, [refersh, refreshFromUpdate, refreshCreateFromAdmin])
+  useEffect(() => {
+    setAdminloading(true);
 
     axios.get(`${apiurl}/read`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
-      .then(res => setDeletevalue(res.data))
+      .then(res => {
+        const updatedData = res.data.map(item => {
+          let profileUrl = "/default-profile.png";  // <-- set default here first
+        
+          if (item.profile) {
+            if (item.profile.startsWith('http') || item.profile.startsWith('https')) {
+              profileUrl = item.profile;
+            } else {
+              profileUrl = `${apiurl}/${item.profile.startsWith('/') ? item.profile.slice(1) : item.profile}`;
+            }
+          }
+        
+          return {
+            ...item,
+            profile: profileUrl
+          };
+        });
+      setDeletevalue(updatedData)        
+      })
       .catch(err => console.log(err))
       .finally(() => {
-        setAdminloading(false)
-      })
-  }, [refersh, refreshFromUpdate, refreshCreateFromAdmin])
+        setAdminloading(false);
+      });
+  }, [refersh, refreshFromUpdate, refreshCreateFromAdmin]);
 
 
   const handleLogout = () => {
@@ -321,7 +373,7 @@ const Adminpage = () => {
                         <div className='card-body'>
                           <div className='profile-admin'>
                             <img
-                              src={values?.profileImage || "/insurance2.jpg"}
+                              src={values?.profile ? values.profile : "/default-profile.png"}
                               alt="Profile"
                               className="profile-img"
                             />
@@ -408,7 +460,7 @@ const Adminpage = () => {
       <Formpopup isVisible={showform} onClose={toggleForm} />
       <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} />
 
-      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg"  className="custom-modal">
+      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" className="custom-modal">
         <Modal.Header closeButton>
           <Modal.Title>File Preview</Modal.Title>
         </Modal.Header>
@@ -428,13 +480,13 @@ const Adminpage = () => {
               {filterData.map((datas, index) => {
 
                 const filepath = `${apiurl}${datas.file_path}`
-                  console.log("File Path in Data:",`${apiurl}${datas.file_path}`);
-                if(filepath === selectedFile){
+                console.log("File Path in Data:", `${apiurl}${datas.file_path}`);
+                if (filepath === selectedFile) {
                   return <div key={index} className='model-details'>
-                  <h6>Email : {datas.email}</h6>
-                  <h6>Date : {new Date(datas.startdate).toLocaleDateString('en-GB')}-{new Date(datas.enddate).toLocaleDateString('en-GB')}</h6>
-                  <h6>Policy : {datas.policy}</h6>
-                </div>
+                    <h6>Email : {datas.email}</h6>
+                    <h6>Date : {new Date(datas.startdate).toLocaleDateString('en-GB')}-{new Date(datas.enddate).toLocaleDateString('en-GB')}</h6>
+                    <h6>Policy : {datas.policy}</h6>
+                  </div>
                 }
                 return null;
               })}

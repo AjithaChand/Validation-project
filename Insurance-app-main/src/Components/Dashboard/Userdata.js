@@ -187,7 +187,7 @@ const Userdata = () => {
                   </div>
                 </li>
                 {settingspayslip && (dashboardSidebaropen || !dashboardSidebaropen) && (
-                  <ul className={`${dashboardSidebaropen ? " " : "'user-list-toggle'"}`}>
+                  <ul className={`${dashboardSidebaropen ? " " : 'user-list-toggle'}`}>
                     <li className={`list-style-users list-style ${location.pathname === '/dashboard/payslip' && 'active'}`}>
                       <div className='userdata-btn' onClick={() => navigate('/dashboard/payslip')}>
                         <IoReceiptOutline className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
@@ -208,7 +208,7 @@ const Userdata = () => {
                   </div>
                 </li>
                 {settings && (dashboardSidebaropen || !dashboardSidebaropen) && (
-                  <ul className={`${dashboardSidebaropen ? " " : "'user-list-toggle'"}`}>
+                  <ul className={`${dashboardSidebaropen ? " " : "user-list-toggle"}`}>
                     <li className={`list-style-users list-style ${location.pathname === '/dashboard/users' && 'active'}`}>
                       <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>
                         <FaRegUser className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />

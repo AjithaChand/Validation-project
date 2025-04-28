@@ -160,16 +160,17 @@ const Updatefile = ({ close, selectid }) => {
                     </div>
                     {values.filePath && (
                         <div className="mt-3">
-                            <label>Existing File:</label>
+                            <label>Existing File : </label>
                             {isImage(values.filePath) ? (
                                 <img
                                     src={`${apiurl}${values.filePath.startsWith('/uploads/') ? values.filePath : '/uploads/' + values.filePath}`}
                                     alt="Uploaded File"
-                                    style={{ maxWidth: '100%', maxHeight: '300px' }}
+                                    style={{ maxWidth: '50%', maxHeight: '100px' }}
                                 />
                             ) : (
-                                <a href={`${apiurl}${values.filePath.startsWith('/uploads/') ? values.filePath : '/uploads/' + values.filePath}`} target="_blank" rel="noopener noreferrer">
-                                    View File
+                                <a href={`${apiurl}${values.filePath.startsWith('/uploads/') ? values.filePath : '/uploads/' + values.filePath}`} target="_blank" rel="noopener noreferrer"
+                                className='file-view'>
+                                     View File
                                 </a>
                             )}
                         </div>

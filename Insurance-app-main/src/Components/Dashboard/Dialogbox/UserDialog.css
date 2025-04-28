@@ -141,9 +141,75 @@
     }
 }
 
-@media only screen and (min-width:701px) and (max-width:1024px){
+@media only screen and (min-width:701px) and (max-width:880px){
     .userdialog-content{
         width: 40%;
+        height: 25%;
+    }
+    .user-confirmbox p{
+        font-size: 19px;
+        padding: 5px;
+    }
+    .user-box .user-confirm-btn{
+        padding: 8px;
+        width: 35%;
+        font-size: 16px;
+    }
+    
+    .user-box .user-cancel-btn{
+        padding: 8px;
+        width: 35%;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width:881px) and (max-width:1004px){
+    .userdialog-content{
+        width: 35%;
+        height: 25%;
+    }
+    .user-confirmbox p{
+        font-size: 19px;
+        padding: 5px;
+    }
+    .user-box .user-confirm-btn{
+        padding: 8px;
+        width: 35%;
+        font-size: 16px;
+    }
+    
+    .user-box .user-cancel-btn{
+        padding: 8px;
+        width: 35%;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width:1005px) and (max-width:1172px){
+    .userdialog-content{
+        width: 30%;
+        height: 25%;
+    }
+    .user-confirmbox p{
+        font-size: 19px;
+        padding: 5px;
+    }
+    .user-box .user-confirm-btn{
+        padding: 8px;
+        width: 35%;
+        font-size: 16px;
+    }
+    
+    .user-box .user-cancel-btn{
+        padding: 8px;
+        width: 35%;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width:1173px) and (max-width:1485px){
+    .userdialog-content{
+        width: 25%;
         height: 25%;
     }
     .user-confirmbox p{

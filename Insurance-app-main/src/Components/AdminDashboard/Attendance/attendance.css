@@ -262,7 +262,7 @@
     flex-wrap: wrap;
     display: flex;
     flex-direction: row;
-    gap: 2px;
+    gap: 5px;
   }
 
   .admin-slidebar {
@@ -355,6 +355,7 @@
 
   .attendance {
     width: 90vw;
+    height: 57vh;
   }
 
   .attendance-table-container {
@@ -461,6 +462,7 @@
 
   .attendance {
     width: 90vw;
+    height: 52vh;
   }
 
   .attendance-table-container {

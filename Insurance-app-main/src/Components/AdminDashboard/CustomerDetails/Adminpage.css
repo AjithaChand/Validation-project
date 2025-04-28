@@ -292,7 +292,7 @@
 .table-container-admin {
     padding: 10px;
     overflow-y: auto;
-    height: 70vh;
+    height: 60vh;
 }
 
 .users-details {
@@ -380,7 +380,7 @@
         flex-wrap: wrap;
         display: flex;
         flex-direction: row;
-        gap: 2px;
+        gap: 4px;
     }
 
     .admin-slidebar {
@@ -521,7 +521,7 @@
         top: 15px;
         padding: 0 5px 0 5px;
         overflow-y: auto;
-        height: 60vh;
+        height: 55vh;
     }
 }
 

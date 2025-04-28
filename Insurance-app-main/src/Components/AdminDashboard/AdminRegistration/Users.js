@@ -48,9 +48,9 @@ const Users = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
-    .then(res => setValue(res.data))
-    .catch(err => console.log(err))
-    .finally(() => setLoading(false));
+      .then(res => setValue(res.data))
+      .catch(err => console.log(err))
+      .finally(() => setLoading(false));
   }, [refresh, createNewUser, updateOldUser]);
 
   const handleLogout = () => setShowconfirm(true);
@@ -61,12 +61,12 @@ const Users = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
-    .then(() => {
-      cancelLogout();
-      toast.success("User deleted successfully");
-      setValue(prev => prev.filter(data => data.id !== deleteid));
-    })
-    .catch(err => toast.error(err.response.data.error));
+      .then(() => {
+        cancelLogout();
+        toast.success("User deleted successfully");
+        setValue(prev => prev.filter(data => data.id !== deleteid));
+      })
+      .catch(err => toast.error(err.response.data.error));
   };
 
   const cancelLogout = () => setShowconfirm(false);
@@ -117,6 +117,7 @@ const Users = () => {
       prev.includes(id) ? prev.filter(itemId => itemId !== id) : [...prev, id]
     );
   };
+  const count = selectedids.length;
   const handleDeleterecords = async () => {
     if (selectedids.length === 0) {
       toast.error("No users selected for deletion.");
@@ -137,7 +138,7 @@ const Users = () => {
       toast.success("Selected users deleted successfully.");
     } catch (err) {
       console.error('Bulk deletion failed:', err);
-     
+      toast.error("Failed to delete selected users.");
     }
   };
 
@@ -169,6 +170,7 @@ const Users = () => {
         </div>
 
         <div className='user-head-search'>
+
           <p className='users-total'>Users Agreements : {filterValue.length}</p>
 
           <div className='user-searchbar'>
@@ -183,9 +185,16 @@ const Users = () => {
 
           {(user === "admin" || (getPermission.length !== 0 && getPermission[4]?.can_create === 1)) && (
             <button className='users-btn' onClick={handleDialog}>
-              <span className='createbutton'><AddIcon className="user-addicon" /> Create Account </span>
+              <span><AddIcon className="user-addicon" /></span>
+              <span className='createbutton'>Create Account</span>
             </button>
           )}
+
+          <button className="bulk-delete-btn" onClick={handleDeleterecords}>
+            <span className='trash'><IoTrash /></span>
+            {/* <span className="delete-text">Delete Records</span> */}
+          </button>
+
         </div>
 
         <div className='user-searchbar-res mt-3'>
@@ -197,11 +206,6 @@ const Users = () => {
             className='user-search-input-res'
           />
         </div>
-        <button className="bulk-delete-btn" onClick={handleDeleterecords}>
-  <span className='trash'><IoTrash /></span>
-  <span className="delete-text">Delete Records</span>
-</button>
-
 
         <div className='users-table-container'>
           {loading ? (
@@ -211,7 +215,12 @@ const Users = () => {
               <table className='users-table text-center'>
                 <thead>
                   <tr>
-                    <th>Select</th>
+                    <th>
+                      <input
+                        type="checkbox"
+                        className='checkbox'
+                      />
+                    </th>
                     <th>ID</th>
                     <th>Username</th>
                     <th>Email</th>

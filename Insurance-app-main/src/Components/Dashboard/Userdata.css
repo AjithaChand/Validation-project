@@ -42,13 +42,13 @@
   border-bottom: 1px solid #aaaaaa;
 }
 
-.user-list-down{
+/* .user-list-down{
   list-style: none;
   padding: 4px 3px 15px 3px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
+} */
 
 .list-style{
   list-style: none;
@@ -59,7 +59,8 @@
 }
 
 .active .dashboardicons,
-.active .dashboard-icon{
+.active .dashboard-icon,
+.active .toggledashboard-icons{
   color: navy;
 }
 
@@ -268,7 +269,7 @@
 }
 
 .user-list-toggle{
-  padding: 4px 3px 15px 3px;
+  padding: 4px 3px 0 3px;
   position: relative;
   left: 18px;
 }
