@@ -13,6 +13,7 @@ import Usersdelete from '../AdminRegistration/Dialogbox/Usersdelete';
 import { UserContext } from '../../../usecontext';
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { IoTrash } from "react-icons/io5";
+import DeleteAllusers from '../AdminRegistration/Dialogbox/DeleteAllusers'
 
 const Users = () => {
   const user = localStorage.getItem("role");
@@ -29,6 +30,12 @@ const Users = () => {
   const [getPermission, setGetPermission] = useState({});
   const [searchValue, setSearchValue] = useState("");
   const [selectedids, setSelectedids] = useState([]);
+
+  const [deletepopup, setDeletepopup] = useState(false)
+
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage] = useState(10)
 
   const { createNewUser } = useContext(UserContext);
   const { updateOldUser } = useContext(UserContext);
@@ -118,7 +125,20 @@ const Users = () => {
     );
   };
   const count = selectedids.length;
-  const handleDeleterecords = async () => {
+
+  const handleDeleteAllids = () => setDeletepopup(true);
+
+  const cancelDelete = () => setDeletepopup(false);
+
+  const handleDeleterecords = () => {
+    if (selectedids.length === 0) {
+      toast.error("No users selected for deletion.");
+      return;
+    }
+    handleDeleteAllids();
+  };
+
+  const handleDeleteAll = async () => {
     if (selectedids.length === 0) {
       toast.error("No users selected for deletion.");
       return;
@@ -133,6 +153,7 @@ const Users = () => {
         data: { userIds: selectedids }
       });
 
+      cancelDelete();
       setValue(prev => prev.filter(user => !selectedids.includes(user.id)));
       setSelectedids([]);
       toast.success("Selected users deleted successfully.");
@@ -140,7 +161,27 @@ const Users = () => {
       console.error('Bulk deletion failed:', err);
       toast.error("Failed to delete selected users.");
     }
-  };
+  }
+
+  const handleSelectall = (e) => {
+    if (e.target.checked) {
+      const allIds = filterValue.map((users) => users.id)
+      setSelectedids(allIds)
+    }
+    else {
+      setSelectedids([])
+    }
+  }
+
+
+  // pagination code
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filterValue.slice(indexOfFirstItem, indexOfLastItem)
+
+  const handlePageChange = (pagenumber) => setCurrentPage(pagenumber);
+
+  const totalPages = Math.ceil(filterValue.length / itemsPerPage)
 
   return (
     <div>
@@ -219,6 +260,8 @@ const Users = () => {
                       <input
                         type="checkbox"
                         className='checkbox'
+                        checked={selectedids.length === filterValue.length && filterValue.length > 0}
+                        onClick={handleSelectall}
                       />
                     </th>
                     <th>ID</th>
@@ -238,7 +281,7 @@ const Users = () => {
                   </tr>
                 </thead>
                 <tbody className='tbody-users'>
-                  {filterValue.map((data, index) => (
+                  {/* {filterValue.map((data, index) => (
                     <tr key={index}>
                       <td>
                         <input
@@ -274,7 +317,46 @@ const Users = () => {
                         )}
                       </td>
                     </tr>
-                  ))}
+                  ))} */}
+
+                  {currentItems.map((data, index) => {
+                    return <tr key={index}>
+                      <td>
+                        <input
+                          type="checkbox"
+                          className='checkbox'
+                          checked={selectedids.includes(data.id)}
+                          onChange={() => handleCheckboxchange(data.id)}
+                        />
+                      </td>
+                      <td>{data.id}</td>
+                      <td>{data.username}</td>
+                      <td>{data.email}</td>
+                      <td>{new Date(data.joining_date).toISOString().split("T")[0]}</td>
+                      <td>{data.password}</td>
+                      <td>{data.bank_details}</td>
+                      <td>{data.pf_number}</td>
+                      <td>{data.esi_number}</td>
+                      <td>{data.total_salary}</td>
+                      <td>{data.branch_name}</td>
+                      <td>{data.station_name}</td>
+                      <td>{data.latitude}</td>
+                      <td>{data.longitude}</td>
+                      <td>
+                        {(user === 'admin' || getPermission[4]?.can_update === 1) && (
+                          <button className='edit-btn' onClick={() => handleupdate(data.id, data.email)}>
+                            <FaEdit className='useredit-icon' />
+                          </button>
+                        )}
+                        {(user === 'admin' || getPermission[4]?.can_delete === 1) && (
+                          <button className='delete-btn' onClick={() => handleDelete(data.id)}>
+                            <RiDeleteBinFill className='userdelete-icon' />
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  })}
+
                 </tbody>
               </table>
               {filterValue.length === 0 && !loading && (
@@ -283,11 +365,61 @@ const Users = () => {
             </div>
           )}
         </div>
+
+        <div className='pagination'>
+          <button
+            onClick={() => { handlePageChange(currentPage - 1) }}
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+
+          {currentPage > 3 && (
+            <button onClick={() => handlePageChange(1)}>
+              1
+            </button>
+          )}
+
+          {currentPage > 4 && <span>...</span>}
+
+          {[...Array(5)].map((_, index) => {
+            const pageNum = currentPage - 2 + index;
+            if (pageNum > 0 && pageNum <= totalPages) {
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => handlePageChange(pageNum)}
+                  className={currentPage === pageNum ? "active" : ""}
+                >
+                  {pageNum}
+                </button>
+              );
+            }
+            return null;
+          })}
+
+          {currentPage < totalPages - 3 && <span>...</span>}
+
+          {currentPage < totalPages - 2 && (
+            <button onClick={() => handlePageChange(totalPages)}>
+              {totalPages}
+            </button>
+          )}
+
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+
       </div>
 
       <Userpage onClose={handleDialog} isVisible={dialogbox} />
       <UpdateDialog onClose={handleupdate} isVisible={showupdate} userid={selectid} useremail={selectemail} />
       <ToastContainer position='top-right' autoClose={3000} />
+      <DeleteAllusers onClose={cancelDelete} isVisible={deletepopup} deleteIds={handleDeleteAll} />
       <Usersdelete isVisible={showconfirm} onClose={cancelLogout} cancel={cancelLogout} logout={confirmLogout} />
     </div>
   );

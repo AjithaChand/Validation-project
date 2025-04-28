@@ -31,7 +31,7 @@
 }
 
 .table-container {
-    height: 60vh;
+    height: 57vh;
     width: 80vw;
     overflow-y: auto;
     margin: auto;
@@ -59,7 +59,7 @@
 }
 
 .users-table td {
-    padding: 10px;
+    padding: 15px;
     font-family: "Poppins", sans-serif;
     white-space: nowrap;
 }
@@ -291,28 +291,14 @@
     font-size: 17px;
 }
 
-/* .bulkdelete-button {
-    padding: 15px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-} */
-
 .bulk-delete-btn {
-    /* background-color: rgb(148, 4, 4); */
-    /* color: white; */
     color: darkred;
     padding: 7px 15px;
     background-color: white;
-    /* margin: 10px 0 10px 20px; */
-    /* height: 50px; */
-    /* width: auto; */
     border: 1px solid darkred;
     border-radius: 10px;
     display: flex;
     align-items: center;
-    /* gap: 10px; */
-    /* font-size: 16px; */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.5s ease;
     position: relative;
@@ -350,6 +336,45 @@
 .checkbox:hover {
     transform: scale(1.1);
 }
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.pagination button:hover {
+    background-color: #ddd;
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+    border-color: #ccc;
+}
+
+.pagination button.active {
+    background-color: #033b78;
+    color: white;
+    border-color: #033b78;
+}
+
+.pagination button:focus {
+    outline: none;
+}
+
 
 
 @media only screen and (min-width:319px) and (max-width:500px) {
@@ -437,6 +462,7 @@
 
     .table-container {
         width: 90vw;
+        height: 55vh;
     }
 
     .users-table-container {
@@ -510,7 +536,7 @@
         font-size: 20px;
     }
 
-    .createbutton{
+    .createbutton {
         display: none;
     }
 }
@@ -538,7 +564,7 @@
 
     .table-container {
         width: 90vw;
-        height: 52vh;
+        height: 50vh;
     }
 
     .users-table-container {
@@ -751,4 +777,24 @@
         padding: 5px;
     }
 
+}
+
+@media only screen and (max-width: 768px) {
+    .pagination button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .pagination button:not(:first-child):not(:last-child),
+    .pagination span {
+        display: none;
+    }
+
+    .pagination {
+        flex-direction: row;
+    }
+
+    .pagination button.active {
+        background-color: #0056b3;
+    }
 }

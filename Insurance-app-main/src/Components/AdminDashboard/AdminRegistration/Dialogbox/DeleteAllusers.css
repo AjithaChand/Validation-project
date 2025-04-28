@@ -1,4 +1,4 @@
-.deletedialog-overlay{
+.alluserdeletedialog-overlay{
     width: 100%;
     height: 100%;
     position: fixed;
@@ -11,33 +11,23 @@
     align-items: center;
 }
 
-.deletedialog-content{
+.alluserdeletedialog-content{
     width: 25%;
-    height: 20%;
+    height: 25%;
     background: white;
     border-radius: 15px;
     position: relative;
     padding: 20px;
 }
 
-.btn-deletedialog{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    font-size: 1.5rem;
-    background: none;
-    cursor: pointer;
-}
-
-.delete-confirmbox p{
+.alluserdelete-confirmbox p{
     font-size: 20px;
     font-family: "Poppins",sans-serif;
     font-weight: bold;
     padding: 5px;
 }
 
-.delete-box .delete-confirm-btn{
+.alluserdelete-box .alluserdelete-confirm-btn{
     padding: 10px;
     border-radius: 10px;
     width: 30%;
@@ -49,11 +39,11 @@
     font-weight: bold;
 }
 
-.delete-box .delete-confirm-btn:hover{
+.alluserdelete-box .alluserdelete-confirm-btn:hover{
     background-color:#218838 ;
 }
 
-.delete-box .delete-cancel-btn{
+.alluserdelete-box .alluserdelete-cancel-btn{
     padding: 10px;
     border-radius: 10px;
     width: 30%;
@@ -65,52 +55,54 @@
     font-weight: bold;
 }
 
-.delete-box .delete-cancel-btn:hover{
+.alluserdelete-box .alluserdelete-cancel-btn:hover{
     background-color: #c82333;
 }
 
-.delete-box{
+.alluserdelete-box{
     display: flex;
     justify-content: center;
     gap: 30px;
 }
 
 @media only screen and (min-width:319px) and (max-width:400px){
-    .deletedialog-content{
-        width: 70%;
+    .alluserdeletedialog-content{
+        width: 65%;
+        height: 22%;
     }
-    .delete-confirmbox p{
+    .alluserdelete-confirmbox p{
         font-size: 16px;
         padding: 5px;
     }
-    .delete-box .delete-confirm-btn{
+    .alluserdelete-box .alluserdelete-confirm-btn{
         padding: 5px;
-        width: 30%;
+        width: 35%;
         font-size: 14px;
     }
     
-    .delete-box .delete-cancel-btn{
+    .alluserdelete-box .alluserdelete-cancel-btn{
         padding: 5px;
-        width: 30%;
+        width: 35%;
         font-size: 14px;
     } 
 }
 
 @media only screen and (min-width:401px) and (max-width:500px){
-    .deletedialog-content{
-        width: 50%;
+    .alluserdeletedialog-content{
+        width: 60%;
+        height: 25%;
     }
-    .delete-confirmbox p{
+    .alluserdelete-confirmbox p{
         font-size: 19px;
         padding: 5px;
     }
-    .delete-box .delete-confirm-btn{
+    .alluserdelete-box .alluserdelete-confirm-btn{
         padding: 7px;
         width: 35%;
         font-size: 16px;
     }
     
-    .delete-box .delete-cancel-btn{
+    .alluserdelete-box .alluserdelete-cancel-btn{
         padding: 5px;
         width: 35%;
         font-size: 16px;
@@ -118,42 +110,63 @@
 }
 
 @media only screen and (min-width:501px) and (max-width:700px){
-    .deletedialog-content{
-        width: 40%;
+    .alluserdeletedialog-content{
+        width: 50%;
     }
-    .delete-confirmbox p{
+    .alluserdelete-confirmbox p{
         font-size: 19px;
         padding: 5px;
     }
-    .delete-box .delete-confirm-btn{
-        padding: 5px;
+    .alluserdelete-box .alluserdelete-confirm-btn{
+        padding: 7px;
         width: 35%;
         font-size: 16px;
     }
     
-    .delete-box .delete-cancel-btn{
-        padding: 5px;
+    .alluserdelete-box .alluserdelete-cancel-btn{
+        padding: 7px;
         width: 35%;
         font-size: 16px;
     }
 }
 
-@media only screen and (min-width:701px) and (max-width:1024px){
-    .deletedialog-content{
-        width: 30%;
+@media only screen and (min-width:701px) and (max-width:1003px){
+    .alluserdeletedialog-content{
+        width: 40%;
     }
-    .delete-confirmbox p{
+    .alluserdelete-confirmbox p{
         font-size: 19px;
         padding: 5px;
     }
-    .delete-box .delete-confirm-btn{
-        padding: 5px;
+    .alluserdelete-box .alluserdelete-confirm-btn{
+        padding: 7px;
         width: 35%;
         font-size: 16px;
     }
     
-    .delete-box .delete-cancel-btn{
+    .alluserdelete-box .alluserdelete-cancel-btn{
+        padding: 7px;
+        width: 35%;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width:1003px) and (max-width:1147px){
+    .alluserdeletedialog-content{
+        width: 35%;
+    }
+    .alluserdelete-confirmbox p{
+        font-size: 19px;
         padding: 5px;
+    }
+    .alluserdelete-box .alluserdelete-confirm-btn{
+        padding: 7px;
+        width: 35%;
+        font-size: 16px;
+    }
+    
+    .alluserdelete-box .alluserdelete-cancel-btn{
+        padding: 7px;
         width: 35%;
         font-size: 16px;
     }

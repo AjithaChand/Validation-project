@@ -32,7 +32,7 @@
   transform: scale(1.05);
 }
 
-.attendance-msg{
+.attendance-msg {
   text-align: center;
   padding: 20px;
 }
@@ -213,7 +213,7 @@
 }
 
 .attendance {
-  height: 60vh;
+  height: 57vh;
   width: 80vw;
   margin: auto;
   overflow-y: auto;
@@ -256,6 +256,45 @@
 .attend-1 tr:hover {
   background-color: #f1f1f1;
 }
+
+.pagination-attendance {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.pagination-attendance button {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.pagination-attendance button:hover {
+  background-color: #ddd;
+}
+
+.pagination-attendance button:disabled {
+  cursor: not-allowed;
+  background-color: #e0e0e0;
+  border-color: #ccc;
+}
+
+.pagination-attendance button.active {
+  background-color: #033b78;
+  color: white;
+  border-color: #033b78;
+}
+
+.pagination-attendance button:focus{
+  outline: none;
+} 
+
 
 @media only screen and (min-width:319px) and (max-width:500px) {
   .attendance-header {
@@ -556,4 +595,24 @@
     padding: 5px;
   }
 
+}
+
+@media only screen and (max-width: 768px) {
+  .pagination-attendance button {
+      font-size: 12px;
+      padding: 6px 12px;
+  }
+
+  .pagination-attendance button:not(:first-child):not(:last-child),
+  .pagination-attendance span {
+      display: none;
+  }
+
+  .pagination-attendance {
+      flex-direction: row;
+  }
+
+  .pagination-attendance button.active {
+      background-color: #0056b3;
+  }
 }

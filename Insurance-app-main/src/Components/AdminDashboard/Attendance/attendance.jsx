@@ -25,6 +25,9 @@ const Attendance = () => {
 
   const [attendanceloading, setAttendanceloading] = useState(true)
 
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage] = useState(10)
+
   const [calendar, setCalender] = useState(false)
 
   const handleClick = () => {
@@ -123,6 +126,15 @@ const Attendance = () => {
       values.emp_email?.toLowerCase().includes(searchbar.toLowerCase())
   });
 
+  // pagination code
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filterdata.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (pagenumber) => setCurrentPage(pagenumber);
+
+  const totalPages = Math.ceil(filterdata.length / itemsPerPage);
+
   return (
     <div className='attendance-container'>
       <div className='attendance-header-container'>
@@ -203,7 +215,7 @@ const Attendance = () => {
                 </tr>
               </thead>
               <tbody>
-                {filterdata.map((data, index) => {
+                {currentItems.map((data, index) => {
                   const absentColumn = getCurrentAbsentColumn();
                   const presentColumn = getCurrentPresentColumn();
 
@@ -271,6 +283,55 @@ const Attendance = () => {
           </div>
         )}
       </div>
+
+      <div className='pagination-attendance'>
+        <button
+          onClick={() => { handlePageChange(currentPage - 1) }}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+
+        {currentPage > 3 && (
+          <button onClick={() => handlePageChange(1)}>
+            1
+          </button>
+        )}
+
+        {currentPage > 4 && <span>...</span>}
+
+        {[...Array(5)].map((_, index) => {
+          const pageNum = currentPage - 2 + index;
+          if (pageNum > 0 && pageNum <= totalPages) {
+            return (
+              <button
+                key={pageNum}
+                onClick={() => handlePageChange(pageNum)}
+                className={currentPage === pageNum ? "active" : ""}
+              >
+                {pageNum}
+              </button>
+            );
+          }
+          return null;
+        })}
+
+        {currentPage < totalPages - 3 && <span>...</span>}
+
+        {currentPage < totalPages - 2 && (
+          <button onClick={() => handlePageChange(totalPages)}>
+            {totalPages}
+          </button>
+        )}
+
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
+
       <ToastContainer />
     </div>
   );
