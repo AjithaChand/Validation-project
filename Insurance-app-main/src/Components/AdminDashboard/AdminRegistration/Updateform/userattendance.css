@@ -164,7 +164,7 @@
   }
   .info-container {
     display: flex;
-    gap: 2px;
+    gap: 19px;
     margin: 10px 0;
   }
   
@@ -207,22 +207,22 @@
   gap:3px
  }
  
- @media (max-width: 415px) {
+ @media screen  and (max-width: 320px) and (max-width:375px) {
   .user-attendance {
     padding: 10px;
   }
 
   .employee-attendance {
-    margin-left: 0; /* Remove fixed margin */
+    margin-left: 0; 
     padding: 15px 20px;
     text-align: center;
   }
 
   .attend-portel {
-    width: 100%; /* Make it flexible */
-    padding: 20px 15px;
-    margin: 20px auto; /* Center properly */
-    margin-bottom: 50px; /* Adjusted to avoid large space */
+    width: 100%; 
+    padding: 150px 15px;
+    margin: 20px auto; 
+    margin-bottom: 50px;
   }
 
   .reason-modal {
@@ -282,5 +282,132 @@
  
     color: #1c63b5; 
   }
+  .info-container {
+    display: flex;
+    gap: 19px;
+    margin: 10px 0;
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    font-size:15px;
+    color: #333;
+    font-weight: 500;
+    color: #1c63b5; 
+  }
+  
+  .info-icon {
+    margin-right: 8px;
+    color: #4a90e2; 
+    font-size: 1.5rem;
+  }
+  
+  .info-label {
+    margin-right: 4px;
+  }
+  
+  
+}
+ @media screen  and (max-width: 375.1px) and (max-width:436px){ 
+  .user-attendance {
+    padding: 10px;
+  }
+
+  .employee-attendance {
+    margin-left: 0; 
+    padding: 15px 20px;
+    text-align: center;
+  }
+
+  .attend-portel {
+    width: 100%; 
+    padding: 150px 15px;
+    margin: 20px auto; 
+    margin-bottom: 50px;
+  }
+
+  .reason-modal {
+    position: fixed;
+    margin-left: 0;
+    margin-top: 50px;
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .reason-modal-content {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+    margin-top: 50px;
+  }
+
+  .attendance-present,
+  .attendance-absent {
+    padding: 10px 20px;
+    font-size: 14px;
+    margin: 8px 5px;
+  }
+
+  .submit-reason,
+  .cancel-reason {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+
+  .name,  .spanid {
+    color: navy;
+    font-weight: 600;
+  }
+  .id
+  {
+    color: navy;
+    font-weight: 600;
+    font-size: 25px;
+  }
+
+  .text-box {
+    height: 50px;
+  }
+
+  .employee-attend {
+    margin-top: 30px;
+  }
+  .info-item {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #333;
+    font-weight: 500;
+ 
+    color: #1c63b5; 
+  }
+  .info-container {
+    display: flex;
+    gap: 19px;
+    margin: 10px 0;
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    font-size:15px;
+    color: #333;
+    font-weight: 500;
+    color: #1c63b5; 
+  }
+  
+  .info-icon {
+    margin-right: 8px;
+    color: #4a90e2; 
+    font-size: 1.5rem;
+  }
+  
+  .info-label {
+    margin-right: 4px;
+  }
+  
   
 }

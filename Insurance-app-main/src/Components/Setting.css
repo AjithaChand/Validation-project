@@ -65,7 +65,7 @@
   font-weight: 600;
   cursor: pointer;
   width: 200px;
-  margin: 20px auto 0 auto; /* centered horizontally */
+  margin: 20px auto 0 auto; 
   display: block;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -130,7 +130,7 @@
     font-size: 14px;
     padding: 10px;
     width: 180px;
-    margin: 15px auto 0 auto; /* Fix this */
+    margin: 15px auto 0 auto; 
     display: block;
   }
 }
@@ -162,7 +162,7 @@
   }
 }
 
-/* Medium Devices: 769px to 1024px */
+
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   .company-details-form-container {
     max-width: 80%;
@@ -174,7 +174,7 @@
   }
 }
 
-/* Slightly Smaller Laptops: 769px to 1009px */
+
 @media only screen and (min-width: 769px) and (max-width: 1009px) {
   .company-details-form-container {
     max-width: 80%;
@@ -182,7 +182,7 @@
   }
 }
 
-/* Small Laptops: 1025px to 1113px */
+
 @media only screen and (min-width: 1025px) and (max-width: 1113px) {
   .company-details-form-container {
     max-width: 75%;

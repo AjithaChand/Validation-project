@@ -138,7 +138,7 @@
 
 
 
-/* Tablets (426px to 768px) */
+
 @media (min-width: 425.1px) and (max-width: 550px) {
     .login-btn {
       width: 50%;
@@ -158,7 +158,7 @@
     }
   }
   
-  /* Phones (375px to 425px) */
+
   @media (min-width: 375.1px) and (max-width: 425px) {
     .login-btn {
       width: 50%;
@@ -175,7 +175,7 @@
     }
   }
   
-  /* Small phones (320px to 374px) */
+
   @media (min-width: 320px) and (max-width: 375px) {
     .login-btn {
       width: 50%;
