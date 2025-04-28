@@ -117,7 +117,6 @@ const Users = () => {
       prev.includes(id) ? prev.filter(itemId => itemId !== id) : [...prev, id]
     );
   };
-  const count=selectedids.length;
   const handleDeleterecords = async () => {
     if (selectedids.length === 0) {
       toast.error("No users selected for deletion.");
@@ -138,7 +137,7 @@ const Users = () => {
       toast.success("Selected users deleted successfully.");
     } catch (err) {
       console.error('Bulk deletion failed:', err);
-      toast.error("Failed to delete selected users.");
+     
     }
   };
 

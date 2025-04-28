@@ -58,20 +58,23 @@ const UserAttendance = () => {
     }
   };
 
-
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
-
+          
           setUserLocation({ latitude: lat, longitude: lon });
-          reverseGeocode(lat, lon);
+          reverseGeocode(lat, lon);  // Reverse geocoding to get human-readable location name
         },
         (error) => {
           setLocationError(error.message);
           toast.error(`Location access denied: ${error.message}`);
+        },
+        {
+          enableHighAccuracy: true,  // Use best available accuracy
+          maximumAge: 0,             // Don't use cached location
         }
       );
     } else {
@@ -79,6 +82,8 @@ const UserAttendance = () => {
       toast.error("Geolocation is not supported by your browser");
     }
   };
+  
+  
 
   function calculateDistance(lat1, lon1, lat2, lon2) {
     const R = 6371;
@@ -244,11 +249,7 @@ const UserAttendance = () => {
 
   return (
     <div className='user-attendance'>
-      <div className='employee-attend'>
-     
-     
-    
-      <div className='attend-portel'>
+     <div className='attend-portel'>
     
         <h2>
           <span className='name'>
@@ -308,7 +309,7 @@ const UserAttendance = () => {
           </div>
         )}
                    </div>
-      </div>
+    
 
       {isAbsent && (
         <div className="reason-modal">
