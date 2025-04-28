@@ -147,7 +147,7 @@ const Users = () => {
       <div className='users-container'>
         <div className='header-container-users'>
           <div className="admin-header-container-user">
-            <p className='tablerow-user'>User Agreements</p>
+            <p className='tablerow-user'>Users Details</p>
             <div className="admin-header-user">
               <button className="upload-button1" onClick={handleDownload}>
                 <RiFileExcel2Line className='excel-icon-user' />
@@ -170,7 +170,7 @@ const Users = () => {
         </div>
 
         <div className='user-head-search'>
-          <p className='users-total'>All Users: {filterValue.length}</p>
+          <p className='users-total'>Users Agreements : {filterValue.length}</p>
 
           <div className='user-searchbar'>
             <input
@@ -206,7 +206,7 @@ const Users = () => {
 
         <div className='users-table-container'>
           {loading ? (
-            <div className='users-spinner'>Loading users...</div>
+            <div className='users-spinner'></div>
           ) : (
             <div className="table-container">
               <table className='users-table text-center'>
