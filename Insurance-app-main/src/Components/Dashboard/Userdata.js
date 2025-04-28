@@ -28,7 +28,7 @@ const Userdata = () => {
   const [settings, setSettings] = useState(false)
 
   const handleSetting = () => {
-      setSettings(prev => !prev)
+    setSettings(prev => !prev)
   }
 
   const [settingspayslip, setSettingspayslip] = useState(false)
@@ -54,13 +54,14 @@ const Userdata = () => {
         const data = res.data;
         console.log(data);
 
+        console.log("piccccc raw path", data.logo_path);
 
         setFormData({
           companyName: data.company_name,
           phone: data.phone,
           email: data.email,
           address: data.address,
-          logo: data.logo_url,
+          pic: data.logo_path,
         });
 
         // setExistingLogo(data.logo_url); 
@@ -143,7 +144,13 @@ const Userdata = () => {
       <div className='slidebar-container'>
         <div className={`${dashboardSidebaropen ? 'admin-slidebar' : 'toggle-slidebar'}`}>
           <div className='user-heading'>
-            {dashboardSidebaropen && <img className="company-logo" src={formData.logo} alt="Company Logo" />}
+            {dashboardSidebaropen && (
+              <img
+                className="company-logo"
+                src={`${apiurl}/uploads/logos/${formData.pic}`}
+                alt="Company Logo"
+              />
+            )}
             <h4 className={`${dashboardSidebaropen ? 'sidebar-companyname' : 'sidebar-companyname-toggle'}`}>Nastaf</h4>
             <button className={`${dashboardSidebaropen ? 'dashboard-menu' : 'toggledashboard-menu'}`}>
               <AiOutlineMenu className='dashboard-menu-btn' onClick={() => setDashboardSidebaropen(!dashboardSidebaropen)} />
@@ -175,7 +182,7 @@ const Userdata = () => {
                     {dashboardSidebaropen && <span className='dashboard-icon'> Register </span>}
                   </div>
                 </li>
-                
+
                 <li className={` list-style ${location.pathname === '/dashboard/attendance' && 'active'}`}>
                   <div className='userdata-btn' onClick={() => {
                     handleSettingpayslip();
@@ -183,7 +190,7 @@ const Userdata = () => {
                   }}>
                     <LuCalendarCheck className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'> Attendance <KeyboardArrowDownIcon className='attendance-icon' />
-                      </span>}
+                    </span>}
                   </div>
                 </li>
                 {settingspayslip && (dashboardSidebaropen || !dashboardSidebaropen) && (
@@ -284,7 +291,7 @@ const Userdata = () => {
                     </div>
                   </li>
                 )}
-                {getPermission[4]?.can_read === 1 &&  settings && dashboardSidebaropen && (
+                {getPermission[4]?.can_read === 1 && settings && dashboardSidebaropen && (
                   <ul>
                     <li className={` list-style ${location.pathname === '/dashboard/users' && 'active'}`}>
                       <div className='userdata-btn' onClick={() => navigate('/dashboard/users')}>

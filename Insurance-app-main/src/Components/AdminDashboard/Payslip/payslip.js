@@ -36,12 +36,14 @@ const Payslip = () => {
       try {
         const res = await axios.get(`${apiurl}/api/company-details`);
         const data = res.data;
+        console.log("Raw logo path in payslip js ", data.logo_path);
+        
         setFormData({
           companyName: data.company_name,
           phone: data.phone,
           email: data.email,
           address: data.address,
-          logo: data.logo_url,
+          logo: data.logo_path,
         });
       } catch (err) {
         console.error("Error fetching company details:", err);
@@ -286,11 +288,11 @@ const Payslip = () => {
                         <td>{employee.revised_salary}</td>
                         <td>
                           {isNaN(parseInt(employee.net_amount) - parseInt(employee.revised_salary))
-                          
-                          ? 0 :
-                          parseInt(employee.net_amount) - parseInt(employee.revised_salary)}
-                          </td>                
-                        </tr>
+
+                            ? 0 :
+                            parseInt(employee.net_amount) - parseInt(employee.revised_salary)}
+                        </td>
+                      </tr>
                     ))}
                   </tbody>
                 </table>
@@ -298,13 +300,16 @@ const Payslip = () => {
             </div>
 
             {employeedata.map((employee, index) => (
-              <div className='employee-payslip'  key={index}>
+              <div className='employee-payslip' key={index}>
                 <div className="heading-payslip">
                   <div className="payslip-style" ref={(el) => (payslipRefs.current[index] = el)}>
                     <div className="design"></div>
                     <div className="company-header">
-                      <img className="image-logo" src={formData.logo} alt="Company Logo" />
-                      <div className="company">
+                      <img
+                        className="company-logo"
+                        src={`${apiurl}/uploads/logos/${formData.logo}`}
+                        alt="Company Logo"
+                      />                      <div className="company">
                         <h3>Payslip</h3>
                         <p className="contact-line">
                           <IoMdCall className="icon" /> {formData.phone} &nbsp;
