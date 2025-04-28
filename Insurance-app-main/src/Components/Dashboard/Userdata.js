@@ -61,7 +61,7 @@ const Userdata = () => {
           phone: data.phone,
           email: data.email,
           address: data.address,
-          pic: data.logo_path,
+          logo: data.logo_path,
         });
 
         // setExistingLogo(data.logo_url); 
@@ -125,7 +125,8 @@ const Userdata = () => {
   return (
     <div className='user-container' >
       <div className={`${dashboardSidebaropen ? 'user-profile' : 'toggle-profile'}`}>
-        <img className={`company-logo-heading ${dashboardSidebaropen ? 'company-logo-head' : 'company-logo-header'}`} src={formData.logo} alt="Company Logo" />
+        <img className={`company-logo-heading ${dashboardSidebaropen ? 'company-logo-head' : 'company-logo-header'}`}                 src={`${apiurl}/uploads/logos/${formData.logo}`}
+ alt={formData.logo} />
         <h3 className={`user-header ${dashboardSidebaropen ? 'userheader' : 'userheader-toggle'}`}>{formData.companyName}</h3>
         <h3 className='userheader-res'>Nastaf</h3>
         <div className='userlogout-btn'><FaRegUser className='logo' /></div>
@@ -147,7 +148,7 @@ const Userdata = () => {
             {dashboardSidebaropen && (
               <img
                 className="company-logo"
-                src={`${apiurl}/uploads/logos/${formData.pic}`}
+                src={`${apiurl}/uploads/logos/${formData.logo}`}
                 alt="Company Logo"
               />
             )}
