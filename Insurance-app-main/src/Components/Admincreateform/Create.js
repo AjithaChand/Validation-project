@@ -6,9 +6,9 @@ import '../Admincreateform/Create.css'
 // import User from './User';
 import { apiurl } from '../../url';
 import { UserContext } from '../../usecontext';
+
+
 const Create = ({ close }) => {
-
-
 
   const today = new Date();
   const formattedToday = today.toISOString().split('T')[0]; // Format: yyyy-mm-dd
@@ -18,7 +18,8 @@ const Create = ({ close }) => {
     startdate: formattedToday,
     enddate: "",
     policy: "",
-    file: null
+    file: null,
+    profile: null
   })
 
 
@@ -27,6 +28,10 @@ const Create = ({ close }) => {
 
   const handleFileChange = (e) => {
     setValues({ ...values, file: e.target.files[0] })
+  }
+
+  const handleProfileChange = (e) =>{
+    setValues ({...values, profile: e.target.files[0]})
   }
 
   const handleSubmit = (e) => {
@@ -38,6 +43,7 @@ const Create = ({ close }) => {
     formData.append('enddate', values.enddate);
     formData.append('policy', values.policy);
     formData.append('file', values.file);
+    formData.append('profile', values.profile)
 
     axios.post(`${apiurl}/create`, formData, {
       headers: {
@@ -99,8 +105,8 @@ const Create = ({ close }) => {
           <label className="update-label">Profile Photo</label>
           <input
             type="file"
-            accept="image/*"
-            // onChange={handleImageChange}
+            accept=".jpg,.png,.jpeg*"
+            onChange={handleProfileChange}
             className="mt-3 form-control"
           />
         </div>
