@@ -1,0 +1,197 @@
+.company-form-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 100px;
+ 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.company-details-form-container {
+  width: 550px;
+  padding: 40px 35px;
+   background-color: rgba(223, 221, 221, 0.1); 
+  border-radius: 24px;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(69, 62, 62, 0.1);
+  animation: fadeIn 0.8s ease-in-out;
+  margin-top: 20px;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease-in-out;
+}
+
+.company-details-form-container h1 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 35px;
+  color:navy;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.input-text-box {
+  margin-bottom: 24px;
+  width: 100%;
+  padding: 12px 5px;
+  border: none;
+  border-bottom: 2px solid gray;
+  background-color: transparent;
+  color: navy;
+  font-size: 16px;
+ 
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-text-box:focus {
+  border-bottom: 2px solid navy;
+  background-color: transparent;
+  box-shadow: 0 2px 8px rgba(0, 128, 128, 0.15);
+}
+
+.company-details-form-container textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.save {
+  background: linear-gradient(135deg, navy,rgb(110, 110, 206));
+  color: white;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 200px;
+  margin: 20px auto 0 auto; 
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.save:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 10px rgb(111, 111, 203);
+}
+.type-file {
+  display: none;
+}
+
+.upload-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: navy;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  width: 150px;
+}
+
+.upload-button:hover {
+  background-color: navy;
+}
+
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+}
+
+
+@media only screen and (min-width: 320px) and (max-width: 424px) {
+  .company-form-wrapper {
+    padding-top: 60px;
+  }
+
+  .company-details-form-container {
+    padding: 15px 13px;
+    width: 93%;
+  }
+
+  .company-details-form-container h1 {
+    font-size: 22px;
+  }
+
+  .company-details-form-container input,
+  .company-details-form-container textarea {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .save {
+    font-size: 14px;
+    padding: 10px;
+    width: 180px;
+    margin: 15px auto 0 auto; 
+    display: block;
+  }
+}
+
+/* Tablets: 501px to 768px */
+@media only screen and (min-width: 425px) and (max-width: 768px) {
+  .company-form-wrapper {
+    padding-top: 70px;
+  }
+
+  .company-details-form-container {
+    padding: 25px 25px;
+    max-width: 90%;
+  }
+
+  .company-details-form-container h1 {
+    font-size: 24px;
+  }
+
+  .company-details-form-container input,
+  .company-details-form-container textarea {
+    font-size: 15px;
+    padding: 13px 16px;
+  }
+
+  .company-details-form-container button[type="submit"] {
+    font-size: 15px;
+    padding: 13px;
+  }
+}
+
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .company-details-form-container {
+    max-width: 80%;
+    padding: 30px;
+  }
+
+  .company-details-form-container h1 {
+    font-size: 26px;
+  }
+}
+
+
+@media only screen and (min-width: 769px) and (max-width: 1009px) {
+  .company-details-form-container {
+    max-width: 80%;
+    padding: 28px;
+  }
+}
+
+
+@media only screen and (min-width: 1025px) and (max-width: 1113px) {
+  .company-details-form-container {
+    max-width: 75%;
+    padding: 32px;
+  }
+
+  .company-details-form-container h1 {
+    font-size: 27px;
+  }
+}
+
+  

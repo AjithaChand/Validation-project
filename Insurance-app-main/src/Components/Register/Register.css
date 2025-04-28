@@ -1,0 +1,161 @@
+.register-container{
+ position: relative;
+    height: 100vh;
+     width: 100vw;
+     overflow: hidden;
+     z-index:1
+}
+.register-container::before
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('../../../public/login2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+.register-form{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+
+}
+
+.form-control-register .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.5) !important;  
+}
+
+.form-control-register .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.5) !important; 
+    outline: none ;  
+    background-color: transparent ; 
+}
+
+.form-control-register .MuiFormLabel-root {
+    color: #fff;
+}
+
+.form-control-register .MuiInputLabel-root.Mui-focused {
+    color:#fff; 
+}
+
+.form-control-register .MuiInputBase-input{
+    color: #fff;
+}
+
+
+.register-btn{
+    margin: auto;
+    display: block;
+    padding: 10px;
+    width:70% ;
+    background-color:navy;
+    color: white;
+}
+
+@media only screen and (min-width:768.1px) and (max-width:1024px){
+    .register-btn {
+        width: 50%;
+        padding: 8px;
+      }
+    
+      .form-data {
+        padding: 20px;
+        width: 40%;
+      }
+    
+     
+    
+      .button-container .button-group {
+        width: 100%;
+        font-size: 14px;
+      }
+    }
+    @media (min-width: 550.1px) and (max-width: 550px) {
+        .register-btn {
+          width: 50%;
+          padding: 8px;
+        }
+      
+        .form-data {
+          padding: 20px;
+          width: 50%;
+        }
+      
+        
+      
+        .button-container .button-group {
+          width: 100%;
+          font-size: 14px;
+        }
+      }
+
+
+
+/* Tablets (426px to 768px) */
+@media (min-width: 425.1px) and (max-width: 550px) {
+    .register-btn {
+      width: 50%;
+      padding: 8px;
+    }
+  
+    .form-data {
+      padding: 20px;
+      width: 80%;
+    }
+  
+    
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+  
+  /* Phones (375px to 425px) */
+  @media (min-width: 375.1px) and (max-width: 425px) {
+    .register-btn {
+      width: 50%;
+    }
+  
+    .form-data {
+      padding: 15px;
+      width: 90%;
+    }
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+  
+  /* Small phones (320px to 374px) */
+  @media (min-width: 320px) and (max-width: 375px) {
+    .register-btn {
+      width: 50%;
+    }
+  
+    .form-data {
+      padding: 10px;
+      width: 85%;
+    }
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+  
+
+
+
+

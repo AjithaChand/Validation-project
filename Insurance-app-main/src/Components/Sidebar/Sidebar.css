@@ -1,0 +1,109 @@
+.admin-sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.704);
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 9998;
+}
+
+.sidebar-ul {
+  width: 250px;
+  list-style: none;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.sidebar-list {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.sidebar-list-logout {
+  width: 100%;
+  padding: 10px;
+}
+
+.sidebar-list-logout:hover {
+  background-color: rgb(239, 238, 238);
+}
+
+.sidebar-list:hover {
+  background-color: rgb(239, 238, 238);
+}
+
+.sidebar-active {
+  background-color: rgba(0, 0, 128, 0.1);
+  border: 1px solid navy;
+}
+
+.sidebar-active .sidebar-icons {
+  color: navy;
+}
+
+.closebtn {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.sidebar-head {
+  padding: 10px;
+  position: relative;
+  top: 20px;
+}
+
+.sidebar-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logout-icon {
+  font-size: 20px;
+}
+
+.sidebar-ul-list {
+  list-style: none;
+  width: 100%;
+}
+
+.attendance-icon {
+  position: absolute;
+  left: 76%;
+}
+
+.settings-icon {
+  position: absolute;
+  left: 76%;
+}
+
+@media only screen and (min-width:501px) and (max-width:768px) {
+  .sidebar-list-logout {
+    display: none;
+  }
+}

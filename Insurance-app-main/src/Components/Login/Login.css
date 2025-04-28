@@ -1,0 +1,194 @@
+.login-container {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    z-index: 1;
+    border: none;
+}
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('../../../public/login2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+
+.login-btn{
+    margin: auto;
+    display: block;
+    padding: 10px;
+    width: 70%;
+    background-color:navy;
+    color: white;
+}
+
+.login-btn:hover{
+    background-color:rgb(77, 77, 214);
+    color: white;
+}
+
+.login-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   height: 100% !important;
+}
+
+.form-data{
+  
+    border-radius: 20px;
+    padding: 30px;
+    background-color:rgba(11, 6, 77, 0.3);
+}
+
+.button-container{
+    display: flex;
+    gap: 15px;
+}
+
+.button-container .button-group{
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+    width: 200px;
+}
+
+.button-container .button-group.active{
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg,navy,skyblue
+    100%);
+    color: white;
+}
+
+
+.form-control-login .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.5) !important;  
+}
+
+.form-control-login .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.5) !important; 
+    outline: none !important;  
+    background-color: transparent !important; 
+}
+
+.form-control-login .MuiFormLabel-root {
+    color: #fff;
+}
+
+.form-control-login .MuiInputLabel-root.Mui-focused {
+    color:#fff; 
+}
+
+.form-control-login .MuiInputBase-input{
+    color: #fff;
+}
+
+
+
+
+@media only screen and (min-width:768.1px) and (max-width:1024px){
+    .login-btn {
+        width: 50%;
+        padding: 8px;
+      }
+    
+      .form-data {
+        padding: 20px;
+        width: 40%;
+      }
+    
+     
+    
+      .button-container .button-group {
+        width: 100%;
+        font-size: 14px;
+      }
+    }
+    @media (min-width: 550.1px) and (max-width: 550px) {
+        .login-btn {
+          width: 50%;
+          padding: 8px;
+        }
+      
+        .form-data {
+          padding: 20px;
+          width: 50%;
+        }
+      
+        
+      
+        .button-container .button-group {
+          width: 100%;
+          font-size: 14px;
+        }
+      }
+
+
+
+
+@media (min-width: 425.1px) and (max-width: 550px) {
+    .login-btn {
+      width: 50%;
+      padding: 8px;
+    }
+  
+    .form-data {
+      padding: 20px;
+      width: 80%;
+    }
+  
+    
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+  
+
+  @media (min-width: 375.1px) and (max-width: 425px) {
+    .login-btn {
+      width: 50%;
+    }
+  
+    .form-data {
+      padding: 15px;
+      width: 90%;
+    }
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+  
+
+  @media (min-width: 320px) and (max-width: 375px) {
+    .login-btn {
+      width: 50%;
+    }
+  
+    .form-data {
+      padding: 15px;
+      width: 90%;
+    }
+  
+    .button-container .button-group {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+  

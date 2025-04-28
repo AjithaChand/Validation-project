@@ -1,0 +1,832 @@
+.admin-container {
+    margin-top: 50px;
+}
+
+.header-container {
+    padding: 20px;
+}
+
+.admin-btn {
+    background-color: #023265;
+    color: white;
+    border-radius: 10px;
+    padding: 7px 20px 7px 20px;
+    border: none;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.admin-btn:hover {
+    transform: scale(1.05);
+}
+
+.admin-table {
+    border-collapse: collapse;
+    margin: auto;
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.admin-table td {
+    font-size: 17px;
+    font-weight: 200;
+    font-family: "Poppins", sans-serif;
+}
+
+.admin-table th {
+    padding: 12px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: #023265;
+    color: white;
+    border-bottom: 1px solid gainsboro;
+}
+
+.admin-table tbody td {
+    padding: 20px;
+}
+
+.admin-table tbody tr:hover {
+    background: rgb(221, 220, 220);
+}
+
+.admin-header-container {
+    display: flex;
+    align-items: center !important;
+    justify-content: space-between;
+    justify-content: flex-end;
+    margin: auto;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px #d1d1d1;
+    position: relative;
+}
+
+.tablerow-admin {
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    left: 2%;
+    top: 25%;
+    font-family: "Poppins", sans-serif;
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.adminbutton {
+    width: 100%;
+    background: none;
+    border: none;
+}
+
+.adminbutton:hover {
+    transform: scale(1.2)
+}
+
+.delete-button {
+    background: none;
+    border: none;
+}
+
+.delete-button:hover {
+    transform: scale(1.2)
+}
+
+.admin-header .upload-button3,
+.admin-header .upload-button4 {
+    padding: 3px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-button3 {
+    border: 1px solid #27ae60;
+    transition: transform 0.5s ease, color 0.5s ease;
+    background-color: white;
+}
+
+.upload-button4 {
+    border: 1px solid #e67e22;
+    transition: transform 0.5s ease, color 0.5s ease;
+    background-color: white;
+}
+
+.upload-button3:hover {
+    transform: scale(1.05);
+    background-color: rgba(0, 128, 0, 0.8);
+}
+
+.upload-button3:hover .excel-icon {
+    color: whitesmoke;
+}
+
+.upload-button4:hover {
+    transform: scale(1.05);
+    background-color: rgba(225, 165, 0, 0.9);
+}
+
+.upload-button4:hover .upload-icon {
+    color: whitesmoke;
+}
+
+.upload-button3 .excel-icon {
+    color: #27ae60;
+    font-size: 25px;
+}
+
+.upload-button4 .upload-icon {
+    color: #e67e22;
+    font-size: 25px;
+}
+
+.file-label-admin {
+    border: 1px solid rgb(122, 122, 122);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s linear;
+    color: #5b5b5b
+}
+
+.file-label-admin:hover,
+.file-label-admin:hover .label-name-admin {
+    background-color: rgba(0, 0, 128, 0.8);
+    color: whitesmoke;
+    border-color: navy;
+}
+
+.file-label-admin:hover {
+    transform: scale(1.05);
+}
+
+.admin-header .file-input {
+    display: none;
+}
+
+.file-name {
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.admin-header-container .addicon {
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
+}
+
+.admin-header-container .addbutton {
+    font-size: 17px;
+    color: white;
+    cursor: pointer;
+}
+
+.adminbutton .editicon {
+    font-size: 25px;
+    color: green;
+    cursor: pointer;
+}
+
+.delete-button .deleteicon {
+    font-size: 30px;
+    color: darkred;
+    cursor: pointer;
+}
+
+.admintable-container {
+    height: 70vh;
+    overflow-y: auto;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #065c96;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.users-count {
+    position: absolute;
+    left: 2%;
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+}
+
+.admin-head-search {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 25px;
+    position: relative;
+}
+
+.search-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.searchbar-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 10px;
+}
+
+.search-input::placeholder {
+    color: #828181;
+    font-size: bold;
+    position: absolute;
+    left: 15px;
+}
+
+.search-input:focus {
+    border-color: #828181;
+    outline: none;
+}
+
+.search-input {
+    width: 300px;
+    padding: 6px 0 6px 10px;
+    border: 1px solid #b1b1b1;
+    border-radius: 15px;
+    transition: width 0.4s ease, opacity 0.4s ease;
+}
+
+.searchbar-res {
+    display: none;
+}
+
+.user-msg {
+    text-align: center;
+    color: #5b5b5b;
+    font-size: 18px;
+    padding: 20px;
+}
+
+.table-container-admin {
+    padding: 10px;
+    overflow-y: auto;
+    height: 70vh;
+}
+
+.users-details {
+    padding: 20px;
+    font-family: "Poppins", sans-serif;
+}
+
+.users-details-container {
+    transition: transform 0.5s ease;
+    background-color: rgba(223, 221, 221, 0.1);
+}
+
+.users-details-container:hover {
+    box-shadow: 0 1px 7px #d1d1d1;
+}
+
+.file-head {
+    position: absolute;
+    left: 0;
+}
+
+.action-icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-admin {
+    display: flex;
+    gap: 15px;
+}
+
+.profile-data {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-email {
+    font-weight: bold;
+}
+
+.profile-date,
+.profile-policy {
+    color: #5b5b5b;
+    font-size: 15px;
+}
+
+.custom-modal .modal-dialog {
+    max-height: 80%;
+    margin: auto;
+  }
+  
+  .custom-modal .modal-content {
+    height: 100%; 
+  }
+  
+  .custom-modal .modal-body {
+    overflow-y: auto; 
+    max-height: 70vh; 
+  }
+
+  .model-details {
+    background-color: #f5f5f5;
+    padding: 15px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+  }
+
+@media only screen and (min-width:319px) and (max-width:500px) {
+    .admin-header {
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: row;
+        gap: 2px;
+    }
+
+    .admin-slidebar {
+        display: none;
+    }
+
+    .admin-header-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 15px;
+        margin: auto;
+        width: 100% !important;
+    }
+
+    .header-container {
+        padding: 10px;
+    }
+
+    .admin-header .upload-button3,
+    .admin-header .upload-button4 {
+        padding: 0 5px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .upload-button3 .excel-icon {
+        color: #27ae60;
+        font-size: 14px;
+    }
+
+    .upload-button4 .upload-icon {
+        color: #e67e22;
+        font-size: 14px;
+    }
+
+    .file-label-admin {
+        padding: 3px 7px;
+        font-size: 12px;
+    }
+
+    .tablerow-admin {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .user-msg {
+        font-size: 16px;
+    }
+
+    .userdata-container {
+        margin-left: 0% !important;
+        height: 100vh;
+    }
+
+    .admin-head-search {
+        padding: 15px;
+    }
+
+    .users-count {
+        font-size: 15px;
+        position: absolute;
+        top: 23px;
+        left: 10px;
+    }
+
+    .admin-btn {
+        border-radius: 10px;
+        padding: 5px 10px 9px 10px;
+    }
+
+    .addbutton {
+        font-size: 12px;
+    }
+
+    .addbutton .addicon {
+        font-size: 17px;
+    }
+
+    .adminbutton {
+        width: 100%;
+        background: none;
+        border: none;
+    }
+
+    .adminbutton .editicon {
+        font-size: 20px;
+        color: green;
+        cursor: pointer;
+    }
+
+    .delete-button .deleteicon {
+        font-size: 20px;
+        color: darkred;
+        cursor: pointer;
+    }
+
+    .admin-table tbody .edit-btn .edit-icon {
+        font-size: 20px;
+        color: green;
+        cursor: pointer;
+    }
+
+    .spinner {
+        margin: auto;
+    }
+
+    .searchbar-container {
+        display: none;
+    }
+
+    .searchbar-res {
+        display: block;
+        text-align: center;
+    }
+
+    .search-input-res::placeholder {
+        color: #828181;
+        font-size: bold;
+        position: absolute;
+        left: 15px;
+    }
+
+    .search-input-res:focus {
+        border-color: #828181;
+        outline: none;
+    }
+
+    .search-input-res {
+        width: 300px;
+        padding: 6px 0 6px 10px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+    }
+
+    .table-container-admin {
+        position: relative;
+        top: 15px;
+        padding: 0 5px 0 5px;
+        overflow-y: auto;
+        height: 60vh;
+    }
+}
+
+@media only screen and (min-width:501px) and (max-width:768px) {
+    .admin-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+
+    .admin-slidebar {
+        display: none;
+    }
+
+    .admin-header-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 15px;
+        margin: auto;
+        width: 100% !important;
+    }
+
+    .header-container {
+        padding: 15px;
+    }
+
+    .userdata-container {
+        margin-left: 0% !important;
+        height: 100vh;
+    }
+
+    .addbutton {
+        font-size: 14px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .addbutton .addicon {
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .tablerow-admin {
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .user-msg {
+        font-size: 16px;
+    }
+
+    .adminbutton {
+        width: 100%;
+        background: none;
+        border: none;
+    }
+
+    .adminbutton .editicon {
+        font-size: 20px;
+        color: green;
+        cursor: pointer;
+    }
+
+    .delete-button .deleteicon {
+        font-size: 20px;
+        color: darkred;
+        cursor: pointer;
+    }
+
+    .admin-table tbody .edit-btn .edit-icon {
+        font-size: 20px;
+        color: green;
+        cursor: pointer;
+    }
+
+    .spinner {
+        margin: auto;
+    }
+
+    .searchbar-container {
+        display: none;
+    }
+
+    .users-count {
+        font-size: 17px;
+        position: absolute;
+        top: 25px;
+        left: 30px;
+    }
+
+    .admin-btn {
+        position: relative;
+        right: 15px;
+    }
+
+    .searchbar-res {
+        display: block;
+        text-align: center;
+    }
+
+    .search-input-res::placeholder {
+        color: #828181;
+        font-size: bold;
+        position: absolute;
+        left: 15px;
+    }
+
+    .search-input-res:focus {
+        border-color: #828181;
+        outline: none;
+    }
+
+    .search-input-res {
+        width: 300px;
+        padding: 6px 0 6px 10px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+        transition: width 0.4s ease, opacity 0.4s ease;
+    }
+
+    .admin-head-search {
+        padding: 15px;
+    }
+
+    .admin-header .upload-button3,
+    .admin-header .upload-button4 {
+        padding: 2px 9px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .upload-button3 .excel-icon {
+        color: #27ae60;
+        font-size: 18px;
+    }
+
+    .upload-button4 .upload-icon {
+        color: #e67e22;
+        font-size: 18px;
+    }
+
+    .file-label-admin {
+        padding: 3px 7px;
+        font-size: 15px;
+    }
+
+    .table-container-admin {
+        position: relative;
+        top: 15px;
+        padding: 0 5px 0 5px;
+        overflow-y: auto;
+        height: 55vh;
+    }
+
+}
+
+@media only screen and (min-width:576px) and (max-width:768px) {
+
+    .profile-email {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .profile-date,
+    .profile-policy {
+        color: #5b5b5b;
+        font-size: 13px;
+    }
+
+    .users-details-container {
+        overflow-x: auto;
+    }
+
+    .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+}
+
+@media only screen and (max-width:768px) {
+    .admin-slidebar {
+        display: none;
+    }
+
+    .toggle-slidebar {
+        display: none;
+    }
+}
+
+@media only screen and (min-width:500.11px) and (max-width:768px) {
+    .admin-header-container {
+        margin-top: 10px;
+    }
+
+}
+
+@media only screen and (min-width:769px) and (max-width:1024px) {
+
+    .searchbar-res {
+        display: none;
+    }
+
+    .admin-head-search {
+        padding: 15px;
+    }
+
+    .users-count {
+        font-size: 15px;
+        position: absolute;
+        top: 23px;
+        left: 25px;
+    }
+
+    .admin-btn {
+        border-radius: 10px;
+        position: relative;
+        right: 5px;
+    }
+
+    .search-input-res {
+        width: 300px;
+        padding: 4px 0 4px 8px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+        transition: width 0.4s ease, opacity 0.4s ease;
+    }
+
+    .user-msg {
+        font-size: 17px;
+    }
+
+}
+
+@media only screen and (min-width:769px) and (max-width:992px) {
+
+    .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .profile-date,
+    .profile-policy {
+        color: #5b5b5b;
+        font-size: 13px;
+    }
+
+    .profile-email {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .users-details-container {
+        overflow-x: auto;
+    }
+}
+
+@media only screen and (min-width:769px) and (max-width:1009px) {
+    .tablerow-admin {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .adminbutton .editicon {
+        font-size: 20px;
+        color: green;
+        cursor: pointer;
+    }
+
+    .delete-button .deleteicon {
+        font-size: 19px;
+        color: darkred;
+        cursor: pointer;
+    }
+
+    .admin-table tbody .edit-btn .edit-icon {
+        font-size: 19px;
+        color: green;
+        cursor: pointer;
+    }
+
+    .user-msg {
+        font-size: 17px;
+    }
+
+}
+
+@media only screen and (min-width:1009px) and (max-width:1440px) {
+
+    .users-details-container {
+        overflow-x: auto;
+    }
+
+    .user-msg {
+        font-size: 17px;
+    }
+
+}

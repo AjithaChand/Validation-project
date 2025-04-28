@@ -1,0 +1,730 @@
+.users-container {
+    margin-top: 50px;
+}
+
+.header-container-users {
+    padding: 20px;
+}
+
+.users-btn {
+    background-color: #023265;
+    color: white;
+    border-radius: 15px;
+    padding: 7px 20px 7px 20px;
+    border: none;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.users-btn:hover {
+    transform: scale(1.05);
+}
+
+.tablerow-user {
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    left: 2%;
+    top: 25%;
+    font-family: "Poppins", sans-serif;
+}
+
+.table-container {
+    height: 60vh;
+    width: 80vw;
+    overflow-y: auto;
+    margin: auto;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px #d1d1d1;
+}
+
+.users-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: auto;
+    width: 100%;
+    cursor: pointer;
+}
+
+.users-table th {
+    padding: 10px;
+    font-weight: 600;
+    background-color: #023265;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    white-space: nowrap;
+}
+
+.users-table td {
+    padding: 10px;
+    font-family: "Poppins", sans-serif;
+    white-space: nowrap;
+}
+
+.users-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.users-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.edit-btn,
+.delete-btn {
+    border: none;
+    background: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    color: rgb(2, 103, 2);
+}
+
+.delete-btn {
+    color: rgb(148, 9, 9);
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    transform: scale(1.2);
+}
+
+.admin-header-container-user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    justify-content: flex-end;
+    margin: auto;
+    padding: 15px;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 1px 6px #d1d1d1;
+}
+
+.admin-header-user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.admin-header-user .upload-button1,
+.admin-header-user .upload-button2 {
+    color: #828181;
+    padding: 3px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-button1 {
+    border: 1px solid #27ae60;
+    transition: transform 0.5s ease, color 0.5s ease;
+    background-color: white;
+}
+
+.upload-button2 {
+    border: 1px solid #e67e22;
+    transition: transform 0.5s ease, color 0.5s ease;
+    background-color: white;
+}
+
+.upload-button1:hover {
+    transform: scale(1.05);
+    background-color: rgba(0, 128, 0, 0.8);
+}
+
+.upload-button2:hover {
+    transform: scale(1.05);
+    background-color: rgba(225, 165, 0, 0.9);
+}
+
+.upload-button2:hover .upload-icon-user {
+    color: whitesmoke;
+}
+
+.upload-button1:hover .excel-icon-user {
+    color: whitesmoke;
+}
+
+.upload-button1 .excel-icon-user {
+    color: #27ae60;
+    font-size: 25px;
+}
+
+.upload-button2 .upload-icon-user {
+    color: #e67e22;
+    font-size: 25px;
+}
+
+.admin-header-user .file-input {
+    display: none;
+}
+
+.file-label-user {
+    border: 1px solid rgb(122, 122, 122);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s linear;
+    color: #5b5b5b
+}
+
+.file-label-user:hover,
+.file-label-user:hover .label-name-user {
+    background-color: rgba(0, 0, 128, 0.8);
+    color: whitesmoke;
+    border-color: navy;
+}
+
+.file-label-user:hover {
+    transform: scale(1.05);
+}
+
+.admin-header-container-user .user-addicon {
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
+}
+
+.edit-btn .useredit-icon {
+    font-size: 25px;
+    color: green;
+    cursor: pointer;
+}
+
+.edit-btn .userdelete-icon {
+    font-size: 25px;
+    color: darkred;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.users-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #065c96;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.user-head-search {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 25px;
+    position: relative;
+}
+
+.user-search-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.user-searchbar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+}
+
+.user-search-input {
+    width: 300px;
+    padding: 6px 0 6px 10px;
+    border: 1px solid #b1b1b1;
+    border-radius: 15px;
+    transition: width 0.4s ease, opacity 0.4s ease;
+}
+
+.user-search-input-res {
+    padding: 5px 0 5px 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+}
+
+.user-search-input::placeholder {
+    color: #828181;
+    font-size: bold;
+    position: absolute;
+    left: 15px;
+}
+
+.user-search-input:focus {
+    border-color: #828181;
+    outline: none;
+}
+
+.user-searchbar-res {
+    display: none;
+}
+
+.users-msg {
+    text-align: center;
+    padding: 20px;
+}
+
+.users-total {
+    position: absolute;
+    left: 2%;
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+}
+
+.bulk-delete-btn {
+    background-color: rgb(232, 30, 30);
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0 10px 20px;
+    height: 50px;
+    width: auto;
+    border: none;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* spacing between icon and text */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .bulk-delete-btn:hover {
+    background-color: rgb(200, 20, 20);
+  }
+  
+  .trash {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+  
+  }
+  
+  .delete-text {
+    display: flex;
+    align-items: center;
+  }
+  .checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #007BFF; /* blue accent */
+    transition: transform 0.2s ease;
+    margin: 0 auto; /* center in td */
+    display: block;
+  }
+  
+  .checkbox:hover {
+    transform: scale(1.1);
+  }
+  
+
+@media only screen and (min-width:319px) and (max-width:500px) {
+    .admin-header-user {
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: row;
+        gap: 2px;
+    }
+
+    .admin-slidebar {
+        display: none;
+    }
+
+    .admin-header-container-user {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 10px;
+        margin: auto;
+        width: 100% !important;
+    }
+
+    .header-container-users {
+        padding: 10px;
+    }
+
+    .admin-header-user .upload-button1,
+    .admin-header-user .upload-button2 {
+        padding: 0px 5px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .upload-button1 .excel-icon-user {
+        color: #27ae60;
+        font-size: 14px;
+    }
+
+    .upload-button2 .upload-icon-user {
+        color: #e67e22;
+        font-size: 14px;
+    }
+
+    .userslabel-name {
+        font-size: 12px;
+    }
+
+    .file-label-user {
+        padding: 3px 7px;
+        font-size: 12px;
+    }
+
+    .tablerow-user {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .user-head-search {
+        padding: 15px;
+    }
+
+    .userdata-container {
+        margin-left: 0% !important;
+        height: 100vh;
+    }
+
+    .users-total {
+        font-size: 15px;
+        position: absolute;
+        top: 23px;
+        left: 10px;
+    }
+
+    .users-btn .createbutton {
+        font-size: 12px;
+    }
+
+    .users-btn .user-addicon {
+        font-size: 17px;
+    }
+
+    .table-container {
+        width: 90vw;
+    } 
+
+    .users-table-container {
+        position: relative;
+        top: 15px;
+        padding: 5px;
+    }
+
+    .users-btn {
+        border-radius: 12px;
+        padding: 5px 10px 9px 10px;
+    }
+
+    .delete-btn .userdelete-icon {
+        font-size: 20px;
+        color: darkred;
+        cursor: pointer;
+    }
+
+    .edit-btn .useredit-icon {
+        font-size: 20px;
+        color: green;
+        cursor: pointer;
+    }
+
+    .users-spinner {
+        margin: auto;
+    }
+
+    .user-searchbar-res {
+        display: block;
+        text-align: center;
+    }
+
+    .user-searchbar {
+        display: none;
+    }
+
+    .user-search-input-res {
+        width: 300px;
+        padding: 6px 0 6px 10px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+        transition: width 0.4s ease, opacity 0.4s ease;
+    }
+
+    .user-search-input::placeholder {
+        color: #828181;
+        font-size: bold;
+        position: absolute;
+        left: 15px;
+    }
+
+    .user-search-input:focus {
+        border-color: #828181;
+        outline: none;
+    }
+    .delete-text
+    {
+        display: none;
+    }
+    .bulk-delete-btn {
+      
+        padding: 10px 20px;
+        margin: 10px 0 10px 10px;
+        height: 40px;
+        width: auto;
+        font-size: 10px;
+        margin-bottom: 3px;
+       
+      }
+}
+
+@media only screen and (min-width:501px) and (max-width:768px) {
+    .admin-header-user {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+
+    .admin-slidebar {
+        display: none;
+    }
+
+    .admin-header-container-user {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 15px;
+        margin: auto;
+        width: 100% !important;
+    }
+
+    .table-container {
+        width: 90vw;
+    } 
+
+    .users-table-container {
+        position: relative;
+        top: 15px;
+        padding: 5px;
+    }
+
+    .userdata-container {
+        margin-left: 0% !important;
+        height: 100vh;
+    }
+
+    .users-btn .createbutton {
+        font-size: 14px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .users-btn .user-addicon {
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .tablerow-user {
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .delete-btn .userdelete-icon {
+        font-size: 20px;
+        color: darkred;
+        cursor: pointer;
+    }
+
+    .edit-btn .useredit-icon {
+        font-size: 20px;
+        color: green;
+        cursor: pointer;
+    }
+
+    .users-spinner {
+        margin: auto;
+    }
+
+    .user-searchbar-res {
+        display: block;
+        text-align: center;
+    }
+
+    .user-searchbar {
+        display: none;
+    }
+
+    .users-total {
+        font-size: 17px;
+        position: absolute;
+        top: 25px;
+        left: 20px;
+    }
+
+    .user-search-input-res {
+        width: 300px;
+        padding: 6px 0 6px 10px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+        transition: width 0.4s ease, opacity 0.4s ease;
+    }
+
+    .user-search-input::placeholder {
+        color: #828181;
+        font-size: bold;
+        position: absolute;
+        left: 15px;
+    }
+
+    .user-search-input:focus {
+        border-color: #828181;
+        outline: none;
+    }
+
+    .user-head-search {
+        padding: 15px;
+    }
+
+    .admin-header-user .upload-button1,
+    .admin-header-user .upload-button2 {
+        padding: 2px 9px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .upload-button1 .excel-icon-user {
+        color: #27ae60;
+        font-size: 18px;
+    }
+
+    .upload-button2 .upload-icon-user {
+        color: #e67e22;
+        font-size: 18px;
+    }
+
+    .file-label-user {
+        padding: 3px 7px;
+        font-size: 15px;
+    }
+    .delete-text
+    {
+        display: none;
+    }
+    .bulk-delete-btn {
+      
+        padding: 10px 20px;
+        margin: 10px 0 10px 10px;
+        height: 40px;
+        width: auto;
+        font-size: 10px;
+        margin-bottom: 3px;
+       
+      }
+
+}
+
+@media only screen and (max-width:768px) {
+    .admin-slidebar {
+        display: none;
+    }
+
+    .toggle-slidebar {
+        display: none;
+    }
+}
+
+@media only screen and (min-width:500.11px) and (max-width:768px) {
+    .admin-header-container-user {
+        margin-top: 10px;
+    }
+
+}
+
+@media only screen and (min-width:769px) and (max-width:1024px) {
+
+    .user-searchbar-res {
+        display: none;
+    }
+
+    .user-head-search {
+        padding: 15px;
+    }
+
+    .users-btn {
+        border-radius: 12px;
+        padding: 5px 13px 5px 13px;
+    }
+
+    .users-total {
+        font-size: 15px;
+        position: absolute;
+        top: 23px;
+        left: 20px;
+    }
+
+    .user-search-input-res {
+        width: 300px;
+        padding: 4px 0 4px 8px;
+        border: 1px solid #b1b1b1;
+        border-radius: 15px;
+        transition: width 0.4s ease, opacity 0.4s ease;
+    }
+
+    .table-container {
+        width: 80vw;
+    } 
+
+    .users-table-container {
+        position: relative;
+        top: 15px;
+        padding: 5px;
+    }
+}
+
+@media only screen and (min-width:769px) and (max-width:1009px) {
+
+    .tablerow-user {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .edit-btn .useredit-icon {
+        font-size: 19px;
+        color: green;
+        cursor: pointer;
+    }
+
+    .delete-btn .userdelete-icon {
+        font-size: 19px;
+        color: darkred;
+        cursor: pointer;
+    }
+    .table-container {
+        width: 85vw;
+    } 
+
+    .users-table-container {
+        position: relative;
+        top: 15px;
+        padding: 5px;
+    }
+
+}
