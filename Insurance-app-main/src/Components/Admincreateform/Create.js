@@ -19,7 +19,7 @@ const Create = ({ close }) => {
     enddate: "",
     policy: "",
     file: null,
-    profile: null
+    // profile: null
   })
 
 
@@ -30,9 +30,9 @@ const Create = ({ close }) => {
     setValues({ ...values, file: e.target.files[0] })
   }
 
-  const handleProfileChange = (e) =>{
-    setValues ({...values, profile: e.target.files[0]})
-  }
+  // const handleProfileChange = (e) =>{
+  //   setValues ({...values, profile: e.target.files[0]})
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ const Create = ({ close }) => {
     formData.append('enddate', values.enddate);
     formData.append('policy', values.policy);
     formData.append('file', values.file);
-    formData.append('profile', values.profile)
+    // formData.append('profile', values.profile)
 
     axios.post(`${apiurl}/create`, formData, {
       headers: {
@@ -101,7 +101,7 @@ const Create = ({ close }) => {
           <label className='create-label'>Policy</label>
           <input type='text' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, policy: e.target.value })} />
         </div>
-        <div className="mt-3 form-gruop">
+        {/* <div className="mt-3 form-gruop">
           <label className="update-label">Profile Photo</label>
           <input
             type="file"
@@ -110,7 +110,7 @@ const Create = ({ close }) => {
             onChange={handleProfileChange}
             className="mt-3 form-control"
           />
-        </div>
+        </div> */}
         <div className='mt-3'>
           <input type='file'
           name='file'

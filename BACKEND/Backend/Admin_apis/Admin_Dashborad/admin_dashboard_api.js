@@ -18,7 +18,7 @@ const db = require('../../db');
 
 const uploadDir = path.join(__dirname, '../../uploads');
 
-const profileDir = path.join(__dirname, "..", "uploads", "profile")
+
 
 console.log(uploadDir, "from admin api")
 
@@ -27,40 +27,40 @@ if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-if(!fs.existsSync(profileDir)){
+// if(!fs.existsSync(profileDir)){
 
-    fs.mkdirSync(profileDir, {recursive:true})
-}
+//     fs.mkdirSync(profileDir, {recursive:true})
+// }
 
-const storage =multer.diskStorage({
+// const storage =multer.diskStorage({
 
-    destination : (req, file, cb)=>{
+//     destination : (req, file, cb)=>{
 
-        if(file.fieldname ==='file'){
-            cb (null, uploadDir)
+//         if(file.fieldname ==='file'){
+//             cb (null, uploadDir)
 
-        } else if (file.fieldname ==='profile'){
+//         } else if (file.fieldname ==='profile'){
 
-            cb(null, profileDir)
-        }else{
+//             cb(null, profileDir)
+//         }else{
 
-            cb(new Error ('Invalid field name'), null)
-        }
+//             cb(new Error ('Invalid field name'), null)
+//         }
 
-    },
+//     },
 
-    filename: (req, file, cb)=>{
+//     filename: (req, file, cb)=>{
 
-        const extension = path.extname(file.originalname)
+//         const extension = path.extname(file.originalname)
 
-        const uniqueName = crypto.randomUUID() +extension;
+//         const uniqueName = crypto.randomUUID() +extension;
 
-        cb(null, uniqueName)
+//         cb(null, uniqueName)
 
-    }
-})
+//     }
+// })
 
-const upload = multer({storage:storage})
+// const upload = multer({storage:storage})
 
 
 
@@ -69,79 +69,52 @@ const upload = multer({storage:storage})
 
 app.use('/uploads', express.static(uploadDir));
 
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
 
-//         cb(null, uploadDir);
+        cb(null, uploadDir);
 
-//     },
-//     filename: (req, file, cb) => {
+    },
+    filename: (req, file, cb) => {
 
-//         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
 
-//         cb(null, uniqueSuffix + path.extname(file.originalname));
+        cb(null, uniqueSuffix + path.extname(file.originalname));
 
-//     }
-// });
+    }
+});
 
-// const upload = multer({ storage: storage });
-
-
-//profile photo updation
+const upload = multer({ storage: storage });
 
 
 
 
 
-// const profileStore = multer.diskStorage({
 
-//     destination: (req, file, cb) => {
-
-//         cb(null, profileDir)
-//     },
-
-//     filename: (req, file, cb) => {
-
-//         const fileName= path.extname(file.originalname)
-
-//         const uniqueName = crypto.randomUUID();
-
-//         const profileName = `${fileName},${uniqueName}`
-
-//         cb(null, profileName)
-   
-
-//     }
-// })
-
-// const uploadProfile = multer({storage:profileStore})
-
-
-
-
-app.post('/create', verifyToken, upload.fields([{name: 'file', maxCount: 1}, {name: 'profile', maxCount :1}]), (req, res) => {
+app.post('/create', verifyToken, upload.single('file') ,(req, res) => {
 
     const { email, startdate, enddate, policy } = req.body;
 
     console.log(email, email, startdate, enddate, policy, "igfdhjklgfdcvbhjkl")
 
-  //file and profile codes  
+ 
 
-    // const filePath = req.file ? `/uploads/${req.file.filename}` : null;
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
 
-    const filePath = req.files['file'] ? `/uploads/${req.files['file'][0].filename }` : null ;
+     //file and profile codes  
+    // const filePath = req.files['file'] ? `/uploads/${req.files['file'][0].filename }` : null ;
 
-    const profilePath = req.files['profile'] ? `/uploads/profile/${req.files['profile'][0].filename}` : null;
+    // const profilePath = req.files['profile'] ? `/uploads/profile/${req.files['profile'][0].filename}` : null;
 
 
 
-    if (!filePath || !profilePath) {
-        return res.status(400).json({ error: " Both Files and profiles is required." });
+    if (!filePath ) {
+        return res.status(400).json({ error: "  Files  is required." });
     }
 
-    const sql = "INSERT INTO customer_details (email, startdate, enddate, policy, file_path, profile_path) VALUES (?, ?, ?, ?, ?, ?)";
+    const sql = "INSERT INTO customer_details (email, startdate, enddate, policy, file_path) VALUES (?, ?, ?, ?, ?)";
 
-    const values = [email, startdate, enddate, policy, filePath, profilePath];
+    const values = [email, startdate, enddate, policy, filePath];
 
     db.query(sql, values, (err, result) => {
 
@@ -182,30 +155,20 @@ app.get('/read-data-by-id/:id', verifyToken, (req, res) => {
 });
 
 // Update customer record, with optional file upload
-app.put('/update-data-in-admin/:id', verifyToken, upload.fields([{name: 'file', maxCount:1}, {name: 'profile', maxCount:1}]), (req, res) => {
+app.put('/update-data-in-admin/:id', verifyToken, upload.single('file'), (req, res) => {
 
     const { email, startdate, enddate, policy } = req.body;
 
     const { id } = req.params;
 
-    const filePath = req.files['file'] ? 
-    
-    `/uploads/${req.files['file'][0].filename }` 
-    : null ;
-
-    const profilePath = req.files['profile'] ?
-    
-    `/uploads/profile/${req.files['profile'][0].filename}` 
-    
-    : null ;
-
-    console.log(filePath, "file url")
-
-    console.log(profilePath, "profileUrl")
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
 
    
+    console.log(filePath, "file url")
 
-    const fetchSql = "SELECT file_path, profile_path FROM customer_details WHERE id = ?";
+    
+
+    const fetchSql = "SELECT file_path FROM customer_details WHERE id = ?";
 
     db.query(fetchSql, [id], (err, results) => {
 
@@ -214,18 +177,17 @@ app.put('/update-data-in-admin/:id', verifyToken, upload.fields([{name: 'file', 
 
         const existingFilePath = results.length > 0 ? results[0].file_path : null;
 
-        const existingProfilePath = results.length > 0 ? results[0].profile_path : null;
-
+     
         const finalFilePath = filePath || existingFilePath;
 
-        const finalProfilePath = profilePath || existingProfilePath;
+       
 
         if (!email || !startdate || !enddate || !policy) {
             return res.json({ message: "All fields are required" });
         }
 
-        const sql = "UPDATE customer_details SET email=?, startdate=?, enddate=?, policy=?, file_path=?, profile_path=? WHERE id = ?";
-        const values = [email, startdate, enddate, policy, finalFilePath, finalProfilePath, id];
+        const sql = "UPDATE customer_details SET email=?, startdate=?, enddate=?, policy=?, file_path=? WHERE id = ?";
+        const values = [email, startdate, enddate, policy, finalFilePath, id];
 
         db.query(sql, values, (err, result) => {
 

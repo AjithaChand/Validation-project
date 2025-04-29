@@ -160,20 +160,20 @@ const Adminpage = () => {
   }
 
   //profile pic 
-  const formatProfileUrl = (profile) => {
-    if (!profile) return "/insurance2.jpg";
+  // const formatProfileUrl = (profile) => {
+  //   if (!profile) return "/insurance2.jpg";
 
-    if (profile.startsWith('http')) {
-      return profile;
-    }
+  //   if (profile.startsWith('http')) {
+  //     return profile;
+  //   }
 
     
-    if (profile.startsWith('/')) {
-      return `${apiurl}${profile}`;
-    } else {
-      return `${apiurl}/${profile}`;
-    }
-  };
+  //   if (profile.startsWith('/')) {
+  //     return `${apiurl}${profile}`;
+  //   } else {
+  //     return `${apiurl}/${profile}`;
+  //   }
+  // };
 
 
 
@@ -183,11 +183,7 @@ const Adminpage = () => {
 
     axios.get(`${apiurl}/read`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })
       .then(res => {
-        const normalized = res.data.map(item => ({
-          ...item,
-          profile: item.profile_path   
-        }));
-        setDeletevalue(normalized);
+       setDeletevalue(res.data)
       })
       .catch(console.log)
       .finally(() => setAdminloading(false));
@@ -341,7 +337,7 @@ const Adminpage = () => {
                         <div className='card-body'>
                           <div className='profile-admin'>
                             <img
-                              src={formatProfileUrl(values?.profile_path)}
+                              src=''
                              
                               alt="Profile"
                               className="profile-img"

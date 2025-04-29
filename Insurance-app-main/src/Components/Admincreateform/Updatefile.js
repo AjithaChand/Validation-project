@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from '../../url';
 // import { UserContext } from "./usecontext"; 
 import { UserContext } from "../../usecontext";
-import { FaCamera } from 'react-icons/fa';
+// import { FaCamera } from 'react-icons/fa';
 import "./updatefile.css";
 
 const Updatefile = ({ close, selectid }) => {
@@ -23,22 +23,11 @@ const Updatefile = ({ close, selectid }) => {
         policy: "",
         file: null,
         filePath: "",
-        profile: null,
-        profilePath: ""
     });
     console.log(selectid, "fghjkl")
 
     const handleFileChange = (e) => {
         setValues({ ...values, file: e.target.files[0] });
-    };
-
-    const handleProfileChange = (e) => {
-        const file = e.target.files[0];
-        if (file && !profileImage(file.name)) {
-            toast.error("Invalid profile image type. Please upload a valid image.");
-            return;
-        }
-        setValues({ ...values, profile: file });
     };
 
 
@@ -101,7 +90,7 @@ const Updatefile = ({ close, selectid }) => {
         formData.append('enddate', values.enddate);
         formData.append('policy', values.policy);
         formData.append('file', values.file);
-        formData.append('profile', values.profile);
+       
 
 
         axios.put(`${apiurl}/update-data-in-admin/${selectid}`, formData, {
@@ -132,13 +121,7 @@ const Updatefile = ({ close, selectid }) => {
         return imageExtensions.some(ext => filePath.toLowerCase().endsWith(ext));
     };
 
-    const profileImage = (profilePath) => {
-
-        const profileExtension = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
-
-        return profileExtension.some(ext => profilePath.toLowerCase().endsWith(ext));
-    }
-
+   
 
     return (
         <div>
@@ -181,18 +164,7 @@ const Updatefile = ({ close, selectid }) => {
                             onChange={e => setValues({ ...values, policy: e.target.value })}
                         />
                     </div>
-                    {values.profilePath && (
-                        <div className='mt-3'>
-                            <label>Existing Profile :</label>
-                            {profileImage(values.profilePath) ? (
-                                <img
-                                    src={`${apiurl}${values.profilePath.startsWith('/uploads/profile') ? values.profilePath : '/uploads/profile' + values.profilePath}`}
-                                    alt="Uploaded profile"
-                                    style={{ maxWidth: '50%', maxHeight: '100px' }}
-                                />
-                            ) : (<></>)}
-                        </div>
-                    )}
+                   
                     {values.filePath && (
                         <div className="mt-3">
                             <label>Existing File : </label>
@@ -210,37 +182,20 @@ const Updatefile = ({ close, selectid }) => {
                             )}
                         </div>
                     )}
-                    <div className='row'>
-
-                        <div className="mt-3 col-12 col-md-6">
-
-                            <input
-                                type="file"
-                                id="profile-upload"
-                                accept="image/*"
-                                onChange={handleProfileChange}
-                                style={{ display: 'none' }}
-                            />
-                            <label htmlFor="profile-upload" className="profile-upload-label">
-                                <FaCamera className="camera-icon" /> Change Profile
-                            </label>
-                        </div>
-
-
-                        <div className="mt-3 col-12 col-md-6">
-                            <input
-                                type="file"
-                                id="file-upload"
-                                accept="*/*"
-                                onChange={handleFileChange}
-                                style={{ display: 'none' }}
-                            />
-                            <label htmlFor="file-upload" className="file-upload-label">
-                                Change File
-                            </label>
-                        </div>
+                    <div className="mt-3 form-group">
+                        <input
+                            className='form-control'
+                            type="file"
+                            id="file-upload"
+                            accept="*/*"
+                            onChange={handleFileChange}
+                            style={{ display: 'none' }}
+                        />
+                        <label htmlFor="file-upload" className="update-label">
+                            Change File
+                        </label>
                     </div>
-
+                   
                     <button className='btn update-admin-btn mt-3' style={{ backgroundColor: "#333" }} >Submit</button>
                 </form>
                 <ToastContainer position='top-right' autoClose={3000} />
