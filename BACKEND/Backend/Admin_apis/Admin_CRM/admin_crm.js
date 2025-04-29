@@ -11,7 +11,7 @@ const db = require("../../db");
 
 app.get("/get-all-employeenames",(req,res)=>{
 
-    const selectQuery = "SELECT emp_id, emp_name FROM payslip";
+    const selectQuery = "SELECT emp_id, emp_name FROM payslip WHERE emp_name IS NOT NULL";
 
     db.query(selectQuery,(err,result)=>{
       
