@@ -4,14 +4,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 0;
+    padding: 30px 0;
     background-color: #f8f9fa;
     min-height: 100vh;
   }
   
   .task-list {
     background-color: #ffffff;
-    padding: 30px 40px;
+    padding: 20px 30px;
     border-radius: 16px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -19,7 +19,7 @@
   }
   
   .task-list h6 {
-    font-size: 1.25rem;
+    font-size:25px;
     font-weight: 600;
     margin-bottom: 24px;
     text-align: center;
@@ -32,17 +32,17 @@
   }
   
   .task-list label {
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 10px;
+    font-weight: 300;
     margin: 10px 0 4px;
     color: #555;
   }
   
   .task-list .value {
-    padding: 10px 14px;
+    padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 20px;
     outline: none;
     transition: border-color 0.3s ease;
   }
@@ -50,5 +50,20 @@
   .task-list .value:focus {
     border-color: #007bff;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+  }
+  /* styles.css */
+.submit {
+    background-color: #4f46e5; /* Indigo-600 */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit:hover {
+    background-color: #4338ca; /* Indigo-700 */
   }
   
