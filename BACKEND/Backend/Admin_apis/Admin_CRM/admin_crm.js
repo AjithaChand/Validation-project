@@ -27,10 +27,12 @@ app.post("/add-crm",(req,res)=>{
     
     const {empId, empName, project, task, startDate, endDate, description } = req.body;
 
+    console.log("Received",empId, empName, project, task, startDate, endDate, description);
+    
     const insertQuery = `INSERT INTO crm_tasks (emp_id, emp_name, project_name, task, start_date, end_date, description) 
                             VALUES 
                             (?, ?, ?, ?, ?, ?, ?)`;
-    db.query(empId,empName,project,task,startDate,endDate,description,(err)=>{
+    db.query(insertQuery,[empId,empName,project,task,startDate,endDate,description],(err)=>{
         
         if(err){
             console.log("Error is", err);

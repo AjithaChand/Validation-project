@@ -3,7 +3,7 @@ import '../CRM/Taklist.css';
 import axios from 'axios';
 import { apiurl } from '../../url';
 
-const Tasklist = () => {
+const Taslist = () => {
   const [formData, setFormData] = useState({
     empId: '',
     empName: '',
@@ -15,7 +15,7 @@ const Tasklist = () => {
   });
 
   const [employees, setEmployees] = useState([]);
-
+  
   useEffect(() => {
     const fetchEmployeeNames = async () => {
       try {
@@ -29,12 +29,24 @@ const Tasklist = () => {
   }, []);
 
   const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+  
+    if (name === "empId") {
+      const selectedEmp = employees.find(emp => emp.emp_id.toString() === value);
+      setFormData(prev => ({
+        ...prev,
+        empId: value,
+        empName: selectedEmp ? selectedEmp.emp_name : ""
+      }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
+  
 
   const handleSubmitcrm = async (e) => {
     e.preventDefault();
-   try {
+    try {
       const res = await axios.post(`${apiurl}/add-crm`, formData);
       console.log("CRM added", res.data);
       setFormData({
@@ -51,12 +63,13 @@ const Tasklist = () => {
     }
   };
 
+ 
   return (
     <div className='task-bar'>
       <div className='task-list'>
         <h6>CRM Portal</h6>
         <form onSubmit={handleSubmitcrm}>
-         <label>Employee</label>
+          <label>Employee</label>
           <select className='value' name='empId' onChange={handleChange}>
             <option value=''>Select Employee</option>
             {employees.map((emp) => (
@@ -65,6 +78,7 @@ const Tasklist = () => {
               </option>
             ))}
           </select>
+
           <label>Project</label>
           <input className='value' type='text' name='project' onChange={handleChange} />
 
@@ -87,4 +101,4 @@ const Tasklist = () => {
   );
 };
 
-export default Tasklist;
+export default Taslist;
