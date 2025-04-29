@@ -47,20 +47,6 @@ const Attendance = () => {
   }, [person_code])
 
 
-  const getCurrentAbsentColumn = () => {
-    const now = new Date();
-    const month = now.toLocaleString("default", { month: "long" }).toLowerCase();
-    const year = now.getFullYear();
-    return `absent_days_${month}_${year}`;
-  };
-
-  const getCurrentPresentColumn = () => {
-    const now = new Date();
-    const month = now.toLocaleString("default", { month: "long" }).toLowerCase();
-    const year = now.getFullYear();
-    return `present_days_${month}_${year}`;
-  };
-
   const fetchAttendanceData = (selectedDate) => {
     const year = selectedDate.year();
     const month = String(selectedDate.month() + 1).padStart(2, '0');
@@ -80,6 +66,8 @@ const Attendance = () => {
           setAttendanceData([]);
         } else {
           setAttendanceData(res.data);
+          console.log("Attendance dataaa", res.data);
+          
         }
       })
       .catch(err => {
@@ -135,6 +123,11 @@ const Attendance = () => {
 
   const totalPages = Math.ceil(filterdata.length / itemsPerPage);
 
+  
+  const getLocalDate = (datetime) => {
+    return new Date(datetime).toLocaleDateString("en-CA"); // format: YYYY-MM-DD
+  };
+  
   return (
     <div className='attendance-container'>
       <div className='attendance-header-container'>
@@ -215,65 +208,54 @@ const Attendance = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map((data, index) => {
-                  const absentColumn = getCurrentAbsentColumn();
-                  const presentColumn = getCurrentPresentColumn();
+              {currentItems.map((data, index) => {
+  const today = new Date().toLocaleDateString("en-CA");
 
-                  const absentDays = data[absentColumn];
-                  const presentDays = data[presentColumn];
+  const presentDate = data.present_time ? getLocalDate(data.present_time) : null;
+  const absentDate = data.absent_time ? getLocalDate(data.absent_time) : null;
 
-                  const isPresent = presentDays === 1;
-                  const isAbsent = absentDays === 0;
-                  const noRecord = presentDays === null && absentDays === null;
+  const isTodayPresent = presentDate === today;
+  const isTodayAbsent = absentDate === today;
 
-                  return (
-                    <tr key={index}>
-                      <td>{data.emp_id}</td>
-                      <td>{data.emp_name}</td>
-                      <td>{data.emp_email}</td>
-                      <td>30</td>
-                      <td>4</td>
-                      <td>
+  return (
+    <tr key={index}>
+      <td>{data.emp_id}</td>
+      <td>{data.emp_name}</td>
+      <td>{data.emp_email}</td>
+      <td>30</td>
+      <td>4</td>
 
-                        {isPresent ? (
+      <td>
+        {isTodayPresent ? (
+          <FaCheck className="present-icon" />
+        ) : isTodayAbsent ? (
+          <span className="no-record">_</span>
+        ) : (
+          <span className="no-record">_</span>
+        )}
+      </td>
 
-                          <FaCheck className="present-icon" />
+      <td>
+        {isTodayAbsent ? (
+          <FaTimes className="absent-icon" />
+        ) : isTodayPresent ? (
+          <span className="no-record">_</span>
+        ) : (
+          <span className="no-record">_</span>
+        )}
+      </td>
 
-                        ) : noRecord ? (
+      <td>
+        {isTodayPresent
+          ? "Present"
+          : isTodayAbsent
+          ? "Absent"
+          : "No Record"}
+      </td>
+    </tr>
+  );
+})}
 
-                          <span className="no-record">_</span>
-
-                        ) : (
-
-                          "N/A"
-
-                        )}
-
-                      </td>
-
-                      <td>
-
-                        {isAbsent ? (
-
-                          <FaTimes className="absent-icon" />
-
-                        ) : noRecord ? (
-
-                          <span className="no-record">_</span>
-
-                        ) : (
-
-                          "N/A"
-
-                        )}
-
-                      </td>
-                      <td>
-                        {isPresent ? "Present" : isAbsent ? "Absent" : "No Record"}
-                      </td>
-                    </tr>
-                  );
-                })}
 
               </tbody>
             </table>
