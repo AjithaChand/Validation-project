@@ -43,4 +43,19 @@ app.post("/add-crm",(req,res)=>{
     })
 })
 
+app.get("get-all-tasks",(req,res)=>{
+
+    const selectQuery = "SELECT * FROM crm_tasks";
+
+    db.query(selectQuery,(err, result)=>{
+
+        if(err){
+            console.log("Error is", err);
+            return res.status(400).send({ message : "Database Error"})
+        }
+
+        return res.status(200).send(result)
+    })
+})
+
 module.exports = app;
