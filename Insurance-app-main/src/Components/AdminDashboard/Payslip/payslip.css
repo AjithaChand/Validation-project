@@ -160,20 +160,22 @@
  .payslip-button:hover {
    background-color:rgb(34, 125, 161);
  }
- .employee-payslip
+ /* .employee-payslip
  {
-  width: 80%;
-  padding: 40px;
+  width: 0%;
+  height: 0%; */
+  /* padding: 40px;
   height: 100%;
   position: absolute;
   left: -9999px;
   top: -9999px;
-  visibility: hidden; 
-}
+  visibility: hidden;  */
+/* } */
  .heading-payslip {
-  width: 70%;
+  width: 0%;
   margin: 2rem auto;
-background-color: #ffffff;
+background-color: #ffffff !important;
+/* color: red !important; */
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden;
@@ -182,6 +184,7 @@ background-color: #ffffff;
     margin: auto;
     padding: 40px;
     position: relative;
+    
   }
 .payslip-style {
   padding: 20px;
