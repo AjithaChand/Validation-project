@@ -18,6 +18,11 @@ import '../../UserDashboard/User.css';
 import Formpopup from '../../UserDashboard/Dialogbox/Formpopup';
 import Editdialog from '../../UserDashboard/Dialogbox/Editdialog';
 import { RiFileExcel2Line } from "react-icons/ri";
+import { FaHandsHoldingCircle } from "react-icons/fa6";
+import { BiSolidNotepad } from "react-icons/bi";
+import { PiNotePencilFill } from "react-icons/pi";
+import { CiEdit } from "react-icons/ci";
+import { FaUserEdit } from "react-icons/fa";
 
 const Adminpage = () => {
 
@@ -158,25 +163,6 @@ const Adminpage = () => {
   const handlePopup = () => {
     setShowpopup(!showpopup)
   }
-
-  //profile pic 
-  // const formatProfileUrl = (profile) => {
-  //   if (!profile) return "/insurance2.jpg";
-
-  //   if (profile.startsWith('http')) {
-  //     return profile;
-  //   }
-
-    
-  //   if (profile.startsWith('/')) {
-  //     return `${apiurl}${profile}`;
-  //   } else {
-  //     return `${apiurl}/${profile}`;
-  //   }
-  // };
-
-
-
 
   useEffect(() => {
     setAdminloading(true);
@@ -336,17 +322,11 @@ const Adminpage = () => {
                       <div className='card  users-details-container'>
                         <div className='card-body'>
                           <div className='profile-admin'>
-                            <img
-                              src=''
-                             
-                              alt="Profile"
-                              className="profile-img"
-                            />
-
+                            <div><FaUserEdit  /></div>
                             <div className='profile-data'>
                               <div className='profile-email'>{values.email}</div>
                               <div className='profile-date'>{new Date(values.startdate).toLocaleDateString('en-GB')}-{new Date(values.enddate).toLocaleDateString('en-GB')}</div>
-                              <div className='profile-policy'>{values.policy}</div>
+                              <div className='profile-policy'>Policy : {values.policy}</div>
                             </div>
                           </div>
                           <hr />
@@ -357,7 +337,8 @@ const Adminpage = () => {
                                   className=' adminbutton'
                                   onClick={() => handleViewFile(values.file_path)}
                                 >
-                                  <DescriptionIcon className="editicon" />
+                                  {/* <DescriptionIcon className="editicon" /> */}
+                                  View File
                                 </button>
                               ) : ("No File")}
                             </div>

@@ -87,12 +87,15 @@
 
 .adminbutton {
     width: 100%;
-    background: none;
     border: none;
+    background-color: #003975;
+    color: #fff;
+    border-radius: 5px;
+    padding: 4px 10px;
 }
 
 .adminbutton:hover {
-    transform: scale(1.2)
+    transform: scale(1.05)
 }
 
 .delete-button {
@@ -201,6 +204,12 @@
 .delete-button .deleteicon {
     font-size: 30px;
     color: darkred;
+    cursor: pointer;
+}
+
+.edit-btn .edit-icon {
+    font-size: 27px;
+    color: green;
     cursor: pointer;
 }
 
@@ -319,13 +328,6 @@
     align-items: center;
     justify-content: flex-end;
     position: relative;
-}
-
-.profile-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
 }
 
 .profile-admin {
@@ -461,25 +463,18 @@
     }
 
     .adminbutton {
-        width: 100%;
-        background: none;
-        border: none;
-    }
-
-    .adminbutton .editicon {
-        font-size: 20px;
-        color: green;
-        cursor: pointer;
+        padding: 4px 10px;
+        font-size: 14px;
     }
 
     .delete-button .deleteicon {
-        font-size: 20px;
+        font-size: 26px;
         color: darkred;
         cursor: pointer;
     }
 
-    .admin-table tbody .edit-btn .edit-icon {
-        font-size: 20px;
+    .edit-btn .edit-icon {
+        font-size: 25px;
         color: green;
         cursor: pointer;
     }
@@ -577,25 +572,17 @@
     }
 
     .adminbutton {
-        width: 100%;
-        background: none;
-        border: none;
-    }
-
-    .adminbutton .editicon {
-        font-size: 20px;
-        color: green;
-        cursor: pointer;
+        font-size: 16px;
     }
 
     .delete-button .deleteicon {
-        font-size: 20px;
+        font-size: 27px;
         color: darkred;
         cursor: pointer;
     }
 
-    .admin-table tbody .edit-btn .edit-icon {
-        font-size: 20px;
+    .edit-btn .edit-icon {
+        font-size: 25px;
         color: green;
         cursor: pointer;
     }
@@ -685,26 +672,22 @@
 
     .profile-email {
         font-weight: bold;
-        font-size: 14px;
+        font-size: 17px;
     }
 
     .profile-date,
     .profile-policy {
         color: #5b5b5b;
-        font-size: 13px;
+        font-size: 15px;
     }
 
     .users-details-container {
         overflow-x: auto;
     }
 
-    .profile-img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
+    .adminbutton {
+        font-size: 15px;
     }
-
 }
 
 @media only screen and (max-width:768px) {
@@ -763,26 +746,36 @@
 
 @media only screen and (min-width:769px) and (max-width:992px) {
 
-    .profile-img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
     .profile-date,
     .profile-policy {
         color: #5b5b5b;
-        font-size: 13px;
+        font-size: 15px;
     }
 
     .profile-email {
         font-weight: bold;
-        font-size: 14px;
+        font-size: 17px;
     }
 
     .users-details-container {
         overflow-x: auto;
+    }
+
+    .delete-button .deleteicon {
+        font-size: 25px;
+        color: darkred;
+        cursor: pointer;
+    }
+
+    .edit-btn .edit-icon {
+        font-size: 22px;
+        color: green;
+        cursor: pointer;
+    }
+
+    .adminbutton {
+        font-size: 14px;
+        padding: 3px 6px;
     }
 }
 
@@ -795,23 +788,11 @@
         font-weight: bold;
     }
 
-    .adminbutton .editicon {
-        font-size: 20px;
+    /* .adminbutton .editicon {
+        font-size: 25px;
         color: green;
         cursor: pointer;
-    }
-
-    .delete-button .deleteicon {
-        font-size: 19px;
-        color: darkred;
-        cursor: pointer;
-    }
-
-    .admin-table tbody .edit-btn .edit-icon {
-        font-size: 19px;
-        color: green;
-        cursor: pointer;
-    }
+    } */
 
     .user-msg {
         font-size: 17px;

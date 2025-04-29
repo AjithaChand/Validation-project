@@ -189,11 +189,7 @@ const Updatefile = ({ close, selectid }) => {
                             id="file-upload"
                             accept="*/*"
                             onChange={handleFileChange}
-                            style={{ display: 'none' }}
                         />
-                        <label htmlFor="file-upload" className="update-label">
-                            Change File
-                        </label>
                     </div>
                    
                     <button className='btn update-admin-btn mt-3' style={{ backgroundColor: "#333" }} >Submit</button>

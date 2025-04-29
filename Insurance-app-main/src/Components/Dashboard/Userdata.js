@@ -125,8 +125,8 @@ const Userdata = () => {
   return (
     <div className='user-container' >
       <div className={`${dashboardSidebaropen ? 'user-profile' : 'toggle-profile'}`}>
-        <img className={`company-logo-heading ${dashboardSidebaropen ? 'company-logo-head' : 'company-logo-header'}`}                 src={`${apiurl}/uploads/logos/${formData.logo}`}
- alt={formData.logo} />
+        <img className={`company-logo-heading ${dashboardSidebaropen ? 'company-logo-head' : 'company-logo-header'}`} src={`${apiurl}/uploads/logos/${formData.logo}`}
+          alt={formData.logo} />
         <h3 className={`user-header ${dashboardSidebaropen ? 'userheader' : 'userheader-toggle'}`}>{formData.companyName}</h3>
         <h3 className='userheader-res'>Nastaf</h3>
         <div className='userlogout-btn'><FaRegUser className='logo' /></div>
@@ -180,7 +180,7 @@ const Userdata = () => {
                 <li className={` list-style ${location.pathname === '/dashboard/register' && 'active'}`}>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard/register')}>
                     <LuNotebookPen className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                    {dashboardSidebaropen && <span className='dashboard-icon'> Register </span>}
+                    {dashboardSidebaropen && <span className='dashboard-icon'> Agreements </span>}
                   </div>
                 </li>
 
@@ -244,7 +244,7 @@ const Userdata = () => {
                   <li className={` list-style ${location.pathname === '/dashboard/register' && 'active'}`}>
                     <div className='userdata-btn' onClick={() => navigate('/dashboard/register')}>
                       <LuNotebookPen className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                      {dashboardSidebaropen && <span className='dashboard-icon'> Register </span>}
+                      {dashboardSidebaropen && <span className='dashboard-icon'> Agreements </span>}
                     </div>
                   </li>
                 )}

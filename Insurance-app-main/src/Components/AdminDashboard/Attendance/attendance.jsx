@@ -54,7 +54,7 @@ const Attendance = () => {
     const formattedDate = `${year}-${month}-${day}`;
 
     console.log("Format Date", formattedDate);
-    
+
     setAttendanceloading(true)
 
     axios.get(`${apiurl}/get_attendance_datas?date=${formattedDate}`, {
@@ -69,7 +69,7 @@ const Attendance = () => {
         } else {
           setAttendanceData(res.data);
           console.log("Attendance dataaa", res.data);
-          
+
         }
       })
       .catch(err => {
@@ -128,9 +128,9 @@ const Attendance = () => {
   const [selectedDate, setSelectedDate] = useState(dayjs());
 
   const getLocalDate = (datetime) => {
-    return new Date(datetime).toLocaleDateString("en-CA"); 
+    return new Date(datetime).toLocaleDateString("en-CA");
   };
-  
+
   const selectedDateStr = selectedDate.format("YYYY-MM-DD");
 
   return (
@@ -214,51 +214,51 @@ const Attendance = () => {
               </thead>
               <tbody>
 
-{currentItems.map((data, index) => {
-  const today = new Date().toLocaleDateString("en-CA"); 
-  const presentDate = data.present_time ? getLocalDate(data.present_time) : null;
-  const absentDate = data.absent_time ? getLocalDate(data.absent_time) : null;
+                {currentItems.map((data, index) => {
+                  const today = new Date().toLocaleDateString("en-CA");
+                  const presentDate = data.present_time ? getLocalDate(data.present_time) : null;
+                  const absentDate = data.absent_time ? getLocalDate(data.absent_time) : null;
 
-  const isToday = selectedDateStr === today;
+                  const isToday = selectedDateStr === today;
 
-  const isPresent = isToday ? presentDate === today : data.present === 1;
-  const isAbsent = isToday ? absentDate === today : data.absent === 1;
+                  const isPresent = isToday ? presentDate === today : data.present === 1;
+                  const isAbsent = isToday ? absentDate === today : data.absent === 1;
 
-  return (
-    <tr key={index}>
-      <td>{data.emp_id}</td>
-      <td>{data.emp_name}</td>
-      <td>{data.emp_email}</td>
-      <td>30</td>
-      <td>4</td>
+                  return (
+                    <tr key={index}>
+                      <td>{data.emp_id}</td>
+                      <td>{data.emp_name}</td>
+                      <td>{data.emp_email}</td>
+                      <td>30</td>
+                      <td>4</td>
 
-      <td>
-  {(isToday && presentDate === today) || (isToday && data.present === 1) ? (
-    <FaCheck className="present-icon" />
-  ) : (
-    <span className="no-record">_</span>
-  )}
-</td>
+                      <td>
+                        {(isToday && presentDate === today) || (isToday && data.present === 1) ? (
+                          <FaCheck className="present-icon" />
+                        ) : (
+                          <span className="no-record">_</span>
+                        )}
+                      </td>
 
-<td>
-  {(isToday && absentDate === today) || (isToday && data.absent === 1) ? (
-    <FaTimes className="absent-icon" />
-  ) : (
-    <span className="no-record">_</span>
-  )}
-</td>
+                      <td>
+                        {(isToday && absentDate === today) || (isToday && data.absent === 1) ? (
+                          <FaTimes className="absent-icon" />
+                        ) : (
+                          <span className="no-record">_</span>
+                        )}
+                      </td>
 
-<td>
-  {(isToday && presentDate === today) || (!isToday && data.present === 1)
-    ? "Present"
-    : (isToday && absentDate === today) || (!isToday && data.absent === 1)
-    ? "Absent"
-    : "No Record"}
-</td>
+                      <td>
+                        {(isToday && presentDate === today) || (!isToday && data.present === 1)
+                          ? "Present"
+                          : (isToday && absentDate === today) || (!isToday && data.absent === 1)
+                            ? "Absent"
+                            : "No Record"}
+                      </td>
 
-    </tr>
-  );
-})}
+                    </tr>
+                  );
+                })}
 
 
 
@@ -279,31 +279,11 @@ const Attendance = () => {
           Prev
         </button>
 
-        {currentPage > 3 && (
-          <button onClick={() => handlePageChange(1)}>
-            1
-          </button>
-        )}
+        <button className="active" >
+          {currentPage}
+        </button>
 
-        {currentPage > 4 && <span>...</span>}
-
-        {[...Array(5)].map((_, index) => {
-          const pageNum = currentPage - 2 + index;
-          if (pageNum > 0 && pageNum <= totalPages) {
-            return (
-              <button
-                key={pageNum}
-                onClick={() => handlePageChange(pageNum)}
-                className={currentPage === pageNum ? "active" : ""}
-              >
-                {pageNum}
-              </button>
-            );
-          }
-          return null;
-        })}
-
-        {currentPage < totalPages - 3 && <span>...</span>}
+        {currentPage < totalPages - 2 && <span>...</span>}
 
         {currentPage < totalPages - 2 && (
           <button onClick={() => handlePageChange(totalPages)}>

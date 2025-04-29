@@ -784,17 +784,4 @@
         font-size: 12px;
         padding: 6px 12px;
     }
-
-    .pagination button:not(:first-child):not(:last-child),
-    .pagination span {
-        display: none;
-    }
-
-    .pagination {
-        flex-direction: row;
-    }
-
-    .pagination button.active {
-        background-color: #0056b3;
-    }
 }

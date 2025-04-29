@@ -394,7 +394,7 @@
 
   .attendance {
     width: 90vw;
-    height: 57vh;
+    height: 55vh;
   }
 
   .attendance-table-container {
@@ -501,7 +501,7 @@
 
   .attendance {
     width: 90vw;
-    height: 52vh;
+    height: 50vh;
   }
 
   .attendance-table-container {
@@ -601,18 +601,5 @@
   .pagination-attendance button {
       font-size: 12px;
       padding: 6px 12px;
-  }
-
-  .pagination-attendance button:not(:first-child):not(:last-child),
-  .pagination-attendance span {
-      display: none;
-  }
-
-  .pagination-attendance {
-      flex-direction: row;
-  }
-
-  .pagination-attendance button.active {
-      background-color: #0056b3;
   }
 }

@@ -374,31 +374,11 @@ const Users = () => {
             Prev
           </button>
 
-          {currentPage > 3 && (
-            <button onClick={() => handlePageChange(1)}>
-              1
-            </button>
-          )}
+          <button className="active" >
+            {currentPage}
+          </button>
 
-          {currentPage > 4 && <span>...</span>}
-
-          {[...Array(5)].map((_, index) => {
-            const pageNum = currentPage - 2 + index;
-            if (pageNum > 0 && pageNum <= totalPages) {
-              return (
-                <button
-                  key={pageNum}
-                  onClick={() => handlePageChange(pageNum)}
-                  className={currentPage === pageNum ? "active" : ""}
-                >
-                  {pageNum}
-                </button>
-              );
-            }
-            return null;
-          })}
-
-          {currentPage < totalPages - 3 && <span>...</span>}
+          {currentPage < totalPages - 2 && <span>...</span>}
 
           {currentPage < totalPages - 2 && (
             <button onClick={() => handlePageChange(totalPages)}>
