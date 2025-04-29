@@ -53,6 +53,8 @@ const Attendance = () => {
     const day = String(selectedDate.date()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
 
+    console.log("Format Date", formattedDate);
+    
     setAttendanceloading(true)
 
     axios.get(`${apiurl}/get_attendance_datas?date=${formattedDate}`, {
@@ -123,11 +125,14 @@ const Attendance = () => {
 
   const totalPages = Math.ceil(filterdata.length / itemsPerPage);
 
-  
+  const [selectedDate, setSelectedDate] = useState(dayjs());
+
   const getLocalDate = (datetime) => {
-    return new Date(datetime).toLocaleDateString("en-CA"); // format: YYYY-MM-DD
+    return new Date(datetime).toLocaleDateString("en-CA"); 
   };
   
+  const selectedDateStr = selectedDate.format("YYYY-MM-DD");
+
   return (
     <div className='attendance-container'>
       <div className='attendance-header-container'>
@@ -208,14 +213,16 @@ const Attendance = () => {
                 </tr>
               </thead>
               <tbody>
-              {currentItems.map((data, index) => {
-  const today = new Date().toLocaleDateString("en-CA");
 
+{currentItems.map((data, index) => {
+  const today = new Date().toLocaleDateString("en-CA"); 
   const presentDate = data.present_time ? getLocalDate(data.present_time) : null;
   const absentDate = data.absent_time ? getLocalDate(data.absent_time) : null;
 
-  const isTodayPresent = presentDate === today;
-  const isTodayAbsent = absentDate === today;
+  const isToday = selectedDateStr === today;
+
+  const isPresent = isToday ? presentDate === today : data.present === 1;
+  const isAbsent = isToday ? absentDate === today : data.absent === 1;
 
   return (
     <tr key={index}>
@@ -226,35 +233,33 @@ const Attendance = () => {
       <td>4</td>
 
       <td>
-        {isTodayPresent ? (
-          <FaCheck className="present-icon" />
-        ) : isTodayAbsent ? (
-          <span className="no-record">_</span>
-        ) : (
-          <span className="no-record">_</span>
-        )}
-      </td>
+  {(isToday && presentDate === today) || (isToday && data.present === 1) ? (
+    <FaCheck className="present-icon" />
+  ) : (
+    <span className="no-record">_</span>
+  )}
+</td>
 
-      <td>
-        {isTodayAbsent ? (
-          <FaTimes className="absent-icon" />
-        ) : isTodayPresent ? (
-          <span className="no-record">_</span>
-        ) : (
-          <span className="no-record">_</span>
-        )}
-      </td>
+<td>
+  {(isToday && absentDate === today) || (isToday && data.absent === 1) ? (
+    <FaTimes className="absent-icon" />
+  ) : (
+    <span className="no-record">_</span>
+  )}
+</td>
 
-      <td>
-        {isTodayPresent
-          ? "Present"
-          : isTodayAbsent
-          ? "Absent"
-          : "No Record"}
-      </td>
+<td>
+  {(isToday && presentDate === today) || (!isToday && data.present === 1)
+    ? "Present"
+    : (isToday && absentDate === today) || (!isToday && data.absent === 1)
+    ? "Absent"
+    : "No Record"}
+</td>
+
     </tr>
   );
 })}
+
 
 
               </tbody>
