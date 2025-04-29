@@ -302,5 +302,136 @@ app.get("/get-leave-user",(req,res)=>{
 })
 
 
+//Policy expired msg
+
+// app.get('/expired-notification', verifyToken, (req,res)=>{
+
+//     const today = new Date();
+//     const threeDaysLater =new Date();
+
+//     threeDaysLater.setDate(today.getDate()+3);
+
+
+//     const formattedToday =today.toISOString().split('T')[0];
+
+//     const formattedThreeDaysLater= threeDaysLater.toISOString().split('T')[0];
+
+//     const remainder_msg = "Your policy has been expired soon .Please renewal it before its deadline"
+
+
+//    const selectSql = " SELECT email FROM customer_details WHERE enddate = ? AND notification is NULL"
+
+//    db.query(selectSql, [formattedThreeDaysLater], (err, data)=>{
+    
+//     if(err) 
+//         {
+//             return res.status(500).json(err)
+        
+//         }
+     
+//    if(data.length === 0){
+    
+//     return res.status(200).json ({message:"No user found for send messgage"})
+//    }
+
+
+
+//     const remindSql = "UPDATE customer_details SET expired_msg = ?, notification =? WHERE enddate = ? AND notification IS NULL"
+
+//     const values = [remainder_msg, formattedToday, formattedThreeDaysLater]
+
+
+//     db.query(remindSql, values, (err, result) =>{
+
+//         if(err){
+
+//             return res.status(500).json(err)
+//         }
+
+//         res.status(200).send({result})
+//     });
+
+// })
+
+// })
+
+
+
+app.get('/expired-notification', verifyToken, (req,res)=>{
+
+    const today = new Date();
+
+    const threeDaysLater = new Date();
+
+    threeDaysLater.setDate(today.getDate() + 3);
+
+    const formattedToday = today.toISOString().split('T')[0]
+
+    const formattedThreeDaysLater = threeDaysLater.toISOString().split('T')[0]
+    
+    const remainder_msg = "Your policy has been expired soon. Please renewal it before its deadline";
+
+    const userEmail = req.user.email;
+
+    const userRole = req.user.role;
+
+    console.log("User role:", userRole); 
+
+    if(userRole === 'admin'){
+
+        const selectSql = "SELECT * FROM customer_details WHERE enddate = ? AND notification IS NULL"
+
+        db.query(selectSql, [formattedThreeDaysLater], (err, results)=>{
+
+            if(err){
+                return res.status(500).json(err);
+            }
+
+            if(results.length === 0){
+                
+                return res.status(200).json({message:"No user found for reminder"})
+            }
+
+            const updateSql = "UPDATE customer_details SET expired_msg = ?, notification = ? WHERE enddate = ? AND notification IS NULL";
+
+            updateValues= [remainder_msg, formattedToday, formattedThreeDaysLater]
+
+            db.query(updateSql, updateValues, (err,data)=>{
+
+                if(err){
+                    return res.status(500).json(err)
+                }
+
+                res.status(200).json({data})
+            })
+        })
+    }
+    else{
+
+        const userSql = " SELECT * FROM customer_details WHERE enddate = ? AND notification IS NULL AND email =? "
+
+
+        db.query(userSql, [formattedThreeDaysLater, userEmail], (err, result)=>{
+
+            if(err){
+                
+                return res.status(500).json(err)
+            }
+            
+            
+        console.log("Results from DB:", result);
+
+            if(result.length === 0){
+
+                return res.status(200).json({message: "no notification available"})
+            }
+
+            res.status(200).json({result})
+        })
+
+
+    }
+
+})
 
 module.exports = app;
