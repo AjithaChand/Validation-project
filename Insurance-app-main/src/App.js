@@ -18,6 +18,7 @@ import Attendance from './Components/AdminDashboard/Attendance/attendance';
 import UserAttendance from './Components/AdminDashboard/AdminRegistration/Updateform/userattendance';
 import CompanyDetailsForm from './Components/NewSetting';
 import Dashboard from './Components/AdminDashboard/DashboardAdmin/Dashboard';
+import Tasklist from './Components/CRM/Taslist';
 
 const App = () => {
 return (
@@ -40,6 +41,7 @@ return (
             
             <Route path="userattendance" element={<UserAttendance />} />
             <Route path="settings" element={<CompanyDetailsForm />} />
+            <Route path="tasklist" element={<Tasklist/>} />
 
           </Route>
           <Route path='/getuser/:id' element={<Users />} />
