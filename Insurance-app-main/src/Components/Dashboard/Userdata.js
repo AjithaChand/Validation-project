@@ -205,6 +205,13 @@ const Userdata = () => {
                   </ul>
                 )}
 
+                <li className={` list-style ${location.pathname === '/dashboard/tasklist' && 'active'}`}>
+                  <div className='userdata-btn' onClick={() => navigate('/dashboard/tasklist')}>
+                    <LuNotebookPen className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    {dashboardSidebaropen && <span className='dashboard-icon'>Task </span>}
+                  </div>
+                </li>
+
                 <li className={` list-style ${location.pathname === '/dashboard/settings' && 'active'}`}>
                   <div className='userdata-btn' onClick={() => {
                     handleSetting()
@@ -215,12 +222,7 @@ const Userdata = () => {
                     </span>}
                   </div>
                 </li>
-                <li className={` list-style ${location.pathname === '/dashboard/tasklist' && 'active'}`}>
-                  <div className='userdata-btn' onClick={() => navigate('/dashboard/tasklist')}>
-                    <LuNotebookPen className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                    {dashboardSidebaropen && <span className='dashboard-icon'>Task </span>}
-                  </div>
-                </li>
+
                 {settings && (dashboardSidebaropen || !dashboardSidebaropen) && (
                   <ul className={`${dashboardSidebaropen ? " " : "user-list-toggle"}`}>
                     <li className={`list-style-users list-style ${location.pathname === '/dashboard/users' && 'active'}`}>
@@ -314,9 +316,9 @@ const Userdata = () => {
         </div>
       </div>
 
-      <main className={`${dashboardSidebaropen ? 'userdata-container' : 'toggle-container'}`}>
+      <div className={`${dashboardSidebaropen ? 'userdata-container' : 'toggle-container'}`}>
         <Outlet />
-      </main>
+      </div>
 
       <UserDialog isVisible={showconfirm} onClose={handleLogout} cancel={cancelLogout} logout={confirmLogout} />
       <Sidebar isVisible={sidebarOpen} onClose={handleLogout} onCloseClick={toggleSidebar} />

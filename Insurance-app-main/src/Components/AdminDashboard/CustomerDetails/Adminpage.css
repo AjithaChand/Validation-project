@@ -270,7 +270,7 @@
 .search-input::placeholder {
     color: #828181;
     font-size: bold;
-    position: absolute;
+    position: relative;
     left: 15px;
 }
 
@@ -378,6 +378,11 @@
   }
 
 @media only screen and (min-width:319px) and (max-width:500px) {
+
+    .admin-container {
+        margin-top: 0;
+    }
+
     .admin-header {
         flex-wrap: wrap;
         display: flex;
@@ -495,7 +500,7 @@
     .search-input-res::placeholder {
         color: #828181;
         font-size: bold;
-        position: absolute;
+        position: relative;
         left: 15px;
     }
 
@@ -787,12 +792,6 @@
         font-size: 17px;
         font-weight: bold;
     }
-
-    /* .adminbutton .editicon {
-        font-size: 25px;
-        color: green;
-        cursor: pointer;
-    } */
 
     .user-msg {
         font-size: 17px;

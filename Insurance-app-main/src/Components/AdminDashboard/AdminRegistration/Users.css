@@ -378,6 +378,11 @@
 
 
 @media only screen and (min-width:319px) and (max-width:500px) {
+
+    .users-container {
+        margin-top: 0;
+    }
+
     .admin-header-user {
         flex-wrap: wrap;
         display: flex;
@@ -473,7 +478,6 @@
 
     .users-btn {
         border-radius: 12px;
-        /* padding: 5px 15px 9px 15px; */
         padding: 5px 10px;
         border: 1px solid #023265;
     }
@@ -514,7 +518,7 @@
     .user-search-input::placeholder {
         color: #828181;
         font-size: bold;
-        position: absolute;
+        position: relative;
         left: 15px;
     }
 

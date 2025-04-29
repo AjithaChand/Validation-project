@@ -12,7 +12,7 @@
 }
 
 .userdeletedialog-content{
-    width: 25%;
+    width: 20%;
     height: 20%;
     background: white;
     border-radius: 15px;
@@ -40,7 +40,7 @@
 .userdelete-box .userdelete-confirm-btn{
     padding: 10px;
     border-radius: 10px;
-    width: 30%;
+    width: 100%;
     background-color:  #0b531c;
     border: none;
     cursor: pointer;
@@ -56,7 +56,7 @@
 .userdelete-box .userdelete-cancel-btn{
     padding: 10px;
     border-radius: 10px;
-    width: 30%;
+    width: 100%;
     background-color:  #5b060f;
     color: white;
     border: none;
@@ -84,14 +84,10 @@
         padding: 5px;
     }
     .userdelete-box .userdelete-confirm-btn{
-        padding: 5px;
-        width: 30%;
         font-size: 14px;
     }
     
     .userdelete-box .userdelete-cancel-btn{
-        padding: 5px;
-        width: 30%;
         font-size: 14px;
     } 
 }
@@ -105,14 +101,10 @@
         padding: 5px;
     }
     .userdelete-box .userdelete-confirm-btn{
-        padding: 7px;
-        width: 35%;
         font-size: 16px;
     }
     
     .userdelete-box .userdelete-cancel-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 16px;
     }
 }
@@ -126,14 +118,10 @@
         padding: 5px;
     }
     .userdelete-box .userdelete-confirm-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 16px;
     }
     
     .userdelete-box .userdelete-cancel-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 16px;
     }
 }
@@ -147,14 +135,10 @@
         padding: 5px;
     }
     .userdelete-box .userdelete-confirm-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 16px;
     }
     
     .userdelete-box .userdelete-cancel-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 16px;
     }
 }

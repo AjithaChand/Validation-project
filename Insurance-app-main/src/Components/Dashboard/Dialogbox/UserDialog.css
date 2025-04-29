@@ -12,35 +12,24 @@
 }
 
 .userdialog-content{
-    width: 25%;
-    height: 20%;
+    width: 20%;
+    height: 22%;
     background: white;
     border-radius: 15px;
     position: relative;
     padding: 20px;
 }
 
-.btn-userdialog{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    font-size: 1.5rem;
-    background: none;
-    cursor: pointer;
-}
-
 .user-confirmbox p{
     font-size: 20px;
     font-family: "Poppins",sans-serif;
     font-weight: bold;
-    padding: 5px;
 }
 
 .user-box .user-confirm-btn{
     padding: 10px;
     border-radius: 10px;
-    width: 30%;
+    width: 100%;
     background-color:  #0b531c;
     border: none;
     cursor: pointer;
@@ -56,7 +45,7 @@
 .user-box .user-cancel-btn{
     padding: 10px;
     border-radius: 10px;
-    width: 30%;
+    width: 100%;
     background-color:  #5b060f;
     color: white;
     border: none;
@@ -82,149 +71,114 @@
     }
     .user-confirmbox p{
         font-size: 16px;
-        padding: 5px;
     }
     .user-box .user-confirm-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 14px;
     }
     
     .user-box .user-cancel-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 14px;
     } 
 }
 
-@media only screen and (min-width:401px) and (max-width:500px){
+@media only screen and (min-width:401px) and (max-width:489px){
     .userdialog-content{
-        width: 70%;
+        width: 60%;
         height: 22%;
     }
     .user-confirmbox p{
         font-size: 16px;
-        padding: 5px;
     }
     .user-box .user-confirm-btn{
-        padding: 7px;
-        width: 37%;
         font-size: 14px;
     }
     
     .user-box .user-cancel-btn{
-        padding: 5px;
-        width: 37%;
         font-size: 14px;
     }
 }
 
-@media only screen and (min-width:501px) and (max-width:700px){
+@media only screen and (min-width:489px) and (max-width:680px){
     .userdialog-content{
         width: 50%;
         height: 25%;
     }
     .user-confirmbox p{
         font-size: 19px;
-        padding: 5px;
     }
     .user-box .user-confirm-btn{
-        padding: 7px;
-        width: 35%;
         font-size: 16px;
     }
     
     .user-box .user-cancel-btn{
-        padding: 7px;
-        width: 35%;
         font-size: 16px;
     }
 }
 
-@media only screen and (min-width:701px) and (max-width:880px){
+@media only screen and (min-width:681px) and (max-width:850px){
     .userdialog-content{
         width: 40%;
         height: 25%;
     }
     .user-confirmbox p{
         font-size: 19px;
-        padding: 5px;
     }
     .user-box .user-confirm-btn{
-        padding: 8px;
-        width: 35%;
         font-size: 16px;
     }
     
     .user-box .user-cancel-btn{
-        padding: 8px;
-        width: 35%;
         font-size: 16px;
     }
 }
 
-@media only screen and (min-width:881px) and (max-width:1004px){
+@media only screen and (min-width:850px) and (max-width:975px){
     .userdialog-content{
         width: 35%;
         height: 25%;
     }
     .user-confirmbox p{
         font-size: 19px;
-        padding: 5px;
     }
     .user-box .user-confirm-btn{
-        padding: 8px;
-        width: 35%;
         font-size: 16px;
     }
     
     .user-box .user-cancel-btn{
-        padding: 8px;
-        width: 35%;
         font-size: 16px;
     }
 }
 
-@media only screen and (min-width:1005px) and (max-width:1172px){
+@media only screen and (min-width:975px) and (max-width:1139px){
     .userdialog-content{
         width: 30%;
         height: 25%;
     }
     .user-confirmbox p{
         font-size: 19px;
-        padding: 5px;
     }
     .user-box .user-confirm-btn{
-        padding: 8px;
-        width: 35%;
         font-size: 16px;
     }
     
     .user-box .user-cancel-btn{
-        padding: 8px;
-        width: 35%;
         font-size: 16px;
     }
 }
 
-@media only screen and (min-width:1173px) and (max-width:1485px){
+@media only screen and (min-width:1139px) and (max-width:1488px){
     .userdialog-content{
-        width: 25%;
+        width: 20%;
         height: 25%;
     }
     .user-confirmbox p{
         font-size: 19px;
-        padding: 5px;
     }
     .user-box .user-confirm-btn{
-        padding: 8px;
-        width: 35%;
         font-size: 16px;
     }
     
     .user-box .user-cancel-btn{
-        padding: 8px;
-        width: 35%;
         font-size: 16px;
     }
 }

@@ -42,14 +42,6 @@
   border-bottom: 1px solid #aaaaaa;
 }
 
-/* .user-list-down{
-  list-style: none;
-  padding: 4px 3px 15px 3px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-} */
-
 .list-style {
   list-style: none;
   border-radius: 10px;
@@ -322,6 +314,7 @@
 
   .user-profile {
     width: 100%;
+    position: relative;
   }
 
   .toggle-profile {

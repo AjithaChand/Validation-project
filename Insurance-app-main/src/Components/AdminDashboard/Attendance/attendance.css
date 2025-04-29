@@ -186,7 +186,7 @@
 .search-input-attendance::placeholder {
   color: #828181;
   font-size: bold;
-  position: absolute;
+  position: relative;
   left: 15px;
 }
 
@@ -304,6 +304,10 @@
     gap: 5px;
   }
 
+  .attendance-container {
+    margin-top: 0;
+  }
+
   .admin-slidebar {
     display: none;
   }
@@ -376,7 +380,7 @@
   .search-input-res-attendance::placeholder {
     color: #828181;
     font-size: bold;
-    position: absolute;
+    position: relative;
     left: 15px;
   }
 
