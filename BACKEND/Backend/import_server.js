@@ -23,6 +23,9 @@ const checkApi = require('./Login_Register/checkapi')
 const admin_attendance = require("./Admin_apis/Admin_Attendance/admin_attendance")
 
 
+//CRM for admim
+const admin_crm = require("./Admin_apis/Admin_CRM/admin_crm");
+
 
 
 
@@ -48,6 +51,10 @@ app.use("/",user_payslip);
 app.use("/",admin_attendance)
 app.use("/", user_attendance)
 app.use("/", setting)
+app.use("/",admin_crm)
+
+
+
 
 const image = path.join(__dirname,'uploads')
 console.log(image,"gfgbhjiuygvbhygv bnjuhgv ")

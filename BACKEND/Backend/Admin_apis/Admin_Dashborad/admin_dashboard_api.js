@@ -220,6 +220,7 @@ app.get("/total-information", (req, res) => {
 
     const { date } = req.query;
 
+    
     const dateObj = new Date(date); 
     const monthName = dateObj.toLocaleString('default', { month: "long" }).toLowerCase();
 
@@ -247,6 +248,7 @@ app.get("/total-information", (req, res) => {
             console.error("Query Error:", err);
             return res.status(500).send({ message: "Database error" });
         }
+
         return res.status(200).send(result[0]);
     });
 });
@@ -254,7 +256,8 @@ app.get("/total-information", (req, res) => {
 
 app.get("/get-present-user",(req,res)=>{
 
-    const {date} = req.body;
+    const {date} = req.query;
+    console.log("Receivevddddd ", date);
 
     const selectQuery = `SELECT emp_name FROM payslip WHERE DATE(present_time) = ?`;
 
@@ -263,6 +266,8 @@ app.get("/get-present-user",(req,res)=>{
             console.error("Query Error:", err);
             return res.status(500).send({ message: "Database error" });
         }
+        console.log("Present Lists", result);
+        
         return res.status(200).send(result);
     });
 })
@@ -295,6 +300,7 @@ app.get("/get-leave-user",(req,res)=>{
         return res.status(200).send(result);
     });
 })
+
 
 
 module.exports = app;

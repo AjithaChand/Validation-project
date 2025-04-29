@@ -7,3 +7,47 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   }
   
+
+  .dashboard-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .dashboard-box {
+    background-color: #f8f9fa;
+    padding: 20px;
+    width: 250px;
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+  }
+  
+  .dashboard-box:hover {
+    background-color: #e9ecef;
+  }
+  
+  .dashboard-box h3 {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .dashboard-box span {
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  .user-list {
+    margin-top: 15px;
+    text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+  }
+  
