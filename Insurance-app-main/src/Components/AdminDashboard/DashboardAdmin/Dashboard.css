@@ -6,7 +6,6 @@
     z-index: 100;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   }
-  
 
   .dashboard-container {
     display: flex;
@@ -14,6 +13,7 @@
     justify-content: center;
     padding: 30px;
     flex-wrap: wrap;
+    margin-top: 50px;
   }
   
   .dashboard-box {
