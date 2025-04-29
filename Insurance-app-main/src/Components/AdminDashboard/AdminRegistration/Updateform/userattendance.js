@@ -66,15 +66,15 @@ const UserAttendance = () => {
           const lon = position.coords.longitude;
           
           setUserLocation({ latitude: lat, longitude: lon });
-          reverseGeocode(lat, lon);  // Reverse geocoding to get human-readable location name
+          reverseGeocode(lat, lon); 
         },
         (error) => {
           setLocationError(error.message);
           toast.error(`Location access denied: ${error.message}`);
         },
         {
-          enableHighAccuracy: true,  // Use best available accuracy
-          maximumAge: 0,             // Don't use cached location
+          enableHighAccuracy: true,
+          maximumAge: 0,             
         }
       );
     } else {

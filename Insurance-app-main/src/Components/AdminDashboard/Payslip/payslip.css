@@ -440,6 +440,8 @@ background-color: #ffffff;
   background: linear-gradient(90deg, #002f6c,#084697);
   color: #ffffff;
   position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .payslip-1 tr:nth-child(even) {

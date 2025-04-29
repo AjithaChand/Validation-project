@@ -41,7 +41,7 @@
   .attend-portel {
     position: fixed;
     top: 40%;
-    left: 60%;
+    left: 57%;
     transform: translate(-50%, -50%);
     width: 350px;
     padding: 10px;
@@ -56,7 +56,7 @@
 .reason-modal-content {
     position: fixed;
     top: 40%;
-    left: 60%;
+    left: 57%;
     transform: translate(-50%, -50%);
     width: 300px;
     padding: 40px 30px;
@@ -193,7 +193,10 @@
  {
   gap:3px
  }
- 
+ .location-status
+ {
+  color: rgb(83, 83, 181);
+ }
  @media screen and (min-width:320px) and (max-width:446px) {
   .attend-portel {
       width: 90%;
@@ -245,7 +248,7 @@
   .attend-portel {
       width: 70%;
       padding: 15px;
-      top: 50%;
+      top: 45%;
       left: 50%;
       transform: translate(-50%, -50%);
   }
@@ -254,7 +257,7 @@
   
     width: 310px;
     padding: 15px;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
