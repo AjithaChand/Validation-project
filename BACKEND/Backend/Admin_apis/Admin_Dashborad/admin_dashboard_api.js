@@ -212,4 +212,89 @@ app.delete('/delete/customer_details/:id', verifyToken, (req, res) => {
     });
 });
 
+// newwwwwwwwwwwwwwwww start
+
+
+
+app.get("/total-information", (req, res) => {
+
+    const { date } = req.query;
+
+    const dateObj = new Date(date); 
+    const monthName = dateObj.toLocaleString('default', { month: "long" }).toLowerCase();
+
+    const year = dateObj.getFullYear();
+    
+    const presentColumn = `present_days_${monthName}_${year}`;
+    const absentColumn = `absent_days_${monthName}_${year}`;
+    
+    const query = `
+        SELECT 
+            COUNT(CASE WHEN DATE(present_time) = ? THEN 1 END) AS present_count,
+            COUNT(CASE WHEN DATE(absent_time) = ? THEN 1 END) AS absent_count,
+            COUNT(CASE 
+                WHEN (DATE(present_time) != ? OR present_time IS NULL) 
+                 AND (DATE(absent_time) != ? OR absent_time IS NULL) 
+                THEN 1 
+            END) AS no_record_count,
+            SUM(${presentColumn}) AS total_present_days,
+            SUM(${absentColumn}) AS total_absent_days
+        FROM payslip;
+    `;
+    
+    db.query(query, [date, date, date, date], (err, result) => {
+        if (err) {
+            console.error("Query Error:", err);
+            return res.status(500).send({ message: "Database error" });
+        }
+        return res.status(200).send(result[0]);
+    });
+});
+
+
+app.get("/get-present-user",(req,res)=>{
+
+    const {date} = req.body;
+
+    const selectQuery = `SELECT emp_name FROM payslip WHERE DATE(present_time) = ?`;
+
+    db.query(selectQuery, [date], (err, result) => {
+        if (err) {
+            console.error("Query Error:", err);
+            return res.status(500).send({ message: "Database error" });
+        }
+        return res.status(200).send(result);
+    });
+})
+
+app.get("/get-absent-user",(req,res)=>{
+
+    const {date} = req.body;
+
+    const selectQuery = `SELECT emp_name FROM payslip WHERE DATE(absent_time) = ?`;
+
+    db.query(selectQuery, [date], (err, result) => {
+        if (err) {
+            console.error("Query Error:", err);
+            return res.status(500).send({ message: "Database error" });
+        }
+        return res.status(200).send(result);
+    });
+})
+
+
+app.get("/get-leave-user",(req,res)=>{
+
+    const selectQuery = `SELECT emp_name FROM payslip WHERE absent_time IS NULL AND present_time IS NULL`;
+
+    db.query(selectQuery, (err, result) => {
+        if (err) {
+            console.error("Query Error:", err);
+            return res.status(500).send({ message: "Database error" });
+        }
+        return res.status(200).send(result);
+    });
+})
+
+
 module.exports = app;
