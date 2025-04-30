@@ -25,7 +25,7 @@ const Task = () => {
     
     <div className='crm-table'>
       <div className='crm details'>
-      <table>
+      <table className='task-table'>
         <thead>
           <tr>
             <th>Emp Id</th>

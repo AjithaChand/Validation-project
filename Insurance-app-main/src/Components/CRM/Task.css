@@ -13,27 +13,30 @@
     width: 100%;
   }
   
-  table {
+  .task-table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
     border-radius: 8px;
     overflow: hidden;
   }
-  
-  th, td {
+
+  .task-table td{
     text-align: left;
     padding: 12px 16px;
     border-bottom: 1px solid #e0e0e0;
   }
   
-  th {
+  .task-table th {
     background-color: #343a40;
     color: white;
     font-weight: 600;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e0e0e0;
   }
   
-  tr:hover {
+  .task-table tr:hover {
     background-color: #f1f1f1;
     transition: background-color 0.2s;
   }
