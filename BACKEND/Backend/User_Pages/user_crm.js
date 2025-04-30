@@ -45,72 +45,55 @@ app.get("/get-single-crm-task",(req,res)=>{
 })
 })
 
-app.post('/update-in-process',(req,res)=>{
-
-    const {taskid,status} = req.body;
-
+app.post('/update-in-process', (req, res) => {
+    const { taskid, status } = req.body;
+  
     const dayjs = require('dayjs');
-
     const updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss');
-
-    const selectQuery = "SELECT status FROM crm_tasks WHERE id  = ?";
-
-    db.query(selectQuery,[taskid],(err, info)=>{
-
-        if(err){
-            return res.status(400).send({ message : "Database Error" })
+  
+    const selectQuery = "SELECT status FROM crm_tasks WHERE id = ?";
+  
+    db.query(selectQuery, [taskid], (err, info) => {
+      if (err) {
+        return res.status(400).send({ message: "Database Error" });
+      }
+  
+      if (info.length === 0) {
+        return res.status(404).send({ message: "Task not found" });
+      }
+  
+      const currentStatus = info[0].status;
+  
+      if (status === "In Progress" && currentStatus !== "Completed") {
+        const updateQuery = "UPDATE crm_tasks SET status = ?, updated_at = ? WHERE id = ?";
+        db.query(updateQuery, [status, updatedAt, taskid], (err) => {
+          if (err) return res.status(400).send({ message: "Database Error" });
+          return res.send({ message: "Let's Start" });
+        });
+      } else if (status === "On Hold") {
+        if (currentStatus === "Completed") {
+          return res.status(404).send({ message: "Task Already Completed" });
         }
-        
-        const getStatus = info[0];
-
-    if(status === "In Progress" && getStatus !== "Completed"){
-
-        const updateQuery = "UPDATE crm_tasks SET status =  ?, updated_at = ? WHERE id = ?";
-
-        db.query(updateQuery,[status,updatedAt,taskid],(err, info)=>{
-
-            if(err){
-                return res.status(400).send({ message : "Database Error"})
-            }
-
-            return res.send({message : "Let's Start"})
-        })
-    }
-
-    else if (status === "On Hold"){
-
-        if(getStatus === "Completed"){
-            return res.status(404).send({ messgae : "Task Already Completed"})
+  
+        const updateQuery = "UPDATE crm_tasks SET status = ?, updated_at = ? WHERE id = ?";
+        db.query(updateQuery, [status, updatedAt, taskid], (err) => {
+          if (err) return res.status(400).send({ message: "Database Error" });
+          return res.send({ message: "ON-HOLD Task" });
+        });
+      } else if (status === "Completed") {
+        if (currentStatus === "On Hold") {
+          return res.status(400).send({ message: "Task Being ON-HOLD Enable In-Process" });
         }
-
-        const updateQuery = "UPDATE crm_tasks SET status =  ?, updated_at = ? WHERE id = ?";
-
-        db.query(updateQuery,[status,updatedAt,taskid],(err, info)=>{
-
-            if(err){
-                return res.status(400).send({ message : "Database Error"})
-            }
-
-            return res.send({message : "ON-HOLD Task"})
-        })        
-    }
-    else if (status === "Completed"){
-
-        if(getStatus === "On Hold"){
-            return res.status(400).send({ message : "Task Being ON-HOLD Enable In-Process"})
-        }
-
-        const updateQuery = "UPDATE crm_tasks SET status =  ?, updated_at = ? WHERE id = ?";
-
-        db.query(updateQuery,[status,updatedAt,taskid],(err, info)=>{
-
-            if(err){
-                return res.status(400).send({ message : "Database Error"})
-            }
-
-            return res.send({message : "Task Completed"})
-        })           
-     }
-    })
-})
+  
+        const updateQuery = "UPDATE crm_tasks SET status = ?, updated_at = ? WHERE id = ?";
+        db.query(updateQuery, [status, updatedAt, taskid], (err) => {
+          if (err) return res.status(400).send({ message: "Database Error" });
+          return res.send({ message: "Task Completed" });
+        });
+      } else {
+        return res.status(400).send({ message: "Invalid Status Change" });
+      }
+    });
+  });
+  
 module.exports=app;
