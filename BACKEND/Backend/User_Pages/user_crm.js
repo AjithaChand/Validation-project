@@ -63,7 +63,7 @@ app.post('/update-in-process',(req,res)=>{
         
         const getStatus = info[0];
 
-    if(status === "In Progress"){
+    if(status === "In Progress" && getStatus !== "Completed"){
 
         const updateQuery = "UPDATE crm_tasks SET status =  ?, updated_at = ? WHERE id = ?";
 
@@ -97,7 +97,7 @@ app.post('/update-in-process',(req,res)=>{
     else if (status === "Completed"){
 
         if(getStatus === "On Hold"){
-            return res.status(400).send({ message : "Task Is ON-HOLD Enable In-Process"})
+            return res.status(400).send({ message : "Task Being ON-HOLD Enable In-Process"})
         }
 
         const updateQuery = "UPDATE crm_tasks SET status =  ?, updated_at = ? WHERE id = ?";
