@@ -1,12 +1,15 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
+const cron = require('node-cron')
+const dayjs = require('dayjs')
 const crypto = require("crypto")
+
 
 const { verifyToken } = require("../../Login_Register/auth")
 
@@ -26,46 +29,6 @@ if (!fs.existsSync(uploadDir)) {
 
     fs.mkdirSync(uploadDir, { recursive: true });
 }
-
-// if(!fs.existsSync(profileDir)){
-
-//     fs.mkdirSync(profileDir, {recursive:true})
-// }
-
-// const storage =multer.diskStorage({
-
-//     destination : (req, file, cb)=>{
-
-//         if(file.fieldname ==='file'){
-//             cb (null, uploadDir)
-
-//         } else if (file.fieldname ==='profile'){
-
-//             cb(null, profileDir)
-//         }else{
-
-//             cb(new Error ('Invalid field name'), null)
-//         }
-
-//     },
-
-//     filename: (req, file, cb)=>{
-
-//         const extension = path.extname(file.originalname)
-
-//         const uniqueName = crypto.randomUUID() +extension;
-
-//         cb(null, uniqueName)
-
-//     }
-// })
-
-// const upload = multer({storage:storage})
-
-
-
-
-
 
 app.use('/uploads', express.static(uploadDir));
 
@@ -88,9 +51,6 @@ const upload = multer({ storage: storage });
 
 
 
-
-
-
 app.post('/create', verifyToken, upload.single('file') ,(req, res) => {
 
     const { email, startdate, enddate, policy } = req.body;
@@ -101,11 +61,7 @@ app.post('/create', verifyToken, upload.single('file') ,(req, res) => {
 
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
 
-     //file and profile codes  
-    // const filePath = req.files['file'] ? `/uploads/${req.files['file'][0].filename }` : null ;
-
-    // const profilePath = req.files['profile'] ? `/uploads/profile/${req.files['profile'][0].filename}` : null;
-
+     
 
 
     if (!filePath ) {
@@ -301,58 +257,6 @@ app.get("/get-leave-user",(req,res)=>{
 })
 
 
-//Policy expired msg
-
-// app.get('/expired-notification', verifyToken, (req,res)=>{
-
-//     const today = new Date();
-//     const threeDaysLater =new Date();
-
-//     threeDaysLater.setDate(today.getDate()+3);
-
-
-//     const formattedToday =today.toISOString().split('T')[0];
-
-//     const formattedThreeDaysLater= threeDaysLater.toISOString().split('T')[0];
-
-//     const remainder_msg = "Your policy has been expired soon .Please renewal it before its deadline"
-
-
-//    const selectSql = " SELECT email FROM customer_details WHERE enddate = ? AND notification is NULL"
-
-//    db.query(selectSql, [formattedThreeDaysLater], (err, data)=>{
-    
-//     if(err) 
-//         {
-//             return res.status(500).json(err)
-        
-//         }
-     
-//    if(data.length === 0){
-    
-//     return res.status(200).json ({message:"No user found for send messgage"})
-//    }
-
-
-
-//     const remindSql = "UPDATE customer_details SET expired_msg = ?, notification =? WHERE enddate = ? AND notification IS NULL"
-
-//     const values = [remainder_msg, formattedToday, formattedThreeDaysLater]
-
-
-//     db.query(remindSql, values, (err, result) =>{
-
-//         if(err){
-
-//             return res.status(500).json(err)
-//         }
-
-//         res.status(200).send({result})
-//     });
-
-// })
-
-// })
 
 
 
@@ -432,5 +336,97 @@ app.get('/expired-notification', verifyToken, (req,res)=>{
     }
 
 })
+
+
+const expiredMsg = "Your policy has been expired soon please renew your policy";
+
+cron.schedule("46 10 * * *", async () => {
+    const today = dayjs();
+    const targetDates = [
+        today.add(1, 'day').format("YYYY-MM-DD"),
+        today.add(2, 'day').format("YYYY-MM-DD"),
+        today.add(3, 'day').format("YYYY-MM-DD")
+    ];
+
+    console.log("TargetDates", targetDates);
+    
+    try {
+        const [rows] = await db.promise().query(
+            `SELECT email, enddate FROM customer_details WHERE DATE(enddate) IN (?, ?, ?)`,
+            targetDates
+        );
+        
+        console.log("Targeted users:", rows);
+
+        for (const user of rows) {
+            console.log("Updating user:", user.email);
+            await db.promise().query(
+                `UPDATE customer_details SET notification = ?, expired_msg = ? WHERE email = ?`,
+                [today.format("YYYY-MM-DD"), expiredMsg, user.email]
+            );
+        }
+
+        console.log("Notifications updated using email.");
+    } catch (err) {
+        console.error("Cron error:", err);
+    }
+});
+
+app.get('/expired-notification', async (req, res) => {
+    const today = new Date().toISOString().split("T")[0];
+    const userEmail = req.query.email;
+
+    console.log("Received Email in backend", userEmail );
+    
+
+    if (!userEmail) {
+        return res.status(400).json({ message: "Email is required" });
+    }
+
+    try {
+        const [rows] = await db.promise().query(
+            "SELECT enddate, expired_msg, notification FROM customer_details WHERE email = ?",
+            [userEmail]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const { enddate, expired_msg, notification } = rows[0];
+
+        if (enddate === today) {
+            return res.status(200).json({ 
+                expired_msg: "Notification Stopped",
+                notification: null
+            });
+        }
+
+        res.json({ expired_msg, notification });
+    } catch (err) {
+        console.error("DB error:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
+app.get('/admin/expired_details', (req, res) => {
+    
+    const isAdmin = req.query.admin === 'true';
+
+    if (!isAdmin) {
+        return res.status(403).json({ message: "Access denied" });
+    }
+
+    const selectQuery = "SELECT email, expired_msg, enddate FROM customer_details WHERE notification IS NOT NULL";
+
+    db.query(selectQuery, (err, info) => {
+        if (err) {
+            return res.status(500).json({ message: "Database error", error: err });
+        }
+
+        return res.status(200).json({ result: info });
+    });
+});
 
 module.exports = app;
