@@ -58,6 +58,7 @@ const Taslist = () => {
         startDate: '',
         endDate: ''
       });
+      
     } catch (err) {
       console.error("Error submitting CRM", err);
     }
@@ -70,29 +71,38 @@ const Taslist = () => {
         <h6>CRM Portal</h6>
         <form onSubmit={handleSubmitcrm}>
           <label>Employee</label>
-          <select className='value' name='empId' onChange={handleChange}>
-            <option value=''>Select Employee</option>
-            {employees.map((emp) => (
-              <option key={emp.emp_id} value={emp.emp_id}>
-                {emp.emp_name}
-              </option>
-            ))}
-          </select>
+          <select
+  className='value'
+  name='empId'
+  value={formData.empId}
+  onChange={handleChange}
+>
+  <option value=''>Select Employee</option>
+  {employees.map((emp) => (
+    <option key={emp.emp_id} value={emp.emp_id}>
+      {emp.emp_name}
+    </option>
+  ))}
+</select>
 
           <label>Project</label>
-          <input className='value' type='text' name='project' onChange={handleChange} />
+          <input className='value' type='text' name='project' value={formData.project} onChange={handleChange} />
 
           <label>Task</label>
-          <input className='value' type='text' name='task' onChange={handleChange} />
+          <input className='value' type='text' name='task' onChange={handleChange}   value={formData.task}
+          />
 
           <label>Description</label>
-          <input className='value' type='text' name='description' onChange={handleChange} />
+          <input className='value' type='text' name='description' onChange={handleChange}   value={formData.description}
+          />
 
           <label>Start Date</label>
-          <input className='value' type='date' name='startDate' onChange={handleChange} />
+          <input className='value' type='date' name='startDate' onChange={handleChange}   value={formData.startDate}
+ />
 
           <label>End Date</label>
-          <input className='value' type='date' name='endDate' onChange={handleChange} />
+          <input className='value' type='date' name='endDate' onChange={handleChange}   value={formData.endDate}
+          />
 
           <button type='submit' className='submit'>Submit</button>
         </form>
