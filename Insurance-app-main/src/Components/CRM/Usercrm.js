@@ -43,7 +43,7 @@ const Usercrm = () => {
     updatedData[index].status = newStatus;
     setSingleCrmdata(updatedData);
   
-    const taskid = updatedData[index].task_id;
+    const taskid = updatedData[index].id;
   
     try {
       const res = await axios.post(`${apiurl}/update-in-process`, {
@@ -51,7 +51,7 @@ const Usercrm = () => {
         status: newStatus,
       });
       console.log("Status updated successfully:", res.data.message);
-    
+      
     } catch (error) {
       console.error("Error updating status on backend:", error);
     }
