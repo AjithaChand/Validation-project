@@ -26,11 +26,11 @@ const Usercrm = () => {
   const getStatusOptions = (currentStatus) => {
     switch (currentStatus) {
       case 'Not Started':
-        return ["Not started",'In Progress', 'On Hold'];
+        return ['Not Started', 'In Progress', 'On Hold'];
       case 'In Progress':
-        return ['On Hold', 'Completed'];
+        return ['In Progress', 'On Hold', 'Completed'];
       case 'On Hold':
-        return ['In Progress'];
+        return ['On Hold', 'In Progress'];
       case 'Completed':
         return ['Completed'];
       default:
@@ -43,18 +43,21 @@ const Usercrm = () => {
     updatedData[index].status = newStatus;
     setSingleCrmdata(updatedData);
   
-    const taskId = updatedData[index].task_id;
+    const taskid = updatedData[index].task_id;
   
     try {
-      await axios.patch(`${apiurl}/update-task-status`, {
-        taskId: taskId,
+      const res = await axios.post(`${apiurl}/update-in-process`, {
+        taskid: taskid,
         status: newStatus,
       });
-      console.log("Status updated successfully");
+      console.log("Status updated successfully:", res.data.message);
+    
     } catch (error) {
       console.error("Error updating status on backend:", error);
     }
   };
+  
+  
   
 
 
