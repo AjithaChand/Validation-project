@@ -763,7 +763,7 @@ const Adminregister = ({ close }) => {
                                                     checked={permission.users.delete}
                                                     onChange={e => setPermission(prev => ({
                                                         ...prev,
-                                                        users: { ...prev.users, update: e.target.checked }
+                                                        users: { ...prev.users, delete: e.target.checked }
                                                     }))}
                                                 />
                                             </td>

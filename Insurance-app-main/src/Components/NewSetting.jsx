@@ -42,7 +42,8 @@ function CompanyDetailsForm() {
           const res = await axios.get(`${apiurl}/api/company-details`);
           const data = res.data;
           console.log("company details",data);
-          
+          console.log("eeeeeeeee", data[0]?.logo_url);
+                    
   
           setFormData({
             companyName: data.company_name,

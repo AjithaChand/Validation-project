@@ -1,0 +1,46 @@
+.crm-table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 40px auto;
+    border-collapse: collapse;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 50px;
+  }
+  
+  .crm-table th, .crm-table td {
+    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .crm-table th {
+    background-color: #007bff;
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+  
+  .crm-table td {
+   
+    font-size: 14px;
+    color: #333;
+  }
+  
+ 
+  .crm-table select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .crm-table select:disabled {
+   
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+  

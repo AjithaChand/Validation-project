@@ -91,7 +91,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                     onCloseClick()
                                 }}>
                                     <GiArchiveRegister className='' />
-                                    <span className=''> Register </span>
+                                    <span className=''> Agreements </span>
                                 </div>
                             </li>
 
@@ -188,7 +188,7 @@ const Sidebar = ({ onClose, isVisible, onCloseClick }) => {
                                         onCloseClick()
                                     }}>
                                         <GiArchiveRegister className='' />
-                                        <span className=''> Register </span>
+                                        <span className=''> Agreements </span>
                                     </div>
                                 </li>
                             )}

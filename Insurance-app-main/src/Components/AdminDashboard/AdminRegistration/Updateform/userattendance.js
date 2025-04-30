@@ -38,10 +38,6 @@ const UserAttendance = () => {
     getUserLocation();
   }, [email]);
 
-  const getFormattedDateTime = () => {
-    const now = new Date();
-    return now.toISOString().slice(0, 19).replace('T', ' ');
-  };
 
   const reverseGeocode = async (lat, lon) => {
     try {
@@ -58,20 +54,23 @@ const UserAttendance = () => {
     }
   };
 
-
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
-
+          
           setUserLocation({ latitude: lat, longitude: lon });
-          reverseGeocode(lat, lon);
+          reverseGeocode(lat, lon); 
         },
         (error) => {
           setLocationError(error.message);
           toast.error(`Location access denied: ${error.message}`);
+        },
+        {
+          enableHighAccuracy: true,
+          maximumAge: 0,             
         }
       );
     } else {
@@ -79,6 +78,8 @@ const UserAttendance = () => {
       toast.error("Geolocation is not supported by your browser");
     }
   };
+  
+  
 
   function calculateDistance(lat1, lon1, lat2, lon2) {
     const R = 6371;
@@ -122,7 +123,7 @@ const UserAttendance = () => {
   
     console.log("Distance to office:", distance);
   
-    if (distance > 1000) {
+    if (distance > 100) {
       toast.error("You must be within 100 meters of the office to mark attendance");
       return false;
     }
@@ -161,6 +162,11 @@ const UserAttendance = () => {
   useEffect(() => {
     fetchUserAttendanceStatus();
   }, [email]);
+
+  const getFormattedDateTime = () => {
+    const now = new Date();
+    return now.toISOString("").split("T")[0]
+  };
 
   const markAttendance = async (status) => {
     if (!checkLocation()) return;
@@ -244,11 +250,7 @@ const UserAttendance = () => {
 
   return (
     <div className='user-attendance'>
-      <div className='employee-attend'>
-     
-     
-    
-      <div className='attend-portel'>
+     <div className='attend-portel'>
     
         <h2>
           <span className='name'>
@@ -308,7 +310,7 @@ const UserAttendance = () => {
           </div>
         )}
                    </div>
-      </div>
+    
 
       {isAbsent && (
         <div className="reason-modal">

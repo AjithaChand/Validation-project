@@ -87,6 +87,8 @@ cron.schedule("0 0 1 * *", () => {
 
         const getPresentTime = response[0]?.present_time;
 
+        console.log("Get present time", getPresentTime);
+        
         const storedDateOnly = new Date(getPresentTime).toISOString().split('T')[0];
         const currentDateOnly = new Date(date).toISOString().split('T')[0];
 
@@ -106,9 +108,32 @@ cron.schedule("0 0 1 * *", () => {
                 if(err){
                     return res.status(400).send({ message : "Database Error"})
                 }
+            const selectQuery = "SELECT emp_id FROM payslip WHERE emp_email = ?";
 
-                return res.status(200).send({ message : "Present Added"})
+            db.query(selectQuery,[email],(err,id)=>{
+
+                if(err){
+                    return res.status(400).send({message :"Select Query Error"})
+                }
+                
+                const empId = id[0].emp_id;
+
+                const attendanceQuery = `
+                  INSERT INTO attendance (emp_id, date, present, absent)
+                  VALUES (?, CURDATE(), 1, 0)
+                  ON DUPLICATE KEY UPDATE present = 1, absent = 0, marked_time = NOW()
+                `;
+          
+                db.query(attendanceQuery, [empId], (err) => {
+                  if (err) {
+                    return res.status(400).send({ message: "Attendance Table Error" });
+                  }
+                          
+                    return res.status(200).send({ message : "Present Added"})
             })
+        })
+    })
+
         }   
     })
   })
@@ -205,8 +230,31 @@ app.post("/attendance-absent",(req,res)=>{
                         return res.status(400).send({ message : "Database Error"})
                     }
     
-                    return res.status(200).send({ message : "Leave Applied"})
+                    const selectQuery = "SELECT emp_id FROM payslip WHERE emp_email = ?";
+
+                    db.query(selectQuery,[email],(err,id)=>{
+        
+                        if(err){
+                            return res.status(400).send({message :"Select Query Error"})
+                        }
+                        
+                        const empId = rows[0].emp_id;
+        
+                        const attendanceQuery = `
+                          INSERT INTO attendance (emp_id, date, present, absent)
+                          VALUES (?, CURDATE(), 0, 1)
+                          ON DUPLICATE KEY UPDATE present = 0, absent = 1, marked_time = NOW()
+                        `;
+                  
+                        db.query(attendanceQuery, [empId], (err) => {
+                          if (err) {
+                            return res.status(400).send({ message: "Attendance Table Error" });
+                          }
+                                  
+                            return res.status(200).send({ message : "Leave Applied"})
+                    })
                 })
+            })
             }   
         })
       })

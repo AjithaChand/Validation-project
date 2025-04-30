@@ -16,7 +16,6 @@
     flex-direction: column;
     padding: 20px;
     font-family: 'Segoe UI', sans-serif;
-  
     background-size: cover;
     color: #333;
   
@@ -40,16 +39,36 @@
   
 
   .attend-portel {
-    padding: 40px 30px;
-    width: 400px;
-    margin: auto;
-    border-radius: 20px;
-    background-color: white;
+    position: fixed;
+    top: 40%;
+    left: 57%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #f2f4f6;
     backdrop-filter: blur(12px);
-    /* background-color: rgb(73, 200, 200); */
     text-align: center;
-    margin-bottom: 500px;
-  }
+    border: 1.5px solid navy;
+    z-index: 999; 
+}
+
+.reason-modal-content {
+    position: fixed;
+    top: 40%;
+    left: 57%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 40px 30px;
+    border-radius: 15px;
+    background-color: #f2f4f6;
+    backdrop-filter: blur(12px);
+    text-align: center;
+    border: 1.5px solid navy;
+    z-index: 1000;
+}
+
+
   
   .attend-portel h2 {
     font-size: 24px;
@@ -98,31 +117,9 @@
   }
   
  
-  .reason-modal {
-    position: fixed;
-    margin-left: 400px;
-    margin-top: 80px;
-    width: 580px;
-    height:300px;
-   
-    display: flex;
-     z-index: 10;
-    border-radius: 15px;
-  }
+
   
-  .reason-modal-content {
-    
-    padding: 30px;
-    border-radius: 16px;
-    width: 420px;
-    height: 400px;
-    backdrop-filter: blur(14px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    text-align: center;
-    margin-top: 110px;
-    background-color: white;
-  }
+ 
   
   .reason-modal-content input {
     width: 100%;
@@ -187,227 +184,111 @@
     margin-right: 4px;
   }
   
-  .employee-attend
-  {
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 50px;
-    height: 100%;
-  }
+
   .entry{
     text-align: center;
   }
-  .attend-portel
-  {
-    border: 1.5px solid navy;
-    background-color: #f2f4f6;
-  }
+ 
  .button-gap
  {
   gap:3px
  }
- 
- @media screen  and (max-width: 320px) and (max-width:375px) {
-  .user-attendance {
-    padding: 10px;
-  }
-
-  .employee-attendance {
-    margin-left: 0; 
-    padding: 15px 20px;
-    text-align: center;
-  }
-
+ .location-status
+ {
+  color: rgb(83, 83, 181);
+ }
+ @media screen and (min-width:320px) and (max-width:446px) {
   .attend-portel {
-    width: 100%; 
-    padding: 150px 15px;
-    margin: 20px auto; 
-    margin-bottom: 50px;
+      width: 90%;
+      padding: 15px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+  .reason-modal-content
+  {
+  
+    width: 270px;
+    padding: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  .reason-modal {
-    position: fixed;
-    margin-left: 0;
-    margin-top: 50px;
-    width: 90%;
-    height: auto;
-    flex-direction: column;
-    align-items: center;
+  .info-container {
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
   }
 
-  .reason-modal-content {
-    width: 90%;
-    height: auto;
-    padding: 20px;
-    margin-top: 50px;
+  .info-item {
+      justify-content: center;
+      font-size: 14px;
   }
 
   .attendance-present,
   .attendance-absent {
-    padding: 10px 20px;
-    font-size: 14px;
-    margin: 8px 5px;
+      width: 100%;
+      max-width: 280px;
+      margin: 10px auto;
+  }
+
+  .reason-modal-content input {
+      width: 100%; 
   }
 
   .submit-reason,
   .cancel-reason {
-    padding: 8px 18px;
-    font-size: 14px;
+      width: 48%;
+      padding: 10px;
+      font-size: 14px;
   }
-
-  .name,  .spanid {
-    color: navy;
-    font-weight: 600;
-  }
-  .id
-  {
-    color: navy;
-    font-weight: 600;
-    font-size: 25px;
-  }
-
-  .text-box {
-    height: 50px;
-  }
-
-  .employee-attend {
-    margin-top: 30px;
-  }
-  .info-item {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    color: #333;
-    font-weight: 500;
- 
-    color: #1c63b5; 
-  }
-  .info-container {
-    display: flex;
-    gap: 19px;
-    margin: 10px 0;
-  }
-  
-  .info-item {
-    display: flex;
-    align-items: center;
-    font-size:15px;
-    color: #333;
-    font-weight: 500;
-    color: #1c63b5; 
-  }
-  
-  .info-icon {
-    margin-right: 8px;
-    color: #4a90e2; 
-    font-size: 1.5rem;
-  }
-  
-  .info-label {
-    margin-right: 4px;
-  }
-  
-  
 }
- @media screen  and (max-width: 375.1px) and (max-width:436px){ 
-  .user-attendance {
-    padding: 10px;
-  }
-
-  .employee-attendance {
-    margin-left: 0; 
-    padding: 15px 20px;
-    text-align: center;
-  }
-
+@media screen and (min-width:446.1px) and (max-width:768px) {
   .attend-portel {
-    width: 100%; 
-    padding: 150px 15px;
-    margin: 20px auto; 
-    margin-bottom: 50px;
+      width: 70%;
+      padding: 15px;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+  .reason-modal-content
+  {
+  
+    width: 310px;
+    padding: 15px;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  .reason-modal {
-    position: fixed;
-    margin-left: 0;
-    margin-top: 50px;
-    width: 90%;
-    height: auto;
-    flex-direction: column;
-    align-items: center;
+  .info-container {
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
   }
 
-  .reason-modal-content {
-    width: 90%;
-    height: auto;
-    padding: 20px;
-    margin-top: 50px;
+  .info-item {
+      justify-content: center; 
+      font-size: 14px;
   }
 
   .attendance-present,
   .attendance-absent {
-    padding: 10px 20px;
-    font-size: 14px;
-    margin: 8px 5px;
+      width: 100%;
+      max-width: 280px;
+      margin: 10px auto;
+  }
+
+  .reason-modal-content input {
+      width: 100%;
   }
 
   .submit-reason,
   .cancel-reason {
-    padding: 8px 18px;
-    font-size: 14px;
+      width: 48%;
+      padding: 10px;
+      font-size: 14px;
   }
-
-  .name,  .spanid {
-    color: navy;
-    font-weight: 600;
-  }
-  .id
-  {
-    color: navy;
-    font-weight: 600;
-    font-size: 25px;
-  }
-
-  .text-box {
-    height: 50px;
-  }
-
-  .employee-attend {
-    margin-top: 30px;
-  }
-  .info-item {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    color: #333;
-    font-weight: 500;
- 
-    color: #1c63b5; 
-  }
-  .info-container {
-    display: flex;
-    gap: 19px;
-    margin: 10px 0;
-  }
-  
-  .info-item {
-    display: flex;
-    align-items: center;
-    font-size:15px;
-    color: #333;
-    font-weight: 500;
-    color: #1c63b5; 
-  }
-  
-  .info-icon {
-    margin-right: 8px;
-    color: #4a90e2; 
-    font-size: 1.5rem;
-  }
-  
-  .info-label {
-    margin-right: 4px;
-  }
-  
-  
 }
+

@@ -32,7 +32,7 @@
   transform: scale(1.05);
 }
 
-.attendance-msg{
+.attendance-msg {
   text-align: center;
   padding: 20px;
 }
@@ -186,7 +186,7 @@
 .search-input-attendance::placeholder {
   color: #828181;
   font-size: bold;
-  position: absolute;
+  position: relative;
   left: 15px;
 }
 
@@ -213,7 +213,7 @@
 }
 
 .attendance {
-  height: 60vh;
+  height: 57vh;
   width: 80vw;
   margin: auto;
   overflow-y: auto;
@@ -257,12 +257,55 @@
   background-color: #f1f1f1;
 }
 
+.pagination-attendance {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.pagination-attendance button {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.pagination-attendance button:hover {
+  background-color: #ddd;
+}
+
+.pagination-attendance button:disabled {
+  cursor: not-allowed;
+  background-color: #e0e0e0;
+  border-color: #ccc;
+}
+
+.pagination-attendance button.active {
+  background-color: #033b78;
+  color: white;
+  border-color: #033b78;
+}
+
+.pagination-attendance button:focus{
+  outline: none;
+} 
+
+
 @media only screen and (min-width:319px) and (max-width:500px) {
   .attendance-header {
     flex-wrap: wrap;
     display: flex;
     flex-direction: row;
-    gap: 2px;
+    gap: 5px;
+  }
+
+  .attendance-container {
+    margin-top: 0;
   }
 
   .admin-slidebar {
@@ -337,7 +380,7 @@
   .search-input-res-attendance::placeholder {
     color: #828181;
     font-size: bold;
-    position: absolute;
+    position: relative;
     left: 15px;
   }
 
@@ -355,6 +398,7 @@
 
   .attendance {
     width: 90vw;
+    height: 50vh;
   }
 
   .attendance-table-container {
@@ -366,6 +410,10 @@
 }
 
 @media only screen and (min-width:501px) and (max-width:768px) {
+
+  .attendance-container {
+    margin-top: 0;
+  }
 
   .attendance-header {
     display: flex;
@@ -461,6 +509,7 @@
 
   .attendance {
     width: 90vw;
+    height: 48vh;
   }
 
   .attendance-table-container {
@@ -476,12 +525,12 @@
 
 }
 
-@media only screen and (min-width:500.11px) and (max-width:768px) {
+/* @media only screen and (min-width:500.11px) and (max-width:768px) {
   .admin-header-attendance {
     margin-top: 10px;
   }
 
-}
+} */
 
 @media only screen and (max-width:768px) {
   .admin-slidebar {
@@ -525,6 +574,7 @@
 
   .attendance {
     width: 80vw;
+    height: 53vh;
   }
 
   .attendance-table-container {
@@ -554,4 +604,19 @@
     padding: 5px;
   }
 
+}
+
+@media only screen and (min-width:1024px) and (max-width:1488px){
+
+  .attendance {
+    height: 53vh;
+  }
+
+}
+
+@media only screen and (max-width: 768px) {
+  .pagination-attendance button {
+      font-size: 12px;
+      padding: 6px 12px;
+  }
 }

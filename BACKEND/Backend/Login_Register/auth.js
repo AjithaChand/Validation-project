@@ -5,13 +5,19 @@ const secret = process.env.SECRET_KEY;
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
+  
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) return res.sendStatus(401);
 
-  jwt.verify(token, secret, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      console.log("Token verification failed:", err); 
+      return res.sendStatus(403);
+    }
+  
+    console.log("Decoded JWT:", decoded); 
+    req.user = decoded; 
     next();
   });
 };

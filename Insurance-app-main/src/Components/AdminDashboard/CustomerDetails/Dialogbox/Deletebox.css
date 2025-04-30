@@ -12,7 +12,7 @@
 }
 
 .deletedialog-content{
-    width: 25%;
+    width: 20%;
     height: 20%;
     background: white;
     border-radius: 15px;
@@ -34,13 +34,12 @@
     font-size: 20px;
     font-family: "Poppins",sans-serif;
     font-weight: bold;
-    padding: 5px;
 }
 
 .delete-box .delete-confirm-btn{
     padding: 10px;
     border-radius: 10px;
-    width: 30%;
+    width: 100%;
     background-color:  #0b531c;
     border: none;
     cursor: pointer;
@@ -56,7 +55,7 @@
 .delete-box .delete-cancel-btn{
     padding: 10px;
     border-radius: 10px;
-    width: 30%;
+    width: 100%;
     background-color:  #5b060f;
     color: white;
     border: none;
@@ -81,17 +80,12 @@
     }
     .delete-confirmbox p{
         font-size: 16px;
-        padding: 5px;
     }
     .delete-box .delete-confirm-btn{
-        padding: 5px;
-        width: 30%;
         font-size: 14px;
     }
     
     .delete-box .delete-cancel-btn{
-        padding: 5px;
-        width: 30%;
         font-size: 14px;
     } 
 }
@@ -102,17 +96,12 @@
     }
     .delete-confirmbox p{
         font-size: 19px;
-        padding: 5px;
     }
     .delete-box .delete-confirm-btn{
-        padding: 7px;
-        width: 35%;
         font-size: 16px;
     }
     
     .delete-box .delete-cancel-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 16px;
     }
 }
@@ -123,17 +112,12 @@
     }
     .delete-confirmbox p{
         font-size: 19px;
-        padding: 5px;
     }
     .delete-box .delete-confirm-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 16px;
     }
     
     .delete-box .delete-cancel-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 16px;
     }
 }
@@ -144,17 +128,12 @@
     }
     .delete-confirmbox p{
         font-size: 19px;
-        padding: 5px;
     }
     .delete-box .delete-confirm-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 16px;
     }
     
     .delete-box .delete-cancel-btn{
-        padding: 5px;
-        width: 35%;
         font-size: 16px;
     }
 }

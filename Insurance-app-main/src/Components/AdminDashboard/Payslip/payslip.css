@@ -160,20 +160,22 @@
  .payslip-button:hover {
    background-color:rgb(34, 125, 161);
  }
- .employee-payslip
+ /* .employee-payslip
  {
-  width: 80%;
-  padding: 40px;
+  width: 0%;
+  height: 0%; */
+  /* padding: 40px;
   height: 100%;
   position: absolute;
   left: -9999px;
   top: -9999px;
-  visibility: hidden; 
-}
+  visibility: hidden;  */
+/* } */
  .heading-payslip {
-  width: 70%;
+  width: 0%;
   margin: 2rem auto;
-background-color: #ffffff;
+background-color: #ffffff !important;
+/* color: red !important; */
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden;
@@ -182,6 +184,7 @@ background-color: #ffffff;
     margin: auto;
     padding: 40px;
     position: relative;
+    
   }
 .payslip-style {
   padding: 20px;
@@ -440,6 +443,8 @@ background-color: #ffffff;
   background: linear-gradient(90deg, #002f6c,#084697);
   color: #ffffff;
   position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .payslip-1 tr:nth-child(even) {
@@ -468,30 +473,29 @@ background-color: #ffffff;
       border-radius: 12px;
       padding: 9px;
       width: fit-content;
- 
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      width: 300px;
    
      }
   
   .input-fields label {
-      font-weight: 600;
+      font-weight: 400;
       margin-bottom: 6px;
       color: #333;
-      padding: 13px !important;
+      padding: 10px !important;
     }
     .input-fields{
       display: flex;
-      flex-wrap: wrap;
     }
     .field-content{
       display: flex;
       justify-content: center;
-      padding: 10px;
+      padding: 8px;
     }
     
     .payslipinput {
-      padding: 12px;
-      font-size: 15px;
+      padding: 10px;
+      font-size: 10px;
       border-radius: 6px;
       border: 1px solid #ccc;
       outline: none;
