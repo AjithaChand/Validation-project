@@ -208,13 +208,19 @@ const Userdata = () => {
                 <li className={` list-style ${location.pathname === '/dashboard/tasklist' && 'active'}`}>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard/tasklist')}>
                     <LuNotebookPen className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                    {dashboardSidebaropen && <span className='dashboard-icon'>Task </span>}
+                    {dashboardSidebaropen && <span className='dashboard-icon'>CRM </span>}
                   </div>
                 </li>
                 <li className={` list-style ${location.pathname === '/dashboard/task' && 'active'}`}>
                   <div className='userdata-btn' onClick={() => navigate('/dashboard/task')}>
                     <LuNotebookPen className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
                     {dashboardSidebaropen && <span className='dashboard-icon'>Task </span>}
+                  </div>
+                </li>
+                <li className={` list-style ${location.pathname === '/dashboard/userCrm' && 'active'}`}>
+                  <div className='userdata-btn' onClick={() => navigate('/dashboard/userCrm')}>
+                    <LuNotebookPen className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    {dashboardSidebaropen && <span className='dashboard-icon'>UserCrm </span>}
                   </div>
                 </li>
 

@@ -332,7 +332,7 @@ const Users = () => {
                       <td>{data.id}</td>
                       <td>{data.username}</td>
                       <td>{data.email}</td>
-                      <td>{new Date(data.joining_date).toISOString().split("T")[0]}</td>
+                      <td>{new Date(data.joining_date).toI("T")[0]}SOString().split</td>
                       <td>{data.password}</td>
                       <td>{data.bank_details}</td>
                       <td>{data.pf_number}</td>

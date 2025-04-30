@@ -18,8 +18,9 @@ import Attendance from './Components/AdminDashboard/Attendance/attendance';
 import UserAttendance from './Components/AdminDashboard/AdminRegistration/Updateform/userattendance';
 import CompanyDetailsForm from './Components/NewSetting';
 import Dashboard from './Components/AdminDashboard/DashboardAdmin/Dashboard';
-import Tasklist from './Components/CRM/Taslist';
-import  Task  from './Components/CRM/Task.jsx';
+import Tasklist from './Components/CRM/Tasklist';
+import  Task  from './Components/CRM/Task';
+import Usercrm from './Components/CRM/Usercrm';
 
 const App = () => {
 return (
@@ -44,6 +45,7 @@ return (
             <Route path="settings" element={<CompanyDetailsForm />} />
             <Route path="tasklist" element={<Tasklist/>} />
             <Route path="task" element={<Task/>}/>
+            <Route path="userCrm" element={<Usercrm/>}/>
 
           </Route>
           <Route path='/getuser/:id' element={<Users />} />

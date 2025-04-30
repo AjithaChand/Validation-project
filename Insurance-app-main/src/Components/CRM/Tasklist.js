@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../CRM/Taklist.css';
+import '../CRM/Tasklist.css';
 import axios from 'axios';
 import { apiurl } from '../../url';
 

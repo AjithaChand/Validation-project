@@ -11,7 +11,7 @@ const db = require("../db");
 
 app.get("/get-single-crm-task",(req,res)=>{
 
-    const { userId } = req.query;
+    const { email } = req.query;
 
    const selectQuery = "SELECT * FROM crm_tasks WHERE emp_id  = ?";
 
