@@ -217,12 +217,7 @@ const Userdata = () => {
                     {dashboardSidebaropen && <span className='dashboard-icon'>Task </span>}
                   </div>
                 </li>
-                <li className={` list-style ${location.pathname === '/dashboard/userCrm' && 'active'}`}>
-                  <div className='userdata-btn' onClick={() => navigate('/dashboard/userCrm')}>
-                    <LuNotebookPen className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
-                    {dashboardSidebaropen && <span className='dashboard-icon'>UserCrm </span>}
-                  </div>
-                </li>
+               
 
                 <li className={` list-style ${location.pathname === '/dashboard/settings' && 'active'}`}>
                   <div className='userdata-btn' onClick={() => {
@@ -298,6 +293,12 @@ const Userdata = () => {
                     </div>
                   </li>
                 )}
+                 <li className={` list-style ${location.pathname === '/dashboard/userCrm' && 'active'}`}>
+                  <div className='userdata-btn' onClick={() => navigate('/dashboard/userCrm')}>
+                    <LuNotebookPen className={`${dashboardSidebaropen ? 'dashboardicons' : 'toggledashboard-icons'}`} />
+                    {dashboardSidebaropen && <span className='dashboard-icon'>UserCrm </span>}
+                  </div>
+                </li>
 
                 {getPermission[6]?.can_read === 1 && (
                   <li className={` list-style ${location.pathname === '/dashboard/settings' && 'active'}`}>
