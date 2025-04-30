@@ -173,7 +173,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { apiurl } from '../../../url';
-import { toast,ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import './Dashboard.css';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
@@ -185,6 +185,9 @@ const Dashboard = () => {
   });
 
   const token = localStorage.getItem("token");
+
+  const role = localStorage.getItem("role");
+
 
   const [hoveredType, setHoveredType] = useState(null);
   const [hoveredUsers, setHoveredUsers] = useState([]);
@@ -206,32 +209,23 @@ const Dashboard = () => {
   };
   const checkPolicyReminder = async () => {
     try {
-      const role = localStorage.getItem("role");
-      console.log("User Role:", role);  
-  
       if (role === "user") {
         const email = localStorage.getItem("email");
-        console.log("User Email:", email);  
-  
         const response = await axios.get(`${apiurl}/expired-notification?email=${email}`);
-        console.log("User Policy Expiry Response:", response.data.expired_msg); 
-        
         if (response.data.expired_msg) {
-          toast.warning(response.data.expired_msg); 
-        }  
-        const notificationDate = new Date(response.data.notification);
-        console.log("Notification Date:", notificationDate.toLocaleString()); 
+          toast.warning(response.data.expired_msg);
+        }
+        console.log("Notification Date:", response.data.notification);
       }
-  
+
       if (role === "admin") {
-        const response = await axios.get(`${apiurl}/expired-notification`, {
+        const response = await axios.get(`${apiurl}/admin/expired_details`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log("Admin Policy Expiry Response:", response.data); // Log the response
-  
+
         if (response.data.result && response.data.result.length > 0) {
           setExpiringUsers(response.data.result);
-          console.log("Found expiring users:", response.data.result);
+          console.log(response.data.result, "From backend")
           toast.success("Found users with expiring policies.");
         } else {
           toast.info("No users with expiring policies.");
@@ -362,6 +356,28 @@ const Dashboard = () => {
             <Legend content={renderCustomLegend} />
           </PieChart>
         </div>
+        <div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Policy End Date</th>
+                <th>Expired</th>
+              </tr>
+            </thead>
+            <tbody>
+              {expiringUsers.map((expire, index) => {
+
+                return <tr>
+                    <td>{expire.email}</td>
+                    <td>{expire.enddate}</td>
+                    <td>{expire.expired_msg}</td>
+                </tr>
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
       <ToastContainer position='top-right' autoClose={3000} />
     </div>
@@ -369,3 +385,6 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+

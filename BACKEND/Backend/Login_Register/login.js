@@ -64,7 +64,7 @@ app.post('/login', (req, res) => {
 
                 if (perErr) return res.status(500).json({ error: "Failed to fetch permission" })
 
-                const token = jwt.sign({ email: user.email, role: user.role }, SECRET_KEY, { expiresIn: "1h" })
+                const token = jwt.sign({ email: user.email, role: user.role }, SECRET_KEY, { expiresIn: "1d" })
 
                 // console.log("All result in backend",perResult);
                 

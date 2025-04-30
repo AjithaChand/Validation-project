@@ -10,15 +10,14 @@ const verifyToken = (req, res, next) => {
 
   if (!token) return res.sendStatus(401);
 
-  jwt.verify(token, secret, (err, user) => {
-
-    console.log("Token verification failed:", err); 
-
-    if (err) return res.sendStatus(403);
-
-    console.log("decoded",user)
-
-    req.user = user;
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      console.log("Token verification failed:", err); 
+      return res.sendStatus(403);
+    }
+  
+    console.log("Decoded JWT:", decoded); 
+    req.user = decoded; 
     next();
   });
 };

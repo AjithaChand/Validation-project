@@ -11,7 +11,7 @@ const dayjs = require('dayjs')
 const crypto = require("crypto")
 
 
-const { verifyToken } = require("../../Login_Register/auth")
+const { verifyToken,verifyAdmin } = require("../../Login_Register/auth")
 
 const app = express();
 app.use(cors());
@@ -260,82 +260,6 @@ app.get("/get-leave-user",(req,res)=>{
 
 
 
-app.get('/expired-notification', verifyToken, (req,res)=>{
-
-    const today = new Date();
-
-    const threeDaysLater = new Date();
-
-    threeDaysLater.setDate(today.getDate() + 3);
-
-    const formattedToday = today.toISOString().split('T')[0]
-
-    const formattedThreeDaysLater = threeDaysLater.toISOString().split('T')[0]
-    
-    const remainder_msg = "Your policy has been expired soon. Please renewal it before its deadline";
-
-    const userEmail = req.user.email;
-
-    const userRole = req.user.role;
-
-    console.log("User role:", userRole); 
-
-    if(userRole === 'admin'){
-
-        const selectSql = "SELECT * FROM customer_details WHERE enddate = ? AND notification IS NULL"
-
-        db.query(selectSql, [formattedThreeDaysLater], (err, results)=>{
-
-            if(err){
-                return res.status(500).json(err);
-            }
-
-            if(results.length === 0){
-                
-                return res.status(200).json({message:"No user found for reminder"})
-            }
-
-            const updateSql = "UPDATE customer_details SET expired_msg = ?, notification = ? WHERE enddate = ? AND notification IS NULL";
-
-            updateValues= [remainder_msg, formattedToday, formattedThreeDaysLater]
-
-            db.query(updateSql, updateValues, (err,data)=>{
-
-                if(err){
-                    return res.status(500).json(err)
-                }
-
-                res.status(200).json({data})
-            })
-        })
-    }
-    else{
-
-        const userSql = " SELECT * FROM customer_details WHERE enddate = ? AND notification IS NULL AND email =? "
-
-
-        db.query(userSql, [formattedThreeDaysLater, userEmail], (err, result)=>{
-
-            if(err){
-                
-                return res.status(500).json(err)
-            }
-            
-            
-        console.log("Results from DB:", result);
-
-            if(result.length === 0){
-
-                return res.status(200).json({message: "no notification available"})
-            }
-
-            res.status(200).json({result})
-        })
-
-
-    }
-
-})
 
 
 const expiredMsg = "Your policy has been expired soon please renew your policy";
@@ -372,7 +296,7 @@ cron.schedule("46 10 * * *", async () => {
     }
 });
 
-app.get('/expired-notification', async (req, res) => {
+app.get('/expired-notification',async (req, res) => {
     const today = new Date().toISOString().split("T")[0];
     const userEmail = req.query.email;
 
@@ -410,23 +334,46 @@ app.get('/expired-notification', async (req, res) => {
 });
 
 
-app.get('/admin/expired_details', (req, res) => {
-    
-    const isAdmin = req.query.admin === 'true';
-
-    if (!isAdmin) {
-        return res.status(403).json({ message: "Access denied" });
+app.get('/admin/expired_details',verifyToken, (req, res) => {
+    console.log("Decoded user:", req.user); 
+  
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: "Access denied" });
     }
-
-    const selectQuery = "SELECT email, expired_msg, enddate FROM customer_details WHERE notification IS NOT NULL";
-
-    db.query(selectQuery, (err, info) => {
-        if (err) {
-            return res.status(500).json({ message: "Database error", error: err });
-        }
-
-        return res.status(200).json({ result: info });
+  
+    const selectQuery = `
+      SELECT  email, expired_msg, enddate
+      FROM customer_details
+      WHERE notification IS NOT NULL
+    `;
+  
+    db.query(selectQuery, (err, result) => {
+      if (err) {
+        console.error("Query error:", err);
+        return res.status(500).json({ message: "Database error", error: err });
+      }
+  
+      res.status(200).json({ result });
     });
-});
+  });
+
+
+
+// app.get('/admin/expired_details', (req, res) => {
+//   if (req.user.role !== "admin") {
+//     return res.status(403).json({ message: "Access denied" });
+//   }
+
+//   const selectQuery = `
+//     SELECT emp_name, email, expired_msg, enddate 
+//     FROM customer_details 
+//     WHERE notification IS NOT NULL
+//   `;
+
+//   db.query(selectQuery, (err, result) => {
+//     if (err) return res.status(500).json({ message: "Database error", error: err });
+//     res.status(200).json({ result });
+//   });
+// });
 
 module.exports = app;
