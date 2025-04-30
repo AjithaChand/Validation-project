@@ -250,7 +250,7 @@ const Dashboard = () => {
     const items = [
       { name: 'Present', key: 'present', color: COLORS[0] },
       { name: 'Absent', key: 'absent', color: COLORS[1] },
-      { name: 'Unknown', key: 'unknown', color: COLORS[2] },
+      { name: 'Pending', key: 'unknown', color: COLORS[2] },
     ];
 
     return (
@@ -292,7 +292,7 @@ const Dashboard = () => {
             <strong>Absent:</strong> {total.absent_count}
           </div>
           <div className="total-info-item">
-            <strong>Leave:</strong> {total.no_record_count}
+            <strong>Pending:</strong> {total.no_record_count}
           </div>
         </div>
 
@@ -303,7 +303,7 @@ const Dashboard = () => {
               data={[
                 { name: 'Present', value: total.present_count },
                 { name: 'Absent', value: total.absent_count },
-                { name: 'Unknown', value: total.no_record_count },
+                { name: 'Pending', value: total.no_record_count },
               ]}
               cx="50%"
               cy="50%"

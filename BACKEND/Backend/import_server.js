@@ -28,6 +28,10 @@ const admin_crm = require("./Admin_apis/Admin_CRM/admin_crm");
 
 
 
+//CRM for user
+const user_crm = require("./User_Pages/user_crm");
+
+
 
 
 
@@ -52,6 +56,7 @@ app.use("/",admin_attendance)
 app.use("/", user_attendance)
 app.use("/", setting)
 app.use("/",admin_crm)
+app.use("/",user_crm)
 
 
 

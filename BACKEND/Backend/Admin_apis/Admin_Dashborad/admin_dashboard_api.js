@@ -266,7 +266,6 @@ app.get("/get-present-user",(req,res)=>{
             console.error("Query Error:", err);
             return res.status(500).send({ message: "Database error" });
         }
-        console.log("Present Lists", result);
         
         return res.status(200).send(result);
     });

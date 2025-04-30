@@ -9,9 +9,9 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = require("../db");
 
-app.get("/get-crm-task",(req,res)=>{
+app.get("/get-single-crm-task",(req,res)=>{
 
-    const { empId } = req.query;
+    const { userId } = req.query;
 
    const selectQuery = "SELECT * FROM crm_tasks WHERE emp_id  = ?";
 
