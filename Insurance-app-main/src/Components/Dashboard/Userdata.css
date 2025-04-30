@@ -9,7 +9,7 @@
   transition: width 0.5s ease, padding 0.5s ease;
 }
 
-.toggle-slidebar{
+.toggle-slidebar {
   padding: 0 0 20px 0;
   height: 100vh;
   width: 5%;
@@ -42,15 +42,7 @@
   border-bottom: 1px solid #aaaaaa;
 }
 
-.user-list-down{
-  list-style: none;
-  padding: 4px 3px 15px 3px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.list-style{
+.list-style {
   list-style: none;
   border-radius: 10px;
   padding: 12px;
@@ -59,16 +51,17 @@
 }
 
 .active .dashboardicons,
-.active .dashboard-icon{
+.active .dashboard-icon,
+.active .toggledashboard-icons {
   color: navy;
 }
 
-.active{
-  background-color: rgba(0,0,128,0.1);
+.active {
+  background-color: rgba(0, 0, 128, 0.1);
   border: 1px solid navy;
 }
 
-.userdata-btn{
+.userdata-btn {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -81,7 +74,7 @@
   color: #605f5f;
 }
 
-.dashboard-icon{
+.dashboard-icon {
   font-family: "Poppins", sans-serif;
   color: #605f5f;
 }
@@ -94,7 +87,7 @@
   left: 25%;
 }
 
-.userdata-head{
+.userdata-head {
   padding: 15px;
   color: #707070;
   font-size: small;
@@ -108,6 +101,7 @@
   width: 83%;
   padding: 10px;
   gap: 10px;
+  /* position: absolute; */
   position: fixed;
   border-bottom: 1px solid #aaaaaa;
   transition: width 0.5s ease;
@@ -137,9 +131,9 @@
 
 .userlogout-btn .logo {
   font-size: 20px;
-  color:#605f5f;
+  color: #605f5f;
   cursor: pointer;
-  
+
 }
 
 .userlogout-btn .logoutbutton {
@@ -148,7 +142,7 @@
   cursor: pointer;
 }
 
-.menu-btn{
+.menu-btn {
   font-size: 30px;
   cursor: pointer;
 }
@@ -165,19 +159,19 @@
   font-size: 20px;
 }
 
-.sidebarmenu-btn{
+.sidebarmenu-btn {
   border: none;
   display: none;
 }
 
-.dashboard-menu{
+.dashboard-menu {
   background: none;
   border: none;
   cursor: pointer;
   transition: transform 0.5s ease-in-out;
 }
 
-.toggledashboard-menu{
+.toggledashboard-menu {
   background: none;
   border: none;
   transition: transform 0.5s ease-in-out;
@@ -185,7 +179,7 @@
   left: 20%;
 }
 
-.company-logo-head{
+.company-logo-head {
   position: absolute;
   left: 10px;
   top: 15px;
@@ -195,7 +189,7 @@
   display: none;
 }
 
-.company-logo-header{
+.company-logo-header {
   position: absolute;
   left: 10px;
   top: 8px;
@@ -215,7 +209,7 @@
   display: none;
 }
 
-.userheader-toggle{
+.userheader-toggle {
   letter-spacing: 1px;
   color: #2c3e50;
   font-weight: bold;
@@ -226,70 +220,71 @@
   top: 15px;
 }
 
-.user-heading{
+.user-heading {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
   padding: 11px;
   border-bottom: 1px solid #aaaaaa;
   position: relative;
 }
 
-.sidebar-companyname{
+.sidebar-companyname {
   position: absolute;
   left: 25%;
-  font-family: "Poppins",sans-serif;
+  top: 30%;
+  font-family: "Poppins", sans-serif;
   font-weight: bold;
 }
 
-.dashboard-menu-btn{
+.dashboard-menu-btn {
   font-size: 20px;
-  color:#908f8f;
+  color: #908f8f;
 }
 
-.company-logo{
+.company-logo {
   height: 40px;
   width: 40px;
   cursor: pointer;
 }
 
-.userheader-res{
+.userheader-res {
   display: none;
 }
 
-.sidebar-companyname-toggle{
+.sidebar-companyname-toggle {
   display: none;
 }
 
-.list-style-users{
+.list-style-users {
   position: relative;
   right: 20px;
   padding: 12px 10px 12px 10px;
 }
 
-.user-list-toggle{
-  padding: 4px 3px 15px 3px;
+.user-list-toggle {
+  padding: 4px 3px 0 3px;
   position: relative;
   left: 18px;
 }
 
 
 @media only screen and (min-width:320px) and (max-width:768px) {
-  .sidebarmenu-btn{
+  .sidebarmenu-btn {
     display: block;
     background: none;
     transition: width 0.5s ease, padding 0.5s ease;
   }
 
-  .menu-btn{
+  .menu-btn {
     color: #707070;
   }
 
-  .user-profile .userlogout-btn{
+  .user-profile .userlogout-btn {
     display: none;
   }
 
-  .company-logo-head{
+  .company-logo-head {
     display: block;
     position: absolute;
     top: 10px;
@@ -297,16 +292,16 @@
     width: 35px;
     height: 35px;
   }
-  
+
   .userheader {
     display: none;
   }
 
-  .userheader-res{
+  .userheader-res {
     position: absolute;
     left: 60px;
     top: 15px;
-    font-family: "Poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
     letter-spacing: 1px;
     color: #000;
     font-size: 1.5rem;
@@ -314,35 +309,39 @@
     display: block;
   }
 
-  .dashboard-menu{
+  .dashboard-menu {
     display: none;
   }
+
   .user-profile {
     width: 100%;
+    position: relative;
   }
+
   .toggle-profile {
     width: 100%;
   }
-  .toggle-profile .userlogout-btn{
+
+  .toggle-profile .userlogout-btn {
     display: none;
   }
 
-  .userheader-toggle{
+  .userheader-toggle {
     display: none;
   }
 
-  .toggle-container{
+  .toggle-container {
     margin-left: 0;
   }
 }
 
-@media only screen and (min-width:501px) and (max-width:768px){
+@media only screen and (min-width:501px) and (max-width:768px) {
 
-  .toggle-profile .userlogout-btn{
+  .toggle-profile .userlogout-btn {
     display: block;
   }
 
-  .user-profile .userlogout-btn{
+  .user-profile .userlogout-btn {
     display: block;
   }
 
@@ -351,7 +350,7 @@
     color: gray;
     cursor: pointer;
   }
-  
+
   .userlogout-btn .logoutbutton {
     font-size: 22px;
     color: darkred;
@@ -361,14 +360,15 @@
   .user-profile .username {
     font-size: 20px;
   }
-  .user-profile .userheader{
+
+  .user-profile .userheader {
     position: absolute;
     left: 1%;
     font-size: 1.5rem;
   }
 }
 
-@media only screen and (min-width:769px) and (max-width:1008px){
+@media only screen and (min-width:769px) and (max-width:1008px) {
 
   .admin-slidebar {
     height: 100vh;
@@ -378,19 +378,19 @@
     top: 0;
   }
 
-  .toggle-slidebar{
+  .toggle-slidebar {
     width: 8%;
   }
 
-  .userdata-head{
+  .userdata-head {
     display: none;
   }
 
-  .dashboard-icon{
+  .dashboard-icon {
     display: none;
   }
 
-  .user-heading{
+  .user-heading {
     display: none;
   }
 
@@ -402,7 +402,7 @@
     width: 92%;
   }
 
-  .user-list{
+  .user-list {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -420,7 +420,7 @@
     height: 100vh;
   }
 
-  .company-logo-head{
+  .company-logo-head {
     display: block;
     position: absolute;
     top: 10px;
@@ -429,11 +429,11 @@
     height: 35px;
   }
 
-  .user-profile .userheader{
-      display: block;
+  .user-profile .userheader {
+    display: block;
   }
 
-  .dashboard-menu{
+  .dashboard-menu {
     display: none;
   }
 
@@ -443,24 +443,24 @@
     left: 10%;
   }
 
-  .list-style-users{
+  .list-style-users {
     position: relative;
     right: 30px;
   }
 
-  .user-list{
+  .user-list {
     border-bottom: none;
   }
 
-  .sidebar-companyname-toggle{
+  .sidebar-companyname-toggle {
     display: none;
   }
 
-  .sidebar-companyname{
+  .sidebar-companyname {
     display: none;
   }
 
-  .user-list-toggle{
+  .user-list-toggle {
     padding: 4px 3px 15px 3px;
     position: relative;
     left: 27px;
@@ -469,11 +469,11 @@
 }
 
 @media only screen and (min-width:1009px) and (max-width:1024px) {
-  .sidebarmenu-btn{
+  .sidebarmenu-btn {
     display: none;
   }
 
-  .toggle-slidebar{
+  .toggle-slidebar {
     width: 7%;
   }
 
@@ -505,18 +505,19 @@
     height: 100vh;
   }
 
-  .sidebar-companyname{
+  .sidebar-companyname {
     font-size: 20px;
+    top: 30%;
   }
 
-  .company-logo{
+  .company-logo {
     width: 30px;
     height: 30px;
     position: relative;
     right: 5px;
   }
 
-  .user-list-toggle{
+  .user-list-toggle {
     padding: 4px 3px 15px 3px;
     position: relative;
     left: 27px;
@@ -524,11 +525,11 @@
 }
 
 @media only screen and (min-width:1024px) and (max-width:1440px) {
-  .userdata-head{
+  .userdata-head {
     padding: 5px;
   }
 
-  .toggle-slidebar{
+  .toggle-slidebar {
     width: 7%;
   }
 
@@ -541,5 +542,16 @@
     height: 100vh;
   }
 
-}
+  .sidebar-companyname {
+    font-size: 20px;
+    top: 30%;
+  }
 
+  .company-logo {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    right: 5px;
+  }
+
+}

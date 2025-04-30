@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from '../../url';
 // import { UserContext } from "./usecontext"; 
 import { UserContext } from "../../usecontext";
+// import { FaCamera } from 'react-icons/fa';
 import "./updatefile.css";
 
 const Updatefile = ({ close, selectid }) => {
@@ -21,13 +22,14 @@ const Updatefile = ({ close, selectid }) => {
         enddate: "",
         policy: "",
         file: null,
-        filePath: ""
+        filePath: "",
     });
     console.log(selectid, "fghjkl")
 
     const handleFileChange = (e) => {
         setValues({ ...values, file: e.target.files[0] });
     };
+
 
     useEffect(() => {
         if (!selectid) return;
@@ -43,6 +45,7 @@ const Updatefile = ({ close, selectid }) => {
                 if (res.data && res.data.result) {
                     const userData = res.data.result[0];
                     console.log(res.data.result[0]?.file_path, "File")
+                    console.log(res.data.result[0]?.profile_path, "profle")
 
                     const formatDate = (dateString) => {
                         if (!dateString) return "";
@@ -57,6 +60,7 @@ const Updatefile = ({ close, selectid }) => {
                         startdate: formatDate(userData.startdate),
                         enddate: formatDate(userData.enddate),
                         filePath: userData.file_path || "",
+                        profilePath: userData.profile_path || ""
                     });
                     console.log("Set values:", userData);
                     // reFresh()
@@ -86,6 +90,7 @@ const Updatefile = ({ close, selectid }) => {
         formData.append('enddate', values.enddate);
         formData.append('policy', values.policy);
         formData.append('file', values.file);
+       
 
 
         axios.put(`${apiurl}/update-data-in-admin/${selectid}`, formData, {
@@ -116,6 +121,7 @@ const Updatefile = ({ close, selectid }) => {
         return imageExtensions.some(ext => filePath.toLowerCase().endsWith(ext));
     };
 
+   
 
     return (
         <div>
@@ -158,32 +164,34 @@ const Updatefile = ({ close, selectid }) => {
                             onChange={e => setValues({ ...values, policy: e.target.value })}
                         />
                     </div>
+                   
                     {values.filePath && (
                         <div className="mt-3">
-                            <label>Existing File:</label>
+                            <label>Existing File : </label>
                             {isImage(values.filePath) ? (
                                 <img
                                     src={`${apiurl}${values.filePath.startsWith('/uploads/') ? values.filePath : '/uploads/' + values.filePath}`}
                                     alt="Uploaded File"
-                                    style={{ maxWidth: '100%', maxHeight: '300px' }}
+                                    style={{ maxWidth: '50%', maxHeight: '100px' }}
                                 />
                             ) : (
-                                <a href={`${apiurl}${values.filePath.startsWith('/uploads/') ? values.filePath : '/uploads/' + values.filePath}`} target="_blank" rel="noopener noreferrer">
+                                <a href={`${apiurl}${values.filePath.startsWith('/uploads/') ? values.filePath : '/uploads/' + values.filePath}`} target="_blank" rel="noopener noreferrer"
+                                    className='file-view'>
                                     View File
                                 </a>
                             )}
                         </div>
                     )}
-
-                    <div className="mt-3">
+                    <div className="mt-3 form-group">
                         <input
+                            className='form-control'
                             type="file"
-                            accept="/"
+                            id="file-upload"
+                            accept="*/*"
                             onChange={handleFileChange}
-                            className="mt-3"
                         />
                     </div>
-
+                   
                     <button className='btn update-admin-btn mt-3' style={{ backgroundColor: "#333" }} >Submit</button>
                 </form>
                 <ToastContainer position='top-right' autoClose={3000} />

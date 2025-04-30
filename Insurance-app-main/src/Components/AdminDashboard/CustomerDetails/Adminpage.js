@@ -18,6 +18,11 @@ import '../../UserDashboard/User.css';
 import Formpopup from '../../UserDashboard/Dialogbox/Formpopup';
 import Editdialog from '../../UserDashboard/Dialogbox/Editdialog';
 import { RiFileExcel2Line } from "react-icons/ri";
+import { FaHandsHoldingCircle } from "react-icons/fa6";
+import { BiSolidNotepad } from "react-icons/bi";
+import { PiNotePencilFill } from "react-icons/pi";
+import { CiEdit } from "react-icons/ci";
+import { FaUserEdit } from "react-icons/fa";
 
 const Adminpage = () => {
 
@@ -132,6 +137,7 @@ const Adminpage = () => {
   const handleDownload = () => {
     window.location.href = `${apiurl}/download-excel`;
   }
+
   const handleUpload = async () => {
 
     if (!file) return toast.error("Select a file first!");
@@ -158,22 +164,18 @@ const Adminpage = () => {
     setShowpopup(!showpopup)
   }
 
-  // Fetch files from backend
   useEffect(() => {
+    setAdminloading(true);
 
-    setAdminloading(true)
-
-    axios.get(`${apiurl}/read`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    })
-      .then(res => setDeletevalue(res.data))
-      .catch(err => console.log(err))
-      .finally(() => {
-        setAdminloading(false)
+    axios.get(`${apiurl}/read`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })
+      .then(res => {
+       setDeletevalue(res.data)
       })
-  }, [refersh, refreshFromUpdate, refreshCreateFromAdmin])
+      .catch(console.log)
+      .finally(() => setAdminloading(false));
+  }, [refersh, refreshFromUpdate, refreshCreateFromAdmin]);
+  
+  
 
 
   const handleLogout = () => {
@@ -320,15 +322,11 @@ const Adminpage = () => {
                       <div className='card  users-details-container'>
                         <div className='card-body'>
                           <div className='profile-admin'>
-                            <img
-                              src={values?.profileImage || "/insurance2.jpg"}
-                              alt="Profile"
-                              className="profile-img"
-                            />
+                            <div><FaUserEdit  /></div>
                             <div className='profile-data'>
                               <div className='profile-email'>{values.email}</div>
                               <div className='profile-date'>{new Date(values.startdate).toLocaleDateString('en-GB')}-{new Date(values.enddate).toLocaleDateString('en-GB')}</div>
-                              <div className='profile-policy'>{values.policy}</div>
+                              <div className='profile-policy'>Policy : {values.policy}</div>
                             </div>
                           </div>
                           <hr />
@@ -339,7 +337,8 @@ const Adminpage = () => {
                                   className=' adminbutton'
                                   onClick={() => handleViewFile(values.file_path)}
                                 >
-                                  <DescriptionIcon className="editicon" />
+                                  {/* <DescriptionIcon className="editicon" /> */}
+                                  View File
                                 </button>
                               ) : ("No File")}
                             </div>
@@ -408,7 +407,7 @@ const Adminpage = () => {
       <Formpopup isVisible={showform} onClose={toggleForm} />
       <Editdialog isVisible={showedit} onClose={toggleEdit} userid={shareId} />
 
-      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg"  className="custom-modal">
+      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" className="custom-modal">
         <Modal.Header closeButton>
           <Modal.Title>File Preview</Modal.Title>
         </Modal.Header>
@@ -428,13 +427,13 @@ const Adminpage = () => {
               {filterData.map((datas, index) => {
 
                 const filepath = `${apiurl}${datas.file_path}`
-                  console.log("File Path in Data:",`${apiurl}${datas.file_path}`);
-                if(filepath === selectedFile){
+                console.log("File Path in Data:", `${apiurl}${datas.file_path}`);
+                if (filepath === selectedFile) {
                   return <div key={index} className='model-details'>
-                  <h6>Email : {datas.email}</h6>
-                  <h6>Date : {new Date(datas.startdate).toLocaleDateString('en-GB')}-{new Date(datas.enddate).toLocaleDateString('en-GB')}</h6>
-                  <h6>Policy : {datas.policy}</h6>
-                </div>
+                    <h6>Email : {datas.email}</h6>
+                    <h6>Date : {new Date(datas.startdate).toLocaleDateString('en-GB')}-{new Date(datas.enddate).toLocaleDateString('en-GB')}</h6>
+                    <h6>Policy : {datas.policy}</h6>
+                  </div>
                 }
                 return null;
               })}

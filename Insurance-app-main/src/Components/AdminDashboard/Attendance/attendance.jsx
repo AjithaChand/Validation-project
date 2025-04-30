@@ -25,6 +25,9 @@ const Attendance = () => {
 
   const [attendanceloading, setAttendanceloading] = useState(true)
 
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage] = useState(10)
+
   const [calendar, setCalender] = useState(false)
 
   const handleClick = () => {
@@ -44,25 +47,13 @@ const Attendance = () => {
   }, [person_code])
 
 
-  const getCurrentAbsentColumn = () => {
-    const now = new Date();
-    const month = now.toLocaleString("default", { month: "long" }).toLowerCase();
-    const year = now.getFullYear();
-    return `absent_days_${month}_${year}`;
-  };
-
-  const getCurrentPresentColumn = () => {
-    const now = new Date();
-    const month = now.toLocaleString("default", { month: "long" }).toLowerCase();
-    const year = now.getFullYear();
-    return `present_days_${month}_${year}`;
-  };
-
   const fetchAttendanceData = (selectedDate) => {
     const year = selectedDate.year();
     const month = String(selectedDate.month() + 1).padStart(2, '0');
     const day = String(selectedDate.date()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
+
+    console.log("Format Date", formattedDate);
 
     setAttendanceloading(true)
 
@@ -77,6 +68,8 @@ const Attendance = () => {
           setAttendanceData([]);
         } else {
           setAttendanceData(res.data);
+          console.log("Attendance dataaa", res.data);
+
         }
       })
       .catch(err => {
@@ -122,6 +115,23 @@ const Attendance = () => {
     return values.emp_name?.toLowerCase().includes(searchbar.toLowerCase()) ||
       values.emp_email?.toLowerCase().includes(searchbar.toLowerCase())
   });
+
+  // pagination code
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filterdata.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (pagenumber) => setCurrentPage(pagenumber);
+
+  const totalPages = Math.ceil(filterdata.length / itemsPerPage);
+
+  const [selectedDate, setSelectedDate] = useState(dayjs());
+
+  const getLocalDate = (datetime) => {
+    return new Date(datetime).toLocaleDateString("en-CA");
+  };
+
+  const selectedDateStr = selectedDate.format("YYYY-MM-DD");
 
   return (
     <div className='attendance-container'>
@@ -203,16 +213,16 @@ const Attendance = () => {
                 </tr>
               </thead>
               <tbody>
-                {filterdata.map((data, index) => {
-                  const absentColumn = getCurrentAbsentColumn();
-                  const presentColumn = getCurrentPresentColumn();
 
-                  const absentDays = data[absentColumn];
-                  const presentDays = data[presentColumn];
+                {currentItems.map((data, index) => {
+                  const today = new Date().toLocaleDateString("en-CA");
+                  const presentDate = data.present_time ? getLocalDate(data.present_time) : null;
+                  const absentDate = data.absent_time ? getLocalDate(data.absent_time) : null;
 
-                  const isPresent = presentDays === 1;
-                  const isAbsent = absentDays === 0;
-                  const noRecord = presentDays === null && absentDays === null;
+                  const isToday = selectedDateStr === today;
+
+                  const isPresent = isToday ? presentDate === today : data.present === 1;
+                  const isAbsent = isToday ? absentDate === today : data.absent === 1;
 
                   return (
                     <tr key={index}>
@@ -221,47 +231,36 @@ const Attendance = () => {
                       <td>{data.emp_email}</td>
                       <td>30</td>
                       <td>4</td>
+
                       <td>
-
-                        {isPresent ? (
-
+                        {(isToday && presentDate === today) || (isToday && data.present === 1) ? (
                           <FaCheck className="present-icon" />
-
-                        ) : noRecord ? (
-
-                          <span className="no-record">_</span>
-
                         ) : (
-
-                          "N/A"
-
+                          <span className="no-record">_</span>
                         )}
-
                       </td>
 
                       <td>
-
-                        {isAbsent ? (
-
+                        {(isToday && absentDate === today) || (isToday && data.absent === 1) ? (
                           <FaTimes className="absent-icon" />
-
-                        ) : noRecord ? (
-
-                          <span className="no-record">_</span>
-
                         ) : (
-
-                          "N/A"
-
+                          <span className="no-record">_</span>
                         )}
+                      </td>
 
-                      </td>
                       <td>
-                        {isPresent ? "Present" : isAbsent ? "Absent" : "No Record"}
+                        {(isToday && presentDate === today) || (!isToday && data.present === 1)
+                          ? "Present"
+                          : (isToday && absentDate === today) || (!isToday && data.absent === 1)
+                            ? "Absent"
+                            : "No Record"}
                       </td>
+
                     </tr>
                   );
                 })}
+
+
 
               </tbody>
             </table>
@@ -271,6 +270,35 @@ const Attendance = () => {
           </div>
         )}
       </div>
+
+      <div className='pagination-attendance'>
+        <button
+          onClick={() => { handlePageChange(currentPage - 1) }}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+
+        <button className="active" >
+          {currentPage}
+        </button>
+
+        {currentPage < totalPages - 2 && <span>...</span>}
+
+        {currentPage < totalPages - 2 && (
+          <button onClick={() => handlePageChange(totalPages)}>
+            {totalPages}
+          </button>
+        )}
+
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
+
       <ToastContainer />
     </div>
   );

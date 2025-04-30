@@ -4,7 +4,6 @@ import axios from 'axios';
 import '../Register/Register.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { apiurl } from '../../url';
 import { TextField } from '@mui/material';
 import PasswordInput from '../Login/PasswordInput';

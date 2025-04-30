@@ -6,9 +6,9 @@ import '../Admincreateform/Create.css'
 // import User from './User';
 import { apiurl } from '../../url';
 import { UserContext } from '../../usecontext';
+
+
 const Create = ({ close }) => {
-
-
 
   const today = new Date();
   const formattedToday = today.toISOString().split('T')[0]; // Format: yyyy-mm-dd
@@ -18,7 +18,8 @@ const Create = ({ close }) => {
     startdate: formattedToday,
     enddate: "",
     policy: "",
-    file: null
+    file: null,
+    // profile: null
   })
 
 
@@ -29,6 +30,10 @@ const Create = ({ close }) => {
     setValues({ ...values, file: e.target.files[0] })
   }
 
+  // const handleProfileChange = (e) =>{
+  //   setValues ({...values, profile: e.target.files[0]})
+  // }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -38,6 +43,7 @@ const Create = ({ close }) => {
     formData.append('enddate', values.enddate);
     formData.append('policy', values.policy);
     formData.append('file', values.file);
+    // formData.append('profile', values.profile)
 
     axios.post(`${apiurl}/create`, formData, {
       headers: {
@@ -95,17 +101,22 @@ const Create = ({ close }) => {
           <label className='create-label'>Policy</label>
           <input type='text' className='form-control' style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} onChange={e => setValues({ ...values, policy: e.target.value })} />
         </div>
-        <div className="mt-3 form-gruop">
+        {/* <div className="mt-3 form-gruop">
           <label className="update-label">Profile Photo</label>
           <input
             type="file"
-            accept="image/*"
-            // onChange={handleImageChange}
+            name="profile" 
+            accept=".jpg,.png,.jpeg*"
+            onChange={handleProfileChange}
             className="mt-3 form-control"
           />
-        </div>
+        </div> */}
         <div className='mt-3'>
-          <input type='file' accept='*/*' onChange={handleFileChange} className='mt-3' />
+          <input type='file'
+          name='file'
+           accept='*/*' 
+           onChange={handleFileChange}
+            className='mt-3' />
         </div>
         <button className='btn create-button mt-3' style={{ backgroundColor: "#333" }}>Submit</button>
       </form>

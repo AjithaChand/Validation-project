@@ -13,6 +13,37 @@ app.get('/get_attendance_datas', (req, res) => {
 
     console.log("Received Date", date);
 
+    const now = new Date();
+    const today = new Date(now).toISOString("").split("T")[0];
+
+    if(date !== today){
+
+        const selectQuery = `
+        SELECT p.emp_id, p.emp_name, p.emp_email, a.present, a.absent, a.date 
+        FROM payslip p 
+        LEFT JOIN attendance a ON p.emp_id = a.emp_id AND a.date = ?
+        ORDER BY 
+            CASE 
+                WHEN a.present = 1 THEN 1
+                WHEN a.absent = 1 THEN 2
+                ELSE 3
+            END,
+            p.emp_name ASC
+    `;
+
+        db.query(selectQuery,[date],(err,info)=>{
+
+            if(err){
+                console.log("Select Query Error is");
+                return res.status(400).send({ message : "Select Query Error"})
+            }
+
+            return res.status(200).send(info);
+
+        })
+
+        return;
+    }
     const selectQuery = `
     SELECT * FROM payslip 
     WHERE 
@@ -41,6 +72,7 @@ app.get('/get_attendance_datas', (req, res) => {
         }
 
         return res.status(200).send(info);
+
     });
 });
 

@@ -4,6 +4,11 @@
   margin: auto;
 }
 
+.file-view{
+  text-decoration: none;
+  color: #000;
+}
+
 @media only screen and (min-width:319px) and (max-width:400px){
   .heading{
       font-size: 18px;
