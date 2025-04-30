@@ -8,9 +8,9 @@ const Task = () => {
 
   const getCrmdata = async () => {
     try {
-      const response = await axios.get(`${apiurl}get-all-tasks`);
+      const response = await axios.get(`${apiurl}/get-all-tasks`);
       setCrmdata(response.data);
-      console.log(response.data);
+      console.log("ressssssssssss",response.data);
     } catch (error) {
       console.error("error getting data", error);
     }
@@ -39,11 +39,11 @@ const Task = () => {
         <tbody>
           {crmdata.map((task, index) => (
             <tr key={index}>
-              <td>{task.empId}</td>
-              <td>{task.empName}</td>
+              <td>{task.emp_id}</td>
+              <td>{task.emp_name}</td>
               <td>{task.task}</td>
-              <td>{task.startDate}</td>
-              <td>{task.endDate}</td>
+              <td>{task.start_date}</td>
+              <td>{task.end_date}</td>
               <td>{task.status}</td>
             </tr>
           ))}

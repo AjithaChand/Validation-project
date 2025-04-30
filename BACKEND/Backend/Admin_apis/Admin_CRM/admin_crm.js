@@ -43,7 +43,7 @@ app.post("/add-crm",(req,res)=>{
     })
 })
 
-app.get("get-all-tasks",(req,res)=>{
+app.get("/get-all-tasks",(req,res)=>{
 
     const selectQuery = "SELECT * FROM crm_tasks";
 
@@ -54,6 +54,8 @@ app.get("get-all-tasks",(req,res)=>{
             return res.status(400).send({ message : "Database Error"})
         }
 
+        console.log("Get task for all", result);
+        
         return res.status(200).send(result)
     })
 })
