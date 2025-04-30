@@ -281,43 +281,6 @@ const Users = () => {
                   </tr>
                 </thead>
                 <tbody className='tbody-users'>
-                  {/* {filterValue.map((data, index) => (
-                    <tr key={index}>
-                      <td>
-                        <input
-                          type="checkbox"
-                          className='checkbox'
-                          checked={selectedids.includes(data.id)}
-                          onChange={() => handleCheckboxchange(data.id)}
-                        />
-                      </td>
-                      <td>{data.id}</td>
-                      <td>{data.username}</td>
-                      <td>{data.email}</td>
-                      <td>{new Date(data.joining_date).toISOString().split("T")[0]}</td>
-                      <td>{data.password}</td>
-                      <td>{data.bank_details}</td>
-                      <td>{data.pf_number}</td>
-                      <td>{data.esi_number}</td>
-                      <td>{data.total_salary}</td>
-                      <td>{data.branch_name}</td>
-                      <td>{data.station_name}</td>
-                      <td>{data.latitude}</td>
-                      <td>{data.longitude}</td>
-                      <td>
-                        {(user === 'admin' || getPermission[4]?.can_update === 1) && (
-                          <button className='edit-btn' onClick={() => handleupdate(data.id, data.email)}>
-                            <FaEdit className='useredit-icon' />
-                          </button>
-                        )}
-                        {(user === 'admin' || getPermission[4]?.can_delete === 1) && (
-                          <button className='delete-btn' onClick={() => handleDelete(data.id)}>
-                            <RiDeleteBinFill className='userdelete-icon' />
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))} */}
 
                   {currentItems.map((data, index) => {
                     return <tr key={index}>
@@ -332,7 +295,7 @@ const Users = () => {
                       <td>{data.id}</td>
                       <td>{data.username}</td>
                       <td>{data.email}</td>
-                      <td>{new Date(data.joining_date).toI("T")[0]}SOString().split</td>
+                      <td>{new Date(data.joining_date).toISOString().split("T")[0]}</td>
                       <td>{data.password}</td>
                       <td>{data.bank_details}</td>
                       <td>{data.pf_number}</td>
