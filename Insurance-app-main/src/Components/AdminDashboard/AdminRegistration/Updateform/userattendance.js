@@ -38,10 +38,6 @@ const UserAttendance = () => {
     getUserLocation();
   }, [email]);
 
-  const getFormattedDateTime = () => {
-    const now = new Date();
-    return now.toISOString().slice(0, 19).replace('T', ' ');
-  };
 
   const reverseGeocode = async (lat, lon) => {
     try {
@@ -166,6 +162,11 @@ const UserAttendance = () => {
   useEffect(() => {
     fetchUserAttendanceStatus();
   }, [email]);
+
+  const getFormattedDateTime = () => {
+    const now = new Date();
+    return now.toISOString("").split("T")[0]
+  };
 
   const markAttendance = async (status) => {
     if (!checkLocation()) return;

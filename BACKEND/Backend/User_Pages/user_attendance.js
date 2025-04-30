@@ -87,6 +87,8 @@ cron.schedule("0 0 1 * *", () => {
 
         const getPresentTime = response[0]?.present_time;
 
+        console.log("Get present time", getPresentTime);
+        
         const storedDateOnly = new Date(getPresentTime).toISOString().split('T')[0];
         const currentDateOnly = new Date(date).toISOString().split('T')[0];
 
@@ -114,7 +116,7 @@ cron.schedule("0 0 1 * *", () => {
                     return res.status(400).send({message :"Select Query Error"})
                 }
                 
-                const empId = rows[0].emp_id;
+                const empId = id[0].emp_id;
 
                 const attendanceQuery = `
                   INSERT INTO attendance (emp_id, date, present, absent)
