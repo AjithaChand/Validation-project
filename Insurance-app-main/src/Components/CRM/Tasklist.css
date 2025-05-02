@@ -128,7 +128,6 @@
   box-shadow: 0 0 10px rgba(142, 68, 173, 0.2);
 }
 
-/* Focus effect on the calendar input */
 .task-list input[type="date"]:focus {
   border-color: #8e44ad;
   box-shadow: 0 0 10px rgba(142, 68, 173, 0.2);

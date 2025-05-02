@@ -3,7 +3,8 @@ import axios from 'axios';
 import { apiurl } from '../../../url';
 import { toast, ToastContainer } from 'react-toastify';
 import './Dashboard.css';
-import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
+import Box from '@mui/material/Box';
+import { PieChart } from '@mui/x-charts/PieChart';
 
 const Dashboard = () => {
   const [total, setTotal] = useState({
@@ -13,9 +14,7 @@ const Dashboard = () => {
   });
 
   const token = localStorage.getItem("token");
-
   const role = localStorage.getItem("role");
-
 
   const [hoveredType, setHoveredType] = useState(null);
   const [hoveredUsers, setHoveredUsers] = useState([]);
@@ -35,6 +34,7 @@ const Dashboard = () => {
       toast.error(err.response?.data?.message || err.message);
     }
   };
+
   const checkPolicyReminder = async () => {
     try {
       if (role === "user") {
@@ -64,7 +64,6 @@ const Dashboard = () => {
       toast.error("Failed to fetch policy reminder.");
     }
   };
-
 
   useEffect(() => {
     fetchData();
@@ -113,9 +112,9 @@ const Dashboard = () => {
 
   const renderCustomLegend = () => {
     const items = [
-      { name: 'Present', key: 'present', color: COLORS[0] },
-      { name: 'Absent', key: 'absent', color: COLORS[1] },
-      { name: 'Pending', key: 'unknown', color: COLORS[2] },
+      { name: 'Present', key: 'present', color: COLORS[0], value: total.present_count },
+      { name: 'Absent', key: 'absent', color: COLORS[1], value: total.absent_count },
+      { name: 'Pending', key: 'unknown', color: COLORS[2], value: total.no_record_count },
     ];
 
     return (
@@ -125,9 +124,9 @@ const Dashboard = () => {
             key={item.key}
             onClick={() => handleLegendClick(item.key)}
             className="legend-item"
+            style={{ color: item.color }}
           >
-            {item.name}
-
+            {item.name}: {item.value}
             {hoveredType === item.key && hoveredUsers.length > 0 && (
               <div ref={hoverBoxRef} className="hovered-user-box">
                 {hoveredUsers.map((user, idx) => (
@@ -143,39 +142,39 @@ const Dashboard = () => {
     );
   };
 
+  const pieData = [
+    { id: 0, value: total.present_count, label: 'Present', color: COLORS[0] },
+    { id: 1, value: total.absent_count, label: 'Absent', color: COLORS[1] },
+    { id: 2, value: total.no_record_count, label: 'Pending', color: COLORS[2] },
+  ];
+
   return (
     <div className="dashboard-container">
-      {/* <h3 className='text-center'>Attendance Entries</h3> */}
       <div className='row p-3'>
         <div className='col-6 attendance-summary'>
-
           <div className="dashboard-chart">
             <h5>Attendance Summary</h5>
-            <PieChart width={300} height={250}>
-              <Pie
-                data={[
-                  { name: 'Present', value: total.present_count },
-                  { name: 'Absent', value: total.absent_count },
-                  { name: 'Pending', value: total.no_record_count },
+            <Box sx={{ width: '100%' }}>
+              <PieChart
+                height={300}
+                width={400}
+                series={[
+                  {
+                    data: pieData,
+                    innerRadius: 70, 
+                    outerRadius: 100,  
+                    paddingAngle: 3,   
+                    cornerRadius: 3, 
+                    highlightScope: { faded: 'global', highlighted: 'item' },
+                    faded: { innerRadius: 25, additionalRadius: -20, color: 'gray' },
+                  },
                 ]}
-                cx="50%"
-                cy="50%"
-                label
-                outerRadius={80}
-                dataKey="value"
-              >
-                {['present', 'absent', 'unknown'].map((type, index) => (
-                  <Cell key={index} fill={COLORS[index]} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend content={renderCustomLegend} />
-            </PieChart>
+              />
+              {renderCustomLegend()}
+            </Box>
           </div>
-
         </div>
         <div className='col-6 expiremsg-table'>
-          
           <div className='expiretable-container'>
             <table className='expire-table'>
               <thead>
@@ -186,7 +185,7 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {expiringUsers.map((expire, index) => {
-                  return <tr>
+                  return <tr key={index}>
                     <td>{expire.email}</td>
                     <td>{new Date(expire.enddate).toLocaleDateString("en-GB")}</td>
                   </tr>
@@ -197,21 +196,8 @@ const Dashboard = () => {
         </div>
       </div>
       <ToastContainer position='top-right' autoClose={3000} />
-      {/* <div className="total-info-box">
-                <div className="total-info-item">
-                  <strong>Present:</strong> {total.present_count}
-                </div>
-                <div className="total-info-item">
-                  <strong>Absent:</strong> {total.absent_count}
-                </div>
-                <div className="total-info-item">
-                  <strong>Pending:</strong> {total.no_record_count}
-                </div>
-              </div> */}
     </div>
   );
 };
 
 export default Dashboard;
-
-
