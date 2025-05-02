@@ -1,197 +1,121 @@
 .company-form-wrapper {
-  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 100px;
- 
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2rem;
+  background-color: #f9fafb;
+  min-height: 100vh;
 }
 
 .company-details-form-container {
-  width: 550px;
-  padding: 40px 35px;
-   background-color: rgba(223, 221, 221, 0.1); 
-  border-radius: 24px;
-  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(69, 62, 62, 0.1);
-  animation: fadeIn 0.8s ease-in-out;
-  margin-top: 20px;
-  backdrop-filter: blur(8px);
-  transition: all 0.3s ease-in-out;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 800px;
+  width: 100%;
 }
 
 .company-details-form-container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
   text-align: center;
-  font-size: 32px;
-  margin-bottom: 35px;
-  color:navy;
-  font-weight: 700;
-  letter-spacing: 1.2px;
+  color: #333;
+}
+
+.first-row,
+.second-row {
+  display: flex;
+ justify-content: space-around;
+  gap: 15px;
+  margin-bottom: 1.5rem;
 }
 
 .input-text-box {
-  margin-bottom: 24px;
-  width: 100%;
-  padding: 12px 5px;
-  border: none;
-  border-bottom: 2px solid gray;
-  background-color: transparent;
-  color: navy;
-  font-size: 16px;
- 
-  outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  flex: 1 1 48%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
 }
 
 .input-text-box:focus {
-  border-bottom: 2px solid navy;
-  background-color: transparent;
-  box-shadow: 0 2px 8px rgba(0, 128, 128, 0.15);
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
-.company-details-form-container textarea {
+textarea.input-text-box {
+  flex: 1 1 100%;
+  min-height: 80px;
   resize: vertical;
-  min-height: 70px;
 }
 
-.save {
-  background: linear-gradient(135deg, navy,rgb(110, 110, 206));
-  color: white;
-  padding: 16px;
-  border: none;
-  border-radius: 14px;
-  font-size: 17px;
-  font-weight: 600;
+.upload-button,
+.upload-signature {
+  flex: 1 1 48%;
+  padding: 0.75rem;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #f5f5f5;
   cursor: pointer;
-  width: 200px;
-  margin: 20px auto 0 auto; 
-  display: block;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s;
 }
-.save:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 10px rgb(111, 111, 203);
+
+.upload-button:hover,
+.upload-signature:hover {
+  background-color: #e9ecef;
 }
+
 .type-file {
   display: none;
 }
 
-.upload-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: navy;
-  color: white;
+.calendar-leave-section {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calendar-leave-section p {
+  margin: 0.5rem 0;
+  font-weight: bold;
+}
+
+.calendar-leave-section input {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 80%;
+}
+
+.calendar-leave-section button {
+  margin-top: 0.75rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 5px;
-  text-align: center;
-  width: 150px;
-}
-
-.upload-button:hover {
-  background-color: navy;
+  transition: background-color 0.3s;
 }
 
 
-@keyframes fadeIn {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 
+.save {
+  margin-top: 2rem;
+  width: 30%;
+  padding: 0.75rem;
+  background-color: #28a745;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 250px;
 }
 
-
-@media only screen and (min-width: 320px) and (max-width: 424px) {
-  .company-form-wrapper {
-    padding-top: 60px;
-  }
-
-  .company-details-form-container {
-    padding: 15px 13px;
-    width: 93%;
-  }
-
-  .company-details-form-container h1 {
-    font-size: 22px;
-  }
-
-  .company-details-form-container input,
-  .company-details-form-container textarea {
-    font-size: 14px;
-    padding: 10px 12px;
-  }
-
-  .save {
-    font-size: 14px;
-    padding: 10px;
-    width: 180px;
-    margin: 15px auto 0 auto; 
-    display: block;
-  }
+.save:hover {
+  background-color: #218838;
 }
-
-/* Tablets: 501px to 768px */
-@media only screen and (min-width: 425px) and (max-width: 768px) {
-  .company-form-wrapper {
-    padding-top: 70px;
-  }
-
-  .company-details-form-container {
-    padding: 25px 25px;
-    max-width: 90%;
-  }
-
-  .company-details-form-container h1 {
-    font-size: 24px;
-  }
-
-  .company-details-form-container input,
-  .company-details-form-container textarea {
-    font-size: 15px;
-    padding: 13px 16px;
-  }
-
-  .company-details-form-container button[type="submit"] {
-    font-size: 15px;
-    padding: 13px;
-  }
-}
-
-
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-  .company-details-form-container {
-    max-width: 80%;
-    padding: 30px;
-  }
-
-  .company-details-form-container h1 {
-    font-size: 26px;
-  }
-}
-
-
-@media only screen and (min-width: 769px) and (max-width: 1009px) {
-  .company-details-form-container {
-    max-width: 80%;
-    padding: 28px;
-  }
-}
-
-
-@media only screen and (min-width: 1025px) and (max-width: 1113px) {
-  .company-details-form-container {
-    max-width: 75%;
-    padding: 32px;
-  }
-
-  .company-details-form-container h1 {
-    font-size: 27px;
-  }
-}
-
-  
