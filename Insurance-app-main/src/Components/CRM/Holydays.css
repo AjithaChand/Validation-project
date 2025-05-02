@@ -1,8 +1,4 @@
-/* Highlight holidays */
-.holiday {
-    background-color: #ffdddd !important;
-    color: red !important;
-    border-radius: 50%;
-    font-weight: bold;
-  }
-  
+.holiday
+{
+    margin-top: -50px;
+}

@@ -43,7 +43,7 @@ const Usercrm = () => {
     updatedData[index].status = newStatus;
     setSingleCrmdata(updatedData);
   
-    const taskid = updatedData[index].id;
+    const taskid = updatedData[index].task_id;
   
     try {
       const res = await axios.post(`${apiurl}/update-in-process`, {
@@ -51,7 +51,7 @@ const Usercrm = () => {
         status: newStatus,
       });
       console.log("Status updated successfully:", res.data.message);
-      
+    
     } catch (error) {
       console.error("Error updating status on backend:", error);
     }
@@ -91,14 +91,19 @@ const Usercrm = () => {
                 <td>{new Date(task.start_date).toISOString().split('T')[0]}</td>
                 <td>{new Date(task.end_date).toISOString().split('T')[0]}</td>
                 <td>
-                <select value={task.status} onChange={(e) => handleStatusChange(index, e.target.value)} 
-                 disabled={getStatusOptions(task.status).length === 0}
->                {getStatusOptions(task.status).map((statusOption) => (
-                 <option key={statusOption} value={statusOption}>
-                 {statusOption}
-                 </option>
-                 ))}
-                 </select>
+                <select
+  value={task.status}
+  onChange={(e) => handleStatusChange(index, e.target.value)}
+  className={`status-select ${task.status.replace(/\s+/g, '-').toLowerCase()}`}
+  disabled={getStatusOptions(task.status).length === 0}
+>
+  {getStatusOptions(task.status).map((statusOption) => (
+    <option key={statusOption} value={statusOption}>
+      {statusOption}
+    </option>
+  ))}
+</select>
+
 
                 </td>
               </tr>
