@@ -87,27 +87,26 @@ app.get("/api/company-details", (req, res) => {
   });
 });
 
+app.post("/post-leave", (req, res) => {
+  const { date, type } = req.body;
 
-app.post("/post-leave",(req,res)=>{
+  console.log("Received Date and Type", date, type);
 
-  const {date, leave_type}=req.body;
+  const insertQuery = "INSERT INTO `leave` (date, leave_type) VALUES (?, ?)";
 
-  const setDate = new Date(date).toISOString("").split("T")[0];
-  
-  const insertQuery = "INSERT INTO leave (date, leave_type) VALUES (?, ?)";
-  
-  db.query(insertQuery,[setDate,leave_type],(err)=>{
-    
-    if(err){
-      return res.send({ message : "Database Error"})
+  db.query(insertQuery, [date, type], (err) => {
+    if (err) {
+      console.error("DB Insert Error:", err);
+      return res.status(500).send({ message: "Database Error" });
     }
-    return res.status({ message : "Leave Updated"})
-  })
-})
+    return res.status(200).send({ message: "Leave Updated" }); // ✅ Fixed this line
+  });
+});
 
-app.get("get-leave",(req,res)=>{
 
-  const selectQuery = "SELECT * FROM leave";
+app.get("/get-leave",(req,res)=>{
+
+  const selectQuery = "SELECT * FROM `leave`";
 
   db.query(selectQuery,(err, info)=>{
 

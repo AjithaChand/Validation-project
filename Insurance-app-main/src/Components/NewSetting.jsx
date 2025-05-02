@@ -4,8 +4,12 @@ import { toast } from "react-toastify";
 import { apiurl } from "../url";
 import './Setting.css';
 import { UserContext } from "../usecontext";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import dayjs from 'dayjs';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+
 
 function CompanyDetailsForm() {
   const { setRefreshSetting } = useContext(UserContext);
@@ -17,6 +21,8 @@ function CompanyDetailsForm() {
   const [leaveType, setLeaveType] = useState("");
   const [existingLogo, setExistingLogo] = useState(null);
   const [existingSign, setExistingSign] = useState(null);
+    const [calendar, setCalender] = useState(false)
+    const [date, setDate] = useState(dayjs());
 
   const holidayList = ["2025-05-01", "2025-12-25"];
 
@@ -52,8 +58,6 @@ function CompanyDetailsForm() {
         }));
         setExistingLogo(data.logo_url);
         setExistingSign(data.sign_url);
-        console.log("Company details", data.sign_url[0]);
-        
       } catch (err) {
         console.error("Error fetching company details:", err);
         toast.error("Failed to load company data");
@@ -81,34 +85,37 @@ function CompanyDetailsForm() {
     }
   };
 
-  const handleDateClick = (date) => {
-    const formattedDate = date.toISOString().split("T")[0];
-    setSelectedDate(formattedDate);
-  };
+  const handleClick = () => {
+    setCalender(!calendar)
+  }
 
   const handleDateSubmit = async () => {
-    if (!selectedDate || !leaveType) {
+    const formattedDate = date.format('YYYY-MM-DD'); // Convert dayjs object to string
+    
+    if (!formattedDate || !leaveType) {
       alert("Please select a date and enter a leave type.");
       return;
     }
-
-    const isHoliday = holidayList.includes(selectedDate);
-
+    
+  
+    const isHoliday = holidayList.includes(formattedDate);
+  
     if (isHoliday) {
-      toast.info(`${selectedDate} is already a holiday.`);
+      toast.info(`${formattedDate} is already a holiday.`);
     } else {
       try {
-        const res = await axios.post(`${apiurl}/api/add-leave`, {
-          date: selectedDate,
+        const res = await axios.post(`${apiurl}/post-leave`, {
+          date: formattedDate,
           type: leaveType,
         });
-        toast.success("Leave date added successfully!");
-      } catch (error) {
+        console.log("Server response:", res.data);
+        toast.success(res.data.message || "Leave date added successfully!");
+        } catch (error) {
         toast.error("Failed to add leave date.");
       }
     }
   };
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -146,6 +153,8 @@ function CompanyDetailsForm() {
         encType="multipart/form-data"
       >
         <h1>Company Details Form</h1>
+        <div className="first-row">
+          <div>
         <input
           className="input-text-box"
           type="text"
@@ -154,7 +163,8 @@ function CompanyDetailsForm() {
           value={formData.companyName}
           onChange={handleChange}
           required
-        />
+        /></div>
+         <div>
         <input
           type="text"
           className="input-text-box"
@@ -163,7 +173,8 @@ function CompanyDetailsForm() {
           value={formData.phone}
           onChange={handleChange}
           required
-        />
+        /> </div>
+        <div>
         <input
           type="email"
           name="email"
@@ -172,7 +183,9 @@ function CompanyDetailsForm() {
           value={formData.email}
           onChange={handleChange}
           required
-        />
+        /></div>
+        </div>
+        <div className="second-row">
         <textarea
           name="address"
           placeholder="Address"
@@ -182,9 +195,7 @@ function CompanyDetailsForm() {
           required
         />
 
-        {existingLogo && (
-          <img src={existingLogo} alt="Existing Logo" className="preview-logo" />
-        )}
+       
         <label className="upload-button">
           <input
             className="type-file"
@@ -195,9 +206,7 @@ function CompanyDetailsForm() {
           Logo Upload
         </label>
 
-        {existingSign && (
-          <img src={existingSign} alt="Existing Sign" className="preview-sign" />
-        )}
+       
         <label className="upload-signature">
           <input
             className="type-file"
@@ -207,11 +216,20 @@ function CompanyDetailsForm() {
           />
           Signature Upload
         </label>
+        </div>
 
         <div className="calendar-leave-section">
-          <Calendar onClickDay={handleDateClick} />
-          <p>Selected Date: {selectedDate || "None"}</p>
-          <input
+        <button className='calender-btn' onClick={handleClick}>Select Date</button>
+        {calendar && (
+          <ClickAwayListener onClickAway={() => setCalender(false)}>
+            <div className="calendar">
+              <LocalizationProvider dateAdapter={AdapterDayjs} >
+                <DateCalendar value={date} onChange={(newDate) => setDate(newDate)} />
+              </LocalizationProvider>
+            </div>
+          </ClickAwayListener>
+        )}
+        <input
             type="text"
             placeholder="Enter leave type"
             value={leaveType}
