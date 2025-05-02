@@ -281,7 +281,28 @@ app.get("/get-all-policy",(req,res)=>{
 
 })
 
+// Add this to your backend routes
+app.get('/employee-performance-metrics', async (req, res) => {
+    try {
+      const query = `
+        SELECT 
+  emp_id,
+  COUNT(CASE WHEN status = 'Completed' THEN 1 END) AS tasks_completed,
+  ROUND((COUNT(CASE WHEN status = 'Completed' THEN 1 END) / COUNT(*)) * 100, 2) AS efficiency_score,
+  COUNT(CASE WHEN status = 'In Progress' AND end_date < CURDATE() THEN 1 END) AS tasks_overdue
+FROM crm_tasks
+GROUP BY emp_id
+ORDER BY efficiency_score DESC;
 
+      `;
+      db.query(query, (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
 
 
 
