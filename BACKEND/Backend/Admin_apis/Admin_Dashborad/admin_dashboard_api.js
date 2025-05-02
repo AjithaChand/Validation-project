@@ -257,6 +257,30 @@ app.get("/get-leave-user",(req,res)=>{
 })
 
 
+app.get("/get-all-policy",(req,res)=>{
+
+    const {date} = req.query;
+
+    console.log("Received Date", date);
+    
+    const getDate = new Date(date).toISOString("").split("T")[0];
+
+    const selectQuery = "SELECT COUNT(*) FROM customer_details WHERE startdate = ?";
+
+    db.query(selectQuery,[getDate],(err, info)=>{
+
+        if(err){
+            return res.send({ message : "Database Error"})
+        }
+        if(info.length === 0){
+            return res.send({ message : "No User Take Policy In This Date"})
+        }
+
+        return res.send(info)
+    })
+
+})
+
 
 
 
