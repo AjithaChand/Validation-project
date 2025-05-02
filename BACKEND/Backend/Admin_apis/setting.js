@@ -37,19 +37,24 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.post("/api/company-details", upload.single("logo"), (req, res) => {
-  console.log("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
-  
-  const { companyName, phone, email, address } = req.body;
-  const logoPath = req.file?.filename;
 
+app.post("/api/company-details", upload.fields([{ name: "logo", maxCount: 1 },{ name: "sign", maxCount: 1 }]), (req, res) => {
+
+  const { companyName, phone, email, address } = req.body;
+
+  const logoPath = req.files?.logo?.[0]?.filename;
+  const signaturePath = req.files?.sign?.[0]?.filename;
+
+  console.log("logo path", logoPath);
+  console.log("sign path", signaturePath);
+  
   if (!companyName || !phone || !email || !address || !logoPath) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
-  const sql = `INSERT INTO company_details (company_name, phone, email, address, logo_path) VALUES (?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO company_details (company_name, phone, email, address, logo_path, sign_path) VALUES (?, ?, ?, ?, ?, ?)`;
 
-  db.query(sql, [companyName, phone, email, address, logoPath], (err, result) => {
+  db.query(sql, [companyName, phone, email, address, logoPath, signaturePath], (err, result) => {
     if (err) {
       console.error("Error inserting company details:", err);
       return res.status(500).send("Database error");
@@ -82,4 +87,34 @@ app.get("/api/company-details", (req, res) => {
   });
 });
 
+
+app.post("/post-leave",(req,res)=>{
+
+  const {date, leave_type}=req.body;
+
+  const setDate = new Date(date).toISOString("").split("T")[0];
+  
+  const insertQuery = "INSERT INTO leave (date, leave_type) VALUES (?, ?)";
+  
+  db.query(insertQuery,[setDate,leave_type],(err)=>{
+    
+    if(err){
+      return res.send({ message : "Database Error"})
+    }
+    return res.status({ message : "Leave Updated"})
+  })
+})
+
+app.get("get-leave",(req,res)=>{
+
+  const selectQuery = "SELECT * FROM leave";
+
+  db.query(selectQuery,(err, info)=>{
+
+    if(err){
+      return res.status(400).send({ message :" Database Error"})
+    }
+     return res.send(info)
+  })
+})
 module.exports = app;

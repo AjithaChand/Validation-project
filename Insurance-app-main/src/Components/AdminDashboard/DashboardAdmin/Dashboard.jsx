@@ -143,7 +143,6 @@ const Dashboard = () => {
         if (response.data.result && response.data.result.length > 0) {
           setExpiringUsers(response.data.result);
           console.log(response.data.result, "From backend")
-          toast.success("Found users with expiring policies.");
         } else {
           toast.info("No users with expiring policies.");
         }
