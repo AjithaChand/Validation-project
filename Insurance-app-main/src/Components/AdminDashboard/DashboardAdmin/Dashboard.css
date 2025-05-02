@@ -1,13 +1,4 @@
 
-
-.policy-calendar-container {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-}
-
 .calendar-header {
   display: flex;
   justify-content: space-between;
@@ -84,20 +75,35 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
  
 }
-.policy-calendar-container, 
+
 .policy-chart-container
  {
   background: white;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  margin-bottom: 15px;
-  height: 130px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  /* margin-bottom: 15px; */
+  /* height: 300px; */
+  height: fit-content;
   width: 500px;
 }
+
+.policy-calendar-container{
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  /* margin-bottom: 15px; */
+  /* height: 170px; */
+  height: fit-content;
+  width: 500px;
+}
+
 .dashboard-container {
   padding: 10px;
   margin-top: 50px; 
+  height: 100%;
+  overflow-y: auto;
 }
 .dashboard-column
  {
@@ -110,12 +116,13 @@
 }
 
 .dashboard-chart {
-  height: 300px;
+  /* height: 600px; */
+  height: fit-content;
   width: 400px;
   padding: 20px;
   background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   margin-left: -100px;
 }
 
@@ -183,31 +190,23 @@
 }
 
 .expire-table {
-  border-collapse: separate;
-  border-spacing: 0 12px;
-  width: 100%;
+  border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 10px;
+  width: 92%;
   text-align: center;
   font-family: "Poppins", sans-serif;
-  margin-top: 90px;
-  margin-left: 10px;
-}
-
-
-.expire-table thead tr {
-  position: sticky;
-  top: 0;
-  background-color: #87CEEB;
-  font-weight: 600;
-  font-size: 14px;
-  z-index: 1;
-  border-radius: 10px;
 }
 
 .expire-table thead th {
   padding: 14px 18px;
   background-color: #87CEEB; 
   border-top: 1px solid #ccc;
- 
+  position: sticky;
+  top: 0;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 1;
 }
 
 
@@ -257,11 +256,8 @@
 /* Performance Chart Styles */
 .performance-chart-container {
 
-  padding: 25px;
-
-  margin-top: 70px;
-  margin-left: -500px;
-  height: 300px;
+  padding: 5px;
+  height: 500px;
   width: 600px;
  
 }
@@ -269,7 +265,6 @@
 .chart-title {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 20px;
   color: #333;
   display: flex;
   align-items: center;
