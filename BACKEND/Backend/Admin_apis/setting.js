@@ -99,7 +99,7 @@ app.post("/post-leave", (req, res) => {
       console.error("DB Insert Error:", err);
       return res.status(500).send({ message: "Database Error" });
     }
-    return res.status(200).send({ message: "Leave Updated" }); // ✅ Fixed this line
+    return res.status(200).send({ message: "Leave Updated" });
   });
 });
 

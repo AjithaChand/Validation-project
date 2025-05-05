@@ -41,6 +41,7 @@ db1.getConnection((err, connection) => {
     connection.release();
 });
 
+
 app.get("/download-excel", async (req, res) => {
     const query = "SELECT email, startdate, enddate, policy, subject, content FROM customer_details";
 
@@ -187,6 +188,144 @@ app.post("/upload-excel", upload.single("file"), async (req, res) => {
     }
 });
 
+// Admin Leave Days get 
+
+
+app.get("/download-excel-for-leave", async (req, res) => {
+    const query = "SELECT date, leave_type FROM leave";
+
+    try {
+        const results = await new Promise((resolve, reject) => {
+            db.query(query, (err, results) => {
+                if (err) reject(err);
+                else resolve(results);
+            });
+        });
+
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet("Leave");
+
+        worksheet.columns = [
+            { header: 'Date', key: 'date', width: 15 },
+            { header: 'Holidays', key: 'leave_type', width: 15 },
+        ];
+
+        worksheet.getRow(1).eachCell((cell) => {
+            cell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'FFD3D3D3' } 
+            };
+            cell.font = { bold: true };
+            cell.border = {
+                top: { style: 'thin' },
+                left: { style: 'thin' },
+                bottom: { style: 'thin' },
+                right: { style: 'thin' }
+            };
+        });
+
+        results.forEach(row => {
+            worksheet.addRow(row);
+        });
+
+    
+        worksheet.eachRow((row, rowNumber) => {
+            if (rowNumber > 1) { 
+                ['date'].forEach(col => {
+                    const cell = row.getCell(col);
+                    if (cell.value instanceof Date) {
+                        cell.numFmt = 'yyyy-mm-dd';
+                    }
+                });
+            }
+        });
+
+        worksheet.columns.forEach(column => {
+            let maxLength = 0;
+            column.eachCell({ includeEmpty: true }, (cell) => {
+                const cellLength = cell.value ? cell.value.toString().length : 0;
+                if (cellLength > maxLength) maxLength = cellLength;
+            });
+            column.width = Math.max(column.width || 0, maxLength + 2);
+        });
+
+        const dir = "./downloads";
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+
+        const filePath = path.join(dir, "leave.xlsx");
+        await workbook.xlsx.writeFile(filePath);
+
+        res.download(filePath, "leave.xlsx", (err) => {
+            if (err) console.error("Download Error:", err);
+            try { fs.unlinkSync(filePath); } 
+            catch (err) { console.error("File Deletion Error:", err); }
+        });
+
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).json({ error: "Failed to generate Excel file" });
+    }
+});
+
+
+//Above upload . 
+app.post("/upload-excel-for-leave", upload.single("file"), async (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    try {
+        const filePath = req.file.path;
+        const workbook = new ExcelJS.Workbook();
+        await workbook.xlsx.readFile(filePath);
+        
+        const worksheet = workbook.worksheets[0];
+        const values = [];
+
+        worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+            if (rowNumber > 1) {
+                const dateCell = row.getCell(1).value;
+                const leaveTypeCell = row.getCell(2).value;
+
+                const dateValue = (dateCell instanceof Date) 
+                    ? dateCell.toISOString().split('T')[0] 
+                    : (dateCell?.toString().trim() || null);
+
+                const leaveTypeValue = leaveTypeCell?.toString().trim() || null;
+
+                if (dateValue && leaveTypeValue) {
+                    values.push([dateValue, leaveTypeValue]);
+                }
+            }
+        });
+
+        if (values.length === 0) {
+            fs.unlinkSync(filePath);
+            return res.status(400).json({ error: "No valid data in the file" });
+        }
+
+        const query = `
+            INSERT INTO leave (date, leave_type)
+            VALUES ?
+        `;
+
+        await db.promise().query(query, [values]);
+
+        fs.unlinkSync(filePath);
+        res.json({ success: true, message: "Leave data uploaded successfully" });
+
+    } catch (err) {
+        if (req.file?.path && fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+        }
+        console.error("Upload Error:", err);
+        res.status(500).json({ error: "Database Operation Failed" });
+    }
+});
+
 // user page get
 
 app.get("/download-excel-for-user-data", (req, res) => {
@@ -300,9 +439,9 @@ app.post("/upload-excel-for-userdata", upload.single("file"), async (req, res) =
         worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
             if (rowNumber > 1) {
                 userValues.push([
-                    row.getCell(1).value?.toString() || null, // username
-                    row.getCell(2).value?.toString() || null, // email
-                    row.getCell(3).value?.toString() || null  // password
+                    row.getCell(1).value?.toString() || null, 
+                    row.getCell(2).value?.toString() || null, 
+                    row.getCell(3).value?.toString() || null 
                 ]);
 
                 payslipValues.push([
