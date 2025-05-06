@@ -1,4 +1,52 @@
-.holiday
-{
-    margin-top: -50px;
-}
+/* Holydays.css */
+
+.leave-list-container {
+    width: 250px;
+    height: 400px;
+    overflow: auto;
+    padding: 10px;
+   
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .leave-list-container h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .leave-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  
+  
+  
+ 
+  
+  .leave-table tbody tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .leave-list-container p {
+    font-size: 14px;
+    text-align: center;
+    color: #666;
+    margin-top: 40px;
+  }
+  .data
+  {
+    font-weight: 600;
+  
+    text-align: left;
+    padding: 6px 8px;
+    
+  }
+  

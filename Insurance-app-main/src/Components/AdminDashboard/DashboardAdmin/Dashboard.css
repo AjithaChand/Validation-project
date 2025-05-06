@@ -82,9 +82,7 @@
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  /* margin-bottom: 15px; */
-  /* height: 300px; */
-  height: fit-content;
+  height: 290px;
   width: 500px;
 }
 
@@ -95,7 +93,7 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   /* margin-bottom: 15px; */
   /* height: 170px; */
-  height: fit-content;
+  height: 150px;
   width: 500px;
 }
 
@@ -187,6 +185,7 @@
   overflow-y: auto;
   overflow-x: auto;
   padding:3px;
+  margin-left: -40px;
 }
 
 .expire-table {
@@ -219,30 +218,12 @@
 /* Row Base Style */
 .expire-table tbody tr {
   border-radius: 10px;
-  box-shadow: 0 3px 6px rgba(97, 183, 233, 0.6);
+  box-shadow: 0 3px 6px rgba(113, 116, 118, 0.6);
   transition: box-shadow 0.3s ease;
 }
 
-/* Reduced-intensity unique row hover effects */
-.expire-table tbody tr:nth-child(1):hover {
-  box-shadow: 0 3px 6px rgba(225, 78, 78, 0.5);
-}
 
-.expire-table tbody tr:nth-child(2):hover {
-  box-shadow: 0 3px 6px rgba(38, 218, 110, 0.5);
-}
 
-.expire-table tbody tr:nth-child(3):hover {
-  box-shadow: 0 3px 6px rgba(236, 64, 122, 0.5);
-}
-
-.expire-table tbody tr:nth-child(4):hover {
-  box-shadow: 0 3px 6px rgba(63, 81, 181, 0.5);
-}
-
-.expire-table tbody tr:nth-child(5):hover td {
-  box-shadow: 0 3px 6px rgba(100, 181, 246, 0.5);
-}
 .dashboard-column.holiday-calender
 {
   height: 300px;
@@ -259,6 +240,8 @@
   padding: 5px;
   height: 500px;
   width: 600px;
+  margin-top: -50px;
+  margin-left: -50px;
  
 }
 
@@ -267,7 +250,6 @@
   font-weight: 600;
   color: #333;
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
@@ -286,5 +268,128 @@
 .second-row
 {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-around;
+}
+
+@media  screen and (min-width:480.1px)and (max-width: 768px) {
+  .dashboard-column {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dashboard-chart,
+  .policy-chart-container,
+  .policy-calendar-container,
+  .performance-chart-container,
+  .dashboard-column.holiday-calender {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 20px;
+  }
+
+  .expiretable-container {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .calendar-day {
+    flex: 0 0 calc(14.28% - 6px);
+  }
+  .second-row
+  {
+    display: flex;
+    flex-direction: column;
+  }
+  .expire-table
+  {
+    margin-left: 30px;
+  }
+  .policy-chart-container
+  {
+  
+   height: 290px;
+   width: 700px;
+ }
+ 
+ .policy-calendar-container{
+   
+   height: 150px;
+   width: 700px;
+ }
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .dashboard-column {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dashboard-chart,
+  .policy-chart-container,
+  .policy-calendar-container,
+  .performance-chart-container,
+  .dashboard-column.holiday-calender {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 20px;
+    height: auto;
+  }
+
+  .calendar-header button {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+  }
+
+  .calendar-header span {
+    font-size: 1rem;
+  }
+
+  .calendar-row {
+    flex-wrap: wrap;
+  }
+
+  .calendar-day {
+    flex: 0 0 calc(14.28% - 6px);
+    margin: 2px;
+  }
+
+  .day-name {
+    font-size: 0.4rem;
+  }
+
+  .day-number {
+    font-size: 0.7rem;
+  }
+
+  .legend-item {
+    font-size: 12px;
+  }
+
+  .hovered-user-box {
+    width: 90%;
+    max-width: 200px;
+  }
+
+  .second-row {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .expiretable-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-left: 0;
+  }
+
+  .expire-table {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .expire-table thead th,
+  .expire-table td {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
 }

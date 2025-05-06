@@ -2,13 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { apiurl } from "../url";
-import './Setting.css';
+import "./Setting.css";
 import { UserContext } from "../usecontext";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import dayjs from 'dayjs';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
+import { RiFileExcel2Line } from "react-icons/ri";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 
 function CompanyDetailsForm() {
@@ -16,15 +13,12 @@ function CompanyDetailsForm() {
   const user = localStorage.getItem("role");
   const person_code = localStorage.getItem("person_code");
 
-  const [getPermission, setGetPermission] = useState({});
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [leaveType, setLeaveType] = useState("");
+  const [getPermission, setGetPermission] = useState([]);
+  const [files, setFiles] = useState(null);
   const [existingLogo, setExistingLogo] = useState(null);
   const [existingSign, setExistingSign] = useState(null);
-    const [calendar, setCalender] = useState(false)
-    const [date, setDate] = useState(dayjs());
-
-  const holidayList = ["2025-05-01", "2025-12-25"];
+  const [logoPreview, setLogoPreview] = useState(null);
+  const [signPreview, setSignPreview] = useState(null);
 
   const [formData, setFormData] = useState({
     companyName: "",
@@ -35,6 +29,7 @@ function CompanyDetailsForm() {
     sign: null,
   });
 
+  // Fetch permissions and company details
   useEffect(() => {
     if (person_code) {
       axios
@@ -76,46 +71,56 @@ function CompanyDetailsForm() {
   };
 
   const handleFileChange = (e, type) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFormData((prev) => ({
-        ...prev,
-        [type]: file,
-      }));
-    }
-  };
+    const files = e.target.filess[0];
+    if (!files) return;
 
-  const handleClick = () => {
-    setCalender(!calendar)
-  }
-
-  const handleDateSubmit = async () => {
-    const formattedDate = date.format('YYYY-MM-DD'); // Convert dayjs object to string
-    
-    if (!formattedDate || !leaveType) {
-      alert("Please select a date and enter a leave type.");
+    if (!files.type.startsWith("image/")) {
+      toast.error("Only image filess are allowed!");
       return;
     }
-    
-  
-    const isHoliday = holidayList.includes(formattedDate);
-  
-    if (isHoliday) {
-      toast.info(`${formattedDate} is already a holiday.`);
-    } else {
-      try {
-        const res = await axios.post(`${apiurl}/post-leave`, {
-          date: formattedDate,
-          type: leaveType,
-        });
-        console.log("Server response:", res.data);
-        toast.success(res.data.message || "Leave date added successfully!");
-        } catch (error) {
-        toast.error("Failed to add leave date.");
+
+    setFormData((prev) => ({
+      ...prev,
+      [type]: files,
+    }));
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (type === "logo") {
+        setLogoPreview(reader.result);
+      } else if (type === "sign") {
+        setSignPreview(reader.result);
       }
-    }
+    };
+    reader.readAsDataURL(files);
   };
- 
+
+ const HandleFileDownload=()=>
+ {
+  window.location.href=`${apiurl}/download-excel-for-leave`;
+ };
+
+ const handleFileUpload=async()=>
+ {
+  if(!files)
+    return toast.error("select the file first!");
+    const formData=new FormData();
+    formData.append("file",files);
+
+    try
+    {
+      await axios.post(`${apiurl}/upload-excel-for-leave`,formData);
+      toast.success("file uploaded successfully!");
+      setFiles(null);
+      setRefreshSetting(prev=>!prev);
+    }
+    catch(err)
+    {
+      toast.err("upload failed!");
+    }
+ };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -145,108 +150,154 @@ function CompanyDetailsForm() {
     }
   };
 
+  const hasUpdatePermission =
+    user === "admin" ||
+    (getPermission.length > 6 && getPermission[6]?.can_update === 1);
+
   return (
     <div className="company-form-wrapper">
-      <form
-        className="company-details-form-container"
-        onSubmit={handleSubmit}
-        encType="multipart/form-data"
-      >
-        <h1>Company Details Form</h1>
-        <div className="first-row">
-          <div>
-        <input
-          className="input-text-box"
-          type="text"
-          name="companyName"
-          placeholder="Company Name"
-          value={formData.companyName}
-          onChange={handleChange}
-          required
-        /></div>
-         <div>
-        <input
-          type="text"
-          className="input-text-box"
-          name="phone"
-          placeholder="Phone"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-        /> </div>
-        <div>
-        <input
-          type="email"
-          name="email"
-          className="input-text-box"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        /></div>
-        </div>
-        <div className="second-row">
-        <textarea
-          name="address"
-          placeholder="Address"
-          className="input-text-box"
-          value={formData.address}
-          onChange={handleChange}
-          required
-        />
-
+      <div className="admin-header-attendance">
        
-        <label className="upload-button">
-          <input
-            className="type-file"
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleFileChange(e, "logo")}
-          />
-          Logo Upload
-        </label>
 
-       
-        <label className="upload-signature">
-          <input
-            className="type-file"
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleFileChange(e, "sign")}
-          />
-          Signature Upload
-        </label>
-        </div>
+         
 
-        <div className="calendar-leave-section">
-        <button className='calender-btn' onClick={handleClick}>Select Date</button>
-        {calendar && (
-          <ClickAwayListener onClickAway={() => setCalender(false)}>
-            <div className="calendar">
-              <LocalizationProvider dateAdapter={AdapterDayjs} >
-                <DateCalendar value={date} onChange={(newDate) => setDate(newDate)} />
-              </LocalizationProvider>
+        <div className="company-form">
+
+           <div className='attendance-header'>
+                      <button className="upload-button5" onClick={HandleFileDownload}>
+                        <RiFileExcel2Line className='excel-icon-attendance' />
+                      </button>
+                      <input
+                        type="file"
+                        id="fileInput"
+                        className="file-input"
+                        onChange={(e) => setFiles(e.target.files[0])}
+                      />
+                      <label htmlFor="fileInput" className="file-label-attendance">
+                        Choose File
+                      </label>
+                      {files && <span className="file-name">{files.name}</span>}
+                      <button className="upload-button6" onClick={handleFileUpload}>
+                        <IoCloudUploadOutline className='upload-icon-attendance' />
+                      </button>
+                    </div>
+          <form
+            className="company-details-form-container"
+            onSubmit={handleSubmit}
+            encType="multipart/form-data"
+          >
+            <div className="first-row">
+              <div>
+                <label>Company Name:</label>
+                <input
+                  className="input-text-box"
+                  type="text"
+                  name="companyName"
+                  value={formData.companyName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Mobile No:</label>
+                <input
+                  type="text"
+                  className="input-text-box"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  className="input-text-box"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Address:</label>
+                <textarea
+                  name="address"
+                  className="input-text-area"
+                  value={formData.address}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="uploads-preview">
+                {logoPreview ? (
+                  <div className="preview-wrapper">
+                    <img
+                      src={logoPreview}
+                      alt="Logo"
+                      className="preview-image"
+                    />
+                  </div>
+                ) : existingLogo ? (
+                  <div className="preview-wrapper">
+                    <img
+                      src={existingLogo}
+                      alt="Logo"
+                      className="preview-image"
+                    />
+                  </div>
+                ) : null}
+                {signPreview ? (
+                  <div className="preview-wrapper">
+                    <img
+                      src={signPreview}
+                      alt="Signature"
+                      className="preview-image"
+                    />
+                  </div>
+                ) : existingSign ? (
+                  <div className="preview-wrapper">
+                    <img
+                      src={existingSign}
+                      alt="Signature"
+                      className="preview-image"
+                    />
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="uploads">
+                <label className="upload-button">
+                  <input
+                    className="type-file"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleFileChange(e, "logo")}
+                  />
+                  Logo Upload
+                </label>
+                <label className="upload-signature">
+                  <input
+                    className="type-sign"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleFileChange(e, "sign")}
+                  />
+                  Signature Upload
+                </label>
+              </div>
+
+              {hasUpdatePermission && (
+                <button className="save" type="submit">
+                  Save Details
+                </button>
+              )}
             </div>
-          </ClickAwayListener>
-        )}
-        <input
-            type="text"
-            placeholder="Enter leave type"
-            value={leaveType}
-            onChange={(e) => setLeaveType(e.target.value)}
-          />
-          <button type="button" onClick={handleDateSubmit}>
-            Send Leave
-          </button>
+          </form>
         </div>
-
-        {(user === "admin" ||
-          (getPermission.length !== 0 && getPermission[6]?.can_update === 1)) && (
-          <button className="save" type="submit">
-            Save Details
-          </button>
-        )}
-      </form>
+      </div>
     </div>
   );
 }

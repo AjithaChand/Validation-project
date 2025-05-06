@@ -28,8 +28,8 @@ const HolydayCalendar = () => {
   }, []);
 
   return (
-    <div className="leave-list-container" style={{ height:"200px", width:"200px"}}>
-      <h2>Leave Records</h2>
+    <div className="leave-list-container">
+      <h2 style={{color:"navy",fontWeight:600}}>Holydays for 2025</h2>
       {loading ? (
         <p>Loading...</p>
       ) : leaveData.length === 0 ? (
@@ -39,15 +39,16 @@ const HolydayCalendar = () => {
           <thead>
             <tr>
              
-              <th>Date</th>
-              <th>Type</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {leaveData.map((leave) => (
               <tr key={leave.id}>
-                <td>{leave.date}</td>
-                <td>{leave.leave_type}</td>
+                <td className="data">{new Date(leave.date).toISOString().split('T')[0]}</td>
+              
+                <td className="data">{leave.leave_type}</td>
               </tr>
             ))}
           </tbody>

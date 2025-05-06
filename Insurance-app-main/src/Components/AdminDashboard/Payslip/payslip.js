@@ -29,6 +29,7 @@ const Payslip = () => {
     email: "",
     address: "",
     logo: null,
+    sign:null,
   });
 
   useEffect(() => {
@@ -44,6 +45,7 @@ const Payslip = () => {
           email: data.email,
           address: data.address,
           logo: data.logo_path,
+          sign:data.sign_path,
         });
       } catch (err) {
         console.error("Error fetching company details:", err);
@@ -359,7 +361,7 @@ const Payslip = () => {
                       </div>
 
                       <div className="signature-box">
-                        <img className="image-sign" src={image} alt="Sign" />
+                        <img className="image-sign" src={`${apiurl}/uploads/logos/${formData.sign}`} alt="Sign" />
                         <p>Authorized signature</p>
                       </div>
                     </div>

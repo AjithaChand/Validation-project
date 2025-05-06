@@ -193,12 +193,17 @@ app.post("/upload-excel", upload.single("file"), async (req, res) => {
 
 app.get("/download-excel-for-leave", async (req, res) => {
     const query = "SELECT date, leave_type FROM leave";
+ 
 
     try {
         const results = await new Promise((resolve, reject) => {
             db.query(query, (err, results) => {
-                if (err) reject(err);
+                if (err){
+                    reject(err);
+                }
+               
                 else resolve(results);
+                console.log(results,"checking the values")
             });
         });
 
@@ -273,58 +278,42 @@ app.get("/download-excel-for-leave", async (req, res) => {
 
 //Above upload . 
 app.post("/upload-excel-for-leave", upload.single("file"), async (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
-    }
-
     try {
-        const filePath = req.file.path;
-        const workbook = new ExcelJS.Workbook();
-        await workbook.xlsx.readFile(filePath);
-        
-        const worksheet = workbook.worksheets[0];
-        const values = [];
-
-        worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
-            if (rowNumber > 1) {
-                const dateCell = row.getCell(1).value;
-                const leaveTypeCell = row.getCell(2).value;
-
-                const dateValue = (dateCell instanceof Date) 
-                    ? dateCell.toISOString().split('T')[0] 
-                    : (dateCell?.toString().trim() || null);
-
-                const leaveTypeValue = leaveTypeCell?.toString().trim() || null;
-
-                if (dateValue && leaveTypeValue) {
-                    values.push([dateValue, leaveTypeValue]);
-                }
-            }
-        });
-
-        if (values.length === 0) {
-            fs.unlinkSync(filePath);
-            return res.status(400).json({ error: "No valid data in the file" });
+      const workbook = new ExcelJS.Workbook();
+      await workbook.xlsx.readFile(req.file.path);
+  
+      const worksheet = workbook.getWorksheet(1); // Assumes data is in the first worksheet
+  
+      const leaveData = [];
+  
+      worksheet.eachRow((row, rowNumber) => {
+        if (rowNumber === 1) return; // Skip header
+        const date = row.getCell(1).value;
+        const leave_type = row.getCell(2).value;
+  
+        if (date && leave_type) {
+          leaveData.push([date, leave_type]);
         }
-
-        const query = `
-            INSERT INTO leave (date, leave_type)
-            VALUES ?
-        `;
-
-        await db.promise().query(query, [values]);
-
-        fs.unlinkSync(filePath);
-        res.json({ success: true, message: "Leave data uploaded successfully" });
-
-    } catch (err) {
-        if (req.file?.path && fs.existsSync(req.file.path)) {
-            fs.unlinkSync(req.file.path);
-        }
-        console.error("Upload Error:", err);
-        res.status(500).json({ error: "Database Operation Failed" });
+      });
+  
+      if (leaveData.length === 0) {
+        return res.status(400).json({ message: "Excel has no data." });
+      }
+  
+      const conn = await db1.getConnection();
+      const insertQuery = `INSERT INTO leave (date, leave_type) VALUES ?`;
+      await conn.query(insertQuery, [leaveData]);
+      conn.release();
+  
+      fs.unlinkSync(req.file.path); // Remove uploaded file
+  
+      res.status(200).json({ message: "Excel data uploaded successfully!" });
+    } catch (error) {
+      console.error("Upload Error:", error);
+      res.status(500).json({ message: "Failed to upload Excel" });
     }
-});
+  });
+  
 
 // user page get
 

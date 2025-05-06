@@ -1,121 +1,164 @@
 .company-form-wrapper {
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-  background-color: #f9fafb;
-  min-height: 100vh;
-}
-
-.company-details-form-container {
-  background-color: #ffffff;
-  padding: 2rem;
+  padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  max-width: 800px;
-  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  margin-top: 50px;
 }
 
-.company-details-form-container h1 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  color: #333;
-}
-
-.first-row,
-.second-row {
+.company-form {
   display: flex;
- justify-content: space-around;
-  gap: 15px;
-  margin-bottom: 1.5rem;
+  flex-direction: row;
+  gap: 150px;
+  padding: 20px;
 }
 
-.input-text-box {
-  flex: 1 1 48%;
-  padding: 0.75rem;
+.first-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  width: 500px;
+}
+
+.first-row label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.input-text-box,
+.input-text-area {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 4px;
 }
 
-.input-text-box:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-textarea.input-text-box {
-  flex: 1 1 100%;
-  min-height: 80px;
+.input-text-area {
   resize: vertical;
+  height: 80px;
 }
 
-.upload-button,
-.upload-signature {
-  flex: 1 1 48%;
-  padding: 0.75rem;
-  border: 2px dashed #ccc;
-  border-radius: 8px;
-  text-align: center;
-  background-color: #f5f5f5;
+.upload-signature,
+.upload-button {
+  display: inline-block;
+  padding: 5px 12px;
+  margin-top: 10px;
+  margin-right: 12px;
+  background-color: white;
+  border-radius: 6px;
+  border: 2px dashed navy;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  width: 40%;
+  height: 70%;
 }
 
-.upload-button:hover,
-.upload-signature:hover {
-  background-color: #e9ecef;
+.upload-signature:hover,
+.upload-button:hover {
+  background-color: #f0f4ff;
 }
 
-.type-file {
-  display: none;
+.upload-signature input[type="file"],
+.upload-button input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 50%;
+  height: 100%;
+  cursor: pointer;
 }
 
-.calendar-leave-section {
-  margin-top: 2rem;
+.third-row {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #eef2f7;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  width: 500px;
+  height: 400px;
 }
 
-.calendar-leave-section p {
-  margin: 0.5rem 0;
-  font-weight: bold;
-}
-
-.calendar-leave-section input {
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 80%;
-}
-
-.calendar-leave-section button {
-  margin-top: 0.75rem;
-  padding: 0.6rem 1.2rem;
+.third-row .select-button {
+  padding: 10px;
   border: none;
-  border-radius: 6px;
+  background-color: navy;
+  color: white;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-weight: 500;
 }
 
+.third-row input[type="text"] {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
 
+/* ⬇️ Enhanced calendar styles */
+.calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  width: 320px;
+  height: 340px;
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
 
 .save {
-  margin-top: 2rem;
-  width: 30%;
-  padding: 0.75rem;
-  background-color: #28a745;
+  display: inline-block;
+  padding: 10px 16px;
+  margin-top: 10px;
+  margin-left: 100px;
+  background-color: navy;
+  border-radius: 6px;
   color: white;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-left: 250px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  width: 50%;
+  height: 70%;
 }
 
-.save:hover {
-  background-color: #218838;
+.uploads {
+  display: flex;
+  gap: 70px;
+}
+.uploads-preview {
+  display: flex;
+  gap: 150px;
+}
+
+.preview-image {
+  height: 70px;
+  width: 70px;
+  margin-left: 50px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  object-fit: cover;
 }
