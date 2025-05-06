@@ -238,7 +238,7 @@ app.post("/attendance-absent",(req,res)=>{
                             return res.status(400).send({message :"Select Query Error"})
                         }
                         
-                        const empId = rows[0].emp_id;
+                        const empId = id[0].emp_id;
         
                         const attendanceQuery = `
                           INSERT INTO attendance (emp_id, date, present, absent)
