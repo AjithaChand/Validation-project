@@ -229,7 +229,8 @@ app.get("/get-present-user",(req,res)=>{
 
 app.get("/get-absent-user",(req,res)=>{
 
-    const {date} = req.body;
+    const {date} = req.query;
+
 
     const selectQuery = `SELECT emp_name FROM payslip WHERE DATE(absent_time) = ?`;
 
