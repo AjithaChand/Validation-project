@@ -160,12 +160,8 @@ function CompanyDetailsForm() {
   return (
     <div className="company-form-wrapper">
       <div className="admin-header-attendance">
-       
-
-         
-
-        <div className="company-form">
-
+       <div className="company-form">
+           <div>
            <div className='attendance-header'>
                       <button className="upload-button5" onClick={HandleFileDownload}>
                         <RiFileExcel2Line className='excel-icon-attendance' />
@@ -300,6 +296,7 @@ function CompanyDetailsForm() {
             </div>
           </form>
         </div>
+      </div>
       </div>
     </div>
   );

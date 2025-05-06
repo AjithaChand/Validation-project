@@ -1,27 +1,20 @@
 .company-form-wrapper {
-  padding: 20px;
+  padding: 15px;
   border-radius: 12px;
-  max-width: 900px;
+  width: 570px;
   margin: auto;
   margin-top: 50px;
 }
-
-.company-form {
-  display: flex;
-  flex-direction: row;
-  gap: 150px;
-  padding: 20px;
-}
-
 .first-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
+  gap: 15px;
   background-color: #f9f9f9;
-  padding: 20px;
+  padding: 15px;
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   width: 500px;
+  margin-top: 10px;
 }
 
 .first-row label {
@@ -43,6 +36,63 @@
   resize: vertical;
   height: 80px;
 }
+
+.upload-button5 {
+  border: 1px solid #27ae60;
+  transition: transform 0.5s ease, color 0.5s ease;
+  background-color: white;
+}
+
+.upload-button6 {
+  border: 1px solid #e67e22;
+  transition: transform 0.5s ease, color 0.5s ease;
+  background-color: white;
+}
+
+.upload-button5:hover {
+  transform: scale(1.05);
+  background-color: rgba(0, 128, 0, 0.8);
+}
+
+.upload-button5:hover .excel-icon-attendance {
+  color: whitesmoke;
+}
+
+.upload-button6:hover {
+  transform: scale(1.05);
+  background-color: rgba(225, 165, 0, 0.9);
+}
+
+.upload-button6:hover .upload-icon-attendance {
+  color: whitesmoke;
+}
+
+.upload-button5 .excel-icon-attendance {
+  color: #27ae60;
+  font-size: 25px;
+}
+
+.upload-button6 .upload-icon-attendance {
+  color: #e67e22;
+  font-size: 25px;
+}
+
+.file-label-attendance {
+  border: 1px solid rgb(122, 122, 122);
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s linear;
+  color: #5b5b5b
+}
+
+.file-label-attendance:hover,
+.file-label-attendance:hover .label-name-admin {
+  background-color: rgba(0, 0, 128, 0.8);
+  color: whitesmoke;
+  border-color: navy;
+}
+
 
 .upload-signature,
 .upload-button {
@@ -155,8 +205,8 @@
 }
 
 .preview-image {
-  height: 70px;
-  width: 70px;
+  height: 60px;
+  width: 60px;
   margin-left: 50px;
   border-radius: 4px;
   border: 1px solid #ccc;
