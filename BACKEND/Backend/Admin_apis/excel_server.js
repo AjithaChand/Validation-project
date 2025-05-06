@@ -192,7 +192,7 @@ app.post("/upload-excel", upload.single("file"), async (req, res) => {
 
 
 app.get("/download-excel-for-leave", async (req, res) => {
-    const query = "SELECT date, leave_type FROM leave";
+    const query = "SELECT date, leave_type FROM `leave`";
  
 
     try {
@@ -211,7 +211,7 @@ app.get("/download-excel-for-leave", async (req, res) => {
         const worksheet = workbook.addWorksheet("Leave");
 
         worksheet.columns = [
-            { header: 'Date', key: 'date', width: 15 },
+            { header: 'Date', key: 'date', width: 10 },
             { header: 'Holidays', key: 'leave_type', width: 15 },
         ];
 
@@ -282,14 +282,33 @@ app.post("/upload-excel-for-leave", upload.single("file"), async (req, res) => {
       const workbook = new ExcelJS.Workbook();
       await workbook.xlsx.readFile(req.file.path);
   
-      const worksheet = workbook.getWorksheet(1); // Assumes data is in the first worksheet
-  
+      const worksheet = workbook.getWorksheet(1);
       const leaveData = [];
   
       worksheet.eachRow((row, rowNumber) => {
-        if (rowNumber === 1) return; // Skip header
-        const date = row.getCell(1).value;
+        if (rowNumber === 1) return; 
+  
+        const rawDate = row.getCell(1).value;
         const leave_type = row.getCell(2).value;
+        let date;
+  
+        if (rawDate instanceof Date) {
+          date = rawDate.toISOString().split("T")[0]; 
+        } else if (typeof rawDate === "string") {
+          const parsed = new Date(rawDate);
+          if (!isNaN(parsed)) {
+            date = parsed.toISOString().split("T")[0];
+          } else {
+            date = rawDate; // fallback
+          }
+        } else if (typeof rawDate === "object" && rawDate?.text) {
+          const parsed = new Date(rawDate.text);
+          if (!isNaN(parsed)) {
+            date = parsed.toISOString().split("T")[0];
+          } else {
+            date = rawDate.text;
+          }
+        }
   
         if (date && leave_type) {
           leaveData.push([date, leave_type]);
@@ -297,19 +316,35 @@ app.post("/upload-excel-for-leave", upload.single("file"), async (req, res) => {
       });
   
       if (leaveData.length === 0) {
-        return res.status(400).json({ message: "Excel has no data." });
+        fs.unlinkSync(req.file.path);
+        return res.status(400).json({ message: "Excel has no valid data." });
       }
   
-      const conn = await db1.getConnection();
-      const insertQuery = `INSERT INTO leave (date, leave_type) VALUES ?`;
-      await conn.query(insertQuery, [leaveData]);
-      conn.release();
+      // Deduplicate by date
+      const uniqueLeaveData = Array.from(
+        new Map(leaveData.map(item => [item[0], item])).values()
+      );
   
-      fs.unlinkSync(req.file.path); // Remove uploaded file
+      const conn = await db1.getConnection();
+      const insertQuery = `
+        INSERT INTO \`leave\` (\`date\`, \`leave_type\`)
+        VALUES ?
+        ON DUPLICATE KEY UPDATE \`leave_type\` = VALUES(\`leave_type\`)
+      `;
+  
+      const [result] = await conn.query(insertQuery, [uniqueLeaveData]);
+  
+      console.log("Insert Result:", result);
+  
+      conn.release();
+      fs.unlinkSync(req.file.path);
   
       res.status(200).json({ message: "Excel data uploaded successfully!" });
     } catch (error) {
-      console.error("Upload Error:", error);
+      console.error("Upload Error:", error.message, error.stack);
+      if (req.file?.path && fs.existsSync(req.file.path)) {
+        fs.unlinkSync(req.file.path);
+      }
       res.status(500).json({ message: "Failed to upload Excel" });
     }
   });

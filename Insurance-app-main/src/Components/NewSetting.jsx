@@ -71,7 +71,7 @@ function CompanyDetailsForm() {
   };
 
   const handleFileChange = (e, type) => {
-    const files = e.target.filess[0];
+    const files = e.target.files[0];
     if (!files) return;
 
     if (!files.type.startsWith("image/")) {
@@ -99,27 +99,30 @@ function CompanyDetailsForm() {
  {
   window.location.href=`${apiurl}/download-excel-for-leave`;
  };
+ const handleFileUpload = async () => {
+  if (!files) return toast.error("Select the file first!");
 
- const handleFileUpload=async()=>
- {
-  if(!files)
-    return toast.error("select the file first!");
-    const formData=new FormData();
-    formData.append("file",files);
+  console.log("Starting upload...");
+  const formData = new FormData();
+  formData.append("file", files);
 
-    try
-    {
-      await axios.post(`${apiurl}/upload-excel-for-leave`,formData);
-      toast.success("file uploaded successfully!");
-      setFiles(null);
-      setRefreshSetting(prev=>!prev);
-    }
-    catch(err)
-    {
-      toast.err("upload failed!");
-    }
- };
-  
+  try {
+    const res = await axios.post(`${apiurl}/upload-excel-for-leave`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    console.log("Upload response:", res.data);
+    toast.success(res.data.message || "File uploaded successfully!");
+    setFiles(null);
+    setRefreshSetting(prev => !prev);
+  } catch (err) {
+    console.error("Upload failed:", err.response || err.message);
+    toast.error("Upload failed!");
+  }
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -172,7 +175,7 @@ function CompanyDetailsForm() {
                         id="fileInput"
                         className="file-input"
                         onChange={(e) => setFiles(e.target.files[0])}
-                      />
+                        />
                       <label htmlFor="fileInput" className="file-label-attendance">
                         Choose File
                       </label>
